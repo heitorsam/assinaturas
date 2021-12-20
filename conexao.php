@@ -13,7 +13,7 @@ $dbstr1 ="(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =192.168.90.231)(PORT =
 if(!@($conn_ora = oci_connect('dbamv','treinamento123',$dbstr1,'AL32UTF8'))){
 	echo "Conexão falhou!";	
 } else { 
-	echo "Conexão OK!";	
+	//echo "Conexão OK!";	
 }
 
 //PRODUCAO

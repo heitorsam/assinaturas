@@ -13,7 +13,7 @@
     
     <canvas id="canvas" style="border: solid 1px black; width: 600px; height: 200px;"></canvas>
     </br>
-    <a id="download" download="image.png"><button type="button" onClick="download()">Download</button></a>
+    <!--<a id="download" download="image.png"><button type="button" onClick="download()">Download</button></a>-->
     <a><button type="button" onClick="redraw()">Limpar</button></a>
 
 
