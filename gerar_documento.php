@@ -12,6 +12,8 @@
      if(isset($_POST['cd_atendimento'])){
 
         @$var_cd_atendimento = $_POST['cd_atendimento'];
+
+        $_SESSION['atdpdf'] = $_POST['cd_atendimento'];
                
 
     } else {
@@ -32,10 +34,31 @@
     $result_atendimento = oci_parse($conn_ora, $cons_atend);
     @oci_execute($result_atendimento);
     $row_aten = oci_fetch_array($result_atendimento);
+    if(!isset( $row_aten['CD_ATENDIMENTO']) && isset($_POST['cd_atendimento'])){
+        $_SESSION['msgerro'] = "Número de atendimento não encontrado."; 
+    }
+    
     @$var_cd_atendimento = $row_aten['CD_ATENDIMENTO'];
     @$var_nm_paciente = $row_aten['NM_PACIENTE'];
     @$var_dt_aten = $row_aten['DT_ATENDIMENTO'];
     @$var_nm_conv = $row_aten['NM_CONVENIO'];
+
+
+    ///////////////////////////
+    //Verifica se existe pdf///
+    //para aquele atendimento//
+    ///////////////////////////
+    if(isset($_POST['cd_atendimento'])){
+    $cons_pdf ="SELECT *
+    FROM dbamv.teste_assinaturas ass
+    WHERE ass.cd_atendimento = $var_cd_atendimento
+    ";
+
+    $result_pdf_exis = oci_parse($conn_ora, $cons_pdf);
+    @oci_execute($result_pdf_exis);
+    $row_pdf_exis = oci_fetch_array($result_pdf_exis);
+    @$var_pdf_existe = $row_pdf_exis['BLOB_ANEXO'];
+    }
 ?>
 
 <div class="div_br"> </div>
@@ -68,12 +91,14 @@
 
                         <button type="submit" class=" btn btn-primary" id="btn_pesquisar"> <i class="fa fa-search" aria-hidden="true"></i></button>	
                         <input type="hidden" id="valor" type="text" readonly />
-                    </div>   
+                    </div> 
                 </div>
             </div>
         </form>
         </br>
 
+
+        
        <!---RESULTADO DA PESQUISA-->
 
        <?php if(strlen($var_nm_paciente) > 1){ ?>
@@ -95,21 +120,23 @@
                         <label>Nome Convenio:</label>
                         <input type="text" value="<?php echo @$var_nm_conv;?>" class="form-control" name="nm_conv" readonly></input>
                 </div>
-                </br>
-                </br>
-                <canvas id="canvas" name="canvas" style="border: solid 1px black; width: 600px; height: 200px;">
-
+                <?php if(isset($var_pdf_existe)){ ?>
+                    <div class="col-md-3" style="margin-top: 10px;">
+                    <a  class="btn btn-primary" href="exibi_pdf.php"><i  style="font-size: 30px" class="fas fa-file-pdf"></i></a>
+                </div>
+                <?php }else{?>
+                <canvas id="canvas" name="canvas" style="border: solid 1px black; 
+                margin-top: 20px;
+                width: 600px; height: 150px;">
                 <input type="hidden" name="escondidinho" id="escondidinho"></input>
-
-
-                </canvas>
+                </canvas> 
             </div>
-  
-            <?php
-           // include 'exemplo_assinatura.php';
-            ?>
-        <spam><spam>
-        <button type="submit" class=" btn btn-primary"  id="botao_submit_assinatura">Enviar </button>	
+            <spam><spam>
+            <div style="margin-top: 10px;">
+                <button type="submit" class=" btn btn-primary"  id="botao_submit_assinatura">Enviar </button>
+                <button type="button" class=" btn btn-primary" onClick="redraw()">Limpar</button>   
+                <?php }	?>
+            </div>
         </form>
        <?php }?>
 
@@ -123,9 +150,12 @@
 
 <script>
 
-var form = document.getElementById("assinatura");
+    var form = document.getElementById("assinatura");
+    
 
-document.getElementById("botao_submit_assinatura").addEventListener("click", function () {
+    document.getElementById("botao_submit_assinatura").addEventListener("click", function () {
+
+    var canvas = document.getElementById("canvas");
 
     document.getElementById('escondidinho').value = canvas.toDataURL('image/png');
     document.forms["assinatura"].submit();

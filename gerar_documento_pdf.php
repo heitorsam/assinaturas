@@ -1,12 +1,14 @@
 <?php
 
+session_start();	
+
 @$var_cd_atendimento = $_POST['cd_atendimento'];
 @$var_nm_paciente = $_POST['nm_paciente'];
 @$dt_aten = $_POST['dt_aten'];
 @$nm_conv = $_POST['nm_conv'];
 $img = $_POST['escondidinho'];
 
- $nm_documneto = 'pdf_assinatura_'.$var_cd_atendimento.'.pdf';
+$nm_documneto = 'pdf_assinatura_'.$var_cd_atendimento.'.pdf';
 
 
 
@@ -75,8 +77,7 @@ $dompdf->set_paper("A4", "portrail");
 // gerar documento destino
 $dompdf->render();
 
-$output = $dompdf->output();
-$image = file_get_contents('teste.pdf', $output);
+$image = $dompdf->output();
 
 // enviar documento destino para download
 //$dompdf->stream("dompdf_out.pdf");
@@ -126,17 +127,17 @@ $blob->free();
 
 
 if($insere_dados > 0){
-	echo 'Certo';
+	$_SESSION['msg'] = "Arquivo gerado com sucesso!"; 
+    header('Location: gerar_documento.php');
+    return 0;
+
 }else{
-    echo 'Erro';
+    $_SESSION['msgerro'] = "Ocorreu um erro ao gerar o arquivo."; 
+    header('Location: gerar_documento.php');
+    return 0;
 }
 
 
 exit(0);
 ?>
-
-<script>
-   var imagem = image
-   
-</script>
 
