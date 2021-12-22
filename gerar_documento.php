@@ -7,19 +7,27 @@
     //CONEXAO
     include 'conexao.php';
 
+	if(isset($_SESSION['atdconsulta'])){
 
-     //RECEBENDO POST
-     if(isset($_POST['cd_atendimento'])){
+		@$var_cd_atendimento = $_SESSION['atdconsulta'];
 
-        @$var_cd_atendimento = $_POST['cd_atendimento'];
+		$_SESSION['atdpdf'] = $_SESSION['atdconsulta'];
 
-        $_SESSION['atdpdf'] = $_POST['cd_atendimento'];
-               
+	} else {
 
-    } else {
-        
-        @$var_cd_atendimento = 0;   
-    }
+		//RECEBENDO POST
+		if(isset($_POST['cd_atendimento'])){
+
+			@$var_cd_atendimento = $_POST['cd_atendimento'];
+
+			$_SESSION['atdpdf'] = $_POST['cd_atendimento'];				
+
+		} else {
+			
+			@$var_cd_atendimento = 0;   
+		}
+
+	}
 
 
     ////////////
@@ -48,7 +56,7 @@
     //Verifica se existe pdf///
     //para aquele atendimento//
     ///////////////////////////
-    if(isset($_POST['cd_atendimento'])){
+    if(isset($_POST['cd_atendimento']) OR isset($_SESSION['atdconsulta'])){
     $cons_pdf ="SELECT *
     FROM dbamv.teste_assinaturas ass
     WHERE ass.cd_atendimento = $var_cd_atendimento
@@ -61,183 +69,261 @@
     }
 ?>
 
-<div class="div_br"> </div>
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+	<title>E-Signature</title>
+	<!-- Styles -->
+	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<style>
+		#sig-canvas {
+			border: 2px dotted #CCCCCC;
+			border-radius: 5px;
+			cursor: crosshair;
+		}
+	</style>
+</head>
+<body>
+	<!-- Content -->
+	<div class="container">
+	<div class="div_br"> </div>
 
-         <!--MENSAGENS-->
-         <?php
-            include 'js/mensagens.php';
-            include 'js/mensagens_usuario.php';
-        ?>
-                
-        <div class="div_br"> </div>        
+		<!--MENSAGENS-->
+		<?php
+		include 'js/mensagens.php';
+		include 'js/mensagens_usuario.php';
+		?>
+			
+		<div class="div_br"> </div>        
 
-        <h11><i class="fas fa-file-signature"></i> Gerar Documento</h11>
-        <span class="espaco_pequeno" style="width: 6px;" ></span>
-        <h27> <a href="index.php" style="color: #444444; text-decoration: none;"> <i class="fa fa-reply" aria-hidden="true"></i> Voltar </a> </h27> 
-
-
-        <div class="div_br"> </div>
-        <form method="post" autocomplete="off" action="gerar_documento.php">
-            <div class="row">
-                <div class="col-md-3 ">
-                    Atendimento:
-                    <div class="input-group">
-
-                    <?php if(isset($_POST['cd_atendimento'])){ ?>
-                        <input class="form-control input-group" type="text" value="<?php echo @$var_cd_atendimento;?>" name="cd_atendimento" required>
-                    <?php } else { ?>
-                        <input class="form-control input-group" type="text"  name="cd_atendimento" required>
-                    <?php }?>
-
-                        <button type="submit" class=" btn btn-primary" id="btn_pesquisar"> <i class="fa fa-search" aria-hidden="true"></i></button>	
-                        <input type="hidden" id="valor" type="text" readonly />
-                    </div> 
-                </div>
-            </div>
-        </form>
-        </br>
-
-
-        
-       <!---RESULTADO DA PESQUISA-->
-
-       <?php if(strlen($var_nm_paciente) > 1){ ?>
-       <form method="post" autocomplete="off" id="assinatura" action="gerar_documento_pdf.php">
-            <div class="row">
-            <div class="col-md-3" id="div_sn_exame_mv">
-                        <label>Atendimento:</label>
-                        <input type="text"  class="form-control" value="<?php echo @$var_cd_atendimento?>" name="cd_atendimento" readonly></input>
-                </div>
-            <div class="col-md-3" id="div_sn_exame_mv">
-                        <label>Paciente:</label>
-                        <input type="text"  class="form-control" value="<?php echo @$var_nm_paciente?>" name="nm_paciente" readonly></input>
-                </div>
-                <div class="col-md-3" id="div_sn_exame_mv">
-                        <label>Data Atendimento:</label>
-                        <input type="text" value="<?php echo @$var_dt_aten ?>" class="form-control" name="dt_aten" readonly></input>
-                </div>
-                <div class="col-md-3" id="div_sn_exame_mv">
-                        <label>Nome Convenio:</label>
-                        <input type="text" value="<?php echo @$var_nm_conv;?>" class="form-control" name="nm_conv" readonly></input>
-                </div>
-                <?php if(isset($var_pdf_existe)){ ?>
-                    <div class="col-md-3" style="margin-top: 10px;">
-                    <a  class="btn btn-primary" href="exibi_pdf.php"><i  style="font-size: 30px" class="fas fa-file-pdf"></i></a>
-                </div>
-                <?php }else{?>
-                <canvas id="canvas" name="canvas" style="border: solid 1px black; 
-                margin-top: 20px;
-                width: 600px; height: 150px;">
-                <input type="hidden" name="escondidinho" id="escondidinho"></input>
-                </canvas> 
-            </div>
-            <spam><spam>
-            <div style="margin-top: 10px;">
-                <button type="submit" class=" btn btn-primary"  id="botao_submit_assinatura">Enviar </button>
-                <button type="button" class=" btn btn-primary" onClick="redraw()">Limpar</button>   
-                <?php }	?>
-            </div>
-        </form>
-       <?php }?>
+		<h11><i class="fas fa-file-signature"></i> Gerar Documento</h11>
+		<span class="espaco_pequeno" style="width: 6px;" ></span>
+		<h27> <a href="index.php" style="color: #444444; text-decoration: none;"> <i class="fa fa-reply" aria-hidden="true"></i> Voltar </a> </h27> 
 
 
-          
-<?php
+		<div class="div_br"> </div>
+		<form method="post" autocomplete="off" action="gerar_documento.php">
+		<div class="row">
+			<div class="col-md-3 ">
+				Atendimento:
+				<div class="input-group">
 
-    //RODAPE
-    include 'rodape.php';
-?>
+				<?php if(isset($_POST['cd_atendimento']) OR isset($_SESSION['atdconsulta'])){ ?>
+					<input class="form-control input-group" type="text" value="<?php echo @$var_cd_atendimento;?>" name="cd_atendimento" required>
+				<?php } else { ?>
+					<input class="form-control input-group" type="text"  name="cd_atendimento" required>
+				<?php }?>
 
-<script>
+					<button type="submit" class=" btn btn-primary" id="btn_pesquisar"> <i class="fa fa-search" aria-hidden="true"></i></button>	
+					<input type="hidden" id="valor" type="text" readonly />
+				</div> 
+			</div>
+		</div>
+		</form>
+		</br>
 
-    var form = document.getElementById("assinatura");
+		<!---RESULTADO DA PESQUISA-->
+
+		<?php if(strlen($var_nm_paciente) > 1){ ?>
+		<form method="post" autocomplete="off" id="assinatura" action="gerar_documento_pdf.php">
+		<div class="row">
+		<div class="col-md-3" id="div_sn_exame_mv">
+					<label>Atendimento:</label>
+					<input type="text"  class="form-control" value="<?php echo @$var_cd_atendimento?>" name="cd_atendimento" readonly></input>
+			</div>
+		<div class="col-md-3" id="div_sn_exame_mv">
+					<label>Paciente:</label>
+					<input type="text"  class="form-control" value="<?php echo @$var_nm_paciente?>" name="nm_paciente" readonly></input>
+			</div>
+			<div class="col-md-3" id="div_sn_exame_mv">
+					<label>Data Atendimento:</label>
+					<input type="text" value="<?php echo @$var_dt_aten ?>" class="form-control" name="dt_aten" readonly></input>
+			</div>
+			<div class="col-md-3" id="div_sn_exame_mv">
+					<label>Nome Convenio:</label>
+					<input type="text" value="<?php echo @$var_nm_conv;?>" class="form-control" name="nm_conv" readonly></input>
+			</div>
+			<?php if(isset($var_pdf_existe)){ ?>
+				<div style="margin-top: 10px;">
+				<a  class="btn btn-primary" href="exibi_pdf.php"><i  style="font-size: 30px" class="fas fa-file-pdf"></i></a>
+			</div>
+			<?php }else{?>
+				<canvas id="sig-canvas" width="620" height="160" style="border: solid 1px black; 
+					margin-top: 20px;
+					width: 600px; height: 150px;">
+					</canvas>
+			<input type="hidden" name="escondidinho" id="escondidinho"></input>
+			
+		</div>
+		<spam><spam>
+		<div style="margin-top: 10px;">
+			<button type="submit" class=" btn btn-primary"  id="sig-submitBtn">Enviar </button>
+			<button type="button" class=" btn btn-primary" id="sig-clearBtn" onClick="redraw()">Limpar</button> 
+			<?php }	?>
+		</div>
+		</form>
+		<?php }?>
+
+
+		
+		<?php
+
+		//RODAPE
+		include 'rodape.php';
+
+		unset($_SESSION["atdconsulta"]);
+
+		?>
+		
+	</div>
+	<!-- Scripts -->
+	<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<!--<script src="https://code.angularjs.org/snapshot/angular.min.js"></script>-->
+	<script>
+	var form = document.getElementById("assinatura");
     
 
-    document.getElementById("botao_submit_assinatura").addEventListener("click", function () {
+    document.getElementById("sig-submitBtn").addEventListener("click", function () {
 
-    var canvas = document.getElementById("canvas");
+    var canvas = document.getElementById("sig-canvas");
 
     document.getElementById('escondidinho').value = canvas.toDataURL('image/png');
     document.forms["assinatura"].submit();
 
-});
+	});
+		(function() {
+			
+			// Get a regular interval for drawing to the screen
+			window.requestAnimFrame = (function (callback) {
+				return window.requestAnimationFrame || 
+							window.webkitRequestAnimationFrame ||
+							window.mozRequestAnimationFrame ||
+							window.oRequestAnimationFrame ||
+							window.msRequestAnimaitonFrame ||
+							function (callback) {
+							 	window.setTimeout(callback, 1000/60);
+							};
+			})();
 
+			// Set up the canvas
+			var canvas = document.getElementById("sig-canvas");
+			var ctx = canvas.getContext("2d");
+			ctx.strokeStyle = "#222222";
+			ctx.lineWith = 2;
 
-//ESPERA A PAGINA CARREGAR
-window.addEventListener('load', ()=>{        
-        
-        //REDIMENSIONA CANVAS
-        resize();
-        document.addEventListener('mousedown', startPainting);
-        document.addEventListener('mouseup', stopPainting);
-        document.addEventListener('mousemove', sketch);
-        window.addEventListener('resize', resize);
-    });
-        
-    const canvas = document.querySelector('#canvas');
-       
-    //HABILITA OPCAO 2D
-    const ctx = canvas.getContext('2d');
-        
-    //DEFINE O TAMANHO DO CANVAS
-    function resize(){
-      ctx.canvas.width = 600;
-      ctx.canvas.height = 200;
-    }
-        
-    //PEGA VALOR INICIAL DO CURSOR
-    let coord = {x:0 , y:0}; 
-       
-    //LIBERA A FUNCAO PAINT
-    let paint = false;
-        
-    //PEGA A POSICAO DO DESENHO
-    function getPosition(event){
-      coord.x = event.clientX - canvas.offsetLeft;
-      coord.y = event.clientY - canvas.offsetTop;
-    }
-      
-    //COLETA O INICIO E FIM DO DESENHO
-    function startPainting(event){
-      paint = true;
-      getPosition(event);
-      
-    }
-    function stopPainting(){
-      paint = false;
-    }
-        
-    function sketch(event){
-      if (!paint) return;
-      ctx.beginPath();
-        
-      //DEFINE A LARGURA DA LINHA
-      ctx.lineWidth = 3;
-       
-      //DEFINE O TIPO DE LINHA
-      ctx.lineCap = 'round';
-        
-      //DEFINE A COR DA LINHA
-      ctx.strokeStyle = 'black';
-          
-      //ACOMPANHA A COORDENADA DO DESENHO
-      ctx.moveTo(coord.x, coord.y);
-       
-      //COLETA A POSICAO DO EVENTO
-      getPosition(event);
-       
-      //TRACA A COORDENADA CONFORME O DESENHO FOR FEITO
-      ctx.lineTo(coord.x , coord.y);
-        
-      //REALIZA O DESENHO
-      ctx.stroke();
-    }
+			// Set up the UI
+			var sigText = document.getElementById("sig-dataUrl");
+			var sigImage = document.getElementById("sig-image");
+			var clearBtn = document.getElementById("sig-clearBtn");
+			clearBtn.addEventListener("click", function (e) {
+				clearCanvas();
+				sigText.innerHTML = "Data URL for your signature will go here!";
+				sigImage.setAttribute("src", "");
+			}, false);
+			
 
-    //LIMPA O CANVAS
-    function redraw(){
-        const context = canvas.getContext('2d');
-        context.clearRect(0, 0, canvas.width, canvas.height);
+			// Set up mouse events for drawing
+			var drawing = false;
+			var mousePos = { x:0, y:0 };
+			var lastPos = mousePos;
+			canvas.addEventListener("mousedown", function (e) {
+				drawing = true;
+				lastPos = getMousePos(canvas, e);
+			}, false);
+			canvas.addEventListener("mouseup", function (e) {
+				drawing = false;
+			}, false);
+			canvas.addEventListener("mousemove", function (e) {
+				mousePos = getMousePos(canvas, e);
+			}, false);
 
-    }
+			// Set up touch events for mobile, etc
+			canvas.addEventListener("touchstart", function (e) {
+				mousePos = getTouchPos(canvas, e);
+				var touch = e.touches[0];
+				var mouseEvent = new MouseEvent("mousedown", {
+					clientX: touch.clientX,
+					clientY: touch.clientY
+				});
+				canvas.dispatchEvent(mouseEvent);
+			}, false);
+			canvas.addEventListener("touchend", function (e) {
+				var mouseEvent = new MouseEvent("mouseup", {});
+				canvas.dispatchEvent(mouseEvent);
+			}, false);
+			canvas.addEventListener("touchmove", function (e) {
+				var touch = e.touches[0];
+				var mouseEvent = new MouseEvent("mousemove", {
+					clientX: touch.clientX,
+					clientY: touch.clientY
+				});
+				canvas.dispatchEvent(mouseEvent);
+			}, false);
 
-</script>
+			// Prevent scrolling when touching the canvas
+			document.body.addEventListener("touchstart", function (e) {
+				if (e.target == canvas) {
+					e.preventDefault();
+				}
+			}, false);
+			document.body.addEventListener("touchend", function (e) {
+				if (e.target == canvas) {
+					e.preventDefault();
+				}
+			}, false);
+			document.body.addEventListener("touchmove", function (e) {
+				if (e.target == canvas) {
+					e.preventDefault();
+				}
+			}, false);
+
+			// Get the position of the mouse relative to the canvas
+			function getMousePos(canvasDom, mouseEvent) {
+				var rect = canvasDom.getBoundingClientRect();
+				return {
+					x: mouseEvent.clientX - rect.left,
+					y: mouseEvent.clientY - rect.top
+				};
+			}
+
+			// Get the position of a touch relative to the canvas
+			function getTouchPos(canvasDom, touchEvent) {
+				var rect = canvasDom.getBoundingClientRect();
+				return {
+					x: touchEvent.touches[0].clientX - rect.left,
+					y: touchEvent.touches[0].clientY - rect.top
+				};
+			}
+
+			// Draw to the canvas
+			function renderCanvas() {
+				if (drawing) {
+					ctx.moveTo(lastPos.x, lastPos.y);
+					ctx.lineTo(mousePos.x, mousePos.y);
+					ctx.stroke();
+					lastPos = mousePos;
+				}
+			}
+
+			// Clear the canvas
+			function clearCanvas() {
+				canvas.width = canvas.width;
+			}
+
+			// Allow for animation
+			(function drawLoop () {
+				requestAnimFrame(drawLoop);
+				renderCanvas();
+			})();
+
+		})();
+	</script>
+</body>
+</html>

@@ -10,8 +10,7 @@ $img = $_POST['escondidinho'];
 
 $nm_documneto = 'pdf_assinatura_'.$var_cd_atendimento.'.pdf';
 
-
-
+@$_SESSION['atdconsulta'] = $_POST['cd_atendimento'];
 
 
 $html = "
