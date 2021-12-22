@@ -727,27 +727,20 @@ th:first-child, td:first-child
 }
 
 
-/*FORCANDO O FUNDO DO MODAL FICAR ATRAS DA CAIXA DO MODAL*/
-.modal-backdrop {
- z-index: -1 !important;
-}
-
 /*TAMANHO MODAL*/
 .modal-dialog {
 
-   min-width: 60%;
-}
-
-.modal{
-
-    z-index: 99 !important;
-
+   min-width: 70%;
 }
 
 /*when navigating through the items using the arrow keys:*/
 .autocomplete-active {
   background-color: #3185c1 !important; 
   color: #ffffff; 
+}
+
+.modal-open {
+    overflow: hidden;
 }
 
 </style>
