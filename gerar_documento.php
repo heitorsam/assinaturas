@@ -154,9 +154,9 @@
 				<a  class="btn btn-primary" href="exibi_pdf.php"><i  style="font-size: 30px" class="fas fa-file-pdf"></i></a>
 			</div>
 			<?php }else{?>
-				<canvas id="sig-canvas" style="border: solid 1px black; 
+				<canvas id="sig-canvas" width="620" height="160" style="border: solid 1px black; 
 					margin-top: 20px;
-					width: 80%; height: 150px;">
+					width: 600px; height: 150px;">
 					</canvas>
 			<input type="hidden" name="escondidinho" id="escondidinho"></input>
 			
