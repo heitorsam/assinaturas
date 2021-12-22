@@ -71,24 +71,6 @@
 
 <!DOCTYPE HTML>
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	<meta name="keywords" content="">
-	<meta name="author" content="">
-	<title>E-Signature</title>
-	<!-- Styles -->
-	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-	<style>
-		#sig-canvas {
-			border: 2px dotted #CCCCCC;
-			border-radius: 5px;
-			cursor: crosshair;
-		}
-	</style>
-</head>
 <body>
 	<!-- Content -->
 	<div class="container">
@@ -150,7 +132,7 @@
 					<input type="text" value="<?php echo @$var_nm_conv;?>" class="form-control" name="nm_conv" readonly></input>
 			</div>
 			<?php if(isset($var_pdf_existe)){ ?>
-				<div style="margin-top: 10px;">
+				<div style="margin-top: 10px; margin-left: 15px;">
 				<a  class="btn btn-primary" href="exibi_pdf.php"><i  style="font-size: 30px" class="fas fa-file-pdf"></i></a>
 			</div>
 			<?php }else{?>
@@ -175,7 +157,7 @@
 		<?php
 
 		//RODAPE
-		include 'rodape.php';
+		//include 'rodape.php';
 
 		unset($_SESSION["atdconsulta"]);
 
