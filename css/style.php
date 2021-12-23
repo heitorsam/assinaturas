@@ -387,6 +387,10 @@ p,li{
     border-top: 1px solid #dee2e6;
 }
 
+tbody{
+    vertical-align: top !important;
+}
+
 /********/
 /*TABELA*/
 /********/
@@ -722,7 +726,6 @@ th:first-child, td:first-child
 {
   position:sticky;
   left:0px;
-  background-color: #f9f9f9;
 
 }
 
