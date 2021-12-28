@@ -5,6 +5,7 @@
     //CONEXAO
     include 'conexao.php';
 
+    @$_SESSION['atdconsulta'] = $_SESSION['atdpdf'];
 
     $var_cd_atendimento = $_SESSION['atdpdf'];
 
@@ -23,7 +24,9 @@
     //$content= $result['BLOB_ANEXO']; 
 ?>
 <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
-
+<div>
+<a class="btn btn-primary" href="gerar_documento.php"><i class="fas fa-file-excel"></i> <button>Voltar</button></a>
+</div>
 <canvas id="the-canvas"></canvas>
 <!---<iframe src="data:application/pdf;base64,<?php echo base64_encode($image) ?>" type="application/pdf" style="height:60%;width:60%" title="Iframe Example">
 </iframe>-->
@@ -74,5 +77,3 @@ loadingTask.promise.then(function(pdf) {
 });
 </script>
 
-
-    

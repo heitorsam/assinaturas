@@ -14,7 +14,7 @@ $nm_documneto = 'pdf_assinatura_'.$var_cd_atendimento.'.pdf';
 
 
 $html = "
-        <form>
+        <form style='background-color:#E6E6FA'>
         <div class='row'>
         <div class='col-md-3' id='div_sn_exame_mv'>
                     <label>Paciente: <span> $var_nm_paciente </span></label>
