@@ -1,13 +1,5 @@
 <?php
 
-    session_start();
-
-    include 'cabecalho.php';
-
-?>
-
-<?php
-
     setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
     date_default_timezone_set('America/Sao_Paulo');
 
@@ -107,7 +99,7 @@
 
                     echo '<td class="quadro_calendario">';
 
-                        //EXIBE ATEO ULTIMO DIA
+                        //EXIBE ATE O ULTIMO DIA
                         if($dia <= $ultimo_dia){
 
                             echo '<div class="detalhe_dia">';
@@ -177,9 +169,3 @@
     }
 
 </style>
-
-<?php
-
-    include 'rodape.php';
-
-?>
