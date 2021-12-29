@@ -27,12 +27,12 @@
 <div>
 <a class="btn btn-primary" href="gerar_documento.php"><i class="fas fa-file-excel"></i> <button>Voltar</button></a>
 </div>
-<canvas id="the-canvas"></canvas>
-<!---<iframe src="data:application/pdf;base64,<?php echo base64_encode($image) ?>" type="application/pdf" style="height:60%;width:60%" title="Iframe Example">
-</iframe>-->
+<!--<canvas id="the-canvas"></canvas>-->
+<iframe src="data:application/pdf;base64,<?php echo base64_encode($image) ?>" type="application/pdf" style="height:100%;width:100%" title="Iframe Example">
+</iframe>
 
 
-
+<!--
 <script>
     var pdfData = atob("<?php echo base64_encode($image); ?>");
 
@@ -75,5 +75,5 @@ loadingTask.promise.then(function(pdf) {
   // PDF loading error
   console.error(reason);
 });
-</script>
+</script>-->
 
