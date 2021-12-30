@@ -182,9 +182,12 @@ $documentTemplate = "<!doctype html>
                     </div>
                     <div class='col-hss-3'>
                         10-Nome
+                        <br>
+                        <h4>$var_nm_paciente</h4>
                     </div>
                     <div class='col-hss-2'>
                         11-Cartao Nascional de Saude
+                        
                     </div>
                     <div class='col-hss-1'>
                         12-Atend RN
