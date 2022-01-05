@@ -582,8 +582,8 @@ $dompdf->render();
 
 $image = $dompdf->output();
 ?>
-<iframe src="data:application/pdf;base64,<?php echo base64_encode($image) ?>" type="application/pdf" style="height:100%;width:100%" title="Iframe Example">
-</iframe>
+
+
 <?php
 // enviar documento destino para download
 //$dompdf->stream("dompdf_out.pdf");
@@ -594,6 +594,57 @@ $image = $dompdf->output();
     ///////////////////////
 
 include_once("conexao.php");
+
+//DECLARANDO VARIAVEIS DO ARQUIVO PARA IMPORTACAO PARA O BANCO
+//$image = file_get_contents($dompdf);
+
+$consulta_insert = 
+"INSERT INTO teste_assinaturas
+(CD_ATENDIMENTO, NM_PACIENTE, DT_ATENDIMENTO, NM_CONVENIO, NOME_ANEXO, BLOB_ANEXO)
+VALUES 
+('$var_cd_atendimento', '$var_nm_paciente', '$dt_aten',
+'$nm_conv', '$nm_documneto',
+empty_blob()
+) RETURNING BLOB_ANEXO INTO :image";
+
+//echo $consulta_insert;
+
+$insere_dados = oci_parse($conn_ora, $consulta_insert);
+$blob = oci_new_descriptor($conn_ora, OCI_D_LOB);
+oci_bind_by_name($insere_dados, ":image", $blob, -1, OCI_B_BLOB);
+
+oci_execute($insere_dados, OCI_DEFAULT);
+
+$linhas_afetadas = oci_num_rows($insere_dados);
+//echo "</br>Linhas Afetadas: " . $linhas_afetadas;
+
+
+if(!$blob->save($image)) {
+    oci_rollback($conn_ora);
+}
+else {
+    oci_commit($conn_ora);
+}
+
+oci_free_statement($insere_dados);
+$blob->free();
+
+
+
+if($insere_dados > 0){
+	$_SESSION['msg'] = "Arquivo gerado com sucesso!"; 
+    header('Location: gerar_documento.php');
+    return 0;
+
+}else{
+    $_SESSION['msgerro'] = "Ocorreu um erro ao gerar o arquivo."; 
+    header('Location: gerar_documento.php');
+    return 0;
+}
+
+
+exit(0);
+?>
 
 
 //DECLARANDO VARIAVEIS DO ARQUIVO PARA IMPORTACAO PARA O BANCO
