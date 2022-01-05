@@ -52,7 +52,9 @@ SELECT  ROWNUM                                                                FO
        , DBAMV.CONVENIO
    WHERE TISS_GUIA.ID          = TISS_ITGUIA.ID_PAI(+)
      AND TISS_GUIA.CD_CONVENIO = CONVENIO.CD_CONVENIO
-     AND TISS_GUIA.ID          = 8382650
+     AND TISS_GUIA.ID          IN (SELECT ID
+                                  FROM dbamv.TISS_GUIA tg
+                                  WHERE tg.CD_ATENDIMENTO = 3848423)
      AND ROWNUM               <= 1
    ORDER BY ID_GUIA
           , FOLHA;

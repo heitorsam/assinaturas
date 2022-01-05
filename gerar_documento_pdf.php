@@ -12,6 +12,8 @@ $nm_documneto = 'pdf_assinatura_'.$var_cd_atendimento.'.pdf';
 
 @$_SESSION['atdconsulta'] = $_POST['cd_atendimento'];
 
+include 'sql_consulta_guia_tiss.php';
+
 
 
 //echo $html;
@@ -117,6 +119,15 @@ $documentTemplate = "<!doctype html>
     float: left;
 }
 
+h2{
+    font-size: 12px;
+    line-height: 12px;
+    float: center;
+    margin-top: 0px;
+
+    
+}
+
 
 
 </style> 
@@ -125,13 +136,13 @@ $documentTemplate = "<!doctype html>
             <div class='container'>
                 <div class='row'>
                     <div class='col-hss-4' style='border: none !important;'>
-                        <img src='https://www.gndi.com.br/documents/20195/22221/LOGO_NOTREDAME_transparente_alta.png' alt='logo' width='150' height='30'>
+                        <img src='data:application/pdf;base64, ".base64_encode($image)." type='application/pdf' style='width: 150; height: 30;'>
                     </div>
                     <div class='col-hss-4' style='border: none !important; text-align: center;'>
-                        <h4>GUIA DE SERVIÇO PROFISSIONAL / SERVIÇO AUXILIAR DE <BR> DIAGNÓSTICO E TERAPIA - SP/SADT</h4>
+                        <h2>GUIA DE SERVIÇO PROFISSIONAL / SERVIÇO AUXILIAR DE <BR> DIAGNÓSTICO E TERAPIA - SP/SADT</h2>
                     </div>
-                    <div class='col-hss-4' style='border: none !important;'>
-                        <h4>2-N° Guia no Prestador</h4>
+                    <div class='col-hss-4' style='border: none !important; padding-left: 50px;'>
+                        <h2>2- N° Guia no Prestador: ".$row_cons_guia_tiss['CP_02']."</h2>
                     </div>
                 </div>
             </div>
@@ -145,24 +156,35 @@ $documentTemplate = "<!doctype html>
                 <div class='row'>
                     <div class='col-hss-3'>
                         1-Registro ANS
-            
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_01']."</h2>
                     </div>
                     <div class='col-hss-1'>
                         3-Número guia Principal
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_03']."</h2>
                     </div>
                 </div>
                 <div class='row'>
                     <div class='col-hss-2'>
                         4-Data autorização
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_04']."</h2>
                     </div>
                     <div class='col-hss-3'>
                         5-Senha
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_05']."</h2>
                     </div>
                     <div class='col-hss-2'>
                         6-Data Validade Senha
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_06']."</h2>
                     </div>
                     <div class='col-hss-2'>
                         7-Numero da Guia Atribuido pela operadora
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_07']."</h2>
                     </div>
                 </div>
                 <!-- FIM Primeiras infos -->
@@ -174,24 +196,32 @@ $documentTemplate = "<!doctype html>
                     </div>
                 </div>
                 <div class='row'>
-                    <div class='col-hss-3'>
-                        8-Numero Carteira
-                    </div>
                     <div class='col-hss-2'>
+                        8-Numero Carteira
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_08']."</h2>
+                    </div>
+                    <div class='col-hss-1'>
                         9-validade da carteira
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_09']."</h2>
                     </div>
                     <div class='col-hss-3'>
                         10-Nome
                         <br>
-                        <h4>$var_nm_paciente</h4>
+                        <h2>".$row_cons_guia_tiss['CP_10']."</h2>
                     </div>
                     <div class='col-hss-2'>
                         11-Cartao Nascional de Saude
-                        
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_11']."</h2>
                     </div>
                     <div class='col-hss-1'>
-                        12-Atend RN
+                        12-Atendimento a RN
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_12']."</h2>
                     </div>
+                    
                 </div>
                 <!-- FIM Dados beneficiário -->
             
@@ -204,28 +234,42 @@ $documentTemplate = "<!doctype html>
                 <div class='row'>
                     <div class='col-hss-3'>
                         13-Código Operadora
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_13']."</h2>
                     </div>
                     <div class='col-hss-8'>
                         14-Nome do Contratado
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_14']."</h2>
                     </div>
                 </div>
                 <div class='row'>
                     <div class='col-hss-3'>
                         15-Nome do Profissionl Solicitante
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_15']."</h2>
                     </div>
                     <div class='col-hss-2'>
                         16-Conselho Profissional
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_16']."</h2>
                     </div>
                     <div class='col-hss-2'>
                         17-Número no Conselho
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_17']."</h2>
                     </div>
                     <div class='col-hss-1'>
                         18-UF
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_18']."</h2>
                     </div>
                     <div class='col-hss-2'>
                         19-Código CBO
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_19']."</h2>
                     </div>
-                    <div class='col-hss-1'>
+                    <div class='col-hss-2'>
                         20-Assinatura do Profissional Solic
                     </div>
                 </div>
@@ -240,16 +284,22 @@ $documentTemplate = "<!doctype html>
                 <div class='row'>
                     <div class='col-hss-3'>
                         21-CaráterAtendim
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_21']."</h2>
                     </div>
                     <div class='col-hss-3'>
                         22-Data da Solicitação
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_22']."</h2>
                     </div>
                     <div class='col-hss-5'>
                         23-Indicação Clinica
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_23']."</h2>
                     </div>
                 </div>
                 <div class='row'>
-                    <div class='col-hss-12' style='height: 40px;'>
+                    <div class='col-hss-12' >
                         24-Tabela
                     </div>
                 </div>
@@ -264,14 +314,18 @@ $documentTemplate = "<!doctype html>
                 <div class='row'>
                     <div class='col-hss-3'>
                         29-Código Operadora
-                        teste
-            
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_29']."</h2>
                     </div>
                     <div class='col-hss-6'>
                         30-Nome do Contratado
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_30']."</h2>
                     </div>
                     <div class='col-hss-2'>
                         31-Código CNES
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_31']."</h2>
                     </div>
                 </div>
                 <!-- FIM Dados da Solicitação/ Procedimento e Exames Solicitados -->
@@ -285,15 +339,23 @@ $documentTemplate = "<!doctype html>
                 <div class='row'>
                     <div class='col-hss-2'>
                         32-Tipo Atendimento
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_32']."</h2>
                     </div>
                     <div class='col-hss-3'>
                         33-Indicação de Acidente (Acidente ou Doença Relacionada)
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_33']."</h2>
                     </div>
                     <div class='col-hss-2'>
                         34-Tipo de Consulta
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_34']."</h2>
                     </div>
                     <div class='col-hss-3'>
-                        34-Motivo de Encerramento do Atendimento
+                        35-Motivo de Encerramento do Atendimento
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_35']."</h2>
                     </div>
                 </div>
                 <!-- FIM  Dados do Atendimento -->
@@ -304,9 +366,66 @@ $documentTemplate = "<!doctype html>
                         Dados da Execução / Procedimento e Exames Realizados
                     </div>
                 </div>
-                <div class='row'>
-                    <div class='col-hss-12' style='height: 40px;'>
-                        36-Tipo Atendimento
+                <div class='row' style='padding-left: 05px;'>
+                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                        36- Data
+                        <br>
+                        <h2>".$row_cons_guia_tiss_34_45['CP_34']."</h2>
+                    </div>
+                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                        37- Hora Inicial
+                        <br>
+                        <h2>".$row_cons_guia_tiss_34_45['CP_35']."</h2>
+                    </div>
+                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                        38- Hora Final
+                        <br>
+                        <h2>".$row_cons_guia_tiss_34_45['CP_36']."</h2>
+                    </div>
+                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                        39-Tabela
+                        <br>
+                        <h2>".$row_cons_guia_tiss_34_45['CP_37']."</h2>
+                    </div>
+                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                        40-Procedimento
+                        <br>
+                        <h2>".$row_cons_guia_tiss_34_45['CP_38']."</h2>
+                    </div>
+                    <div class='col-hss-2' style='height: 40px; border: none !important; margin: 0px !important;''>
+                        41-Procedimento
+                        <br>
+                        <h2>".$row_cons_guia_tiss_34_45['CP_39']."</h2>
+                    </div>
+                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                        42-Qtde
+                        <br>
+                        <h2>".$row_cons_guia_tiss_34_45['CP_40']."</h2>
+                    </div>
+                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                        43-Via
+                        <br>
+                        <h2>".$row_cons_guia_tiss_34_45['CP_41']."</h2>
+                    </div>
+                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                        44-Tec
+                        <br>
+                        <h2>".$row_cons_guia_tiss_34_45['CP_42']."</h2>
+                    </div>
+                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                        45- Fator Red./Acresc
+                        <br>
+                        <h2>".$row_cons_guia_tiss_34_45['CP_43']."</h2>
+                    </div>
+                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;'>
+                        46- Valor Unit.(R$)
+                        <br>
+                        <h2>".$row_cons_guia_tiss_34_45['CP_44']."</h2>
+                    </div>
+                    <div class='col-hss-1' style='height: 40px; border: none !important;margin: 0px !important;''>
+                        47- Valor Total(R$)
+                        <br>
+                        <h2>".$row_cons_guia_tiss_34_45['CP_45']."</h2>
                     </div>
                 </div>
                 <!-- FIM  Dados da Execução / Procedimento e Exames Realizados -->
@@ -317,19 +436,58 @@ $documentTemplate = "<!doctype html>
                         Identificação do(s) Profissional(is) Executante(s)
                     </div>
                 </div>
-                <div class='row'>
-                    <div class='col-hss-12' style='height: 40px;'>
-                        48-seq.Ref.
+                <div class='row' style='padding-left: 05px;'>
+                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                        48-Seq.Ref
+                        <br>
+                        <h2>".$row_cons_guia_tiss_47_53['REGISTRO']."</h2>
+                    </div>
+                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                        49- Grau Part.
+                        <br>
+                        <h2>".$row_cons_guia_tiss_47_53['CP_47']."</h2>
+                    </div>
+                    <div class='col-hss-2' style='height: 40px; border: none !important; margin: 0px !important;''>
+                        50- Códio na Operadore/CPF
+                        <br>
+                        <h2>".$row_cons_guia_tiss_47_53['CP_48']."</h2>
+                    </div>
+                    <div class='col-hss-3' style='height: 40px; border: none !important; margin: 0px !important;''>
+                        51-Nome do Profissional
+                        <br>
+                        <h2>".$row_cons_guia_tiss_47_53['CP_49']."</h2>
+                    </div>
+                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                        52- Conselho Profissional
+                        <br>
+                        <h2>".$row_cons_guia_tiss_47_53['CP_50']."</h2>
+                    </div>
+                    <div class='col-hss-2' style='height: 40px; border: none !important; margin: 0px !important;''>
+                        53- Número no Conselho
+                        <br>
+                        <h2>".$row_cons_guia_tiss_47_53['CP_51']."</h2>
+                    </div>
+                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                        54- UF
+                        <br>
+                        <h2>".$row_cons_guia_tiss_47_53['CP_52']."</h2>
+                    </div>
+                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                        55- Código CBO
+                        <br>
+                        <h2>".$row_cons_guia_tiss_47_53['CP_53']."</h2>
                     </div>
                 </div>
                 <div class='row'>
-                    <div class='col-hss-12' style='height: 40px;'>
+                    <div class='col-hss-12' >
                         56-Data de Realização de procedimento em série
                     </div>
                 </div>
                 <div class='row'>
-                    <div class='col-hss-12' style='height: 35px; background-color: #cccccc;'>
+                    <div class='col-hss-12' background-color: #cccccc;'>
                         58-Observações / Justificativa
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_58']."</h2>
                     </div>
                 </div>
                 <!-- Identificação do(s) Profissional(is) Executante(s) -->
@@ -338,24 +496,38 @@ $documentTemplate = "<!doctype html>
                 <div class='row'>
                     <div class='col-hss-1'>
                         59-T. Proc(R$)
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_59']."</h2>
                     </div>
                     <div class='col-hss-2'>
                         60-T.Taxase Aluguéis(R$)
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_60']."</h2>
                     </div>
                     <div class='col-hss-2'>
                         61-T. Materiais(R$)
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_61']."</h2>
                     </div>
                     <div class='col-hss-2'>
                         62-T. de OPME(R$)
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_62']."</h2>
                     </div>
                     <div class='col-hss-1'>
                         63-T. de Med(R$)
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_63']."</h2>
                     </div>
                     <div class='col-hss-2'>
                         64-T. de Gases Med(R$)
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_64']."</h2>
                     </div>
                     <div class='col-hss-1'>
                         65-T. Geral(R$)
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_65']."</h2>
                     </div>
                 </div>
                 <!-- Identificação do(s) Profissional(is) Executante(s) -->
@@ -364,6 +536,8 @@ $documentTemplate = "<!doctype html>
                 <div class='row'>
                     <div class='col-hss-4'>
                         66-Assinatura do Responsável pela Autorização
+                        <br>
+                        <h2>".$row_cons_guia_tiss['CP_66']."</h2>
                     </div>
                     <div class='col-hss-4'>
                         67-Assinatura do Beneficiário ou Responsável
@@ -407,7 +581,10 @@ $dompdf->set_paper("A4", "landscape");
 $dompdf->render();
 
 $image = $dompdf->output();
-
+?>
+<iframe src="data:application/pdf;base64,<?php echo base64_encode($image) ?>" type="application/pdf" style="height:100%;width:100%" title="Iframe Example">
+</iframe>
+<?php
 // enviar documento destino para download
 //$dompdf->stream("dompdf_out.pdf");
 
@@ -422,51 +599,5 @@ include_once("conexao.php");
 //DECLARANDO VARIAVEIS DO ARQUIVO PARA IMPORTACAO PARA O BANCO
 //$image = file_get_contents($dompdf);
 
-$consulta_insert = 
-"INSERT INTO teste_assinaturas
-(CD_ATENDIMENTO, NM_PACIENTE, DT_ATENDIMENTO, NM_CONVENIO, NOME_ANEXO, BLOB_ANEXO)
-VALUES 
-('$var_cd_atendimento', '$var_nm_paciente', '$dt_aten',
-'$nm_conv', '$nm_documneto',
-empty_blob()
-) RETURNING BLOB_ANEXO INTO :image";
 
-//echo $consulta_insert;
-
-$insere_dados = oci_parse($conn_ora, $consulta_insert);
-$blob = oci_new_descriptor($conn_ora, OCI_D_LOB);
-oci_bind_by_name($insere_dados, ":image", $blob, -1, OCI_B_BLOB);
-
-oci_execute($insere_dados, OCI_DEFAULT);
-
-$linhas_afetadas = oci_num_rows($insere_dados);
-//echo "</br>Linhas Afetadas: " . $linhas_afetadas;
-
-
-if(!$blob->save($image)) {
-    oci_rollback($conn_ora);
-}
-else {
-    oci_commit($conn_ora);
-}
-
-oci_free_statement($insere_dados);
-$blob->free();
-
-
-
-if($insere_dados > 0){
-	$_SESSION['msg'] = "Arquivo gerado com sucesso!"; 
-    header('Location: gerar_documento.php');
-    return 0;
-
-}else{
-    $_SESSION['msgerro'] = "Ocorreu um erro ao gerar o arquivo."; 
-    header('Location: gerar_documento.php');
-    return 0;
-}
-
-
-exit(0);
 ?>
-
