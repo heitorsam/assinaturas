@@ -18,7 +18,7 @@
     @oci_execute($result_cons_id);
     @$id_guia = oci_fetch_array($result_cons_id);
 
-    $id_guia_00 = $id_guia['ID'];
+    @$id_guia_00 = $id_guia['ID'];
 
 
     //Consulta maior
