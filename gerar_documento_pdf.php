@@ -12,6 +12,14 @@ $nm_documneto = 'pdf_assinatura_'.$var_cd_atendimento.'.pdf';
 
 @$_SESSION['atdconsulta'] = $_POST['cd_atendimento'];
 
+$var_user_logado = $_SESSION['usuarioNome'];
+
+
+//Data e hora de agora
+$hora = date("d-m-Y H:i:s"); 
+
+
+
 include 'sql_consulta_guia_tiss.php';
 
 
@@ -206,7 +214,7 @@ h2{
                         <br>
                         <h2>".@$row_cons_guia_tiss['CP_09']."</h2>
                     </div>
-                    <div class='col-hss-3'>
+                    <div class='col-hss-4'>
                         10-Nome
                         <br>
                         <h2>".@$row_cons_guia_tiss['CP_10']."</h2>
@@ -393,7 +401,7 @@ h2{
                         <h2>".@$row_cons_guia_tiss_34_45['CP_38']."</h2>
                     </div>
                     <div class='col-hss-2' style='height: 40px; border: none !important; margin: 0px !important;''>
-                        41-Procedimento
+                        41-Descrição
                         <br>
                         <h2>".@$row_cons_guia_tiss_34_45['CP_39']."</h2>
                     </div>
@@ -534,27 +542,46 @@ h2{
             
                 <!-- Identificação do(s) Profissional(is) Executante(s) -->
                 <div class='row'>
-                    <div class='col-hss-4'>
+                    <div class='col-hss-4' style='height: 30px;'>
                         66-Assinatura do Responsável pela Autorização
                         <br>
                         <h2>".@$row_cons_guia_tiss['CP_66']."</h2>
                     </div>
-                    <div class='col-hss-4'>
+                    <div class='col-hss-4' style='height: 30px;'>
                         67-Assinatura do Beneficiário ou Responsável
                         <img src='$img'
                         width='100%' height='100%'  style:'float: right;'>
                     </div>
-                    <div class='col-hss-3'>
+                    <div class='col-hss-3' style='height: 30px;'>
                         68-Assinatura do Contratado
                     </div>
                 </div>
                 <!-- Identificação do(s) Profissional(is) Executante(s) -->
             </div>
+            <div class='container'>
+                <div class='row' >
+                    <div class='col-hss-2' style='border: none !important; padding-left: 50px; padding-top: 10px;'>
+                        <h2>".$var_user_logado."</h2>
+                    </div>
+                    <div class='col-hss-2' style='border: none !important; padding-left: 50px; padding-top: 10px;'>
+                        <h2>Data:".$hora."</h2>
+                    </div>
+                    <div class='col-hss-2' style='border: none !important; padding-left: 50px; padding-top: 10px;'>
+                        <h2>Conta/Lote: ".$row_cons_guia_tiss['CD_CONTA']."</h2>
+                    </div>
+                    <div class='col-hss-2' style='border: none !important; padding-left: 50px; padding-top: 10px;'>
+                        <h2>Atendimento: ".$var_cd_atendimento."</h2>
+                    </div>
+                    <div class='col-hss-2' style='border: none !important; padding-left: 50px; padding-top: 10px;'>
+                        <h2>Atendimento: ".$nm_conv."</h2>
+                    </div>
+                </div>
+            </div>
         </form>
     </body> 
 </html>";
 
- $documentTemplate;
+$documentTemplate;
 
 
 // inclusão da biblioteca
@@ -597,6 +624,8 @@ include_once("conexao.php");
 
 //DECLARANDO VARIAVEIS DO ARQUIVO PARA IMPORTACAO PARA O BANCO
 //$image = file_get_contents($dompdf);
+
+
 
 $consulta_insert = 
 "INSERT INTO teste_assinaturas
@@ -644,7 +673,7 @@ if($insere_dados > 0){
 
 
 exit(0);
-?>
+
 
 
 //DECLARANDO VARIAVEIS DO ARQUIVO PARA IMPORTACAO PARA O BANCO

@@ -18,33 +18,16 @@
 		
 		echo $usuario;	echo '</br>'; echo $senha; echo '</br>';
 		
-		$result_usuario = oci_parse($conn_ora, "SELECT painelexames.VALIDA_SENHA_FUNC_P_EXA(:usuario,:senha) AS RESP_LOGIN,
+		$result_usuario = oci_parse($conn_ora, "SELECT dbamv.VALIDA_SENHA_FUNC_ASSINATURAS(:usuario,:senha) AS RESP_LOGIN,
 												(SELECT INITCAP(usu.NM_USUARIO)
 													FROM dbasgu.USUARIOS usu
-													WHERE usu.CD_USUARIO = :usuario) AS NM_USUARIO,
-													CASE WHEN :usuario IN (SELECT DISTINCT pe.CD_USUARIO 
-																		   FROM painelexames.PERMISSAO pe
-																		   WHERE pe.TP_PERMISSAO = 'A') THEN 'S'
-													ELSE 'N'
-													END SN_ADMIN,
-													CASE WHEN :usuario IN (SELECT DISTINCT pe.CD_USUARIO 
-																		   FROM painelexames.PERMISSAO pe
-																		   WHERE pe.TP_PERMISSAO = 'L') THEN 'S'
-													ELSE 'N'
-													END SN_LANCAMENTO,
-													CASE WHEN :usuario IN (SELECT DISTINCT pe.CD_USUARIO 
-																		   FROM painelexames.PERMISSAO pe
-																		   WHERE pe.TP_PERMISSAO = 'C') THEN 'S'
-													ELSE 'N'
-													END SN_CADASTRO,
-													CASE
+													WHERE usu.CD_USUARIO = :usuario) AS NM_USUARIO,													CASE
 														WHEN :usuario IN (SELECT DISTINCT puia.CD_USUARIO
 																			FROM dbasgu.PAPEL_USUARIOS puia
-																			WHERE puia.CD_PAPEL = 339) THEN 'S' --PORTAL EXAMES
+																			WHERE puia.CD_PAPEL = 341) THEN 'S' --PORTAL ASSINATURAS
 														ELSE 'N'
 													END SN_USUARIO_COMUM
-												FROM DUAL
-												WHERE ROWNUM = 1");																															
+												FROM DUAL");																															
 												
 		oci_bind_by_name($result_usuario, ':usuario', $usuario);
 		oci_bind_by_name($result_usuario, ':senha', $senha);

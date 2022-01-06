@@ -89,7 +89,7 @@ ORDER BY ID_GUIA
     @$row_cons_guia_tiss = oci_fetch_array($result_cons_guia_tiss);
 
     //PEGAR LOGO DO CONVÊNIO
-    $nm_convenio = $row_cons_guia_tiss['NM_CONVENIO'];
+    @$nm_convenio = $row_cons_guia_tiss['NM_CONVENIO'];
 
     $cons_logo_con="SELECT con.logotipo
                     FROM dbamv.convenio con
@@ -98,7 +98,7 @@ ORDER BY ID_GUIA
     @$result_cons_logo_con = oci_parse($conn_ora, $cons_logo_con);
     @oci_execute($result_cons_logo_con);
     @$row_cons_logo_con = oci_fetch_array($result_cons_logo_con);
-    $image = $row_cons_logo_con['LOGOTIPO']->load();
+    @$image = @$row_cons_logo_con['LOGOTIPO']->load();
 
 
      //Consulta do 47-53
