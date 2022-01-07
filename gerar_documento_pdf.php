@@ -14,9 +14,10 @@ $nm_documneto = 'pdf_assinatura_'.$var_cd_atendimento.'.pdf';
 
 $var_user_logado = $_SESSION['usuarioNome'];
 
-
+// DEFINE O FUSO HORARIO COMO O HORARIO DE BRASILIA
+date_default_timezone_set('America/Sao_Paulo');
 //Data e hora de agora
-$hora = date("d-m-Y H:i:s"); 
+$hora = date("d/m/Y H:i:s"); 
 
 
 
@@ -50,7 +51,7 @@ $documentTemplate = "<!doctype html>
 
 .faixa-cinza{
 
-    height: 10px; 
+    height: 10px !important;
     font-size: 8px; 
     background-color: #cccccc;
     line-height: 7px;
@@ -67,68 +68,81 @@ $documentTemplate = "<!doctype html>
 .col-hss-12{
 
     width: 99% !important;
+    height: 20px;
     float: left;
 }
 .col-hss-11{
 
     width: 90.66% !important;
+    height: 20px;
     float: left;
 }
 .col-hss-10{
 
     width: 82.33% !important;
+    height: 20px;
     float: left;
 }
 .col-hss-9{
 
     width: 74% !important;
+    height: 20px;
     float: left;
 }
 .col-hss-8{
 
     width: 65.66% !important;
+    height: 20px;
     float: left;
 }
 .col-hss-7{
 
     width: 57.33% !important;
+    height: 20px;
     float: left;
 }
 .col-hss-6{
 
     width: 49% !important;
+    height: 20px;
     float: left;
 }
 .col-hss-5{
 
     width: 40.66% !important;
+    height: 20px;
     float: left;
 }
 .col-hss-4{
 
     width: 32.33% !important;
+    height: 20px;
     float: left;
 }
 .col-hss-3{
 
     width: 24% !important;
+    height: 20px;
     float: left;
 }
 
 .col-hss-2{
 
     width: 15.66% !important;
+    height: 20px;
     float: left;
+    
 }
 
 .col-hss-1{
 
     width: 7.33% !important;
+    height: 20px;
     float: left;
 }
 
 h2{
-    font-size: 12px;
+    font-size: 10px;
     line-height: 12px;
     float: center;
     margin-top: 0px;
@@ -158,7 +172,7 @@ h2{
         </br>
         </br>
         </br>
-        <form style='background-color:#E6E6FA; border: solid 1px black; height: 650px;'>
+        <form style=' border: solid 1px black; height: 650px;'>
             <!--Primeiras infos -->
             <div class='container'>
                 <div class='row'>
@@ -290,17 +304,17 @@ h2{
                     </div>
                 </div>
                 <div class='row'>
-                    <div class='col-hss-3'>
+                    <div class='col-hss-3' style='height: 35px;'>
                         21-CaráterAtendim
                         <br>
                         <h2>".@$row_cons_guia_tiss['CP_21']."</h2>
                     </div>
-                    <div class='col-hss-3'>
+                    <div class='col-hss-3' style='height: 35px;'>
                         22-Data da Solicitação
                         <br>
                         <h2>".@$row_cons_guia_tiss['CP_22']."</h2>
                     </div>
-                    <div class='col-hss-5'>
+                    <div class='col-hss-6' style='height: 35px;'>
                         23-Indicação Clinica
                         <br>
                         <h2>".@$row_cons_guia_tiss['CP_23']."</h2>
@@ -375,62 +389,62 @@ h2{
                     </div>
                 </div>
                 <div class='row' style='padding-left: 05px;'>
-                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
                         36- Data
                         <br>
                         <h2>".@$row_cons_guia_tiss_34_45['CP_34']."</h2>
                     </div>
-                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
                         37- Hora Inicial
                         <br>
                         <h2>".@$row_cons_guia_tiss_34_45['CP_35']."</h2>
                     </div>
-                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
                         38- Hora Final
                         <br>
                         <h2>".@$row_cons_guia_tiss_34_45['CP_36']."</h2>
                     </div>
-                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
                         39-Tabela
                         <br>
                         <h2>".@$row_cons_guia_tiss_34_45['CP_37']."</h2>
                     </div>
-                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
-                        40-Procedimento
+                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
+                        35-Procedimento
                         <br>
                         <h2>".@$row_cons_guia_tiss_34_45['CP_38']."</h2>
                     </div>
-                    <div class='col-hss-2' style='height: 40px; border: none !important; margin: 0px !important;''>
+                    <div class='col-hss-2' style='height: 35px; border: none !important; margin: 0px !important;''>
                         41-Descrição
                         <br>
                         <h2>".@$row_cons_guia_tiss_34_45['CP_39']."</h2>
                     </div>
-                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
                         42-Qtde
                         <br>
-                        <h2>".@$row_cons_guia_tiss_34_45['CP_40']."</h2>
+                        <h2>".@$row_cons_guia_tiss_34_45['CP_35']."</h2>
                     </div>
-                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
                         43-Via
                         <br>
                         <h2>".@$row_cons_guia_tiss_34_45['CP_41']."</h2>
                     </div>
-                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
                         44-Tec
                         <br>
                         <h2>".@$row_cons_guia_tiss_34_45['CP_42']."</h2>
                     </div>
-                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
                         45- Fator Red./Acresc
                         <br>
                         <h2>".@$row_cons_guia_tiss_34_45['CP_43']."</h2>
                     </div>
-                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;'>
+                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;'>
                         46- Valor Unit.(R$)
                         <br>
                         <h2>".@$row_cons_guia_tiss_34_45['CP_44']."</h2>
                     </div>
-                    <div class='col-hss-1' style='height: 40px; border: none !important;margin: 0px !important;''>
+                    <div class='col-hss-1' style='height: 35px; border: none !important;margin: 0px !important;''>
                         47- Valor Total(R$)
                         <br>
                         <h2>".@$row_cons_guia_tiss_34_45['CP_45']."</h2>
@@ -445,42 +459,42 @@ h2{
                     </div>
                 </div>
                 <div class='row' style='padding-left: 05px;'>
-                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
                         48-Seq.Ref
                         <br>
                         <h2>".@$row_cons_guia_tiss_47_53['REGISTRO']."</h2>
                     </div>
-                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
                         49- Grau Part.
                         <br>
                         <h2>".@$row_cons_guia_tiss_47_53['CP_47']."</h2>
                     </div>
-                    <div class='col-hss-2' style='height: 40px; border: none !important; margin: 0px !important;''>
+                    <div class='col-hss-2' style='height: 35px; border: none !important; margin: 0px !important;''>
                         50- Códio na Operadore/CPF
                         <br>
                         <h2>".@$row_cons_guia_tiss_47_53['CP_48']."</h2>
                     </div>
-                    <div class='col-hss-3' style='height: 40px; border: none !important; margin: 0px !important;''>
+                    <div class='col-hss-3' style='height: 35px; border: none !important; margin: 0px !important;''>
                         51-Nome do Profissional
                         <br>
                         <h2>".@$row_cons_guia_tiss_47_53['CP_49']."</h2>
                     </div>
-                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
                         52- Conselho Profissional
                         <br>
                         <h2>".@$row_cons_guia_tiss_47_53['CP_50']."</h2>
                     </div>
-                    <div class='col-hss-2' style='height: 40px; border: none !important; margin: 0px !important;''>
+                    <div class='col-hss-2' style='height: 35px; border: none !important; margin: 0px !important;''>
                         53- Número no Conselho
                         <br>
                         <h2>".@$row_cons_guia_tiss_47_53['CP_51']."</h2>
                     </div>
-                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
                         54- UF
                         <br>
                         <h2>".@$row_cons_guia_tiss_47_53['CP_52']."</h2>
                     </div>
-                    <div class='col-hss-1' style='height: 40px; border: none !important; margin: 0px !important;''>
+                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
                         55- Código CBO
                         <br>
                         <h2>".@$row_cons_guia_tiss_47_53['CP_53']."</h2>
@@ -560,19 +574,19 @@ h2{
             </div>
             <div class='container'>
                 <div class='row' >
-                    <div class='col-hss-2' style='border: none !important; padding-left: 50px; padding-top: 10px;'>
+                    <div class='col-hss-2' style='border: none !important; padding-left: 35px; padding-top: 5px;'>
                         <h2>".$var_user_logado."</h2>
                     </div>
-                    <div class='col-hss-2' style='border: none !important; padding-left: 50px; padding-top: 10px;'>
+                    <div class='col-hss-2' style='border: none !important; padding-left: 35px; padding-top: 5px;'>
                         <h2>Data:".$hora."</h2>
                     </div>
-                    <div class='col-hss-2' style='border: none !important; padding-left: 50px; padding-top: 10px;'>
+                    <div class='col-hss-2' style='border: none !important; padding-left: 35px; padding-top: 5px;'>
                         <h2>Conta/Lote: ".$row_cons_guia_tiss['CD_CONTA']."</h2>
                     </div>
-                    <div class='col-hss-2' style='border: none !important; padding-left: 50px; padding-top: 10px;'>
+                    <div class='col-hss-2' style='border: none !important; padding-left: 35px; padding-top: 5px;'>
                         <h2>Atendimento: ".$var_cd_atendimento."</h2>
                     </div>
-                    <div class='col-hss-2' style='border: none !important; padding-left: 50px; padding-top: 10px;'>
+                    <div class='col-hss-2' style='border: none !important; padding-left: 35px; padding-top: 5px;'>
                         <h2>Atendimento: ".$nm_conv."</h2>
                     </div>
                 </div>
