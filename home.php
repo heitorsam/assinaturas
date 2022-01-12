@@ -13,11 +13,23 @@
                 
             <div class="div_br"> </div>        
 
-            <h11><i class="fas fa-signature"></i> Assinaturas</h11>
+            <h11><i class="fas fa-signature"></i> Guia TISS</h11>
 
             <div class="div_br"> </div>
 
             <a href="gerar_documento.php" class="botao_home" type="submit"><i class="fas fa-file-signature"></i> Gerar Documento</a></td></tr>
+
+            <div class="div_br"> </div>
+
+            <h11><i class="fas fa-signature"></i> Checagem Beira Leito</h11>
+
+            <div class="div_br"> </div>
+
+            <a href="check_gerar_documento.php" class="botao_home" type="submit"><i class="fas fa-file-signature"></i> Gerar Documento</a></td></tr>
+            
+            <span class="espaco_pequeno"></span>
+            
+            <a href="check_visualizar_documento.php" class="botao_home" type="submit"><i class="far fa-file-alt"></i> Visualizar Documento</a></td></tr>
 
             <div class="div_br"> </div>
 
