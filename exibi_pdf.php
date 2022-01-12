@@ -16,12 +16,12 @@
     FROM assinaturas.teste_assinaturas ass
     WHERE ass.cd_atendimento = $var_cd_atendimento";
 
-
     $result_dowload = oci_parse($conn_ora, $cons_dowload);
     @oci_execute($result_dowload);
     $result= oci_fetch_array($result_dowload);
     $image =$result['BLOB_ANEXO']->load();
     //$content= $result['BLOB_ANEXO']; 
+
 ?>
 <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
 <div>

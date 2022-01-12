@@ -42,6 +42,8 @@
 
             <a href="permissoes.php" class="botao_home_adm" type="submit"><i class="fas fa-user-cog"></i> Permissões</a></td></tr>
             <span class="espaco_pequeno"></span>
+            <a href="cad_assinatura.php" class="botao_home_adm" type="submit"><i class="fas fa-user-nurse"></i> Cadastrar Assinatura</a></td></tr>
+            
 
         <?php } ?>
             

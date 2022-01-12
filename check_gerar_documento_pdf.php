@@ -294,11 +294,10 @@ h99{
 
                 </div>
                 </div>
-                <div class='row' style='text-align: left; padding-right: 20%; font-size: 18px;'>
-                    <div class='col-hss-3' style='border: none !important; border-top: solid 1px !important; float:right;
-                    font-size: 16px !important;
-                    margin-right: 100px;'>
-                    Assinatura    
+                <div class='row' style='text-align: left; padding-right: 20%;'>
+                    <div class='col-hss-3' style='border: none !important; border-top: solid 1px !important; float:right; margin-right: 100px;'>
+                    <h2 style='line-height: 10px !important; font-size: 8px; !important;'>".@$row_checagem_prest['DS_CODIGO_CONSELHO']." 
+                    ".@$row_checagem_prest['NM_USUARIO']."</h2> 
                     </div>                   
                                   
                 </div>
