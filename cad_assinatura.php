@@ -50,6 +50,14 @@
     @$var_nm_prestador = $row_dd_prest['NM_PRESTADOR'];
     @$var_nm_funcao = $row_dd_prest['NM_TIP_PRESTA'];
 
+	/*$code_base64 = $row_dd_prest['NM_TIP_PRESTA'];
+	$code_base64 = str_replace('data:image/jpeg;base64,','',$code_base64);
+	$code_binary = base64_decode($code_base64);
+	$image= imagecreatefromstring($code_binary);
+	header('Content-Type: image/jpeg');
+	imagejpeg($image);
+	imagedestroy($image);*/
+
 ?>
 
 <!DOCTYPE HTML>
@@ -124,12 +132,6 @@
 					<label>Função:</label>
 					<input type="text" value="<?php echo @$var_nm_funcao;?>" class="form-control" name="nm_conv" readonly></input>
 			</div>
-			<?php if(isset($var_pdf_existe)){ ?>
-
-				<div style="margin-top: 20px; margin-left: 15px;">
-				<a  class="btn btn-primary" href="exibi_pdf.php"><i  style="font-size: 30px" class="fas fa-file-pdf"></i></a>
-			</div>
-			<?php }else{?>
 
 				<div class="row">
 
@@ -145,8 +147,13 @@
 
 				</div>
 
-			<?php }	?>
+			
 		</div>
+
+		<div class="div_br"> </div>
+				Assinatura atual:
+				<div class="div_br"> </div>
+				<img style="width: 300px; height: 100px;" src="visualizar_assinatura_prestador.php?cd_prestador=<?php echo $var_cd_prestador; ?>">	
 
 
 		<!--MODAL ASSINATURA-->
@@ -173,7 +180,6 @@
 			</div>
 		</div>
 		</div>
-
 
 		</form>
 		<?php }?>
