@@ -230,7 +230,7 @@
 			// Set up the canvas
 			var canvas = document.getElementById("sig-canvas");
 			var ctx = canvas.getContext("2d");
-			ctx.strokeStyle = "#222222";
+			ctx.strokeStyle = "#5b79b4";
 			ctx.lineWith = 2;
 
 			// Set up the UI

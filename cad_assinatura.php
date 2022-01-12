@@ -6,24 +6,20 @@
     //CONEXAO
     include 'conexao.php';
 
-	if(isset($_SESSION['atdconsulta'])){
+	if(isset($_SESSION['prestconsulta'])){
 
-		@$var_cd_atendimento = $_SESSION['atdconsulta'];
-
-		$_SESSION['atdpdf'] = $_SESSION['atdconsulta'];
+		@$cd_prest = $_SESSION['prestconsulta'];
 
 	} else {
 
 		//RECEBENDO POST
-		if(isset($_POST['cd_atendimento'])){
+		if(isset($_POST['frm_cd_prestador'])){
 
-			@$var_cd_atendimento = $_POST['cd_atendimento'];
-
-			$_SESSION['atdpdf'] = $_POST['cd_atendimento'];				
+			@$cd_prest = $_POST['frm_cd_prestador'];			
 
 		} else {
 			
-			@$var_cd_atendimento = 0;   
+			@$cd_prest = 0;   
 		}
 
 	}
@@ -31,40 +27,29 @@
     ////////////
     //PACIENTE//
     ///////////
-    $cons_atend="SELECT ate.CD_ATENDIMENTO, pac.NM_PACIENTE, ate.DT_ATENDIMENTO, con.NM_CONVENIO
-                FROM ATENDIME ate
-                INNER JOIN paciente  pac ON pac.cd_paciente = ate.cd_paciente
-                INNER JOIN CONVENIO  con ON con.cd_convenio = ate.cd_convenio
-                WHERE ate.cd_atendimento = '$var_cd_atendimento'";
+    //SQL BUSCA ASSINATURA
+    $cons_dados_prest = "SELECT prest.CD_PRESTADOR, prest.DS_CODIGO_CONSELHO,
+						 prest.NM_PRESTADOR, tipa.NM_TIP_PRESTA,
+						 pas.ASSINATURA_TISS, pas.ASSINATURA
+						 FROM dbamv.PRESTADOR prest
+						 LEFT JOIN dbamv.prestador_assinatura pas
+							ON pas.CD_PRESTADOR = prest.CD_PRESTADOR
+						 LEFT JOIN dbamv.TIP_PRESTA tipa
+							ON tipa.CD_TIP_PRESTA = prest.CD_TIP_PRESTA
+						 WHERE prest.CD_PRESTADOR = $cd_prest";
 
-    $result_atendimento = oci_parse($conn_ora, $cons_atend);
-    @oci_execute($result_atendimento);
-    $row_aten = oci_fetch_array($result_atendimento);
-    if(!isset( $row_aten['CD_ATENDIMENTO']) && isset($_POST['cd_atendimento'])){
-        $_SESSION['msgerro'] = "Número de atendimento não encontrado."; 
+    $result_dados_prest = oci_parse($conn_ora, $cons_dados_prest);
+    @oci_execute($result_dados_prest);
+    $row_dd_prest = oci_fetch_array($result_dados_prest);
+    if(!isset($row_dd_prest['CD_PRESTADOR']) && isset($_POST['CD_PRESTADOR'])){
+        $_SESSION['msgerro'] = "Prestador não encontrado."; 
     }
     
-    @$var_cd_atendimento = $row_aten['CD_ATENDIMENTO'];
-    @$var_nm_paciente = $row_aten['NM_PACIENTE'];
-    @$var_dt_aten = $row_aten['DT_ATENDIMENTO'];
-    @$var_nm_conv = $row_aten['NM_CONVENIO'];
+    @$var_cd_prestador = $row_dd_prest['CD_PRESTADOR'];
+    @$var_coren = $row_dd_prest['DS_CODIGO_CONSELHO'];
+    @$var_nm_prestador = $row_dd_prest['NM_PRESTADOR'];
+    @$var_nm_funcao = $row_dd_prest['NM_TIP_PRESTA'];
 
-
-    ///////////////////////////
-    //Verifica se existe pdf///
-    //para aquele atendimento//
-    ///////////////////////////
-    if(isset($_POST['cd_atendimento']) OR isset($_SESSION['atdconsulta'])){
-    $cons_pdf ="SELECT *
-    FROM assinaturas.teste_assinaturas ass
-    WHERE ass.cd_atendimento = $var_cd_atendimento
-    ";
-
-    $result_pdf_exis = oci_parse($conn_ora, $cons_pdf);
-    @oci_execute($result_pdf_exis);
-    @$row_pdf_exis = oci_fetch_array($result_pdf_exis);
-    @$var_pdf_existe = $row_pdf_exis['BLOB_ANEXO'];
-    }
 ?>
 
 <!DOCTYPE HTML>
@@ -82,27 +67,36 @@
 			
 		<div class="div_br"> </div>        
 
-		<h11><i class="fas fa-file-signature"></i> Gerar Documento</h11>
+		<h11><i class="fas fa-user-nurse"></i> Cadastro Assinatura</h11>
 		<span class="espaco_pequeno" style="width: 6px;" ></span>
 		<h27> <a href="home.php" style="color: #444444; text-decoration: none;"> <i class="fa fa-reply" aria-hidden="true"></i> Voltar </a> </h27> 
 
 
 		<div class="div_br"> </div>
-		<form method="post" autocomplete="off" action="gerar_documento.php">
+		<form method="post" autocomplete="off" action="cad_assinatura.php">
 		<div class="row">
-			<div class="col-md-3 ">
-				Atendimento:
-				<div class="input-group">
+		<div class="col-md-4 ">
+			Prestador:
+			<div class="input-group">                            
+				<select class="form-control" name="frm_cd_prestador" required>
+						<option selected>Selecione o Prestador</option>
+						<?php
+							$cons_nome_pres = "SELECT DISTINCT  pres.CD_PRESTADOR, pres.NM_PRESTADOR
+												FROM dbamv.PRESTADOR pres
+												JOIN dbasgu.usuarios usu ON pres.cd_prestador = usu.cd_prestador
+												WHERE pres.CD_TIP_PRESTA <> 8
+												AND usu.SN_ATIVO = 'S'
+												ORDER BY pres.NM_PRESTADOR ASC ";
+							$result_nome_pres = oci_parse($conn_ora, $cons_nome_pres);
+							@oci_execute($result_nome_pres);
+							while($row_nome_pres = oci_fetch_array($result_nome_pres)){ ?>
+								<option value="<?php echo $row_nome_pres['CD_PRESTADOR']; ?>"><?php echo $row_nome_pres['NM_PRESTADOR']; ?></option> <?php
+							}
+						?>
+				</select>
 
-				<?php if(isset($_POST['cd_atendimento']) OR isset($_SESSION['atdconsulta'])){ ?>
-					<input class="form-control input-group" type="text" value="<?php echo @$var_cd_atendimento;?>" name="cd_atendimento" required>
-				<?php } else { ?>
-					<input class="form-control input-group" type="text"  name="cd_atendimento" required>
-				<?php }?>
-
-					<button type="submit" class=" btn btn-primary" id="btn_pesquisar"> <i class="fa fa-search" aria-hidden="true"></i></button>	
-					<input type="hidden" id="valor" type="text" readonly />
-				</div> 
+				<button type="submit" class=" btn btn-primary" id="btn_pesquisar"> <i class="fas fa-search"></i></button>	
+				
 			</div>
 		</div>
 		</form>
@@ -110,24 +104,25 @@
 
 		<!---RESULTADO DA PESQUISA-->
 
-		<?php if(strlen($var_nm_paciente) > 1){ ?>
-		<form method="post" autocomplete="off" id="assinatura" action="gerar_documento_pdf.php">
+		<?php if(strlen($var_nm_prestador) > 1){ ?>
+		
+		<form style="margin-top: 20px;" method="post" autocomplete="off" id="assinatura" action="gerar_documento_pdf.php">
 		<div class="row">
-		<div class="col-md-3" id="div_sn_exame_mv">
-					<label>Atendimento:</label>
-					<input type="text"  class="form-control" value="<?php echo @$var_cd_atendimento?>" name="cd_atendimento" readonly></input>
+		<div class="col-md-2" id="div_sn_exame_mv">
+					<label>Código:</label>
+					<input type="text"  class="form-control" value="<?php echo @$var_cd_prestador?>" name="cd_atendimento" readonly></input>
 			</div>
-		<div class="col-md-3" id="div_sn_exame_mv">
-					<label>Paciente:</label>
-					<input type="text"  class="form-control" value="<?php echo @$var_nm_paciente?>" name="nm_paciente" readonly></input>
+		<div class="col-md-2" id="div_sn_exame_mv">
+					<label>Coren:</label>
+					<input type="text"  class="form-control" value="<?php echo @$var_coren?>" name="nm_paciente" readonly></input>
 			</div>
-			<div class="col-md-3" id="div_sn_exame_mv">
-					<label>Data Atendimento:</label>
-					<input type="text" value="<?php echo @$var_dt_aten ?>" class="form-control" name="dt_aten" readonly></input>
+			<div class="col-md-4" id="div_sn_exame_mv">
+					<label>Nome:</label>
+					<input type="text" value="<?php echo @$var_nm_prestador ?>" class="form-control" name="dt_aten" readonly></input>
 			</div>
-			<div class="col-md-3" id="div_sn_exame_mv">
-					<label>Nome Convenio:</label>
-					<input type="text" value="<?php echo @$var_nm_conv;?>" class="form-control" name="nm_conv" readonly></input>
+			<div class="col-md-4" id="div_sn_exame_mv">
+					<label>Função:</label>
+					<input type="text" value="<?php echo @$var_nm_funcao;?>" class="form-control" name="nm_conv" readonly></input>
 			</div>
 			<?php if(isset($var_pdf_existe)){ ?>
 
@@ -183,16 +178,12 @@
 		</form>
 		<?php }?>
 
-
-
-
-		
 		<?php
 
 		//RODAPE
 		include 'rodape.php';
 
-		unset($_SESSION["atdconsulta"]);
+		unset($_SESSION["prestconsulta"]);
 
 		?>
 		
@@ -230,7 +221,7 @@
 			// Set up the canvas
 			var canvas = document.getElementById("sig-canvas");
 			var ctx = canvas.getContext("2d");
-			ctx.strokeStyle = "#222222";
+			ctx.strokeStyle = "#5b79b4";
 			ctx.lineWith = 2;
 
 			// Set up the UI
