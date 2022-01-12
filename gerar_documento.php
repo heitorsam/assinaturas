@@ -56,7 +56,7 @@
     ///////////////////////////
     if(isset($_POST['cd_atendimento']) OR isset($_SESSION['atdconsulta'])){
     $cons_pdf ="SELECT *
-    FROM dbamv.teste_assinaturas ass
+    FROM assinaturas.teste_assinaturas ass
     WHERE ass.cd_atendimento = $var_cd_atendimento
     ";
 

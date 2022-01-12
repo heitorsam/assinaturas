@@ -33,3 +33,6 @@ GRANT SELECT ON dbamv.TIP_FRE TO assinaturas;
 GRANT SELECT ON dbamv.PRESTADOR_ASSINATURA TO assinaturas;
 GRANT SELECT ON dbamv.TIP_PRESTA TO assinaturas;
 
+GRANT SELECT ON dbamv.TISS_GUIA TO assinaturas;
+GRANT SELECT ON dbamv.TISS_ITGUIA TO assinaturas;
+GRANT SELECT ON dbamv.CONVENIO TO assinaturas;

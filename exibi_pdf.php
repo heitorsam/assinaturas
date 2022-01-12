@@ -13,7 +13,7 @@
     //PDF DOWLOAD//
     ///////////////
     $cons_dowload="SELECT *
-    FROM dbamv.teste_assinaturas ass
+    FROM assinaturas.teste_assinaturas ass
     WHERE ass.cd_atendimento = $var_cd_atendimento";
 
 
