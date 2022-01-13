@@ -156,14 +156,14 @@
 					//SQL BUSCA ASSINATURA
 					$cons_assinatura_prest = "SELECT ASSINATURA_TISS, ASSINATURA
 					FROM dbamv.prestador_assinatura
-					WHERE CD_PRESTADOR = $cd_prest ";
+					WHERE CD_PRESTADOR = $var_cd_prestador";
 
 					@$result_assinatura_prest = oci_parse($conn_ora, @$cons_assinatura_prest);
 					@oci_execute(@$result_assinatura_prest);
 					@$row_assinatura_prest = oci_fetch_array($result_assinatura_prest);
 					@$assinatura = @$row_assinatura_prest['ASSINATURA_TISS']->load();
 
-					echo '<img style="width: 200px; height: 80px;" src="data:image/png;base64,'.base64_encode($assinatura).'"/>';
+					echo '<img style="width: 150px; height: 40px;" src="data:image/png;base64,'.base64_encode($assinatura).'"/>';
 
 					echo "<br>";  
 					$partes = explode(' ', $var_nm_prestador);

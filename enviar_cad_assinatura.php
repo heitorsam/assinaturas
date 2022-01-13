@@ -8,6 +8,19 @@ include 'conexao.php';
 
 $image = $_POST['escondidinho'];
 
+//echo $_POST['escondidinho'];
+
+ // get the dataURL
+ $dataURL = $_POST["escondidinho"];  
+
+ // the dataURL has a prefix (mimetype+datatype) 
+ // that we don't want, so strip that prefix off
+ $parts = explode(',', $dataURL);  
+ $data = $parts[1];  
+
+ // Decode base64 data, resulting in an image
+ $image = base64_decode($data); 
+
 @$_SESSION['prestconsulta'] = $var_cd_prestador;
 $var_user_logado = $_SESSION['usuarioNome'];
 
@@ -24,7 +37,7 @@ $insere_dados = oci_parse($conn_ora, $consulta_long_raw);
 oci_execute($insere_dados);
 */
 
-echo $consulta_insert = 
+$consulta_insert = 
 "INSERT INTO dbamv.PRESTADOR_ASSINATURA
 (CD_PRESTADOR, ASSINATURA_TISS)
 VALUES 
@@ -47,6 +60,21 @@ else {
 
 oci_free_statement($insere_dados);
 $blob->free();
+
+
+//echo "</br></br>";
+//SQL BUSCA ASSINATURA
+$cons_assinatura_prest = "SELECT ASSINATURA_TISS, ASSINATURA
+FROM dbamv.prestador_assinatura
+WHERE CD_PRESTADOR = 5959";
+
+@$result_assinatura_prest = oci_parse($conn_ora, @$cons_assinatura_prest);
+@oci_execute(@$result_assinatura_prest);
+@$row_assinatura_prest = oci_fetch_array($result_assinatura_prest);
+@$assinatura = @$row_assinatura_prest['ASSINATURA_TISS']->load();
+
+//echo '<img style="width: 150px; height: 40px;" src="data:image/png;base64,'.base64_encode($assinatura).'"/>';
+
 
 if($insere_dados > 0){
 

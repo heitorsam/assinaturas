@@ -284,7 +284,7 @@ h99{
             <div class='container'>
                 <div class='row'>
                     <div class='col-hss-3' style='height: 70px; margin-top: 20px !important; border: none !important; padding-left: 70%;'>
-                        <img src='data:application/pdf;base64, ".base64_encode(@$assinatura)." type='application/pdf' style='width: 150px; height: 40px;'>
+                        <img src='data:application/png;base64, ".base64_encode(@$assinatura)." type='application/png' style='width: 150px; height: 40px;'>
                         <br>
                     <h99>                        
                         ". $primeiroNome . " " . $ultimoNome ."
