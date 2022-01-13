@@ -152,6 +152,6 @@
     @$result_assinatura_prest = oci_parse($conn_ora, @$cons_assinatura_prest);
     @oci_execute(@$result_assinatura_prest);
     @$row_assinatura_prest = oci_fetch_array($result_assinatura_prest);
-    @$assinatura = @$row_assinatura_prest['ASSINATURA']->load();
+    @$assinatura = @$row_assinatura_prest['ASSINATURA_TISS']->load();
 
 ?>

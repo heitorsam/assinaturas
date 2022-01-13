@@ -114,24 +114,24 @@
 
 		<?php if(strlen($var_nm_prestador) > 1){ ?>
 		
-		<form style="margin-top: 20px;" method="post" autocomplete="off" id="assinatura" action="gerar_documento_pdf.php">
+		<form style="margin-top: 20px;" method="post" autocomplete="off" id="assinatura" action="enviar_cad_assinatura.php">
 		<div class="row">
 		<div class="col-md-2" id="div_sn_exame_mv">
 					<label>Código:</label>
-					<input type="text"  class="form-control" value="<?php echo @$var_cd_prestador?>" name="cd_atendimento" readonly></input>
-			</div>
+					<input type="text"  class="form-control" value="<?php echo @$var_cd_prestador?>" name="frm_cd_prestador" readonly></input>
+		</div>
 		<div class="col-md-2" id="div_sn_exame_mv">
 					<label>Coren:</label>
-					<input type="text"  class="form-control" value="<?php echo @$var_coren?>" name="nm_paciente" readonly></input>
-			</div>
-			<div class="col-md-4" id="div_sn_exame_mv">
+					<input type="text"  class="form-control" value="<?php echo @$var_coren?>" name="frm_coren" readonly></input>
+		</div>
+		<div class="col-md-4" id="div_sn_exame_mv">
 					<label>Nome:</label>
-					<input type="text" value="<?php echo @$var_nm_prestador ?>" class="form-control" name="dt_aten" readonly></input>
-			</div>
-			<div class="col-md-4" id="div_sn_exame_mv">
+					<input type="text" value="<?php echo @$var_nm_prestador ?>" class="form-control" name="frm_nome" readonly></input>
+		</div>
+		<div class="col-md-4" id="div_sn_exame_mv">
 					<label>Função:</label>
-					<input type="text" value="<?php echo @$var_nm_funcao;?>" class="form-control" name="nm_conv" readonly></input>
-			</div>
+					<input type="text" value="<?php echo @$var_nm_funcao;?>" class="form-control" name="frm_funcao" readonly></input>
+		</div>
 
 				<div class="row">
 
@@ -145,18 +145,25 @@
 
 					</div>
 
-				</div>
-
-			
-		</div>
-
-		
+				</div>						
+		</div>		
 
 		<div class="div_br"> </div>
 				Assinatura atual:
 				<div class="div_br"> </div>
-				<img style="width: 200px; height: 80px;" src="visualizar_assinatura_prestador.php?cd_prestador=<?php echo $var_cd_prestador; ?>">	
 				<?php 
+
+					//SQL BUSCA ASSINATURA
+					$cons_assinatura_prest = "SELECT ASSINATURA_TISS, ASSINATURA
+					FROM dbamv.prestador_assinatura
+					WHERE CD_PRESTADOR = $cd_prest ";
+
+					@$result_assinatura_prest = oci_parse($conn_ora, @$cons_assinatura_prest);
+					@oci_execute(@$result_assinatura_prest);
+					@$row_assinatura_prest = oci_fetch_array($result_assinatura_prest);
+					@$assinatura = @$row_assinatura_prest['ASSINATURA_TISS']->load();
+
+					echo '<img style="width: 200px; height: 80px;" src="data:image/png;base64,'.base64_encode($assinatura).'"/>';
 
 					echo "<br>";  
 					$partes = explode(' ', $var_nm_prestador);

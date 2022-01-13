@@ -30,9 +30,13 @@ GRANT SELECT ON dbamv.ITPRE_MED TO assinaturas;
 GRANT SELECT ON dbamv.PRE_MED TO assinaturas;
 GRANT SELECT ON dbamv.CONVENIO TO assinaturas;
 GRANT SELECT ON dbamv.TIP_FRE TO assinaturas;
-GRANT SELECT ON dbamv.PRESTADOR_ASSINATURA TO assinaturas;
 GRANT SELECT ON dbamv.TIP_PRESTA TO assinaturas;
-
 GRANT SELECT ON dbamv.TISS_GUIA TO assinaturas;
 GRANT SELECT ON dbamv.TISS_ITGUIA TO assinaturas;
 GRANT SELECT ON dbamv.CONVENIO TO assinaturas;
+
+GRANT INSERT ON dbamv.PRESTADOR_ASSINATURA TO assinaturas;
+GRANT UPDATE ON dbamv.PRESTADOR_ASSINATURA TO assinaturas;
+GRANT DELETE ON dbamv.PRESTADOR_ASSINATURA TO assinaturas;
+
+grant execute on PKG_TISS_UTIL to assinaturas;
