@@ -154,27 +154,47 @@
 				<?php 
 
 					//SQL BUSCA ASSINATURA
-					$cons_assinatura_prest = "SELECT ASSINATURA_TISS, ASSINATURA
+					$cons_qtd_assinatura = "SELECT COUNT(dbms_lob.getlength(ASSINATURA_TISS)) AS QTD
 					FROM dbamv.prestador_assinatura
 					WHERE CD_PRESTADOR = $var_cd_prestador";
 
-					@$result_assinatura_prest = oci_parse($conn_ora, @$cons_assinatura_prest);
-					@oci_execute(@$result_assinatura_prest);
-					@$row_assinatura_prest = oci_fetch_array($result_assinatura_prest);
-					@$assinatura = @$row_assinatura_prest['ASSINATURA_TISS']->load();
+					@$result_qtd_assinatura = oci_parse($conn_ora, @$cons_qtd_assinatura);
+					@oci_execute(@$result_qtd_assinatura);
+					@$row_qtd_assinatura = oci_fetch_array($result_qtd_assinatura);
+					@$qtd_assinatura = @$row_qtd_assinatura['QTD'];
 
-					echo '<img style="width: 150px; height: 40px;" src="data:image/png;base64,'.base64_encode($assinatura).'"/>';
+					if($qtd_assinatura >= 1){
 
-					echo "<br>";  
-					$partes = explode(' ', $var_nm_prestador);
-					$primeiroNome = array_shift($partes);
-					$ultimoNome = array_pop($partes);
+						//SQL BUSCA ASSINATURA
+						$cons_assinatura_prest = "SELECT ASSINATURA_TISS, ASSINATURA
+						FROM dbamv.prestador_assinatura
+						WHERE CD_PRESTADOR = $var_cd_prestador";
 
-					echo "<h99>                        
-					". $primeiroNome . " " . $ultimoNome ."
-					<br>".@$var_nm_funcao."
-					<br>COREN-SP ".@$var_coren."
-					</h99>";
+						@$result_assinatura_prest = oci_parse($conn_ora, @$cons_assinatura_prest);
+						@oci_execute(@$result_assinatura_prest);
+						@$row_assinatura_prest = oci_fetch_array($result_assinatura_prest);
+						@$assinatura = @$row_assinatura_prest['ASSINATURA_TISS']->load();
+
+						echo '<img style="width: 150px; height: 40px;" src="data:image/png;base64,'.base64_encode($assinatura).'"/>';
+
+						echo "<br>";  
+						$partes = explode(' ', $var_nm_prestador);
+						$primeiroNome = array_shift($partes);
+						$ultimoNome = array_pop($partes);
+
+						echo "<h99>                        
+						". $primeiroNome . " " . $ultimoNome ."
+						<br>".@$var_nm_funcao."
+						<br>COREN-SP ".@$var_coren."
+						</h99>";
+
+					}else{
+
+						echo "Não há nenhuma assinatura cadastrada.";
+						
+					}
+
+					
 				?>
 
 		<!--MODAL ASSINATURA-->
