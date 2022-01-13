@@ -746,5 +746,20 @@ th:first-child, td:first-child
     overflow: hidden;
 }
 
+/*CARIMBO*/
+
+h99{
+    font-family: Andale Mono, monospace;
+    display: inline-block;
+    color: black;
+    font-size: 12px;
+    line-height: 10px;
+    text-transform: uppercase;
+    text-align: center;
+    transform: rotate(-5deg);
+    letter-spacing: -1px;
+    font-weight: bold;
+}
+
 </style>
 

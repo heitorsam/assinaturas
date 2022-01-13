@@ -150,11 +150,25 @@
 			
 		</div>
 
+		
+
 		<div class="div_br"> </div>
 				Assinatura atual:
 				<div class="div_br"> </div>
-				<img style="width: 300px; height: 100px;" src="visualizar_assinatura_prestador.php?cd_prestador=<?php echo $var_cd_prestador; ?>">	
+				<img style="width: 200px; height: 80px;" src="visualizar_assinatura_prestador.php?cd_prestador=<?php echo $var_cd_prestador; ?>">	
+				<?php 
 
+					echo "<br>";  
+					$partes = explode(' ', $var_nm_prestador);
+					$primeiroNome = array_shift($partes);
+					$ultimoNome = array_pop($partes);
+
+					echo "<h99>                        
+					". $primeiroNome . " " . $ultimoNome ."
+					<br>".@$var_nm_funcao."
+					<br>COREN-SP ".@$var_coren."
+					</h99>";
+				?>
 
 		<!--MODAL ASSINATURA-->
 		<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -200,7 +214,6 @@
 	<!--<script src="https://code.angularjs.org/snapshot/angular.min.js"></script>-->
 	<script>
 	var form = document.getElementById("assinatura");
-    
 
     document.getElementById("sig-submitBtn").addEventListener("click", function () {
 
