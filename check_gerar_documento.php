@@ -1,5 +1,4 @@
 <?php 
-
   //CABECALHO
   include 'cabecalho.php';
 

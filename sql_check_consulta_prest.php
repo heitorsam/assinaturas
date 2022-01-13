@@ -145,9 +145,9 @@
     @$row_checagem_prest = oci_fetch_array($result_checagem_prest);
 
     //SQL BUSCA ASSINATURA
-    $cons_assinatura_prest = "SELECT ASSINATURA_TISS, ASSINATURA
+    echo $cons_assinatura_prest = "SELECT ASSINATURA_TISS
                                 FROM dbamv.prestador_assinatura
-                                WHERE CD_PRESTADOR = $cd_prest ";
+                                WHERE CD_PRESTADOR = '$cd_prest'";
 
     @$result_assinatura_prest = oci_parse($conn_ora, @$cons_assinatura_prest);
     @oci_execute(@$result_assinatura_prest);

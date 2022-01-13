@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 //Conslta SQL
@@ -10,7 +9,6 @@ $nm_documneto = 'pdf_assinatura_'.$cd_atd.'.pdf';
 //CONTADOR
 
 $count_break = 0;
-
 
 /* Preparação do documento final
  */
@@ -334,6 +332,7 @@ $dompdf->set_paper("A4", "landscape");
 $dompdf->render();
 
 $image = $dompdf->output();
+
 ?>
 
 
@@ -383,7 +382,7 @@ if($var_qtd_env >=1){
     )
     VALUES 
     (SEQ_CD_DOC_ASSINATURA.nextval, 1,
-    '$cd_atd', '$cd_prest', '$data_check',
+    '$cd_atd', '$cd_prest', TO_DATE('$data_check','DD/MM/YYYY'),
     '$nm_documneto', empty_blob(),
     '$var_cd_usuario', SYSDATE
     ) RETURNING ANEXO_DOC_ASSINATURA INTO :image";
@@ -398,7 +397,6 @@ if($var_qtd_env >=1){
 
     $linhas_afetadas = oci_num_rows($insere_dados);
     //echo "</br>Linhas Afetadas: " . $linhas_afetadas;
-
 
     if(!$blob->save($image)) {
         oci_rollback($conn_ora);
