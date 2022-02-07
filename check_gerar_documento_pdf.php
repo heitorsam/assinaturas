@@ -18,7 +18,6 @@ $documentTemplate = "<!doctype html>
         <!-- Required meta tags --> 
         <meta charset='utf-8'> 
         <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'> 
-    
     </head>
     <style>
 
@@ -27,8 +26,8 @@ $documentTemplate = "<!doctype html>
     height: 25px;
     font-size: 7px;
     background-color: #ffffff;
-    margin: 1 1 1 1;
-    border: solid 1px black !important;
+    margin: 1 1 1 1 ;
+    border-bottom: solid 1px black;
 
 }
 
@@ -41,7 +40,6 @@ $documentTemplate = "<!doctype html>
     clear:both;
 }
 
-
 .row{
 
     width: 100% !important;
@@ -50,9 +48,10 @@ $documentTemplate = "<!doctype html>
 }
 .col-hss-12{
 
-    width: 99% !important;
-    height: 20px;
+    width: 100% !important;
+    height: 21px;
     float: left;
+    
 }
 .col-hss-11{
 
@@ -104,7 +103,7 @@ $documentTemplate = "<!doctype html>
 }
 .col-hss-3{
 
-    width: 24% !important;
+    width: 22% !important;
     height: 20px;
     float: left;
 }
@@ -119,17 +118,16 @@ $documentTemplate = "<!doctype html>
 
 .col-hss-1{
 
-    width: 7.33% !important;
+    width: 4.33% !important;
     height: 20px;
     float: left;
 }
 
 h2{
-    font-size: 10px;
-    line-height: 12px;
-    margin-top: 0px;
-
-    
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9px;
+    line-height: 15px;
+    margin-top: 1px;
 }
 
 h99{
@@ -145,127 +143,141 @@ h99{
     font-weight: bold;
 }
 
+
+
+.th{
+    font-family: Arial, Helvetica, sans-serif;
+    text-align:center;
+    line-height: 20px !important;
+}
+
 </style> 
     <body>
         <form style='height: 40px;'>
             <div class='container'>
                 <div class='row'>
-                    <div class='col-hss-12' style='color: black; border: none !important; background-color: #6498c8; text-align: center;'>
-                    <h2 Style='font-size: 18px !important; line-height: 1 !important;'>Checagem por Prestador</h2>
+                    <div class='col-hss-12' style='color: white; border: none !important; background-color: #6498c8; text-align: center;'>
+                    <h2 Style='font-size: 18px !important; line-height: 20px !important;'>Checagem por Prestador</h2>
                     </div>
                 </div>
                 <div class='row'>
-                    <div class='col-hss-4' style='border: none !important; line-height: 23 !important;'>
-                        <img src='https://www.santacasasjc.com.br/wp-content/uploads/2018/06/logotipo-santa-casa-sjc-210x75.png' alt='Logo Santa Casa' width='150' height='75' >
+                    <div class='col-hss-4' style='border: none !important; line-height: 23 !important; padding-top:10px;'>
+                        <img src='https://www.santacasasjc.com.br/wp-content/uploads/2018/06/logotipo-santa-casa-sjc-210x75.png' alt='Logo Santa Casa' width='150' height='70' >
                     </div>
                     <div class='col-hss-4' style='border: none !important; text-align: center;'>
                         <h1>Santa Casa de Misericórdia de São José dos Campos</h1>
                         <h2>Rua Dolzani Ricardo, 620 - Fone: (012) 3876-1999<br>CEP 12210-110 - São José dos Campos - SP<br>CNPJ 45.186.053/0001-87</h2>
                     </div>
-                    <div class='col-hss-4' style='border: none !important;  text-align: right; line-height: 23 !important;'>
-                        <img src='https://www.santacasasjc.com.br/wp-content/uploads/2018/06/logotipo-santa-casa-sjc-210x75.png' alt='Logo Santa Casa' width='150' height='75'>
+                    <div class='col-hss-4' style='border: none !important;  text-align: right; line-height: 23 !important; padding-top:10px'>
+                        <img src='https://www.santacasasjc.com.br/wp-content/uploads/2018/06/logotipo-santa-casa-sjc-210x75.png' alt='Logo Santa Casa' width='150' height='70'>
                     </div>
                 </div>
             </div>
         </form>
         <br>
+        <br> 
         <br>
         <br>
-        <br>
-        <form style='height: 40px;' >
+    
+        <form style='height: 20px;' >
             <div class='container'>
                 <div class='row'>
-                    <div class='col-hss-12' style='color: black; border: none !important; background-color: #6498c8; text-align: center;'>
-                    <h2 Style='font-size: 18px !important;  line-height: 1 !important;'>Relatório de Checagem</h2>
+                    <div class='col-hss-12' style='color: white; border: none !important; background-color: #6498c8; text-align: center;'>
+                    <h2 Style='font-size: 18px !important;  line-height: 20px !important;'>Relatório de Checagem</h2>
                     </div>
                 </div>
             </div>
         </form>
-        <form style='height: 40px; border: solid 1px black !important;'>
+
+        <br>
+
+        <form style='height: 20px; border: solid 1px black !important;'>
             <div class='container'>
                 <div class='row'>
-                    <div class='col-hss-4' style='height: 30px;  border: none !important;'>
-                       <h2 style='line-height: 2 !important;'>PRESTADOR: ".@$row_checagem_prest['CD_PRESTADOR']."</h2>
+                    <div class='col-hss-4' style='height: 10px;  border: none !important;'>
+                       <h2>PRESTADOR: ".@$row_checagem_prest['CD_PRESTADOR']."</h2>
                     </div>
-                    <div class='col-hss-4' style='height: 30px;  border: none !important;'>
-                    <h2 style='line-height: 2 !important;'>".@$row_checagem_prest['NM_USUARIO']."</h2>
+                    <div class='col-hss-4' style='height: 10px;  border: none !important;'>
+                    <h2>".@$row_checagem_prest['NM_USUARIO']."</h2>
                  </div>
-                 <div class='col-hss-4' style='height: 30px;  border: none !important;'>
-                 <h2 style='line-height: 2 !important;'>CONSELHO: ".@$row_checagem_prest['DS_CODIGO_CONSELHO']."</h2>
+                 <div class='col-hss-4' style='height: 10px;  border: none !important;'>
+                 <h2>CONSELHO: ".@$row_checagem_prest['DS_CODIGO_CONSELHO']."</h2>
               </div>
                 </div>
             </div>
         </form>
+
         <br>
-        <form style='height: 40px; border: solid 1px black !important;'>
+    
+        <form style='height: 33px; border: solid 1px black !important;'>
             <div class='container'>
                 <div class='row'>
-                    <div class='col-hss-4' style='height: 30px;  border: none !important;'>
-                       <h2 style='line-height: 2 !important;'>ATENDIMENTO: ".@$row_checagem_prest['CD_ATENDIMENTO']."</h2>
+                    <div class='col-hss-4' style='height: 10px;  border: none !important;'>
+                       <h2>ATENDIMENTO: ".@$row_checagem_prest['CD_ATENDIMENTO']."</h2>
                     </div>
-                    <div class='col-hss-4' style='height: 30px;  border: none !important;'>
-                        <h2 style='line-height: 2 !important;'>SETOR: ".@$row_checagem_prest['NM_SETOR']."</h2>
+                    <div class='col-hss-4' style='height: 10px;  border: none !important;'>
+                        <h2>SETOR: ".@$row_checagem_prest['NM_SETOR']."</h2>
                     </div>
-                    <div class='col-hss-4' style='height: 30px;  border: none !important;'>
-                        <h2 style='line-height: 2 !important;'>LEITO: ".@$row_checagem_prest['DS_LEITO']."</h2>
+                    <div class='col-hss-4' style='height: 10px;  border: none !important;'>
+                        <h2>LEITO: ".@$row_checagem_prest['DS_LEITO']."</h2>
                     </div>
                 </div>
+
+                <div class='row'>
+                    <div class='col-hss-4' style='height: 10px;  border: none !important;'>
+                    <h2 >PACIENTE: ".@$row_checagem_prest['NM_PACIENTE']."</h2>
+                    </div>
+                    <div class='col-hss-2' style='height: 10px;  border: none !important;'>
+                        <h2>IDADE: ".@$row_checagem_prest['DS_IDADE']."</h2>
+                    </div>
+                    <div class='col-hss-2' style='height: 10px;  border: none !important;'>
+                        <h2>NASCIMENTO: ".@$row_checagem_prest['DT_NASCIMENTO']."</h2>
+                    </div> 
+                    <div class='col-hss-2' style='height: 10px;  border: none !important;'>
+                        <h2>CONVENIO: ".@$row_checagem_prest['NM_CONVENIO']."</h2>
+                    </div> 
+                </div>
+   
             </div>
         </form>
-        <form style='height: 40px; border: solid 1px black !important;'>
-        <div class='container'>
-            <div class='row'>
-                <div class='col-hss-4' style='height: 30px;  border: none !important;'>
-                   <h2 style='line-height: 2 !important;'>PACIENTE: ".@$row_checagem_prest['NM_PACIENTE']."</h2>
-                </div>
-                <div class='col-hss-2' style='height: 30px;  border: none !important;'>
-                    <h2 style='line-height: 2 !important;'>IDADE: ".@$row_checagem_prest['DS_IDADE']."</h2>
-                </div>
-                <div class='col-hss-2' style='height: 30px;  border: none !important;'>
-                    <h2 style='line-height: 2 !important;'>NASCIMENTO: ".@$row_checagem_prest['DT_NASCIMENTO']."</h2>
-                </div> 
-                <div class='col-hss-2' style='height: 30px;  border: none !important;'>
-                    <h2 style='line-height: 2 !important;'>CONVENIO: ".@$row_checagem_prest['NM_CONVENIO']."</h2>
-                </div> 
-            </div>
-        </div>
-    </form>
-    <br>
 
-    <table class='table table-fixed' style='margin-left: auto;
-    margin-right: auto; width:100%' border='1' cellspacing='0' cellpadding='0'>
-        <tr>
-            <!--Cabeçalho-->
-            <th class='align-middle text-center' style='text-align: center !important; font-size: 0.750rem !important; background-color: #3185c1; color: #ffffff'><span>PERIODO </span></th>
-            <th class='align-middle text-center' style='text-align: center !important; font-size: 0.750rem !important; background-color: #3185c1; color: #ffffff'><span>ESQUEMA </span></th>
-            <th class='align-middle text-center' style='text-align: center !important; font-size: 0.750rem !important; background-color: #3185c1; color: #ffffff'><span>ITEM </span></th>
-            <th class='align-middle text-center' style='text-align: center !important; font-size: 0.750rem !important; background-color: #3185c1; color: #ffffff'><span>NÃO PADRONIZADO  </span></th>
-            <th class='align-middle text-center' style='text-align: center !important; font-size: 0.750rem !important; background-color: #3185c1; color: #ffffff'><span>DH CHECAGEM </span></th>
-            <th class='align-middle text-center' style='text-align: center !important; font-size: 0.750rem !important; background-color: #3185c1; color: #ffffff'><span>APLICAÇÃO</span></th>
-            <th class='align-middle text-center' style='text-align: center !important; font-size: 0.750rem !important; background-color: #3185c1; color: #ffffff'><span>FREQUÊNCIA </span></th>
-            <th class='align-middle text-center' style='text-align: center !important; font-size: 0.750rem !important; background-color: #3185c1; color: #ffffff'><span>UNIDADE </span></th>
-            <th class='align-middle text-center' style='text-align: center !important; font-size: 0.750rem !important; background-color: #3185c1; color: #ffffff'><span>QTD </span></th>
-        </tr>";
+        <br>
+    
+    <div class='row th'>
+            <div class='col-hss-1' style='margin: 0px; background-color: #deebf6; '>PERIODO</div>
+            <div class='col-hss-3' style='margin: 0px; background-color: #deebf6; '>ESQUEMA</div>
+            <div class='col-hss-3' style='margin: 0px; background-color: #deebf6; '>ITEM</div>
+            <div class='col-hss-2' style='margin: 0px; background-color: #deebf6; '>NÃO PADRONIZADO</div>  
+            <div class='col-hss-2' style='margin: 0px; background-color: #deebf6; '>DH CHECAGEM</div>
+            <div class='col-hss-1' style='margin: 0px; background-color: #deebf6; '>APLICAÇÃO</div>  
+            <div class='col-hss-1' style='margin: 0px; background-color: #deebf6; '>FREQUÊNCIA</div>
+            <div class='col-hss-1' style='margin: 0px; background-color: #deebf6; '>UNIDADE</div>  
+            <div class='col-hss-1' style='margin: 0px; background-color: #deebf6; '>QTD</div>    
+    </div>";
 
         @oci_execute(@$result_checagem_prest);
             
         while($row_checagem_prest = oci_fetch_array($result_checagem_prest)){
             $documentTemplate.="
-            <tr>
-                <td class='align-middle text-center' style='font-size: 0.750rem !important; text-align: center;'><div><span>" . $row_checagem_prest['TP_PERIODO'] . "</span></div></td>
-                <td class='align-middle text-center' style='font-size: 0.750rem !important; text-align: center;'><div><span>" . $row_checagem_prest['DS_TIP_ESQ'] . "</span></div></td>
-                <td class='align-middle text-center' style='font-size: 0.750rem !important; text-align: center;'><div><span>" . $row_checagem_prest['DS_TIP_PRESC'] . "</span></div></td>
-                <td class='align-middle text-center' style='font-size: 0.750rem !important; text-align: center;'><div><span>" . $row_checagem_prest['DS_NPADRONIZADO'] . "</span></div></td>
-                <td class='align-middle text-center' style='font-size: 0.750rem !important; text-align: center;'><div><span>" . $row_checagem_prest['DH_CHECAGEM'] . "</span></div></td>
-                <td class='align-middle text-center' style='font-size: 0.750rem !important; text-align: center;'><div><span>" . $row_checagem_prest['CD_FOR_APL'] . "</span></div></td>
-                <td class='align-middle text-center' style='font-size: 0.750rem !important; text-align: center;'><div><span>" . $row_checagem_prest['DS_TIP_FRE_RESUMIDA'] . "</span></div></td>
-                <td class='align-middle text-center' style='font-size: 0.750rem !important; text-align: center;'><div><span>" . $row_checagem_prest['DS_UNIDADE'] . "</span></div></td>
-                <td class='align-middle text-center' style='font-size: 0.750rem !important; text-align: center;'><div><span>" . $row_checagem_prest['QTD_CHECAGEM'] . "</span></div></td>
-            </tr>
+
+            <div class='row th '>
+                <div></div>
+                <div class='col-hss-1' style='margin: 0px;'><span>" . $row_checagem_prest['TP_PERIODO'] . "</span></div>
+                <div class='col-hss-3' style='margin: 0px;'><span>" . $row_checagem_prest['DS_TIP_ESQ'] . "</span></div>
+                <div class='col-hss-3' style='margin: 0px; text-align: left;'><span>" . $row_checagem_prest['DS_TIP_PRESC'] . "</span></div>
+                <div class='col-hss-2' style='margin: 0px;'><span>" . $row_checagem_prest['DS_NPADRONIZADO'] . "</span></div>
+                <div class='col-hss-2' style='margin: 0px;'><span>" . $row_checagem_prest['DH_CHECAGEM'] . "</span></div>  
+                <div class='col-hss-1' style='margin: 0px;'><span>" . $row_checagem_prest['CD_FOR_APL'] . "</span></div>
+                <div class='col-hss-1' style='margin: 0px;'><span>" . $row_checagem_prest['DS_TIP_FRE_RESUMIDA'] . "</span></div>
+                <div class='col-hss-1' style='margin: 0px;'><span>" . $row_checagem_prest['DS_UNIDADE'] . "</span></div>
+                <div class='col-hss-1' style='margin: 0px;'><span>" . $row_checagem_prest['QTD_CHECAGEM'] . "</span></div>
+              
+            </div>  
             ";
+           
         };
-       
-       
+        
+
         @oci_execute(@$result_checagem_prest);
         @$row_checagem_prest = oci_fetch_array($result_checagem_prest);
 
@@ -274,10 +286,9 @@ h99{
         $ultimoNome = array_pop($partes);
 
         $documentTemplate.= "
-        </table>
         <br>
         <br>
-        <br>
+   
         <form style='height: 120px; border: solid 1px black !important;'>
             <div class='container'>
                 <div class='row'>
@@ -289,23 +300,20 @@ h99{
                         <br>".@$row_checagem_prest['NM_TIP_PRESTA']."
                         <br>COREN-SP ".@$row_checagem_prest['DS_CODIGO_CONSELHO']."
                     </h99>
-
                 </div>
                 </div>
                 <div class='row' style='text-align: left; padding-right: 20%;'>
                     <div class='col-hss-3' style='border: none !important; border-top: solid 1px !important; float:right; margin-right: 100px;'>
                     <h2 style='line-height: 10px !important; font-size: 8px; !important;'>".@$row_checagem_prest['DS_CODIGO_CONSELHO']." 
                     ".@$row_checagem_prest['NM_USUARIO']."</h2> 
-                    </div>                   
-                                  
+                    </div>                                  
                 </div>
             </div>
         </form>
-
    </body> 
 </html>";
 
-$documentTemplate;
+ echo $documentTemplate;
 
 
 // inclusão da biblioteca
