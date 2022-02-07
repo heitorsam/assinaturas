@@ -747,7 +747,6 @@ th:first-child, td:first-child
 }
 
 /*CARIMBO*/
-
 h99{
     font-family: Andale Mono, monospace;
     display: inline-block;

@@ -28,43 +28,71 @@
 
 	}
 
-    ////////////
-    //PACIENTE//
-    ///////////
-    $cons_atend="SELECT ate.CD_ATENDIMENTO, pac.NM_PACIENTE, ate.DT_ATENDIMENTO, con.NM_CONVENIO
-                FROM ATENDIME ate
-                INNER JOIN paciente  pac ON pac.cd_paciente = ate.cd_paciente
-                INNER JOIN CONVENIO  con ON con.cd_convenio = ate.cd_convenio
-                WHERE ate.cd_atendimento = '$var_cd_atendimento'";
 
-    $result_atendimento = oci_parse($conn_ora, $cons_atend);
-    @oci_execute($result_atendimento);
-    $row_aten = oci_fetch_array($result_atendimento);
-    if(!isset( $row_aten['CD_ATENDIMENTO']) && isset($_POST['cd_atendimento'])){
-        $_SESSION['msgerro'] = "Número de atendimento não encontrado."; 
-    }
-    
-    @$var_cd_atendimento = $row_aten['CD_ATENDIMENTO'];
-    @$var_nm_paciente = $row_aten['NM_PACIENTE'];
-    @$var_dt_aten = $row_aten['DT_ATENDIMENTO'];
-    @$var_nm_conv = $row_aten['NM_CONVENIO'];
+	//VALIDANDO SE A GUIA TISS FOI GERADA NO SISTEMA
+
+	if(isset($_POST['cd_atendimento'])){
+		//CONSULTA ID
+		$cons_id = "SELECT LPAD(ID,15,0) as ID
+					FROM dbamv.tiss_itguia
+					WHERE ID_PAI in( SELECT ID
+									FROM dbamv.TISS_GUIA tg
+									WHERE tg.CD_ATENDIMENTO = $var_cd_atendimento)";
+
+		$result_cons_id = oci_parse($conn_ora, $cons_id);
+		@oci_execute($result_cons_id);
+		@$id_guia = oci_fetch_array($result_cons_id);
+
+		@$id_guia_00 = $id_guia['ID'];
+
+		if(!isset($id_guia_00)){
+
+			$_SESSION['msgerro'] = "Guia TISS não foi gerada no sistema!"; 
+			header('Location: gerar_documento.php');
+			return 0;
+
+		}
+
+	}
+
+			////////////
+			//PACIENTE//
+			///////////
+			$cons_atend="SELECT ate.CD_ATENDIMENTO, pac.NM_PACIENTE, ate.DT_ATENDIMENTO, con.NM_CONVENIO
+						FROM ATENDIME ate
+						INNER JOIN paciente  pac ON pac.cd_paciente = ate.cd_paciente
+						INNER JOIN CONVENIO  con ON con.cd_convenio = ate.cd_convenio
+						WHERE ate.cd_atendimento = '$var_cd_atendimento'";
+
+			$result_atendimento = oci_parse($conn_ora, $cons_atend);
+			@oci_execute($result_atendimento);
+			$row_aten = oci_fetch_array($result_atendimento);
+			if(!isset( $row_aten['CD_ATENDIMENTO']) && isset($_POST['cd_atendimento'])){
+				$_SESSION['msgerro'] = "Número de atendimento não encontrado."; 
+			}
+			
+			@$var_cd_atendimento = $row_aten['CD_ATENDIMENTO'];
+			@$var_nm_paciente = $row_aten['NM_PACIENTE'];
+			@$var_dt_aten = $row_aten['DT_ATENDIMENTO'];
+			@$var_nm_conv = $row_aten['NM_CONVENIO'];
 
 
-    ///////////////////////////
-    //Verifica se existe pdf///
-    //para aquele atendimento//
-    ///////////////////////////
-    if(isset($_POST['cd_atendimento']) OR isset($_SESSION['atdconsulta'])){
-    $cons_pdf ="SELECT *
-    FROM assinaturas.teste_assinaturas ass
-    WHERE ass.cd_atendimento = $var_cd_atendimento
-    ";
+			///////////////////////////
+			//Verifica se existe pdf///
+			//para aquele atendimento//
+			///////////////////////////
+			if(isset($_POST['cd_atendimento']) OR isset($_SESSION['atdconsulta'])){
+			$cons_pdf ="SELECT *
+			FROM assinaturas.teste_assinaturas ass
+			WHERE ass.cd_atendimento = $var_cd_atendimento
+			";
 
-    $result_pdf_exis = oci_parse($conn_ora, $cons_pdf);
-    @oci_execute($result_pdf_exis);
-    @$row_pdf_exis = oci_fetch_array($result_pdf_exis);
-    @$var_pdf_existe = $row_pdf_exis['BLOB_ANEXO'];
-    }
+			$result_pdf_exis = oci_parse($conn_ora, $cons_pdf);
+			@oci_execute($result_pdf_exis);
+			@$row_pdf_exis = oci_fetch_array($result_pdf_exis);
+			@$var_pdf_existe = $row_pdf_exis['BLOB_ANEXO'];
+			}
+
 ?>
 
 <!DOCTYPE HTML>
@@ -110,7 +138,7 @@
 
 		<!---RESULTADO DA PESQUISA-->
 
-		<?php if(strlen($var_nm_paciente) > 1){ ?>
+		<?php if(strlen(@$var_nm_paciente) > 1){ ?>
 		<form method="post" autocomplete="off" id="assinatura" action="gerar_documento_pdf.php">
 		<div class="row">
 		<div class="col-md-3" id="div_sn_exame_mv">

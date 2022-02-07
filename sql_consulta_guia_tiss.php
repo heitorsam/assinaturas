@@ -5,10 +5,8 @@
     @$var_cd_atendimento = $_POST['cd_atendimento'];
     
 
-
-    //Consulta ID
-
-    $cons_id = "SELECT  LPAD(ID,15,0) as ID
+    //CONSULTA ID
+    $cons_id = "SELECT LPAD(ID,15,0) as ID
                 FROM dbamv.tiss_itguia
                 WHERE ID_PAI in( SELECT ID
                                 FROM dbamv.TISS_GUIA tg
@@ -19,7 +17,6 @@
     @$id_guia = oci_fetch_array($result_cons_id);
 
     @$id_guia_00 = $id_guia['ID'];
-
 
     //Consulta maior
     $cons_guia_tiss="SELECT  ROWNUM  FOLHA
@@ -71,6 +68,7 @@
     , TISS_GUIA.VL_TOT_GERAL                                                CP_65
     , TISS_GUIA.DS_OBSERVACAO                                               CP_66
     , CONVENIO.NM_CONVENIO                                                  NM_CONVENIO
+    , CONVENIO.CD_CONVENIO                                                  CD_CONVENIO
 FROM DBAMV.TISS_GUIA
    , DBAMV.TISS_ITGUIA
    , DBAMV.CONVENIO
@@ -89,11 +87,11 @@ ORDER BY ID_GUIA
     @$row_cons_guia_tiss = oci_fetch_array($result_cons_guia_tiss);
 
     //PEGAR LOGO DO CONVÊNIO
-    @$nm_convenio = $row_cons_guia_tiss['NM_CONVENIO'];
+    @$cd_convenio = $row_cons_guia_tiss['CD_CONVENIO'];
 
     $cons_logo_con="SELECT con.logotipo
                     FROM dbamv.convenio con
-                    WHERE con.nm_convenio LIKE '$nm_convenio'";
+                    WHERE con.cd_convenio = '$cd_convenio'";
 
     @$result_cons_logo_con = oci_parse($conn_ora, $cons_logo_con);
     @oci_execute($result_cons_logo_con);
