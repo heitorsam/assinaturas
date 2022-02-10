@@ -315,7 +315,7 @@ h99{
 
  echo $documentTemplate;
 
-
+/*
 // inclusão da biblioteca
 include 'dompdf/autoload.inc.php';
 
@@ -430,6 +430,6 @@ if($var_qtd_env >=1){
     //DECLARANDO VARIAVEIS DO ARQUIVO PARA IMPORTACAO PARA O BANCO
     //$image = file_get_contents($dompdf);
 
-    }
+    }*/
 
 ?>

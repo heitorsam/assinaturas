@@ -2,17 +2,18 @@
 
 session_start();	
 
-@$var_cd_atendimento = $_POST['cd_atendimento'];
-@$var_nm_paciente = $_POST['nm_paciente'];
-@$dt_aten = $_POST['dt_aten'];
-@$nm_conv = $_POST['nm_conv'];
-$img = $_POST['escondidinho'];
+@$var_cd_atendimento = $_REQUEST['cd_atendimento'];
+@$var_nm_paciente = $_REQUEST['nm_paciente'];
+@$dt_aten = $_REQUEST['dt_aten'];
+@$nm_conv = $_REQUEST['nm_conv'];
 
 $nm_documneto = 'pdf_assinatura_'.$var_cd_atendimento.'.pdf';
 
-@$_SESSION['atdconsulta'] = $_POST['cd_atendimento'];
+@$_SESSION['atdconsulta'] = $_REQUEST['cd_atendimento'];
 
 $var_user_logado = $_SESSION['usuarioNome'];
+
+$count = 1;
 
 // DEFINE O FUSO HORARIO COMO O HORARIO DE BRASILIA
 date_default_timezone_set('America/Sao_Paulo');
@@ -138,14 +139,12 @@ $documentTemplate = "<!doctype html>
 
 h2{
     font-size: 10px;
-    line-height: 12px;
+    line-height: 4px;
     float: center;
     margin-top: 0px;
 
     
 }
-
-
 
 </style> 
     <body>
@@ -153,21 +152,18 @@ h2{
             <div class='container'>
                 <div class='row'>
                     <div class='col-hss-4' style='border: none !important;'>
-                        <img src='data:application/pdf;base64, ".base64_encode(@$image)." type='application/pdf' style='width: 150; height: 30;'>
                     </div>
                     <div class='col-hss-4' style='border: none !important; text-align: center;'>
-                        <h2>GUIA DE SERVIÇO PROFISSIONAL / SERVIÇO AUXILIAR DE <BR> DIAGNÓSTICO E TERAPIA - SP/SADT</h2>
+                        <h2>GUIA DE SERVIÇO PROFISSIONAL / SERVIÇO AUXILIAR DE <BR><BR> DIAGNÓSTICO E TERAPIA - SP/SADT</h2>
                     </div>
                     <div class='col-hss-4' style='border: none !important; padding-left: 50px;'>
-                        <h2>2- N° Guia no Prestador: ".@$row_cons_guia_tiss['CP_02']."</h2>
+                        <h2>2- N° Guia no Prestador: ".@$nm_guia."</h2>
                     </div>
                 </div>
             </div>
         </form>
         </br>
-        </br>
-        </br>
-        <form style=' border: solid 1px black; height: 650px;'>
+        <form >
             <!--Primeiras infos -->
             <div class='container'>
                 <div class='row'>
@@ -176,7 +172,7 @@ h2{
                         <br>
                         <h2>".@$row_cons_guia_tiss['CP_01']."</h2>
                     </div>
-                    <div class='col-hss-1'>
+                    <div class='col-hss-3'>
                         3-Número guia Principal
                         <br>
                         <h2>".@$row_cons_guia_tiss['CP_03']."</h2>
@@ -386,7 +382,7 @@ h2{
                 <div class='row' style='padding-left: 05px;'>
                     <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
                         36- Data
-                        <br>
+                  
                         <h2>".@$row_cons_guia_tiss_34_45['CP_34']."</h2>
                     </div>
                     <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
@@ -405,19 +401,19 @@ h2{
                         <h2>".@$row_cons_guia_tiss_34_45['CP_37']."</h2>
                     </div>
                     <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
-                        35-Procedimento
+                        40-Procedimento
                         <br>
                         <h2>".@$row_cons_guia_tiss_34_45['CP_38']."</h2>
                     </div>
                     <div class='col-hss-2' style='height: 35px; border: none !important; margin: 0px !important;''>
-                        41-Descrição
+                        41-Procedimento
                         <br>
                         <h2>".@$row_cons_guia_tiss_34_45['CP_39']."</h2>
                     </div>
                     <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
                         42-Qtde
                         <br>
-                        <h2>".@$row_cons_guia_tiss_34_45['CP_35']."</h2>
+                        <h2>".@$row_cons_guia_tiss_34_45['CP_40']."</h2>
                     </div>
                     <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
                         43-Via
@@ -452,50 +448,76 @@ h2{
                     <div class='col-hss-12 faixa-cinza'>
                         Identificação do(s) Profissional(is) Executante(s)
                     </div>
-                </div>
-                <div class='row' style='padding-left: 05px;'>
-                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
-                        48-Seq.Ref
+                </div>";
+                while($row_cons_guia_tiss_47_53 = oci_fetch_array($result_cons_guia_tiss_47_53)){
+$documentTemplate .="<div class='row' style='padding-left: 05px;'>
+                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>";
+                    if($count > 1){ 
+                        $documentTemplate .=" <h2>".@$row_cons_guia_tiss_47_53['REGISTRO']."</h2>";
+                    }
+                    else{
+                        $documentTemplate .="48-Seq.Ref<br><h2>".@$row_cons_guia_tiss_47_53['REGISTRO']."</h2>";
+                    }
+$documentTemplate .=" </div>
+                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>";
+                    if($count > 1){
+                        $documentTemplate .="  <h2>".@$row_cons_guia_tiss_47_53['CP_47']."</h2>";}
+                    else{
+                        $documentTemplate .="  49- Grau Part.
+                                                <br>
+                                                <h2>".@$row_cons_guia_tiss_47_53['CP_47']."</h2>";}
+$documentTemplate .=" </div>
+                    <div class='col-hss-2' style='height: 35px; border: none !important; margin: 0px !important;''>";
+                    if($count > 1){
+                        $documentTemplate .="<h2>".@$row_cons_guia_tiss_47_53['CP_48']."</h2>";}
+                    else{
+                        $documentTemplate .="50- Códio na Operadore/CPF
+                                            <br>
+                                            <h2>".@$row_cons_guia_tiss_47_53['CP_48']."</h2>";}
+$documentTemplate .="</div>
+                    <div class='col-hss-3' style='height: 35px; border: none !important; margin: 0px !important;''>";
+                    if($count > 1){
+                        $documentTemplate .="<h2>".@$row_cons_guia_tiss_47_53['CP_49']."</h2>";}
+                        else{
+                            $documentTemplate .="51-Nome do Profissional
+                                                <br>
+                                                <h2>".@$row_cons_guia_tiss_47_53['CP_49']."</h2>";}
+$documentTemplate .=" </div>
+                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>";
+                    if($count > 1){
+                        $documentTemplate .="<h2>".@$row_cons_guia_tiss_47_53['CP_50']."</h2>";}
+                    else{
+                            $documentTemplate .="52- Conselho Profissional
+                                                <br>
+                                                <h2>".@$row_cons_guia_tiss_47_53['CP_50']."</h2>";}
+$documentTemplate .="</div>
+                    <div class='col-hss-2' style='height: 35px; border: none !important; margin: 0px !important;''>";
+                    if($count > 1){
+                        $documentTemplate .="<h2>".@$row_cons_guia_tiss_47_53['CP_51']."</h2>";}
+                    else{
+                        $documentTemplate .="53- Número no Conselho
                         <br>
-                        <h2>".@$row_cons_guia_tiss_47_53['REGISTRO']."</h2>
-                    </div>
-                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
-                        49- Grau Part.
-                        <br>
-                        <h2>".@$row_cons_guia_tiss_47_53['CP_47']."</h2>
-                    </div>
-                    <div class='col-hss-2' style='height: 35px; border: none !important; margin: 0px !important;''>
-                        50- Códio na Operadore/CPF
-                        <br>
-                        <h2>".@$row_cons_guia_tiss_47_53['CP_48']."</h2>
-                    </div>
-                    <div class='col-hss-3' style='height: 35px; border: none !important; margin: 0px !important;''>
-                        51-Nome do Profissional
-                        <br>
-                        <h2>".@$row_cons_guia_tiss_47_53['CP_49']."</h2>
-                    </div>
-                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
-                        52- Conselho Profissional
-                        <br>
-                        <h2>".@$row_cons_guia_tiss_47_53['CP_50']."</h2>
-                    </div>
-                    <div class='col-hss-2' style='height: 35px; border: none !important; margin: 0px !important;''>
-                        53- Número no Conselho
-                        <br>
-                        <h2>".@$row_cons_guia_tiss_47_53['CP_51']."</h2>
-                    </div>
-                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
-                        54- UF
-                        <br>
-                        <h2>".@$row_cons_guia_tiss_47_53['CP_52']."</h2>
-                    </div>
-                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>
-                        55- Código CBO
-                        <br>
-                        <h2>".@$row_cons_guia_tiss_47_53['CP_53']."</h2>
-                    </div>
-                </div>
-                <div class='row'>
+                        <h2>".@$row_cons_guia_tiss_47_53['CP_51']."</h2>";}
+$documentTemplate .=" </div>
+                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>";
+                    if($count > 1){
+                        $documentTemplate .="<h2>".@$row_cons_guia_tiss_47_53['CP_52']."</h2>";}
+                    else{
+                            $documentTemplate .="54- UF
+                                                <br>
+                                                <h2>".@$row_cons_guia_tiss_47_53['CP_52']."</h2>";}
+$documentTemplate .="</div>
+                    <div class='col-hss-1' style='height: 35px; border: none !important; margin: 0px !important;''>";
+                    if($count > 1){
+                        $documentTemplate .="<h2>".@$row_cons_guia_tiss_47_53['CP_53']."</h2>";}
+                        else{
+                            $documentTemplate .="55- Código CBO
+                                                <br>
+                                                <h2>".@$row_cons_guia_tiss_47_53['CP_53']."</h2>";}
+$documentTemplate .="</div>
+                </div>";
+            $count++;}
+$documentTemplate .= "<div class='row'>
                     <div class='col-hss-12' >
                         56-Data de Realização de procedimento em série
                     </div>
@@ -558,8 +580,7 @@ h2{
                     </div>
                     <div class='col-hss-4' style='height: 30px;'>
                         67-Assinatura do Beneficiário ou Responsável
-                        <img src='$img'
-                        width='100%' height='100%'  style:'float: right;'>
+                        
                     </div>
                     <div class='col-hss-3' style='height: 30px;'>
                         68-Assinatura do Contratado
@@ -581,8 +602,8 @@ h2{
                     <div class='col-hss-2' style='border: none !important; padding-left: 35px; padding-top: 5px;'>
                         <h2>Atendimento: ".$var_cd_atendimento."</h2>
                     </div>
-                    <div class='col-hss-2' style='border: none !important; padding-left: 35px; padding-top: 5px;'>
-                        <h2>Atendimento: ".$nm_conv."</h2>
+                    <div class='col-hss-3' style='border: none !important; padding-left: 35px; padding-top: 5px;'>
+                        <h2>Convenio: ".$nm_conv."</h2>
                     </div>
                 </div>
             </div>
@@ -590,103 +611,8 @@ h2{
     </body> 
 </html>";
 
-echo $documentTemplate;
-
-/*
-// inclusão da biblioteca
-include 'dompdf/autoload.inc.php';
-
-
-// alguns ajustes devido a variações de servidor para servidor
-
-
-use Dompdf\Dompdf;
-use Dompdf\Options;
-
-// abertura de novo documento
-$dompdf = new DOMPDF();
-$dompdf->set_option('isRemoteEnabled', TRUE);
-
-// carregar o HTML
-$dompdf->load_html($documentTemplate);
-
-// dados do documento destino
-$dompdf->set_paper("A4", "landscape");
-
-// gerar documento destino
-$dompdf->render();
-
-$image = $dompdf->output();
-?>
-
-
-<?php
-// enviar documento destino para download
-//$dompdf->stream("dompdf_out.pdf");
-
-
-    ///////////////////////
-    // Inserindo no banco//
-    ///////////////////////
-
-include_once("conexao.php");
-
-//DECLARANDO VARIAVEIS DO ARQUIVO PARA IMPORTACAO PARA O BANCO
-//$image = file_get_contents($dompdf);
+echo  json_encode(array($documentTemplate)); 
 
 
 
-$consulta_insert = 
-"INSERT INTO teste_assinaturas
-(CD_ATENDIMENTO, NM_PACIENTE, DT_ATENDIMENTO, NM_CONVENIO, NOME_ANEXO, BLOB_ANEXO)
-VALUES 
-('$var_cd_atendimento', '$var_nm_paciente', '$dt_aten',
-'$nm_conv', '$nm_documneto',
-empty_blob()
-) RETURNING BLOB_ANEXO INTO :image";
-
-//echo $consulta_insert;
-
-$insere_dados = oci_parse($conn_ora, $consulta_insert);
-$blob = oci_new_descriptor($conn_ora, OCI_D_LOB);
-oci_bind_by_name($insere_dados, ":image", $blob, -1, OCI_B_BLOB);
-
-oci_execute($insere_dados, OCI_DEFAULT);
-
-$linhas_afetadas = oci_num_rows($insere_dados);
-//echo "</br>Linhas Afetadas: " . $linhas_afetadas;
-
-
-if(!$blob->save($image)) {
-    oci_rollback($conn_ora);
-}
-else {
-    oci_commit($conn_ora);
-}
-
-oci_free_statement($insere_dados);
-$blob->free();
-
-
-
-if($insere_dados > 0){
-	$_SESSION['msg'] = "Arquivo gerado com sucesso!"; 
-    header('Location: gerar_documento.php');
-    return 0;
-
-}else{
-    $_SESSION['msgerro'] = "Ocorreu um erro ao gerar o arquivo."; 
-    header('Location: gerar_documento.php');
-    return 0;
-}
-
-
-exit(0);
-
-
-
-//DECLARANDO VARIAVEIS DO ARQUIVO PARA IMPORTACAO PARA O BANCO
-//$image = file_get_contents($dompdf);
-
-*/
 ?>

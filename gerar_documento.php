@@ -58,7 +58,7 @@
 			////////////
 			//PACIENTE//
 			///////////
-			$cons_atend="SELECT ate.CD_ATENDIMENTO, pac.NM_PACIENTE, ate.DT_ATENDIMENTO, con.NM_CONVENIO
+			 $cons_atend="SELECT ate.CD_ATENDIMENTO, pac.NM_PACIENTE, TO_CHAR(ate.DT_ATENDIMENTO, 'DD/MM/YYYY') AS DT_ATENDIMENTO, con.NM_CONVENIO
 						FROM ATENDIME ate
 						INNER JOIN paciente  pac ON pac.cd_paciente = ate.cd_paciente
 						INNER JOIN CONVENIO  con ON con.cd_convenio = ate.cd_convenio
@@ -75,7 +75,6 @@
 			@$var_nm_paciente = $row_aten['NM_PACIENTE'];
 			@$var_dt_aten = $row_aten['DT_ATENDIMENTO'];
 			@$var_nm_conv = $row_aten['NM_CONVENIO'];
-
 
 			///////////////////////////
 			//Verifica se existe pdf///
@@ -141,11 +140,11 @@
 		<?php if(strlen(@$var_nm_paciente) > 1){ ?>
 		<form method="post" autocomplete="off" id="assinatura" action="gerar_documento_pdf.php">
 		<div class="row">
-		<div class="col-md-3" id="div_sn_exame_mv">
+			<div class="col-md-3" id="div_sn_exame_mv">
 					<label>Atendimento:</label>
 					<input type="text"  class="form-control" value="<?php echo @$var_cd_atendimento?>" name="cd_atendimento" readonly></input>
 			</div>
-		<div class="col-md-3" id="div_sn_exame_mv">
+			<div class="col-md-3" id="div_sn_exame_mv">
 					<label>Paciente:</label>
 					<input type="text"  class="form-control" value="<?php echo @$var_nm_paciente?>" name="nm_paciente" readonly></input>
 			</div>
@@ -157,6 +156,16 @@
 					<label>Nome Convenio:</label>
 					<input type="text" value="<?php echo @$var_nm_conv;?>" class="form-control" name="nm_conv" readonly></input>
 			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-2">
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>">
+					<i class="far fa-eye"></i> Guia TISS
+				</button>
+			</div>
+		</div>
+		<div class="row">
 			<?php if(isset($var_pdf_existe)){ ?>
 
 				<div style="margin-top: 20px; margin-left: 15px;">
@@ -183,29 +192,29 @@
 
 
 		<!--MODAL ASSINATURA-->
-		<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-		<div class="modal-dialog modal-dialog" role="document">
-			<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Assinatura</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-				</button>
+			<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog" role="document">
+					<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">Assinatura</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body" style="margin: 0 auto;">
+						<canvas id="sig-canvas" width="620" height="160" style="border: solid 1px black; 
+								margin-top: 20px;
+								width: 600px; height: 150px;">
+						</canvas>
+						<input type="hidden" name="escondidinho" id="escondidinho"></input>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="sig-clearBtn" onClick="redraw()"><i class="fas fa-eraser"></i> Limpar</button>
+						<button type="button" type="submit" class="btn btn-primary" id="sig-submitBtn"><i class="fas fa-paper-plane"></i> Enviar</button>
+					</div>
+					</div>
+				</div>
 			</div>
-			<div class="modal-body" style="margin: 0 auto;">
-				<canvas id="sig-canvas" width="620" height="160" style="border: solid 1px black; 
-						margin-top: 20px;
-						width: 600px; height: 150px;">
-				</canvas>
-				<input type="hidden" name="escondidinho" id="escondidinho"></input>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="sig-clearBtn" onClick="redraw()"><i class="fas fa-eraser"></i> Limpar</button>
-				<button type="button" type="submit" class="btn btn-primary" id="sig-submitBtn"><i class="fas fa-paper-plane"></i> Enviar</button>
-			</div>
-			</div>
-		</div>
-		</div>
 
 
 		</form>
@@ -225,148 +234,213 @@
 		?>
 		
 	</div>
+
+	<!--MODAL ASSINATURA-->
+	<div class="modal fade" id="visualizaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Documento para Assinatura</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" id="body_result" style="margin-left: 10px; width: 100%">
+				
+			</div>
+			<div class="modal-footer">
+			</div>
+			</div>
+		</div>
+	</div>
+
+
 	<!-- Scripts -->
 	<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
 	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 	<!--<script src="https://code.angularjs.org/snapshot/angular.min.js"></script>-->
+	
 	<script>
-	var form = document.getElementById("assinatura");
-    
+		var form = document.getElementById("assinatura");
+		
 
-    document.getElementById("sig-submitBtn").addEventListener("click", function () {
+		document.getElementById("sig-submitBtn").addEventListener("click", function () {
 
-    var canvas = document.getElementById("sig-canvas");
+		var canvas = document.getElementById("sig-canvas");
 
-    document.getElementById('escondidinho').value = canvas.toDataURL('image/png');
-    document.forms["assinatura"].submit();
+		document.getElementById('escondidinho').value = canvas.toDataURL('image/png');
+		document.forms["assinatura"].submit();
 
-	});
-		(function() {
-			
-			// Get a regular interval for drawing to the screen
-			window.requestAnimFrame = (function (callback) {
-				return window.requestAnimationFrame || 
-							window.webkitRequestAnimationFrame ||
-							window.mozRequestAnimationFrame ||
-							window.oRequestAnimationFrame ||
-							window.msRequestAnimaitonFrame ||
-							function (callback) {
-							 	window.setTimeout(callback, 1000/60);
-							};
+		});
+			(function() {
+				
+				// Get a regular interval for drawing to the screen
+				window.requestAnimFrame = (function (callback) {
+					return window.requestAnimationFrame || 
+								window.webkitRequestAnimationFrame ||
+								window.mozRequestAnimationFrame ||
+								window.oRequestAnimationFrame ||
+								window.msRequestAnimaitonFrame ||
+								function (callback) {
+									window.setTimeout(callback, 1000/60);
+								};
+				})();
+
+				// Set up the canvas
+				var canvas = document.getElementById("sig-canvas");
+				var ctx = canvas.getContext("2d");
+				ctx.strokeStyle = "#5b79b4";
+				ctx.lineWith = 2;
+
+				// Set up the UI
+				var sigText = document.getElementById("sig-dataUrl");
+				var sigImage = document.getElementById("sig-image");
+				var clearBtn = document.getElementById("sig-clearBtn");
+				clearBtn.addEventListener("click", function (e) {
+					clearCanvas();
+					sigText.innerHTML = "Data URL for your signature will go here!";
+					sigImage.setAttribute("src", "");
+				}, false);
+				
+
+				// Set up mouse events for drawing
+				var drawing = false;
+				var mousePos = { x:0, y:0 };
+				var lastPos = mousePos;
+				canvas.addEventListener("mousedown", function (e) {
+					drawing = true;
+					lastPos = getMousePos(canvas, e);
+				}, false);
+				canvas.addEventListener("mouseup", function (e) {
+					drawing = false;
+				}, false);
+				canvas.addEventListener("mousemove", function (e) {
+					mousePos = getMousePos(canvas, e);
+				}, false);
+
+				// Set up touch events for mobile, etc
+				canvas.addEventListener("touchstart", function (e) {
+					mousePos = getTouchPos(canvas, e);
+					var touch = e.touches[0];
+					var mouseEvent = new MouseEvent("mousedown", {
+						clientX: touch.clientX,
+						clientY: touch.clientY
+					});
+					canvas.dispatchEvent(mouseEvent);
+				}, false);
+				canvas.addEventListener("touchend", function (e) {
+					var mouseEvent = new MouseEvent("mouseup", {});
+					canvas.dispatchEvent(mouseEvent);
+				}, false);
+				canvas.addEventListener("touchmove", function (e) {
+					var touch = e.touches[0];
+					var mouseEvent = new MouseEvent("mousemove", {
+						clientX: touch.clientX,
+						clientY: touch.clientY
+					});
+					canvas.dispatchEvent(mouseEvent);
+				}, false);
+
+				// Prevent scrolling when touching the canvas
+				document.body.addEventListener("touchstart", function (e) {
+					if (e.target == canvas) {
+						e.preventDefault();
+					}
+				}, false);
+				document.body.addEventListener("touchend", function (e) {
+					if (e.target == canvas) {
+						e.preventDefault();
+					}
+				}, false);
+				document.body.addEventListener("touchmove", function (e) {
+					if (e.target == canvas) {
+						e.preventDefault();
+					}
+				}, false);
+
+				// Get the position of the mouse relative to the canvas
+				function getMousePos(canvasDom, mouseEvent) {
+					var rect = canvasDom.getBoundingClientRect();
+					return {
+						x: mouseEvent.clientX - rect.left,
+						y: mouseEvent.clientY - rect.top
+					};
+				}
+
+				// Get the position of a touch relative to the canvas
+				function getTouchPos(canvasDom, touchEvent) {
+					var rect = canvasDom.getBoundingClientRect();
+					return {
+						x: touchEvent.touches[0].clientX - rect.left,
+						y: touchEvent.touches[0].clientY - rect.top
+					};
+				}
+
+				// Draw to the canvas
+				function renderCanvas() {
+					if (drawing) {
+						ctx.moveTo(lastPos.x, lastPos.y);
+						ctx.lineTo(mousePos.x, mousePos.y);
+						ctx.stroke();
+						lastPos = mousePos;
+					}
+				}
+
+				// Clear the canvas
+				function clearCanvas() {
+					canvas.width = canvas.width;
+				}
+
+				// Allow for animation
+				(function drawLoop () {
+					requestAnimFrame(drawLoop);
+					renderCanvas();
+				})();
+
 			})();
-
-			// Set up the canvas
-			var canvas = document.getElementById("sig-canvas");
-			var ctx = canvas.getContext("2d");
-			ctx.strokeStyle = "#5b79b4";
-			ctx.lineWith = 2;
-
-			// Set up the UI
-			var sigText = document.getElementById("sig-dataUrl");
-			var sigImage = document.getElementById("sig-image");
-			var clearBtn = document.getElementById("sig-clearBtn");
-			clearBtn.addEventListener("click", function (e) {
-				clearCanvas();
-				sigText.innerHTML = "Data URL for your signature will go here!";
-				sigImage.setAttribute("src", "");
-			}, false);
-			
-
-			// Set up mouse events for drawing
-			var drawing = false;
-			var mousePos = { x:0, y:0 };
-			var lastPos = mousePos;
-			canvas.addEventListener("mousedown", function (e) {
-				drawing = true;
-				lastPos = getMousePos(canvas, e);
-			}, false);
-			canvas.addEventListener("mouseup", function (e) {
-				drawing = false;
-			}, false);
-			canvas.addEventListener("mousemove", function (e) {
-				mousePos = getMousePos(canvas, e);
-			}, false);
-
-			// Set up touch events for mobile, etc
-			canvas.addEventListener("touchstart", function (e) {
-				mousePos = getTouchPos(canvas, e);
-				var touch = e.touches[0];
-				var mouseEvent = new MouseEvent("mousedown", {
-					clientX: touch.clientX,
-					clientY: touch.clientY
-				});
-				canvas.dispatchEvent(mouseEvent);
-			}, false);
-			canvas.addEventListener("touchend", function (e) {
-				var mouseEvent = new MouseEvent("mouseup", {});
-				canvas.dispatchEvent(mouseEvent);
-			}, false);
-			canvas.addEventListener("touchmove", function (e) {
-				var touch = e.touches[0];
-				var mouseEvent = new MouseEvent("mousemove", {
-					clientX: touch.clientX,
-					clientY: touch.clientY
-				});
-				canvas.dispatchEvent(mouseEvent);
-			}, false);
-
-			// Prevent scrolling when touching the canvas
-			document.body.addEventListener("touchstart", function (e) {
-				if (e.target == canvas) {
-					e.preventDefault();
-				}
-			}, false);
-			document.body.addEventListener("touchend", function (e) {
-				if (e.target == canvas) {
-					e.preventDefault();
-				}
-			}, false);
-			document.body.addEventListener("touchmove", function (e) {
-				if (e.target == canvas) {
-					e.preventDefault();
-				}
-			}, false);
-
-			// Get the position of the mouse relative to the canvas
-			function getMousePos(canvasDom, mouseEvent) {
-				var rect = canvasDom.getBoundingClientRect();
-				return {
-					x: mouseEvent.clientX - rect.left,
-					y: mouseEvent.clientY - rect.top
-				};
-			}
-
-			// Get the position of a touch relative to the canvas
-			function getTouchPos(canvasDom, touchEvent) {
-				var rect = canvasDom.getBoundingClientRect();
-				return {
-					x: touchEvent.touches[0].clientX - rect.left,
-					y: touchEvent.touches[0].clientY - rect.top
-				};
-			}
-
-			// Draw to the canvas
-			function renderCanvas() {
-				if (drawing) {
-					ctx.moveTo(lastPos.x, lastPos.y);
-					ctx.lineTo(mousePos.x, mousePos.y);
-					ctx.stroke();
-					lastPos = mousePos;
-				}
-			}
-
-			// Clear the canvas
-			function clearCanvas() {
-				canvas.width = canvas.width;
-			}
-
-			// Allow for animation
-			(function drawLoop () {
-				requestAnimFrame(drawLoop);
-				renderCanvas();
-			})();
-
-		})();
 	</script>
 </body>
 </html>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    $(document).on('shown.bs.modal','.modal', function (event) {
+
+
+         // DO EVENTS
+        var button = $(event.relatedTarget) // Button that triggered the modal
+
+        var cd_atendimento = button.data('cd_atendimento') // Extract info from data-* attributes
+        console.log(cd_atendimento);
+
+        var nm_paciente = button.data('nm_paciente') // Extract info from data-* attributes
+        console.log(nm_paciente);
+
+		var dt_aten = button.data('dt_aten') // Extract info from data-* attributes
+        console.log(dt_aten);
+
+		var nm_conv = button.data('nm_conv') // Extract info from data-* attributes
+        console.log(nm_conv);
+
+
+        //PASSANDO VALOR DO CAMPO PESQUISA E EXECUTANDO AJAX
+        $.getJSON('visualizar_documento.php?search=',{cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv, ajax: 'true'}, function(j){
+
+		if(j){
+			console.log(j[0]);
+			$("#visualizaModal .modal-body").html(j[0]);            
+        } 
+        else {
+            alert("Erro");
+        }
+		
+
+        });
+
+
+
+     });
+});
+        
+</script>  

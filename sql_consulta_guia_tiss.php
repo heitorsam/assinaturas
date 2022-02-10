@@ -3,6 +3,7 @@
     include 'conexao.php';
 
     @$var_cd_atendimento = $_POST['cd_atendimento'];
+    @$var_cd_atendimento = $_REQUEST['cd_atendimento'];
     
 
     //CONSULTA ID
@@ -17,6 +18,18 @@
     @$id_guia = oci_fetch_array($result_cons_id);
 
     @$id_guia_00 = $id_guia['ID'];
+
+    //ID PAI
+
+    $cons_id_pai = "SELECT ID_PAI
+                FROM dbamv.TISS_GUIA tg
+                WHERE tg.CD_ATENDIMENTO = $var_cd_atendimento";
+
+    $result_cons_id_pai = oci_parse($conn_ora, $cons_id_pai);
+    @oci_execute($result_cons_id_pai);
+    @$id_pai_guia = oci_fetch_array($result_cons_id_pai);
+
+    @$id_pai = $id_pai_guia['ID_PAI'];
 
     //Consulta maior
     $cons_guia_tiss="SELECT  ROWNUM  FOLHA
@@ -86,6 +99,8 @@ ORDER BY ID_GUIA
     @oci_execute($result_cons_guia_tiss);
     @$row_cons_guia_tiss = oci_fetch_array($result_cons_guia_tiss);
 
+    @$nm_guia = $row_cons_guia_tiss['CP_02'];
+
     //PEGAR LOGO DO CONVÊNIO
     @$cd_convenio = $row_cons_guia_tiss['CD_CONVENIO'];
 
@@ -102,7 +117,7 @@ ORDER BY ID_GUIA
      //Consulta do 47-53
     $cons_guia_tiss_47_53="SELECT *
                                 FROM (SELECT Nvl(tiss_itguia_equ.sq_ref,
-                                                ((instr('000000083879337',
+                                                ((instr('$id_guia_00',
                                                         LPad(To_Char(tiss_itguia_equ.id_pai), 15, '0')) + 15) / 16)) item,
                                             ROWNUM registro,
                                             tiss_itguia_equ.cd_ati_med CP_47,
@@ -131,7 +146,7 @@ ORDER BY ID_GUIA
 
     $result_cons_guia_tiss_47_53 = oci_parse($conn_ora, $cons_guia_tiss_47_53);
     @oci_execute($result_cons_guia_tiss_47_53);
-    @$row_cons_guia_tiss_47_53 = oci_fetch_array($result_cons_guia_tiss_47_53);
+    //@$row_cons_guia_tiss_47_53 = oci_fetch_array($result_cons_guia_tiss_47_53);
 
 
     //Consulta 34 - 45
@@ -153,7 +168,7 @@ ORDER BY ID_GUIA
                 Decode (Nvl(dbamv.pkg_mv2000.le_configuracao('FFCV','SN_IMPRIME_VL_GUIA_SP_SADT'),'N') ,'N' , DECODE( $id_guia_00 , 'R_REPO_ATE',' ','R_REPO_ATE_HOSP',' ', tiss_itguia.vl_total) , tiss_itguia.vl_total )  CP_45,
           tiss_itguia.id ID_ITGUIA
       FROM dbamv.tiss_itguia
-     WHERE tiss_itguia.id_pai = 8382650
+     WHERE tiss_itguia.id_pai = $nm_guia
     ORDER BY id ) proced
     WHERE 1 = 1
     AND  proced.ID_ITGUIA = $id_guia_00
@@ -174,25 +189,25 @@ ORDER BY ID_GUIA
                             ,tiss_guia.cd_convenio          CD_CONVENIO
                             ,Decode (Nvl(dbamv.pkg_mv2000.le_configuracao('FFCV','SN_IMPRIME_VL_GUIA_SP_SADT'),'N') ,'N' , DECODE((SELECT ID
                                                             FROM dbamv.TISS_GUIA tg
-                                                            WHERE tg.CD_ATENDIMENTO = 3848423) , 'R_REPO_ATE',' ','R_REPO_ATE_HOSP',' ', tiss_guia.vl_tot_servicos ), tiss_guia.vl_tot_servicos )      CP_59
+                                                            WHERE tg.CD_ATENDIMENTO = $var_cd_atendimento) , 'R_REPO_ATE',' ','R_REPO_ATE_HOSP',' ', tiss_guia.vl_tot_servicos ), tiss_guia.vl_tot_servicos )      CP_59
                             ,Decode (Nvl(dbamv.pkg_mv2000.le_configuracao('FFCV','SN_IMPRIME_VL_GUIA_SP_SADT'),'N') ,'N' , DECODE( (SELECT ID
                                                             FROM dbamv.TISS_GUIA tg
-                                                            WHERE tg.CD_ATENDIMENTO = 3848423) , 'R_REPO_ATE',' ','R_REPO_ATE_HOSP',' ', tiss_guia.vl_tot_taxas ), tiss_guia.vl_tot_taxas )         CP_60
+                                                            WHERE tg.CD_ATENDIMENTO = $var_cd_atendimento) , 'R_REPO_ATE',' ','R_REPO_ATE_HOSP',' ', tiss_guia.vl_tot_taxas ), tiss_guia.vl_tot_taxas )         CP_60
                             ,Decode (Nvl(dbamv.pkg_mv2000.le_configuracao('FFCV','SN_IMPRIME_VL_GUIA_SP_SADT'),'N') ,'N' , DECODE((SELECT ID
                                                             FROM dbamv.TISS_GUIA tg
-                                                            WHERE tg.CD_ATENDIMENTO = 3848423) , 'R_REPO_ATE',' ','R_REPO_ATE_HOSP',' ', tiss_guia.vl_tot_materiais ), tiss_guia.vl_tot_materiais )     CP_61
+                                                            WHERE tg.CD_ATENDIMENTO = $var_cd_atendimento) , 'R_REPO_ATE',' ','R_REPO_ATE_HOSP',' ', tiss_guia.vl_tot_materiais ), tiss_guia.vl_tot_materiais )     CP_61
                             ,Decode (Nvl(dbamv.pkg_mv2000.le_configuracao('FFCV','SN_IMPRIME_VL_GUIA_SP_SADT'),'N') ,'N' , DECODE( (SELECT ID
                                                             FROM dbamv.TISS_GUIA tg
-                                                            WHERE tg.CD_ATENDIMENTO = 3848423) , 'R_REPO_ATE',' ','R_REPO_ATE_HOSP',' ', tiss_guia.VL_TOT_OPME ), tiss_guia.VL_TOT_OPME )          CP_62
+                                                            WHERE tg.CD_ATENDIMENTO = $var_cd_atendimento) , 'R_REPO_ATE',' ','R_REPO_ATE_HOSP',' ', tiss_guia.VL_TOT_OPME ), tiss_guia.VL_TOT_OPME )          CP_62
                             ,Decode (Nvl(dbamv.pkg_mv2000.le_configuracao('FFCV','SN_IMPRIME_VL_GUIA_SP_SADT'),'N') ,'N' , DECODE( (SELECT ID
                                                             FROM dbamv.TISS_GUIA tg
-                                                            WHERE tg.CD_ATENDIMENTO = 3848423) , 'R_REPO_ATE',' ','R_REPO_ATE_HOSP',' ', tiss_guia.vl_tot_medicamentos ), tiss_guia.vl_tot_medicamentos )  CP_63
+                                                            WHERE tg.CD_ATENDIMENTO = $var_cd_atendimento) , 'R_REPO_ATE',' ','R_REPO_ATE_HOSP',' ', tiss_guia.vl_tot_medicamentos ), tiss_guia.vl_tot_medicamentos )  CP_63
                             ,Decode (Nvl(dbamv.pkg_mv2000.le_configuracao('FFCV','SN_IMPRIME_VL_GUIA_SP_SADT'),'N') ,'N' , DECODE( (SELECT ID
                                                             FROM dbamv.TISS_GUIA tg
-                                                            WHERE tg.CD_ATENDIMENTO = 3848423) , 'R_REPO_ATE',' ','R_REPO_ATE_HOSP',' ', tiss_guia.vl_tot_gases ), tiss_guia.vl_tot_gases )         CP_64
+                                                            WHERE tg.CD_ATENDIMENTO = $var_cd_atendimento) , 'R_REPO_ATE',' ','R_REPO_ATE_HOSP',' ', tiss_guia.vl_tot_gases ), tiss_guia.vl_tot_gases )         CP_64
                             ,Decode (Nvl(dbamv.pkg_mv2000.le_configuracao('FFCV','SN_IMPRIME_VL_GUIA_SP_SADT'),'N') ,'N' , DECODE( (SELECT ID
                                                             FROM dbamv.TISS_GUIA tg
-                                                            WHERE tg.CD_ATENDIMENTO = 3848423) , 'R_REPO_ATE',' ','R_REPO_ATE_HOSP',' ', tiss_guia.vl_tot_geral ), tiss_guia.vl_tot_geral )        CP_65
+                                                            WHERE tg.CD_ATENDIMENTO = $var_cd_atendimento) , 'R_REPO_ATE',' ','R_REPO_ATE_HOSP',' ', tiss_guia.vl_tot_geral ), tiss_guia.vl_tot_geral )        CP_65
                             From dbamv.tiss_guia
                             where tiss_guia.id                =  $id_guia_00
                             order by tiss_guia.id, folha;
@@ -201,19 +216,4 @@ ORDER BY ID_GUIA
         $result_cons_guia_tiss_59_65 = oci_parse($conn_ora, $cons_guia_tiss_59_65);
         @oci_execute($result_cons_guia_tiss_59_65);
         @$row_cons_guia_tiss_59_65 = oci_fetch_array($result_cons_guia_tiss_59_65);
-
-
-  
-    
-
-
-
-
-
-
-
-
-
-
-
 ?>
