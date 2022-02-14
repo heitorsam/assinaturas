@@ -26,7 +26,7 @@ include 'sql_consulta_guia_tiss.php';
 
 /* Preparação do documento final
  */
-$documentTemplate = "<!doctype html> 
+$documentTemplate = "
 <html lang='en'> 
     <head> 
         <!-- Required meta tags --> 
@@ -141,20 +141,25 @@ h2{
     font-size: 10px;
     line-height: 4px;
     float: center;
-    margin-top: 0px;
-
-    
+    margin-top: 0px; 
 }
 
+h2-footer{
+
+    font-size: 10px;
+    float: center;
+    margin-top: 0px;
+
+}
 </style> 
-    <body>
+
         <form style='height: 40px;'>
             <div class='container'>
                 <div class='row'>
                     <div class='col-hss-4' style='border: none !important;'>
                     </div>
                     <div class='col-hss-4' style='border: none !important; text-align: center;'>
-                        <h2>GUIA DE SERVIÇO PROFISSIONAL / SERVIÇO AUXILIAR DE <BR><BR> DIAGNÓSTICO E TERAPIA - SP/SADT</h2>
+                        <P>GUIA DE SERVIÇO PROFISSIONAL / SERVIÇO AUXILIAR DE <br> DIAGNÓSTICO E TERAPIA - SP/SADT
                     </div>
                     <div class='col-hss-4' style='border: none !important; padding-left: 50px;'>
                         <h2>2- N° Guia no Prestador: ".@$nm_guia."</h2>
@@ -590,26 +595,25 @@ $documentTemplate .= "<div class='row'>
             </div>
             <div class='container'>
                 <div class='row' >
-                    <div class='col-hss-2' style='border: none !important; padding-left: 35px; padding-top: 5px;'>
-                        <h2>".$var_user_logado."</h2>
+                    <div class='col-hss-2' style='border: none !important; padding-left: 50px;   padding-top: 5px;'>
+                        <h2-footer>".$var_user_logado."</h2-footer>
                     </div>
                     <div class='col-hss-2' style='border: none !important; padding-left: 35px; padding-top: 5px;'>
-                        <h2>Data:".$hora."</h2>
+                        <h2-footer>Data:".$hora."</h2-footer>
                     </div>
                     <div class='col-hss-2' style='border: none !important; padding-left: 35px; padding-top: 5px;'>
-                        <h2>Conta/Lote: ".$row_cons_guia_tiss['CD_CONTA']."</h2>
+                        <h2-footer>Conta/Lote: ".$row_cons_guia_tiss['CD_CONTA']."</h2-footer>
                     </div>
                     <div class='col-hss-2' style='border: none !important; padding-left: 35px; padding-top: 5px;'>
-                        <h2>Atendimento: ".$var_cd_atendimento."</h2>
+                        <h2-footer>Atendimento: ".$var_cd_atendimento."</h2-footer>
                     </div>
                     <div class='col-hss-3' style='border: none !important; padding-left: 35px; padding-top: 5px;'>
-                        <h2>Convenio: ".$nm_conv."</h2>
+                        <h2-footer>Convenio: ".$nm_conv."<h2-footer>
                     </div>
                 </div>
             </div>
         </form>
-    </body> 
-</html>";
+";
 
 echo  json_encode(array($documentTemplate)); 
 

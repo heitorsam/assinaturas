@@ -138,23 +138,23 @@
 		<!---RESULTADO DA PESQUISA-->
 
 		<?php if(strlen(@$var_nm_paciente) > 1){ ?>
-		<form method="post" autocomplete="off" id="assinatura" action="gerar_documento_pdf.php">
+		<form autocomplete="off" id="assinatura"  method="post" /action="gerar_documento_pdf.php">
 		<div class="row">
 			<div class="col-md-3" id="div_sn_exame_mv">
 					<label>Atendimento:</label>
-					<input type="text"  class="form-control" value="<?php echo @$var_cd_atendimento?>" name="cd_atendimento" readonly></input>
+					<input type="text"  class="form-control" value="<?php echo @$var_cd_atendimento?>" id="atendimento" name="cd_atendimento" readonly></input>
 			</div>
 			<div class="col-md-3" id="div_sn_exame_mv">
 					<label>Paciente:</label>
-					<input type="text"  class="form-control" value="<?php echo @$var_nm_paciente?>" name="nm_paciente" readonly></input>
+					<input type="text"  class="form-control" value="<?php echo @$var_nm_paciente?>" id="paciente" name="nm_paciente" readonly></input>
 			</div>
 			<div class="col-md-3" id="div_sn_exame_mv">
 					<label>Data Atendimento:</label>
-					<input type="text" value="<?php echo @$var_dt_aten ?>" class="form-control" name="dt_aten" readonly></input>
+					<input type="text" value="<?php echo @$var_dt_aten ?>" class="form-control" id="dt_atendimento" name="dt_aten" readonly></input>
 			</div>
 			<div class="col-md-3" id="div_sn_exame_mv">
 					<label>Nome Convenio:</label>
-					<input type="text" value="<?php echo @$var_nm_conv;?>" class="form-control" name="nm_conv" readonly></input>
+					<input type="text" value="<?php echo @$var_nm_conv;?>" class="form-control" id="nm_convenio" name="nm_conv" readonly></input>
 			</div>
 		</div>
 		<br>
@@ -164,7 +164,13 @@
 					<i class="far fa-eye"></i> Guia TISS
 				</button>
 			</div>
+			<div class="col-md-2">	
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="contrato">
+					<i class="far fa-eye"></i> Contrato
+				</button>
+			</div>
 		</div>
+		<br>
 		<div class="row">
 			<?php if(isset($var_pdf_existe)){ ?>
 
@@ -173,19 +179,17 @@
 			</div>
 			<?php }else{?>
 
-				<div class="row">
+				
 
-					<div class="col-11" style="background-color: #f9f9f9 !important; margin-left: 15px;">
+				<div class="col-md-2" >
 
-						<div class="div_br"> </div>
-
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-						<i class="fas fa-signature"></i> Assinar
-						</button>
-
-					</div>
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+					<i class="fas fa-signature"></i> Assinar
+					</button>
 
 				</div>
+
+			
 
 			<?php }	?>
 		</div>
@@ -235,25 +239,6 @@
 		
 	</div>
 
-	<!--MODAL ASSINATURA-->
-	<div class="modal fade" id="visualizaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-		<div class="modal-dialog modal-xl" role="document">
-			<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Documento para Assinatura</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body" id="body_result" style="margin-left: 10px; width: 100%">
-				
-			</div>
-			<div class="modal-footer">
-			</div>
-			</div>
-		</div>
-	</div>
-
 
 	<!-- Scripts -->
 	<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
@@ -261,17 +246,9 @@
 	<!--<script src="https://code.angularjs.org/snapshot/angular.min.js"></script>-->
 	
 	<script>
-		var form = document.getElementById("assinatura");
+		//var form = document.getElementById("assinatura");
 		
 
-		document.getElementById("sig-submitBtn").addEventListener("click", function () {
-
-		var canvas = document.getElementById("sig-canvas");
-
-		document.getElementById('escondidinho').value = canvas.toDataURL('image/png');
-		document.forms["assinatura"].submit();
-
-		});
 			(function() {
 				
 				// Get a regular interval for drawing to the screen
@@ -401,6 +378,25 @@
 	</script>
 </body>
 </html>
+<!--MODAL VISUALIZA-->
+	<div class="modal fade " id="visualizaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Documento para Assinatura</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" id="body_result" style="margin-left: 10px; width: 100%">
+				
+			</div>
+			<div class="modal-footer">
+			</div>
+			</div>
+		</div>
+	</div>
+
 
 <script type="text/javascript">
 
@@ -412,35 +408,134 @@ $(document).ready(function(){
         var button = $(event.relatedTarget) // Button that triggered the modal
 
         var cd_atendimento = button.data('cd_atendimento') // Extract info from data-* attributes
-        console.log(cd_atendimento);
+  
 
         var nm_paciente = button.data('nm_paciente') // Extract info from data-* attributes
-        console.log(nm_paciente);
+  
 
 		var dt_aten = button.data('dt_aten') // Extract info from data-* attributes
-        console.log(dt_aten);
+      
 
 		var nm_conv = button.data('nm_conv') // Extract info from data-* attributes
-        console.log(nm_conv);
+    
+
+		var identificador = button.data('identificador') // Extract info from data-* attributes
+        console.log(identificador);
 
 
         //PASSANDO VALOR DO CAMPO PESQUISA E EXECUTANDO AJAX
-        $.getJSON('visualizar_documento.php?search=',{cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv, ajax: 'true'}, function(j){
 
-		if(j){
-			console.log(j[0]);
-			$("#visualizaModal .modal-body").html(j[0]);            
-        } 
-        else {
-            alert("Erro");
-        }
-		
+		if(identificador == 'contrato'){
 
-        });
+			$.getJSON('visualizar_documento_contrato.php?search=',{cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv, ajax: 'true'}, function(j){
 
+				if(j){
+					//alert("Certo");
+					$("#visualizaModal .modal-body").html(j[0]);            
+				} 
+				else {
+					alert("Erro");
+				}
+
+
+			});
+			
+		}else{
+
+			$.getJSON('visualizar_documento.php?search=',{cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv, ajax: 'true'}, function(j){
+
+				if(j){
+					$("#visualizaModal .modal-body").html(j[0]);            
+				} 
+				else {
+					alert("Erro");
+				}
+
+
+			});
+
+		}
 
 
      });
+
+	document.getElementById("sig-submitBtn").addEventListener("click", function () {
+		 //alert("Aqui");
+
+		var canvas = document.getElementById("sig-canvas");
+	
+		var cd_atendimento = document.getElementById("atendimento").value;
+		//console.log(cd_atendimento);
+
+		var nm_paciente = document.getElementById("paciente").value;
+		//console.log(nm_paciente);
+
+		var dt_aten = document.getElementById("dt_atendimento").value;
+		//console.log(dt_aten);
+
+		var nm_conv = document.getElementById("nm_convenio").value;
+		//console.log(nm_conv);
+
+		var escondidinho = document.getElementById('escondidinho').value = canvas.toDataURL('image/png');
+		//console.log(escondidinho);
+
+
+
+
+		$.ajax({
+					//Configurações
+					type: 'POST',//Método que está sendo utilizado.
+					dataType: 'html',//É o tipo de dado que a página vai retornar.
+					url: 'gerar_documento_pdf.php',//Indica a página que está sendo solicitada.
+					//função que vai ser executada assim que a requisição for enviada
+					data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
+					//função que será executada quando a solicitação for finalizada.
+					success: function (msg){
+						console.log("Sucesso");
+					},
+
+					error: function (msg){
+						console.log("Erro");
+					}
+			
+				});
+
+		
+		$.ajax({
+			//Configurações
+			type: 'POST',//Método que está sendo utilizado.
+			dataType: 'html',//É o tipo de dado que a página vai retornar.
+			url: 'gerar_documento_pdf_contrato.php',//Indica a página que está sendo solicitada.
+			//função que vai ser executada assim que a requisição for enviada
+			data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
+			//função que será executada quando a solicitação for finalizada.
+			success: function (msg){
+				alert("Sucesso");
+			},
+
+			error: function (msg){
+				alert("Erro");
+			}
+		});
+
+		//$.getJSON('gerar_documento_pdf.php?search=',{cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho, ajax: 'true'}, function(j){
+
+
+
+		//});
+
+		//$.getJSON('gerar_documento_pdf_contrato.php?search=',{cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho, ajax: 'true'}, function(j){
+
+
+
+		//});
+
+		//document.location.reload(true);
+		
+
+	});
+
+
 });
         
 </script>  
