@@ -491,11 +491,11 @@ $(document).ready(function(){
 					data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
 					//função que será executada quando a solicitação for finalizada.
 					success: function (msg){
-						console.log("Sucesso");
+						alert("Sucesso");
 					},
 
 					error: function (msg){
-						console.log("Erro");
+						alert("Erro");
 					}
 			
 				});
@@ -510,11 +510,11 @@ $(document).ready(function(){
 			data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
 			//função que será executada quando a solicitação for finalizada.
 			success: function (msg){
-				alert("Sucesso");
-			},
+						console.log("Sucesso");
+					},
 
 			error: function (msg){
-				alert("Erro");
+				console.log("Erro");
 			}
 		});
 
@@ -530,7 +530,7 @@ $(document).ready(function(){
 
 		//});
 
-		//document.location.reload(true);
+		document.location.reload(true);
 		
 
 	});
