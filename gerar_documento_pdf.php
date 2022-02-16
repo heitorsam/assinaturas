@@ -8,7 +8,7 @@ $count = 1;
 @$var_nm_paciente = $_POST['nm_paciente'];
 @$dt_aten = $_POST['dt_aten'];
 @$nm_conv = $_POST['nm_conv'];
-$img = $_REQUEST['escondidinho'];
+$img = $_POST['escondidinho'];
 
 $nm_documneto = 'pdf_assinatura_'.$var_cd_atendimento.'.pdf';
 

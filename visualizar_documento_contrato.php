@@ -6,7 +6,6 @@ session_start();
 @$var_nm_paciente = $_REQUEST['nm_paciente'];
 @$dt_aten = $_REQUEST['dt_aten'];
 @$nm_conv = $_REQUEST['nm_conv'];
-
 $nm_documneto = 'pdf_assinatura_'.$var_cd_atendimento.'.pdf';
 
 @$_SESSION['atdconsulta'] = $_REQUEST['cd_atendimento'];
@@ -22,9 +21,9 @@ $hora = date("d/m/Y H:i:s");
 
 include 'sql_consulta_contrato.php';
 
-//echo $html;
+//echo $dados_pac_resp['PRONTUARIO'];
 
-
+//echo $pac_resp;
 
 $documentTemplate = "
 <html lang='en'> 
@@ -138,7 +137,7 @@ $documentTemplate = "
 }
 
 h2{
-    font-size: 10px;
+   
     line-height: 4px;
     float: center;
     margin-top: 0px;
@@ -150,15 +149,22 @@ h2{
     height: 120px;
     object-fit: cover;
 }
+.texto{
+    text-align: justify;
+    font-size: 1.875em;
+}
+p{
+    font-size: 0.400em;
+}
 
 </style> 
 
         <form style='height: 40px;'>
-            <div class='container'>
+            <div class='container texto'>
                 <div class='row'>
                     <div class='col-hss-12' style='border: none !important; text-align: center;'>
                         <img class='imagem' src='https://i2.wp.com/santacasasaude.com.br/wp-content/uploads/2018/07/Santa-Casa-SJC.gif?fit=730%2C457&ssl=1'>
-                        <p>CONTRATO DE PRESTAÇÃO DE SERVIÇOS<p>PRONTO ATENDIMENTO
+                        
                     </div>
                 </div>
             </div>
@@ -166,27 +172,38 @@ h2{
         </br>
         </br>
         </br>
-        </br>
-        </br>
-        </br>
-        </br>
+        
+        
         <form>
-            <div class='container'>
-                <div style='width: 100%; font-size: 12px; padding-left: 7%; padding-right: 7%;'>
-                    <p>Paciente:___________ Prontuário:__________
-                    <p> Data do Atendimento:__/__/___ Hora:___
-                    <p>Pelo presente instrumento e na melhor forma de direito, eu Identidade R. G. ne portador (a) da Cédula de telefone devidamente inscrito (a) no CPF/MF sob o ne residente (e) ownsse PU total domiciliado responsabilidade, na qualidade de devedor solidário e/ou principal pelas despesas de serviços, médicos e nospitaloe medicamentos, materiais e exames laboratoriais ou imagens, inclusive pelos serviços, materiais e medicamentos fornecidos terceiros (e) paciente devidamente inscrito no CPF/MF sob o ne Identidade RG no residente e domiciliado portador (a) da Cédula de o eved telefone eu (e) 
-                    <p>OBJETO: A prestação de serviços médicos/hospitalares ao paciente retro qualificado, em atendimento nas dependéncias da CONTRATADA, por determinação do Mėdico Responsável pelo atendimento, ficando a CONTRATADA expressamente autorizada a executar todoS os atendimentos que façam necessários e indispensáveis a salvaguarda da vida do paciente. 
-                    <p>CONTRATANTE: No caso de cobertura por CONVENIO MÉDICO, fica concedida ao paciente a utilização do PLANO DE ASSISTENCIA MEDICA com qual a CONTRATADA mantém convênio, ficando observado que as despesas NÃO cobertas por este PLANO DE SAUDE serão de responsabilidade do CONTRATANTE 
-                    <p>DIREITOS/CARENCIAS/EXCLUSÕES: O CONTRATANTE e o paciente têm pieno conhecimento dos DIREITOS, CARENCIAS E EXCLUSOES, contratualmente estabelecidas no PLANO DE SAÚDE, com o qual o paciente mantém contrato 
-                    <p>HIPOTESE DE INADIMPLENCIA: Na hipótese de não cumprimento espontăneo das obrigações assumidas, acarretando via de consequencia, cobrança judicial dos titulos sacados, assume, também, a responsabilidade pelo pagamento das custas e despesas processuais/extrajudiciais, dos juros legais, da correção monetária, calculada PRO-RATA TEMPORE, e incidente sobre o valor total do débito e dos honorários advocaticios devidos também no caso de cobrança amigável. 
-                    <p>TRANSFERÊNCIA: O CONTRATANTE autoriza, desde já, a CONTRATADA a efetivar a transferência do paciente para outro hospital, descumprir.com as obrigações assumidas neste instrumento, desde que o quadro clinico do internado assim o permita, caso venha e sem restrição mėdica. 
-                    <p>FORO DE ELEIÇÃO: Fica eleito o Foro da comarca de São José dos Campos, como competente para dirimir todas as dúvidas que por ventura venham a ser suscitada com relação aos serviços prestados no esteio do presente instrumento, ressalvada a hipótese do artigo 51, parágrafo primeiro, II da Lei nº 8.078 de 11 de setembro de 1990 (Código de Defesa do Consumidor). 
-                    <p>E, por estarem assim justos e contratados, assinam o presente instrumento Particular de Contrato de Assistência Médica Hospitalar, em duas vias de igual teor e forma, na presença de duas testemunhas, para que produza seus juridicos e legais efeitos. 
-                    <p>Paciente:
-                    <p>x__________
-                    <p>RG: 
-
+            <div class='container texto'>
+                <div style='width: 100%; padding-left: 7%; padding-right: 7%;'>
+                <p style='text-align: center; font-weight: bold;'>CONTRATO DE PRESTAÇÃO DE SERVIÇOS
+                <p style='text-align: center; font-weight: bold;'>PRONTO ATENDIMENTO 
+                
+                </br>
+                </br>
+                    <p>Paciente: " . @$dados_pac_resp['NOME_PACIENTE']. " Prontuário: " .@$dados_pac_resp['PRONTUARIO'] . " 
+                    <p> Data do Atendimento: " . @$dados_pac_resp['DT_ATENDIMENTO']. "
+                    
+                    <p>Pelo presente instrumento e na melhor forma de direito, eu: " . @$dados_pac_resp['NOME_RESPONSAVEL']. ", portador (a) da Cédula da identidade R.G. n°" . @$dados_pac_resp['RG_RESPONSAVEL']. " devidamente inscrito (a) no CPF/MF sob o n°" . @$dados_pac_resp['CPF_RESPONSAVEL']. ", telefone " . @$dados_pac_resp['TELEFONE_RESPONSAVEL']. ", residente e domiciliado (a) na " . @$dados_pac_resp['ENDERECO_RESPONSAVEL']. " N°:" . @$dados_pac_resp['NUMERO_ENDERECO_RESPONSAVEL']. " assumo a total responsabilidade, na qualidade de devedor solidário e/ou principal pelas despesas de serviços, médicos e hospitalares, medicamentos, materiais e exames laboratoriais ou imagens, inclusive pelos serviços, materiais e medicamentos fornecidos por terceiros para o (e) paciente " . @$dados_pac_resp['NOME_PACIENTE']. ", portador (a) da Cedúla  de identidade RG N° " . @$dados_pac_resp['CPF_PACIENTE']. " devidamente inscrito no CPF/MF sob o N° " . @$dados_pac_resp['RG_PACIENTE']. " residente e domiciliado (a) na " . @$dados_pac_resp['ENDERECO_PACIENTE']. " N°:" . @$dados_pac_resp['NUMERO_ENDERECO_PACIENTE']. ", telefone " . @$dados_pac_resp['TELEFONE_PACIENTE']. ".  
+                    
+                    <p>OBJETO: A prestação de serviços médicos/hospitalares ao paciente retro qualificado, em atendimento nas dependências da CONTRATADA, por determinação do Médico Responsável pelo atendimento, ficando a CONTRATADA expressamente autorizada a executar todos os atendimentos que façam necessários e indispensáveis a salvaguarda da vida do paciente. 
+                    
+                    <p>CONTRATANTE: No caso de cobertura por CONVENIO MÉDICO, fica concedida ao paciente a utilização do PLANO DE ASSISTENCIA MEDICA com qual a CONTRATADA mantém convênio, ficando observado que as despesas NÃO cobertas por este PLANO DE SAUDE serão de responsabilidade do CONTRATANTE. 
+                    
+                    <p>DIREITOS/CARÊNCIAS/EXCLUSÕES: O CONTRATANTE e o paciente têm pleno conhecimento dos DIREITOS, CARÊNCIAS E EXCLUSOES, contratualmente estabelecidas no PLANO DE SAÚDE, com o qual o paciente mantém contrato.
+                    
+                    <p>HIPOTESE DE INADIMPLENCIA: Na hipótese de não cumprimento espontâneo das obrigações assumidas, acarretando via de consequência, cobrança judicial dos títulos sacados, assume, também, a responsabilidade pelo pagamento das custas e despesas processuais/extrajudiciais, dos juros legais, da correção monetária, calculada “PRÓ-RATA TEMPORE”, e incidente sobre o valor total do débito e dos honorários advocatícios devidos também no caso de cobrança amigável.
+                    
+                    <p>TRANSFERÊNCIA: O CONTRATANTE autoriza, desde já, a CONTRATADA a efetivar a transferência do paciente para outro hospital, caso venha a descumprir com as obrigações assumidas neste instrumento, desde que o quadro clinico do internado assim o permita, e sem restrição médica. 
+                    
+                    <p>FORO DE ELEIÇÃO: Fica eleito o Foro da comarca de São José dos Campos, como competente para dirimir todas as dúvidas que por ventura venham a ser suscitada com relação aos serviços prestados no esteio do presente instrumento, ressalvada a hipótese do artigo 51, parágrafo primeiro, III da Lei nº 8.078 de 11 de setembro de 1990 (Código de Defesa do Consumidor). 
+                    
+                    
+                    <p>E, por estarem assim justos e contratados, assinam o presente instrumento Particular de Contrato de Assistência Médica Hospitalar, em duas vias de igual teor e forma, na presença de duas testemunhas, para que produza seus jurídicos e legais efeitos. 
+                    
+                    <p>RESPONSAVEL: " . @$dados_pac_resp['NOME_RESPONSAVEL']. " 
+                    <p>RG: " . @$dados_pac_resp['RG_RESPONSAVEL']. "
 
                 </div>
             </div>
