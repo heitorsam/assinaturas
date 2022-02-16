@@ -7,12 +7,13 @@ session_start();
 @$dt_aten = $_REQUEST['dt_aten'];
 @$nm_conv = $_REQUEST['nm_conv'];
 $img = $_REQUEST['escondidinho'];
+$tp_doc = 'cont_pa';
 
-$nm_documneto = 'pdf_assinatura_'.$var_cd_atendimento.'.pdf';
+$nm_documneto = 'pdf_contrato_pa_'.$var_cd_atendimento.'.pdf';
 
 @$_SESSION['atdconsulta'] = $_REQUEST['cd_atendimento'];
 
-$var_user_logado = $_SESSION['usuarioNome'];
+$var_user_logado = $_SESSION['usuarioLogin'];
 
 $count = 1;
 
@@ -197,8 +198,107 @@ h2{
         </form>
 ";
 //echo  json_encode(array($documentTemplate)); 
-echo  $documentTemplate; 
+//echo  $documentTemplate; 
 
+
+// inclusão da biblioteca
+include 'dompdf/autoload.inc.php';
+
+
+// alguns ajustes devido a variações de servidor para servidor
+
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
+// abertura de novo documento
+$dompdf = new DOMPDF();
+$dompdf->set_option('isRemoteEnabled', TRUE);
+
+// carregar o HTML
+$dompdf->load_html($documentTemplate);
+
+// dados do documento destino
+$dompdf->set_paper("A4", "landscape");
+
+// gerar documento destino
+$dompdf->render();
+
+$image = $dompdf->output();
+?>
+
+
+<?php
+// enviar documento destino para download
+//$dompdf->stream("dompdf_out.pdf");
+
+
+    ///////////////////////
+    // Inserindo no banco//
+    ///////////////////////
+
+include_once("conexao.php");
+
+//DECLARANDO VARIAVEIS DO ARQUIVO PARA IMPORTACAO PARA O BANCO
+//$image = file_get_contents($dompdf);
+
+
+
+$consulta_insert = 
+"INSERT INTO ASSINATURAS.documentos_assinados
+(CD_ATENDIMENTO, NM_PACIENTE, DT_ATENDIMENTO, NM_CONVENIO, NOME_ANEXO, TP_DOCUMENTO, NM_USER, DT_CRIACAO, BLOB_ANEXO)
+VALUES 
+('$var_cd_atendimento', '$var_nm_paciente', TO_DATE('$dt_aten', 'DD/MM/YY'),
+'$nm_conv', '$nm_documneto', '$tp_doc', '$var_user_logado', SYSTIMESTAMP,
+empty_blob()
+) RETURNING BLOB_ANEXO INTO :image";
+
+//echo $consulta_insert;
+
+$insere_dados = oci_parse($conn_ora, $consulta_insert);
+$blob = oci_new_descriptor($conn_ora, OCI_D_LOB);
+oci_bind_by_name($insere_dados, ":image", $blob, -1, OCI_B_BLOB);
+
+oci_execute($insere_dados, OCI_DEFAULT);
+
+$linhas_afetadas = oci_num_rows($insere_dados);
+//echo "</br>Linhas Afetadas: " . $linhas_afetadas;
+
+
+if(!$blob->save($image)) {
+    oci_rollback($conn_ora);
+}
+else {
+    oci_commit($conn_ora);
+}
+
+oci_free_statement($insere_dados);
+$blob->free();
+
+
+/*
+if($insere_dados > 0){
+	$_SESSION['msg'] = "Arquivo gerado com sucesso!"; 
+    header('Location: gerar_documento.php');
+    return 0;
+
+}else{
+    $_SESSION['msgerro'] = "Ocorreu um erro ao gerar o arquivo."; 
+    header('Location: gerar_documento.php');
+    return 0;
+}
+*/
+
+exit(0);
+
+
+
+//DECLARANDO VARIAVEIS DO ARQUIVO PARA IMPORTACAO PARA O BANCO
+//$image = file_get_contents($dompdf);
 
 
 ?>
+
+
+
+

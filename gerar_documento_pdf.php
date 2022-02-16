@@ -4,17 +4,26 @@ session_start();
 
 $count = 1;
 
+<<<<<<< Updated upstream
 @$var_cd_atendimento = $_POST['cd_atendimento'];
 @$var_nm_paciente = $_POST['nm_paciente'];
 @$dt_aten = $_POST['dt_aten'];
 @$nm_conv = $_POST['nm_conv'];
 $img = $_POST['escondidinho'];
+=======
+@$var_cd_atendimento = $_REQUEST['cd_atendimento'];
+@$var_nm_paciente = $_REQUEST['nm_paciente'];
+@$dt_aten = $_REQUEST['dt_aten'];
+@$nm_conv = $_REQUEST['nm_conv'];
+$img = $_POST['escondidinho'];
+$tp_doc = 'tiss_pa';
+>>>>>>> Stashed changes
 
-$nm_documneto = 'pdf_assinatura_'.$var_cd_atendimento.'.pdf';
+$nm_documneto = 'pdf_guia_tiss_pa'.$var_cd_atendimento.'.pdf';
 
 @$_SESSION['atdconsulta'] = $_POST['cd_atendimento'];
 
-$var_user_logado = $_SESSION['usuarioNome'];
+$var_user_logado = $_SESSION['usuarioLogin'];
 
 // DEFINE O FUSO HORARIO COMO O HORARIO DE BRASILIA
 date_default_timezone_set('America/Sao_Paulo');
@@ -618,9 +627,9 @@ $documentTemplate .= "<div class='row'>
     </body> 
 </html>";
 
-echo $documentTemplate;
+//echo $documentTemplate;
 
-/*
+
 // inclusão da biblioteca
 include 'dompdf/autoload.inc.php';
 
@@ -648,6 +657,8 @@ $image = $dompdf->output();
 ?>
 
 
+
+
 <?php
 // enviar documento destino para download
 //$dompdf->stream("dompdf_out.pdf");
@@ -665,11 +676,11 @@ include_once("conexao.php");
 
 
 $consulta_insert = 
-"INSERT INTO teste_assinaturas
-(CD_ATENDIMENTO, NM_PACIENTE, DT_ATENDIMENTO, NM_CONVENIO, NOME_ANEXO, BLOB_ANEXO)
+"INSERT INTO ASSINATURAS.documentos_assinados
+(CD_ATENDIMENTO, NM_PACIENTE, DT_ATENDIMENTO, NM_CONVENIO, NOME_ANEXO, TP_DOCUMENTO, NM_USER, DT_CRIACAO, BLOB_ANEXO)
 VALUES 
-('$var_cd_atendimento', '$var_nm_paciente', '$dt_aten',
-'$nm_conv', '$nm_documneto',
+('$var_cd_atendimento', '$var_nm_paciente', TO_DATE('$dt_aten', 'DD/MM/YY'),
+'$nm_conv', '$nm_documneto', '$tp_doc', '$var_user_logado', SYSTIMESTAMP,
 empty_blob()
 ) RETURNING BLOB_ANEXO INTO :image";
 
@@ -697,7 +708,7 @@ $blob->free();
 
 
 
-if($insere_dados > 0){
+/*if($insere_dados > 0){
 	$_SESSION['msg'] = "Arquivo gerado com sucesso!"; 
     header('Location: gerar_documento.php');
     return 0;
@@ -706,7 +717,7 @@ if($insere_dados > 0){
     $_SESSION['msgerro'] = "Ocorreu um erro ao gerar o arquivo."; 
     header('Location: gerar_documento.php');
     return 0;
-}
+}*/
 
 
 exit(0);
@@ -716,5 +727,5 @@ exit(0);
 //DECLARANDO VARIAVEIS DO ARQUIVO PARA IMPORTACAO PARA O BANCO
 //$image = file_get_contents($dompdf);
 
-*/
+
 ?>

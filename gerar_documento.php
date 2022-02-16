@@ -82,7 +82,7 @@
 			///////////////////////////
 			if(isset($_POST['cd_atendimento']) OR isset($_SESSION['atdconsulta'])){
 			$cons_pdf ="SELECT *
-			FROM assinaturas.teste_assinaturas ass
+			FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
 			WHERE ass.cd_atendimento = $var_cd_atendimento
 			";
 
@@ -173,10 +173,13 @@
 		<br>
 		<div class="row">
 			<?php if(isset($var_pdf_existe)){ ?>
-
+				
 				<div style="margin-top: 20px; margin-left: 15px;">
-				<a  class="btn btn-primary" href="exibi_pdf.php"><i  style="font-size: 30px" class="fas fa-file-pdf"></i></a>
-			</div>
+					<a  class="btn btn-primary" href="exibi_pdf.php"><i  style="font-size: 30px" class="fas fa-file-pdf"></i></a>
+				</div>
+				<div style="margin-top: 20px; margin-left: 15px;">
+					<a  class="btn btn-primary" href="exibi_pdf_contrato.php"><i  style="font-size: 30px" class="fas fa-file-pdf"></i></a>
+				</div>
 			<?php }else{?>
 
 				
@@ -420,7 +423,7 @@ $(document).ready(function(){
     
 
 		var identificador = button.data('identificador') // Extract info from data-* attributes
-        console.log(identificador);
+        //console.log(identificador);
 
 
         //PASSANDO VALOR DO CAMPO PESQUISA E EXECUTANDO AJAX
