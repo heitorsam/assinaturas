@@ -162,10 +162,12 @@ p{
         <form style='height: 40px;'>
             <div class='container texto'>
                 <div class='row'>
+                <div style='width: 100%; padding-left: 4.5%; padding-right: 0%;'>
                     <div class='col-hss-12' style='border: none !important; text-align: center;'>
-                        <img class='imagem' src='https://i2.wp.com/santacasasaude.com.br/wp-content/uploads/2018/07/Santa-Casa-SJC.gif?fit=730%2C457&ssl=1'>
                         
+                            <img class='imagem' src='https://i2.wp.com/santacasasaude.com.br/wp-content/uploads/2018/07/Santa-Casa-SJC.gif?fit=730%2C457&ssl=1'>
                     </div>
+                </div>
                 </div>
             </div>
         </form>
