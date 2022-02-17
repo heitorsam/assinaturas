@@ -3,7 +3,7 @@
     session_start();
 
     //CONEXAO
-    //include 'conexao.php';
+    include 'conexao.php';
 
     @$_SESSION['atdconsulta'] = $_SESSION['atdpdf'];
 
@@ -24,8 +24,8 @@
     //$content= $result['BLOB_ANEXO']; 
 
 ?>
-<script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
-<canvas style="height:100%; width:100%" id="the-canvas"></canvas>
+
+<canvas style="height:100%; width:95%" id="the-canvas"></canvas>
 <!--<iframe src="data:application/pdf;base64,<?php echo base64_encode($image) ?>" type="application/pdf" style="height:100%;width:100%" title="Iframe Example">
 </iframe>-->
 

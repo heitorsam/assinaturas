@@ -181,7 +181,7 @@
 					<a  style="height: 37px; width: 100px " class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="tiss_pa" data-identificador="guia_tiss_assinado"><i class="fas fa-file-pdf"></i> Guia Tiss</a>
 				</div>
 				<div style="margin-top: 20px; margin-left: 15px;">
-					<a style="height: 37px; width: 100px "  class="btn btn-primary" href="exibi_pdf_contrato.php"><i class="fas fa-file-pdf"></i> Contrato</a>
+					<a style="height: 37px; width: 100px "  class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="cont_pa" data-identificador="cont_pa"><i class="fas fa-file-pdf"></i> Contrato</a>
 				</div>
 			<?php }else{?>
 
@@ -488,6 +488,9 @@ $(document).ready(function(){
 		
 			//$("#visualizaModalAssinado").load('show','exibi_pdf.php');
        
+		}else if(identificador == 'cont_pa'){
+			
+			$("#visualizaModalAssinado .modal-body").load('exibi_pdf_contrato.php');
 		}
 
 
