@@ -4,20 +4,12 @@ session_start();
 
 $count = 1;
 
-<<<<<<< Updated upstream
 @$var_cd_atendimento = $_POST['cd_atendimento'];
 @$var_nm_paciente = $_POST['nm_paciente'];
 @$dt_aten = $_POST['dt_aten'];
 @$nm_conv = $_POST['nm_conv'];
 $img = $_POST['escondidinho'];
-=======
-@$var_cd_atendimento = $_REQUEST['cd_atendimento'];
-@$var_nm_paciente = $_REQUEST['nm_paciente'];
-@$dt_aten = $_REQUEST['dt_aten'];
-@$nm_conv = $_REQUEST['nm_conv'];
-$img = $_POST['escondidinho'];
 $tp_doc = 'tiss_pa';
->>>>>>> Stashed changes
 
 $nm_documneto = 'pdf_guia_tiss_pa'.$var_cd_atendimento.'.pdf';
 

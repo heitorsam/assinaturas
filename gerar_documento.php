@@ -159,26 +159,27 @@
 		</div>
 		<br>
 		<div class="row">
-			<div class="col-md-2">
+			<div style="margin-top: 20px; margin-left: 15px;">
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>">
 					<i class="far fa-eye"></i> Guia TISS
 				</button>
 			</div>
-			<div class="col-md-2">	
+			<div style="margin-top: 20px; margin-left: 15px;">
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="contrato">
 					<i class="far fa-eye"></i> Contrato
 				</button>
 			</div>
+			
 		</div>
 		<br>
 		<div class="row">
 			<?php if(isset($var_pdf_existe)){ ?>
 				
-				<div style="margin-top: 20px; margin-left: 15px;">
-					<a  class="btn btn-primary" href="exibi_pdf.php"><i  style="font-size: 30px" class="fas fa-file-pdf"></i></a>
+				<div style="margin-top: 20px; margin-left: 15px; ">
+					<a  style="height: 37px; width: 100px " class="btn btn-primary" href="exibi_pdf.php"><i class="fas fa-file-pdf"></i> Guia Tiss</a>
 				</div>
 				<div style="margin-top: 20px; margin-left: 15px;">
-					<a  class="btn btn-primary" href="exibi_pdf_contrato.php"><i  style="font-size: 30px" class="fas fa-file-pdf"></i></a>
+					<a style="height: 37px; width: 100px "  class="btn btn-primary" href="exibi_pdf_contrato.php"><i class="fas fa-file-pdf"></i> Contrato</a>
 				</div>
 			<?php }else{?>
 
@@ -533,7 +534,7 @@ $(document).ready(function(){
 
 		//});
 
-		//document.location.reload(true);
+		document.location.reload(true);
 		
 
 	});
