@@ -1,5 +1,5 @@
 <?php
-
+ //header('Content-Type: text/html; iso-8859-1');
     session_start();
 
     //CONEXAO
@@ -8,6 +8,11 @@
     @$_SESSION['atdconsulta'] = $_SESSION['atdpdf'];
 
     $var_cd_atendimento = $_SESSION['atdpdf'];
+
+    //@$var_cd_atendimento = $_POST['cd_atendimento'];
+    //@$tp_doc = $_POST['tp_doc'];
+
+
 
     ///////////////
     //PDF DOWLOAD//
@@ -21,15 +26,14 @@
     @oci_execute($result_dowload);
     $result= oci_fetch_array($result_dowload);
     $image =$result['BLOB_ANEXO']->load();
-    //$content= $result['BLOB_ANEXO']; 
+
+
+//echo(json_encode($image));
 
 ?>
-<script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
-<div>
-<a class="btn btn-primary" href="gerar_documento.php"><i class="fas fa-file-excel"></i> <button>Voltar</button></a>
-</div>
-<canvas id="the-canvas"></canvas>
-<!--<iframe src="data:application/pdf;base64,<?php echo base64_encode($image) ?>" type="application/pdf" style="height:100%;width:100%" title="Iframe Example">
+
+<canvas style="height:100%; width:100%" id="the-canvas"></canvas>
+<!--<iframe src="data:application/pdf;base64," type="application/pdf" style="height:80%;width:80%" title="Iframe Example">
 </iframe>-->
 
 
@@ -77,4 +81,3 @@ loadingTask.promise.then(function(pdf) {
   console.error(reason);
 });
 </script>
-

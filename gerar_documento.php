@@ -158,9 +158,11 @@
 			</div>
 		</div>
 		<br>
+		<?php if(isset($var_pdf_existe)){ 
+		}else{?>
 		<div class="row">
 			<div style="margin-top: 20px; margin-left: 15px;">
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>">
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="guia_tiss">
 					<i class="far fa-eye"></i> Guia TISS
 				</button>
 			</div>
@@ -169,14 +171,14 @@
 					<i class="far fa-eye"></i> Contrato
 				</button>
 			</div>
-			
 		</div>
+		<?php } ?>
 		<br>
 		<div class="row">
 			<?php if(isset($var_pdf_existe)){ ?>
 				
 				<div style="margin-top: 20px; margin-left: 15px; ">
-					<a  style="height: 37px; width: 100px " class="btn btn-primary" href="exibi_pdf.php"><i class="fas fa-file-pdf"></i> Guia Tiss</a>
+					<a  style="height: 37px; width: 100px " class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="tiss_pa" data-identificador="guia_tiss_assinado"><i class="fas fa-file-pdf"></i> Guia Tiss</a>
 				</div>
 				<div style="margin-top: 20px; margin-left: 15px;">
 					<a style="height: 37px; width: 100px "  class="btn btn-primary" href="exibi_pdf_contrato.php"><i class="fas fa-file-pdf"></i> Contrato</a>
@@ -402,6 +404,26 @@
 	</div>
 
 
+<!--MODAL VISUALIZA ASSINADO-->
+<div class="modal fade " id="visualizaModalAssinado" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-xl" role="document">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLongTitle">Documento Assinado</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body" id="body_result2" style="margin-left: 10px; width: 100%">
+		
+		</div>
+		<div class="modal-footer">
+		</div>
+		</div>
+	</div>
+</div>
+
+
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -421,6 +443,8 @@ $(document).ready(function(){
       
 
 		var nm_conv = button.data('nm_conv') // Extract info from data-* attributes
+
+		var tp_doc = button.data('tp_doc') // Extract info from data-* attributes
     
 
 		var identificador = button.data('identificador') // Extract info from data-* attributes
@@ -444,7 +468,7 @@ $(document).ready(function(){
 
 			});
 			
-		}else{
+		}else if(identificador == 'guia_tiss'){
 
 			$.getJSON('visualizar_documento.php?search=',{cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv, ajax: 'true'}, function(j){
 
@@ -458,10 +482,18 @@ $(document).ready(function(){
 
 			});
 
+		}else if(identificador == 'guia_tiss_assinado'){
+
+			$("#visualizaModalAssinado .modal-body").load('exibi_pdf.php');
+		
+			//$("#visualizaModalAssinado").load('show','exibi_pdf.php');
+       
 		}
 
 
      });
+
+
 
 	document.getElementById("sig-submitBtn").addEventListener("click", function () {
 		 //alert("Aqui");
