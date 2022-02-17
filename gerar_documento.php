@@ -178,10 +178,10 @@
 			<?php if(isset($var_pdf_existe)){ ?>
 				
 				<div style="margin-top: 20px; margin-left: 15px; ">
-					<a  style="height: 37px; width: 100px " class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="tiss_pa" data-identificador="guia_tiss_assinado"><i class="fas fa-file-pdf"></i> Guia Tiss</a>
+					<a  style="height: 100%; width: 100% " class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="tiss_pa" data-identificador="guia_tiss_assinado"><i class="fas fa-file-pdf"></i> Guia Tiss</a>
 				</div>
 				<div style="margin-top: 20px; margin-left: 15px;">
-					<a style="height: 37px; width: 100px "  class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="cont_pa" data-identificador="cont_pa"><i class="fas fa-file-pdf"></i> Contrato</a>
+					<a style="height: 100%; width: 100% "  class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="cont_pa" data-identificador="cont_pa"><i class="fas fa-file-pdf"></i> Contrato</a>
 				</div>
 			<?php }else{?>
 
@@ -202,7 +202,7 @@
 
 
 		<!--MODAL ASSINATURA-->
-			<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal fade" id="exampleModalCenter" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 				<div class="modal-dialog modal-dialog" role="document">
 					<div class="modal-content">
 					<div class="modal-header">
@@ -485,11 +485,9 @@ $(document).ready(function(){
 		}else if(identificador == 'guia_tiss_assinado'){
 
 			$("#visualizaModalAssinado .modal-body").load('exibi_pdf.php');
-		
-			//$("#visualizaModalAssinado").load('show','exibi_pdf.php');
        
 		}else if(identificador == 'cont_pa'){
-			
+
 			$("#visualizaModalAssinado .modal-body").load('exibi_pdf_contrato.php');
 		}
 
