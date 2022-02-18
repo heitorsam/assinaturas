@@ -567,8 +567,8 @@ $(document).ready(function(){
 
 		//});
 
-		document.location.reload(true);
-		
+		//document.location.reload(true);
+		window.location.reload()
 
 	});
 
