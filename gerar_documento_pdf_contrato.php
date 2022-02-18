@@ -176,16 +176,16 @@ p{
         <br>
         <br>
         <br>
-        <br>   
-        
+        <br>
         <form>
             <div class='container texto'>
-                <div style='width: 100%; padding-left: 7%; padding-right: 7%;'>
+                <div style='width: 90%; height: 100%; padding-left: 7%; padding-right: 7%;'>
                 <p style='text-align: center; font-weight: bold;'>CONTRATO DE PRESTAÇÃO DE SERVIÇOS
                 <p style='text-align: center; font-weight: bold;'>PRONTO ATENDIMENTO 
                 
                 </br>
                 </br>
+              
                     <p>Paciente: <b>" . @$dados_pac_resp['NOME_PACIENTE']. "</b> Prontuário: <b>" .@$dados_pac_resp['PRONTUARIO'] . "</b> 
                     <p> Data do Atendimento: <b>" . @$dados_pac_resp['DT_ATENDIMENTO']. "</b>
                     
@@ -208,10 +208,9 @@ p{
                     
                     <p>RESPONSAVEL: <b>" . @$dados_pac_resp['NOME_RESPONSAVEL']. "</b> 
                     <p>RG: <b>" . @$dados_pac_resp['RG_RESPONSAVEL']. "</b>
-                    <div class='col-hss-4' style='height: 30px;'>
+                    <div class='col-hss-4' style='height: 30px; border: none !important; border-bottom: solid 1px black !important;'>
                             <img src='$img' width='100%' height='100%'  style:'float: right;'>
                     </div>
-
                 </div>
             </div>
         </form>
@@ -316,6 +315,7 @@ exit(0);
 
 //DECLARANDO VARIAVEIS DO ARQUIVO PARA IMPORTACAO PARA O BANCO
 //$image = file_get_contents($dompdf);
+
 
 
 ?>

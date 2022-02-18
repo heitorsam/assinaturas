@@ -414,7 +414,7 @@
 			<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
-		<div class="modal-body" id="body_result2" style="margin-left: 10px; width: 100%">
+		<div class="modal-body" id="body_result" style="margin-left: 10px; width: 100%">
 		
 		</div>
 		<div class="modal-footer">
