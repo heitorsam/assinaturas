@@ -566,10 +566,7 @@ $(document).ready(function(){
 
 
 		//});
-
-		//document.location.reload(true);
-		//window.location.reload()
-		history.go(0)
+	document.location.reload(true);
 
 	});
 
