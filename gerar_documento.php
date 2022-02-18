@@ -84,9 +84,9 @@
 			///////////////////////////
 			if(isset($_POST['cd_atendimento']) OR isset($_SESSION['atdconsulta']) OR isset($_COOKIE['atendimento']) ){
 			$cons_pdf ="SELECT *
-						FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
-						WHERE ass.cd_atendimento = $var_cd_atendimento
-						";
+					FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
+					WHERE ass.cd_atendimento = $var_cd_atendimento
+					";
 
 			$result_pdf_exis = oci_parse($conn_ora, $cons_pdf);
 			@oci_execute($result_pdf_exis);
@@ -160,7 +160,7 @@
 			</div>
 		</div>
 		<br>
-		<?php if(isset($_POST['cd_atendimento']) OR isset($_SESSION['atdconsulta']) OR isset($_COOKIE['atendimento']) ){
+		<?php if(isset($var_pdf_existe) OR isset($_COOKIE['atendimento'])){ 
 		}else{?>
 		<div class="row">
 			<div style="margin-top: 20px; margin-left: 15px;">
@@ -177,7 +177,7 @@
 		<?php } ?>
 		<br>
 		<div class="row">
-			<?php if(isset($_POST['cd_atendimento']) OR isset($_SESSION['atdconsulta']) OR isset($_COOKIE['atendimento']) ){ ?>
+			<?php if(isset($var_pdf_existe) OR isset($_COOKIE['atendimento'])){ ?>
 				
 				<div style="margin-top: 20px; margin-left: 15px; ">
 					<a  style="height: 100%; width: 100% " class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="tiss_pa" data-identificador="guia_tiss_assinado"><i class="fas fa-file-pdf"></i> Guia Tiss</a>
