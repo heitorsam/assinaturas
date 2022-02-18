@@ -527,13 +527,13 @@ $(document).ready(function(){
 					//função que vai ser executada assim que a requisição for enviada
 					data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
 					//função que será executada quando a solicitação for finalizada.
-					success: function (msg){
+					/*success: function (msg){
 						alert("Sucesso");
 					},
 
 					error: function (msg){
 						alert("Erro");
-					}
+					}*/
 			
 				});
 
@@ -546,13 +546,13 @@ $(document).ready(function(){
 			//função que vai ser executada assim que a requisição for enviada
 			data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
 			//função que será executada quando a solicitação for finalizada.
-			success: function (msg){
+			/*success: function (msg){
 						console.log("Sucesso");
 					},
 
 			error: function (msg){
 				console.log("Erro");
-			}
+			}*/
 		});
 
 		//$.getJSON('gerar_documento_pdf.php?search=',{cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho, ajax: 'true'}, function(j){
