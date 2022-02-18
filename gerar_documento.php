@@ -20,8 +20,12 @@
 			@$var_cd_atendimento = $_POST['cd_atendimento'];
 
 			$_SESSION['atdpdf'] = $_POST['cd_atendimento'];	
+
+			@$var_cookie = $_SESSION['atdpdf'];
 			
-			setcookie("atendimento", $var_cd_atendimento);
+			setcookie("atendimento", '',1);
+			setcookie("atendimento", @$var_cookie, time() +3600);
+			
 
 		} else {
 			
@@ -92,8 +96,11 @@
 			@oci_execute($result_pdf_exis);
 			@$row_pdf_exis = oci_fetch_array($result_pdf_exis);
 			@$var_pdf_existe = $row_pdf_exis['BLOB_ANEXO'];
+			echo $_COOKIE['atendimento'];
+			echo $_SESSION['atdpdf'];
 			}
-
+			
+			
 ?>
 
 <!DOCTYPE HTML>
@@ -160,7 +167,7 @@
 			</div>
 		</div>
 		<br>
-		<?php if(isset($var_pdf_existe) OR isset($_COOKIE['atendimento'])){ 
+		<?php if(isset($var_pdf_existe)){ 
 		}else{?>
 		<div class="row">
 			<div style="margin-top: 20px; margin-left: 15px;">
@@ -177,7 +184,7 @@
 		<?php } ?>
 		<br>
 		<div class="row">
-			<?php if(isset($var_pdf_existe) OR isset($_COOKIE['atendimento'])){ ?>
+			<?php if(isset($var_pdf_existe)){ ?>
 				
 				<div style="margin-top: 20px; margin-left: 15px; ">
 					<a  style="height: 100%; width: 100% " class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="tiss_pa" data-identificador="guia_tiss_assinado"><i class="fas fa-file-pdf"></i> Guia Tiss</a>
