@@ -568,10 +568,10 @@ $(document).ready(function(){
 		//});
 
 		//document.location.reload(true);
-		window.location.reload()
+		//window.location.reload()
+		history.go(0)
 
 	});
-
 
 });
         
