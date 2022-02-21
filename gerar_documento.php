@@ -241,7 +241,7 @@
 		//RODAPE
 		include 'rodape.php';
 
-		unset($_SESSION["atdconsulta"]);
+		
 
 		?>
 		
@@ -573,11 +573,14 @@ $(document).ready(function(){
 		//});
 
 		//location.reload();
-		window.location.replace('gerar_documento.php');
-	
+		window.location.replace('gerar_documento.php?');
+		<?php
+	unset($_SESSION["atdconsulta"]);
+?>
 		
 	});
 
 });
         
-</script>  
+</script>
+
