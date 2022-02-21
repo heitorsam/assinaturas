@@ -558,7 +558,7 @@ $(document).ready(function(){
 		});
 
 		//document.location.assign('gerar_documento.php');
-		document.location.reload(true);
+		//document.location.reload(true);
 
 		//$.getJSON('gerar_documento_pdf.php?search=',{cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho, ajax: 'true'}, function(j){
 
@@ -572,9 +572,10 @@ $(document).ready(function(){
 
 		//});
 
-		location.reload(true);
-	 
-
+		//location.reload();
+		window.location.replace('gerar_documento.php');
+	
+		
 	});
 
 });
