@@ -140,7 +140,7 @@
 		<!---RESULTADO DA PESQUISA-->
 
 		<?php if(strlen(@$var_nm_paciente) > 1){ ?>
-		<form autocomplete="off" id="assinatura"  method="post" /action="gerar_documento_pdf.php">
+		<form autocomplete="off" id="assinatura"  method="get" action="gerar_documento_pdf.php">
 		<div class="row">
 			<div class="col-md-3" id="div_sn_exame_mv">
 					<label>Atendimento:</label>
