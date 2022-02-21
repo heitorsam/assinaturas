@@ -5,22 +5,19 @@
 
     //CONEXAO
     include 'conexao.php';
+	if(isset($_GET['cd_atendimento'])){
 
-	if(isset($_SESSION['atdconsulta'])){
+		@$var_cd_atendimento = $_GET['cd_atendimento'];
 
-		@$var_cd_atendimento = $_SESSION['atdconsulta'];
-
-		$_SESSION['atdpdf'] = $_SESSION['atdconsulta'];
+		$_SESSION['atdpdf'] = $_GET['cd_atendimento'];	
 
 	} else {
 
-		//RECEBENDO POST
-		if(isset($_GET['cd_atendimento'])){
+		if(isset($_SESSION['atdconsulta'])){
 
-			@$var_cd_atendimento = $_GET['cd_atendimento'];
-
-			$_SESSION['atdpdf'] = $_GET['cd_atendimento'];	
-			
+			@$var_cd_atendimento = $_SESSION['atdconsulta'];
+	
+			$_SESSION['atdpdf'] = $_SESSION['atdconsulta'];
 
 		} else {
 			
@@ -140,7 +137,7 @@
 		<!---RESULTADO DA PESQUISA-->
 
 		<?php if(strlen(@$var_nm_paciente) > 1){ ?>
-		<form autocomplete="off" id="assinatura"  method="get" action="gerar_documento_pdf.php">
+		<form autocomplete="off" id="assinatura"  method="get//" action="gerar_documento_pdf.php">
 		<div class="row">
 			<div class="col-md-3" id="div_sn_exame_mv">
 					<label>Atendimento:</label>
@@ -572,12 +569,20 @@ $(document).ready(function(){
 
 		//});
 
-		//document.location.reload();
-		window.location.replace('gerar_documento.php?cd_atendimento=<?php echo $_SESSION['atdpdf'] ?>');
+
+	
+		window.setTimeout(function(){location.reload()},1000)
+	
+
+	
+
+		
+		//window.location.replace('gerar_documento.php?cd_atendimento=<?php echo $_SESSION['atdpdf'] ?>');
 	
 		
 	});
 
 });
+
         
 </script>  
