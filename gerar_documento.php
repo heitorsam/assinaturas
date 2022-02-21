@@ -20,11 +20,6 @@
 			@$var_cd_atendimento = $_POST['cd_atendimento'];
 
 			$_SESSION['atdpdf'] = $_POST['cd_atendimento'];	
-
-			@$var_cookie = $_SESSION['atdpdf'];
-			
-			setcookie("atendimento", '',1);
-			setcookie("atendimento", @$var_cookie, time() +3600);
 			
 
 		} else {
@@ -86,7 +81,7 @@
 			//Verifica se existe pdf///
 			//para aquele atendimento//
 			///////////////////////////
-			if(isset($_POST['cd_atendimento']) OR isset($_SESSION['atdconsulta']) OR isset($_COOKIE['atendimento']) ){
+			if(isset($_POST['cd_atendimento']) OR isset($_SESSION['atdconsulta']) ){
 			$cons_pdf ="SELECT *
 					FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
 					WHERE ass.cd_atendimento = $var_cd_atendimento
@@ -96,8 +91,6 @@
 			@oci_execute($result_pdf_exis);
 			@$row_pdf_exis = oci_fetch_array($result_pdf_exis);
 			@$var_pdf_existe = $row_pdf_exis['BLOB_ANEXO'];
-			echo $_COOKIE['atendimento'];
-			echo $_SESSION['atdpdf'];
 			}
 			
 			
@@ -579,7 +572,7 @@ $(document).ready(function(){
 
 		//});
 
-		//document.location.reload(true);
+		location.reload(true);
 	 
 
 	});
