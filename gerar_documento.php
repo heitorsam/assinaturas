@@ -81,7 +81,7 @@
 			//Verifica se existe pdf///
 			//para aquele atendimento//
 			///////////////////////////
-			if(isset($_POST['cd_atendimento']) OR isset($_SESSION['atdconsulta']) ){
+			if(isset($_POST['cd_atendimento']) OR isset($_SESSION['atdpdf']) ){
 			$cons_pdf ="SELECT *
 					FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
 					WHERE ass.cd_atendimento = $var_cd_atendimento
@@ -93,7 +93,7 @@
 			@$var_pdf_existe = $row_pdf_exis['BLOB_ANEXO'];
 			}
 			
-			echo  $_SESSION['atdpdf'];
+			
 ?>
 
 <!DOCTYPE HTML>
@@ -241,7 +241,7 @@
 		//RODAPE
 		include 'rodape.php';
 
-		
+		unset($_SESSION["atdconsulta"]);
 
 		?>
 		
@@ -574,13 +574,10 @@ $(document).ready(function(){
 
 		//location.reload();
 		window.location.replace('gerar_documento.php?');
-		<?php
-	unset($_SESSION["atdpdf"]);
-?>
+	
 		
 	});
 
 });
         
-</script>
-
+</script>  
