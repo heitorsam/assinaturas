@@ -572,8 +572,8 @@ $(document).ready(function(){
 
 		//});
 
-		//location.reload();
-		window.location.replace('gerar_documento.php?');
+		document.location.reload();
+		//window.location.replace('gerar_documento.php?');
 	
 		
 	});
