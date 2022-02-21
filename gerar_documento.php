@@ -15,11 +15,11 @@
 	} else {
 
 		//RECEBENDO POST
-		if(isset($_POST['cd_atendimento'])){
+		if(isset($_GET['cd_atendimento'])){
 
-			@$var_cd_atendimento = $_POST['cd_atendimento'];
+			@$var_cd_atendimento = $_GET['cd_atendimento'];
 
-			$_SESSION['atdpdf'] = $_POST['cd_atendimento'];	
+			$_SESSION['atdpdf'] = $_GET['cd_atendimento'];	
 			
 
 		} else {
@@ -32,7 +32,7 @@
 
 	//VALIDANDO SE A GUIA TISS FOI GERADA NO SISTEMA
 
-	if(isset($_POST['cd_atendimento'])){
+	if(isset($_GET['cd_atendimento'])){
 		//CONSULTA ID
 		$cons_id = "SELECT LPAD(ID,15,0) as ID
 					FROM dbamv.tiss_itguia
@@ -68,7 +68,7 @@
 			$result_atendimento = oci_parse($conn_ora, $cons_atend);
 			@oci_execute($result_atendimento);
 			$row_aten = oci_fetch_array($result_atendimento);
-			if(!isset( $row_aten['CD_ATENDIMENTO']) && isset($_POST['cd_atendimento'])){
+			if(!isset( $row_aten['CD_ATENDIMENTO']) && isset($_GET['cd_atendimento'])){
 				$_SESSION['msgerro'] = "Número de atendimento não encontrado."; 
 			}
 			
@@ -81,7 +81,7 @@
 			//Verifica se existe pdf///
 			//para aquele atendimento//
 			///////////////////////////
-			if(isset($_POST['cd_atendimento']) OR isset($_SESSION['atdpdf']) ){
+			if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdpdf']) ){
 			$cons_pdf ="SELECT *
 					FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
 					WHERE ass.cd_atendimento = $var_cd_atendimento
@@ -117,13 +117,13 @@
 
 
 		<div class="div_br"> </div>
-		<form method="post" autocomplete="off" action="gerar_documento.php">
+		<form method="get" autocomplete="off" action="gerar_documento.php">
 		<div class="row">
 			<div class="col-md-3 ">
 				Atendimento:
 				<div class="input-group">
 
-				<?php if(isset($_POST['cd_atendimento']) OR isset($_SESSION['atdconsulta'])){ ?>
+				<?php if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdconsulta'])){ ?>
 					<input class="form-control input-group" type="text" value="<?php echo @$var_cd_atendimento;?>" name="cd_atendimento" required>
 				<?php } else { ?>
 					<input class="form-control input-group" type="text"  name="cd_atendimento" required>
@@ -572,8 +572,8 @@ $(document).ready(function(){
 
 		//});
 
-		document.location.reload();
-		//window.location.replace('gerar_documento.php?');
+		//document.location.reload();
+		window.location.replace('gerar_documento.php?cd_atendimento=<?php echo $_SESSION['atdpdf'] ?>');
 	
 		
 	});
