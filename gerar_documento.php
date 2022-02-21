@@ -93,7 +93,7 @@
 			@$var_pdf_existe = $row_pdf_exis['BLOB_ANEXO'];
 			}
 			
-			
+			echo  $_SESSION['atdpdf'];
 ?>
 
 <!DOCTYPE HTML>
@@ -575,7 +575,7 @@ $(document).ready(function(){
 		//location.reload();
 		window.location.replace('gerar_documento.php?');
 		<?php
-	unset($_SESSION["atdconsulta"]);
+	unset($_SESSION["atdpdf"]);
 ?>
 		
 	});
