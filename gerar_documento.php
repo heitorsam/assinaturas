@@ -90,6 +90,7 @@
 			@$var_pdf_existe = $row_pdf_exis['BLOB_ANEXO'];
 			}
 			
+	
 			
 ?>
 
@@ -569,15 +570,9 @@ $(document).ready(function(){
 
 		//});
 
-
 	
 		window.setTimeout(function(){location.reload()},1000)
-	
 
-	
-
-		
-		//window.location.replace('gerar_documento.php?cd_atendimento=<?php echo $_SESSION['atdpdf'] ?>');
 	
 		
 	});
