@@ -26,7 +26,6 @@ include 'sql_consulta_contrato.php';
 
 //echo $html;
 
-
 $documentTemplate = "
 <html lang='en'> 
     <head> 
