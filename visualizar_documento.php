@@ -11,7 +11,7 @@ $nm_documneto = 'pdf_assinatura_'.$var_cd_atendimento.'.pdf';
 
 @$_SESSION['atdconsulta'] = $_REQUEST['cd_atendimento'];
 
-$var_user_logado = $_SESSION['usuarioNome'];
+$var_user_logado = $_SESSION['usuarioLogin'];
 
 $count = 1;
 
@@ -34,7 +34,6 @@ $documentTemplate = "
         <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'> 
     </head>
     <style>
-
     .col-hss-1,.col-hss-2,.col-hss-3,.col-hss-4, .col-hss-5, .col-hss-6, .col-hss-7, .col-hss-8, .col-hss-9, .col-hss-10, .col-hss-11, .col-hss-12 {
     
     height: 25px;
@@ -42,117 +41,91 @@ $documentTemplate = "
     background-color: #ffffff;
     margin: 1 1 1 1;
     border: solid 1px black !important;
-
 }
-
 .faixa-cinza{
-
     height: 10px !important;
     font-size: 8px; 
     background-color: #cccccc;
     line-height: 7px;
     clear:both;
 }
-
-
 .row{
-
     width: 100% !important;
     clear:both;
-
 }
 .col-hss-12{
-
     width: 99% !important;
     height: 20px;
     float: left;
 }
 .col-hss-11{
-
     width: 90.66% !important;
     height: 20px;
     float: left;
 }
 .col-hss-10{
-
     width: 82.33% !important;
     height: 20px;
     float: left;
 }
 .col-hss-9{
-
     width: 74% !important;
     height: 20px;
     float: left;
 }
 .col-hss-8{
-
     width: 65.66% !important;
     height: 20px;
     float: left;
 }
 .col-hss-7{
-
     width: 57.33% !important;
     height: 20px;
     float: left;
 }
 .col-hss-6{
-
     width: 49% !important;
     height: 20px;
     float: left;
 }
 .col-hss-5{
-
     width: 40.66% !important;
     height: 20px;
     float: left;
 }
 .col-hss-4{
-
     width: 32.33% !important;
     height: 20px;
     float: left;
 }
 .col-hss-3{
-
     width: 24% !important;
     height: 20px;
     float: left;
 }
-
 .col-hss-2{
-
     width: 15.66% !important;
     height: 20px;
     float: left;
     
 }
-
 .col-hss-1{
-
     width: 7.33% !important;
     height: 20px;
     float: left;
 }
-
 h2{
     font-size: 10px;
     line-height: 4px;
     float: center;
     margin-top: 0px; 
 }
-
 h2-footer{
-
     font-size: 10px;
     float: center;
     margin-top: 0px;
-
 }
 </style> 
-
         <form style='height: 40px;'>
             <div class='container'>
                 <div class='row'>

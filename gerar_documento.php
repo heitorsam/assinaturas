@@ -27,8 +27,46 @@
 	}
 
 
-	//VALIDANDO SE A GUIA TISS FOI GERADA NO SISTEMA
+	////////////
+	//PACIENTE//
+	///////////
+		$cons_atend="SELECT ate.CD_ATENDIMENTO, pac.NM_PACIENTE, TO_CHAR(ate.DT_ATENDIMENTO, 'DD/MM/YYYY') AS DT_ATENDIMENTO, 
+				con.CD_CONVENIO, con.NM_CONVENIO
+				FROM ATENDIME ate
+				INNER JOIN paciente  pac ON pac.cd_paciente = ate.cd_paciente
+				INNER JOIN CONVENIO  con ON con.cd_convenio = ate.cd_convenio
+				WHERE ate.cd_atendimento = '$var_cd_atendimento'";
 
+	$result_atendimento = oci_parse($conn_ora, $cons_atend);
+	@oci_execute($result_atendimento);
+	$row_aten = oci_fetch_array($result_atendimento);
+	if(!isset( $row_aten['CD_ATENDIMENTO']) && isset($_GET['cd_atendimento'])){
+		$_SESSION['msgerro'] = "Número de atendimento não encontrado."; 
+	}
+	
+	@$var_cd_atendimento = $row_aten['CD_ATENDIMENTO'];
+	@$var_nm_paciente = $row_aten['NM_PACIENTE'];
+	@$var_dt_aten = $row_aten['DT_ATENDIMENTO'];
+	@$var_nm_conv = $row_aten['NM_CONVENIO'];
+	@$var_cd_conv = $row_aten['CD_CONVENIO'];
+
+	///////////////////////////
+	//Verifica se existe pdf///
+	//para aquele atendimento//
+	///////////////////////////
+	if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdpdf']) ){
+	$cons_pdf ="SELECT *
+			FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
+			WHERE ass.cd_atendimento = $var_cd_atendimento
+			";
+
+	$result_pdf_exis = oci_parse($conn_ora, $cons_pdf);
+	@oci_execute($result_pdf_exis);
+	@$row_pdf_exis = oci_fetch_array($result_pdf_exis);
+	@$var_pdf_existe = $row_pdf_exis['BLOB_ANEXO'];
+	}	
+
+	//VALIDANDO SE A GUIA TISS FOI GERADA NO SISTEMA NA REGRA DO CONVENIO
 	if(isset($_GET['cd_atendimento'])){
 		//CONSULTA ID
 		$cons_id = "SELECT LPAD(ID,15,0) as ID
@@ -43,52 +81,21 @@
 
 		@$id_guia_00 = $id_guia['ID'];
 
+		//SE A GUIA EXISTE
 		if(!isset($id_guia_00)){
 
-			$_SESSION['msgerro'] = "Guia TISS não foi gerada no sistema!"; 
-			header('Location: gerar_documento.php');
-			return 0;
+			//E FOR CONVENIO
+			if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40 && $var_cd_conv <> 105){
+			
+				$_SESSION['msgerro'] = "Guia TISS não foi gerada no sistema!"; 
+				header('Location: gerar_documento.php');
+				return 0;
+
+			}
 
 		}
 
 	}
-
-			////////////
-			//PACIENTE//
-			///////////
-			 $cons_atend="SELECT ate.CD_ATENDIMENTO, pac.NM_PACIENTE, TO_CHAR(ate.DT_ATENDIMENTO, 'DD/MM/YYYY') AS DT_ATENDIMENTO, con.NM_CONVENIO
-						FROM ATENDIME ate
-						INNER JOIN paciente  pac ON pac.cd_paciente = ate.cd_paciente
-						INNER JOIN CONVENIO  con ON con.cd_convenio = ate.cd_convenio
-						WHERE ate.cd_atendimento = '$var_cd_atendimento'";
-
-			$result_atendimento = oci_parse($conn_ora, $cons_atend);
-			@oci_execute($result_atendimento);
-			$row_aten = oci_fetch_array($result_atendimento);
-			if(!isset( $row_aten['CD_ATENDIMENTO']) && isset($_GET['cd_atendimento'])){
-				$_SESSION['msgerro'] = "Número de atendimento não encontrado."; 
-			}
-			
-			@$var_cd_atendimento = $row_aten['CD_ATENDIMENTO'];
-			@$var_nm_paciente = $row_aten['NM_PACIENTE'];
-			@$var_dt_aten = $row_aten['DT_ATENDIMENTO'];
-			@$var_nm_conv = $row_aten['NM_CONVENIO'];
-
-			///////////////////////////
-			//Verifica se existe pdf///
-			//para aquele atendimento//
-			///////////////////////////
-			if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdpdf']) ){
-			$cons_pdf ="SELECT *
-					FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
-					WHERE ass.cd_atendimento = $var_cd_atendimento
-					";
-
-			$result_pdf_exis = oci_parse($conn_ora, $cons_pdf);
-			@oci_execute($result_pdf_exis);
-			@$row_pdf_exis = oci_fetch_array($result_pdf_exis);
-			@$var_pdf_existe = $row_pdf_exis['BLOB_ANEXO'];
-			}	
 
 ?>
 
@@ -121,6 +128,7 @@
 
 				<?php if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdconsulta'])){ ?>
 					<input class="form-control input-group" type="text" value="<?php echo @$var_cd_atendimento;?>" name="cd_atendimento" required>
+					<input class="form-control input-group" type="hidden" value="<?php echo 'A';?>" id="tp_atendimento" required>
 				<?php } else { ?>
 					<input class="form-control input-group" type="text"  name="cd_atendimento" required>
 				<?php }?>
@@ -154,61 +162,88 @@
 					<label>Nome Convenio:</label>
 					<input type="text" value="<?php echo @$var_nm_conv;?>" class="form-control" id="nm_convenio" name="nm_conv" readonly></input>
 			</div>
+			<div class="col-md-3" id="div_sn_exame_mv">
+					<input type="hidden" value="<?php echo @$var_cd_conv;?>" class="form-control" id="cd_convenio" name="cd_conv" ></input>
+			</div>
 		</div>
 		<br>
 
 		<!--SE NÃO TIVER ASSINADO -->
+		<div class="row">
+			<?php if(!isset($var_pdf_existe)){?>
+				<!-- APENAS GERA A GUIA TISS SE FOR CONVENIO -->
+				<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105){?>
+					
+					<div style="margin-top: 20px; margin-left: 15px;">
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="guia_tiss">
+							<i class="far fa-eye"></i> Guia TISS
+						</button>
+					</div>
+					
+				<?php } ?>
+				
+				<!-- GERA CONTRATO EXCETO SUS -->
+				<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 105){?>
+					
+					<div style="margin-top: 20px; margin-left: 15px;">
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="contrato">
+							<i class="far fa-eye"></i> Contrato
+						</button>
+					</div>
+					
+				<?php } ?>
+				
+				<!-- GERA FAA APENAS SUS -->
+				<?php if($var_cd_conv == 1 || $var_cd_conv == 2 || $var_cd_conv == 105){?>
+					
+					<div style="margin-top: 20px; margin-left: 15px;">
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="hos_faa">
+							<i class="far fa-eye"></i> Ficha Atendimento
+						</button>
+					</div>
+				
+				<?php } ?>
 
-		<?php if(!isset($var_pdf_existe)){?>
-
-			<div class="row">
-				<div style="margin-top: 20px; margin-left: 15px;">
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="guia_tiss">
-						<i class="far fa-eye"></i> Guia TISS
-					</button>
-				</div>
-				<div style="margin-top: 20px; margin-left: 15px;">
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="contrato">
-						<i class="far fa-eye"></i> Contrato
-					</button>
-				</div>
-				<div style="margin-top: 20px; margin-left: 15px;">
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="faa">
-						<i class="far fa-eye"></i> FAA
-					</button>
-				</div>
-			</div>
-
-		<?php } ?>
+			<?php } ?>
+		</div>
 
 		<br>
 		<div class="row">
+			<!-- SE TIVER ASSINADO -->
 
-		<!-- SE TIVER ASSINADO -->
+				<?php if(isset($var_pdf_existe)){ ?>
+					
+					<!-- APENAS GERA A GUIA TISS SE FOR CONVENIO -->
+					<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105){?>
+						<div style="margin-top: 20px; margin-left: 15px; ">
+							<a  style="height: 100%; width: 100% " class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="tiss_pa" data-identificador="guia_tiss_assinado"><i class="fas fa-file-pdf"></i> Guia Tiss</a>
+						</div>
+					<?php } ?>
+					
+					<!-- GERA CONTRATO EXCETO SUS -->
+					<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 105){?>
+						<div style="margin-top: 20px; margin-left: 15px;">
+							<a style="height: 100%; width: 100% "  class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="cont_pa" data-identificador="cont_pa_assinado"><i class="fas fa-file-pdf"></i> Contrato</a>
+						</div>
+					<?php } ?>
+					
+					<!-- GERA FAA APENAS SUS -->
+					<?php if($var_cd_conv == 1 || $var_cd_conv == 2 || $var_cd_conv == 105){?>
+						<div style="margin-top: 20px; margin-left: 15px;">
+							<a style="height: 100%; width: 100% "  class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="hos_faa" data-identificador="hos_faa_assinado"><i class="fas fa-file-pdf"></i> Ficha Atendimento</a>
+						</div>
+					<?php } ?>	
+				<?php }else{?>				
 
-			<?php if(isset($var_pdf_existe)){ ?>
-				
-				<div style="margin-top: 20px; margin-left: 15px; ">
-					<a  style="height: 100%; width: 100% " class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="tiss_pa" data-identificador="guia_tiss_assinado"><i class="fas fa-file-pdf"></i> Guia Tiss</a>
-				</div>
-				<div style="margin-top: 20px; margin-left: 15px;">
-					<a style="height: 100%; width: 100% "  class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="cont_pa" data-identificador="cont_pa"><i class="fas fa-file-pdf"></i> Contrato</a>
-				</div>
-				<div style="margin-top: 20px; margin-left: 15px;">
-					<a style="height: 100%; width: 100% "  class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="faa" data-identificador="faa"><i class="fas fa-file-pdf"></i> Ficha Atendimento</a>
-				</div>
-			
-			<?php }else{?>				
+					<div class="col-md-2" >
 
-				<div class="col-md-2" >
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+						<i class="fas fa-signature"></i> Assinar
+						</button>
 
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-					<i class="fas fa-signature"></i> Assinar
-					</button>
+					</div>
 
-				</div>
-
-			<?php }	?>
+				<?php }	?>
 		</div>
 
 		<!--MODAL ASSINATURA-->
@@ -482,7 +517,7 @@ $(document).ready(function(){
 
 			});
 
-		}else if(identificador == 'faa'){
+		}else if(identificador == 'hos_faa'){
 
 			//BUSCANDO INFORMACOES VIA JSON E ADICIONANDO A VARIAVEL J
 
@@ -507,16 +542,17 @@ $(document).ready(function(){
 
 			$("#visualizaModalAssinado .modal-body").load('exibi_pdf.php');
        
-		}else if(identificador == 'cont_pa'){
+		}else if(identificador == 'cont_pa_assinado'){
 
 			$("#visualizaModalAssinado .modal-body").load('exibi_pdf_contrato.php');
 		}
-		else if(identificador == 'faa'){
+		else if(identificador == 'hos_faa_assinado'){
 			$("#visualizaModalAssinado .modal-body").load('exibi_pdf_faa.php');
 		}
 
 
      });
+
 	//AÇÃO APOS ASSINAR
 
 	document.getElementById("sig-submitBtn").addEventListener("click", function () {
@@ -538,61 +574,75 @@ $(document).ready(function(){
 
 		var escondidinho = document.getElementById('escondidinho').value = canvas.toDataURL('image/png');
 		//console.log(escondidinho);
-		
-		//SALVANDO NO BANCO GUIA TISS 
-		$.ajax({
-					//Configurações
-					type: 'POST',//Método que está sendo utilizado.
-					dataType: 'html',//É o tipo de dado que a página vai retornar.
-					url: 'gerar_documento_pdf.php',//Indica a página que está sendo solicitada.
-					//função que vai ser executada assim que a requisição for enviada
-					data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
-					//função que será executada quando a solicitação for finalizada.
-					/*success: function (msg){
-						alert("Sucesso");
-					},
 
-					error: function (msg){
-						alert("Erro");
-					}*/
+		//CONVENIO 
+		var cd_conv = document.getElementById("cd_convenio").value;
+
+		//APENAS GERA A GUIA TISS SE FOR CONVENIO
+		if(cd_conv != 1 && cd_conv != 2 && cd_conv != 40 && cd_conv != 105){
 			
-				});
+			//SALVANDO NO BANCO GUIA TISS 
+			$.ajax({
+				//Configurações
+				type: 'POST',//Método que está sendo utilizado.
+				dataType: 'html',//É o tipo de dado que a página vai retornar.
+				url: 'gerar_documento_pdf.php',//Indica a página que está sendo solicitada.
+				//função que vai ser executada assim que a requisição for enviada
+				data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
+				//função que será executada quando a solicitação for finalizada.
+				/*success: function (msg){
+					alert("Sucesso");
+				},
+
+				error: function (msg){
+					alert("Erro");
+				}*/				
+			});		
+		}
+
+		//GERA CONTRATO EXCETO SUS
+		if(cd_conv != 1 && cd_conv != 2 && cd_conv != 105){
 		
-		$.ajax({
-			//Configurações
-			type: 'POST',//Método que está sendo utilizado.
-			dataType: 'html',//É o tipo de dado que a página vai retornar.
-			url: 'gerar_documento_pdf_contrato.php',//Indica a página que está sendo solicitada.
-			//função que vai ser executada assim que a requisição for enviada
-			data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
-			//função que será executada quando a solicitação for finalizada.
-			/*success: function (msg){
-						console.log("Sucesso");
-					},
+			$.ajax({
+				//Configurações
+				type: 'POST',//Método que está sendo utilizado.
+				dataType: 'html',//É o tipo de dado que a página vai retornar.
+				url: 'gerar_documento_pdf_contrato.php',//Indica a página que está sendo solicitada.
+				//função que vai ser executada assim que a requisição for enviada
+				data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
+				//função que será executada quando a solicitação for finalizada.
+				/*success: function (msg){
+							console.log("Sucesso");
+						},
 
-			error: function (msg){
-				console.log("Erro");
-			}*/
-		});
+				error: function (msg){
+					console.log("Erro");
+				}*/
+			});
 
-		$.ajax({
-			//Configurações
-			type: 'POST',//Método que está sendo utilizado.
-			dataType: 'html',//É o tipo de dado que a página vai retornar.
-			url: 'gerar_documento_pdf_faa.php',//Indica a página que está sendo solicitada.
-			//função que vai ser executada assim que a requisição for enviada
-			data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
-			//função que será executada quando a solicitação for finalizada.
-			//success: function (msg){
-						//console.log("Sucesso");
-						//alert("Sucesso!");
-					//},
-			//error: function (msg){
-				//console.log("Erro");
-				//alert("Erro!");
+		}
 
-			//}
-		});
+		//GERA FAA APENAS SUS
+		if(cd_conv == 1 || cd_conv == 2 || cd_conv == 105){
+
+			$.ajax({
+				//Configurações
+				type: 'POST',//Método que está sendo utilizado.
+				dataType: 'html',//É o tipo de dado que a página vai retornar.
+				url: 'gerar_documento_pdf_faa.php',//Indica a página que está sendo solicitada.
+				//função que vai ser executada assim que a requisição for enviada
+				data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
+				//função que será executada quando a solicitação for finalizada.
+				/*success: function (msg){
+							console.log("Sucesso");
+						},
+
+				error: function (msg){
+					console.log("Erro");
+				}*/
+			});
+
+		}		
 
 		//document.location.assign('gerar_documento.php');
 		//document.location.reload(true);

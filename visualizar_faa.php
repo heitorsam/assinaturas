@@ -88,7 +88,7 @@ $count = 1;
  }
  .col-hss-7{
  
-     width: 57.33% !important;
+     width: 56.90% !important;
      height: 20px;
      float: left;
  }
@@ -170,7 +170,7 @@ $count = 1;
 
          <form>
             <div class=' texto'>
-                <div style='width: 80%; height: 100%; margin: 0 auto; padding-top: 2%; border: 1px solid gray; border-radius: 15px;'>
+                <div style='width: 80%; height: 100%; margin: 0 auto;'>
                     <p style='text-align: center; '><b>FICHA DE ATENDIMENTO</b>
                     <p style='text-align: center;'><b>Pronto Atendimento/Ambulatório</b>
                 </br>
@@ -193,11 +193,11 @@ $count = 1;
                             </div>
                             
                             <div class='row'>
-                                <div class='col-hss-4' style='height: 30px;  border: none !important; '>
+                                <div class='col-hss-7' style='height: 30px;  border: none !important; '>
                                     <h2><b>ORIGEM:</b> ".@$dados_pac_resp['ORIGEM_ATENDIMENTO']."</h2>
                                 </div>
                 
-                                <div class='col-hss-8' style='height: 30px;  border: none !important;  '>
+                                <div class='col-hss-4' style='height: 30px;  border: none !important;  '>
                                     <h2><b>N.CHAMADA:</b> ".@$dados_pac_resp['NUMERO_CHAMADA']."</h2>
                                 </div>
                             </div>
@@ -267,24 +267,31 @@ $count = 1;
                             </div>
 
                             <div class='row'>
-                                <div class='col-hss-12' style='height: 30px;  border: none !important;  '>
-                                    <h2>RESPONSAVEL: <b>" . @$dados_pac_resp['PACIENTE']. "</b> </h2>
+                                <div class='col-hss-7' style='height: 30px;  border: none !important; '>
+                                    <h2><b>RESPONSAVEL:</b> ".@$dados_pac_resp['PACIENTE']."</h2>
                                 </div>
-                
-                                <div class='col-hss-12' style='height: 30px;  border: none !important;  '>
-                                    <h2>RG: <b>" . @$dados_pac_resp['RG']. "</b></h2>
-                                </div>
-                                
-                                <div class='col-hss-4' style='height: 30px; border: none !important; border-bottom: solid 1px black !important; '>
+
+                                <div class='col-hss-4' style='height: 30px;  border: none !important; '>
+                                    <h2><b>RG:</b> ".@$dados_pac_resp['RG']."</h2>
                                 </div>
                             </div>
+
+                            
+                            <div class='row'>
+                            <div class='col-hss-4' style='height: 30px; border: none !important; border-bottom: solid 1px black !important; '></div>
+                            </div>
+
                             <br>
                             <br>
+                            <br>
+                          
+                            
                         </div> 
                     </form>
                 </div>
             </div>
         </form>
+</html>                       
  ";
 
  //visualiza documentTemplate

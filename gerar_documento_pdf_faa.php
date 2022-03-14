@@ -7,9 +7,9 @@ session_start();
 @$dt_aten = $_REQUEST['dt_aten'];
 @$nm_conv = $_REQUEST['nm_conv'];
 $img = $_REQUEST['escondidinho'];
-$tp_doc = 'cont_pa';
+$tp_doc = 'hos_faa';
 
-$nm_documneto = 'pdf_contrato_pa_'.$var_cd_atendimento.'.pdf';
+$nm_documneto = 'pdf_faa_'.$var_cd_atendimento.'.pdf';
 
 @$_SESSION['atdconsulta'] = $_REQUEST['cd_atendimento'];
 
@@ -22,7 +22,7 @@ date_default_timezone_set('America/Sao_Paulo');
 //Data e hora de agora
 $hora = date("d/m/Y H:i:s"); 
  
- include 'sql_consulta_faa.php';
+include 'sql_consulta_faa.php';
  
  $documentTemplate = "
  <html lang='en'> 
@@ -91,7 +91,7 @@ $hora = date("d/m/Y H:i:s");
  }
  .col-hss-7{
  
-     width: 57.33% !important;
+     width: 56.90% !important;
      height: 20px;
      float: left;
  }
@@ -173,7 +173,7 @@ $hora = date("d/m/Y H:i:s");
 
          <form>
             <div class=' texto'>
-                <div style='width: 80%; height: 100%; margin: 0 auto; padding-top: 2%; border: 1px solid gray; border-radius: 15px;'>
+                <div style='width: 80%; height: 100%; margin: 0 auto;'>
                     <p style='text-align: center; '><b>FICHA DE ATENDIMENTO</b>
                     <p style='text-align: center;'><b>Pronto Atendimento/Ambulatório</b>
                 </br>
@@ -196,11 +196,11 @@ $hora = date("d/m/Y H:i:s");
                             </div>
                             
                             <div class='row'>
-                                <div class='col-hss-4' style='height: 30px;  border: none !important; '>
+                                <div class='col-hss-7' style='height: 30px;  border: none !important; '>
                                     <h2><b>ORIGEM:</b> ".@$dados_pac_resp['ORIGEM_ATENDIMENTO']."</h2>
                                 </div>
                 
-                                <div class='col-hss-8' style='height: 30px;  border: none !important;  '>
+                                <div class='col-hss-4' style='height: 30px;  border: none !important;  '>
                                     <h2><b>N.CHAMADA:</b> ".@$dados_pac_resp['NUMERO_CHAMADA']."</h2>
                                 </div>
                             </div>
@@ -270,28 +270,33 @@ $hora = date("d/m/Y H:i:s");
                             </div>
 
                             <div class='row'>
-                                <div class='col-hss-12' style='height: 30px;  border: none !important;  '>
-                                    <h2>RESPONSAVEL: <b>" . @$dados_pac_resp['PACIENTE']. "</b> </h2>
+                                <div class='col-hss-7' style='height: 30px;  border: none !important; '>
+                                    <h2><b>RESPONSAVEL:</b> ".@$dados_pac_resp['PACIENTE']."</h2>
                                 </div>
-                
-                                <div class='col-hss-12' style='height: 30px;  border: none !important;  '>
-                                    <h2>RG: <b>" . @$dados_pac_resp['RG']. "</b></h2>
-                                </div>
-                                
-                                <div class='col-hss-4' style='height: 30px; border: none !important; border-bottom: solid 1px black !important; '>
-                                <img src='$img' width='100%' height='100%'  style:'float: right;'>
+
+                                <div class='col-hss-4' style='height: 30px;  border: none !important; '>
+                                    <h2><b>RG:</b> ".@$dados_pac_resp['RG']."</h2>
                                 </div>
                             </div>
+
+                            
+                            <div class='row'>
+                                <div class='col-hss-5' style='height: 30px; border: none !important; border-bottom: solid 1px black !important; '>
+                                 <img src='$img' width='100%' height='100%'  style:'float: right;'>
+                                </div>
+                            </div>
+
                             <br>
                             <br>
+                            <br>
+                          
+                            
                         </div> 
                     </form>
                 </div>
             </div>
         </form>
 </html>";
-
-     
 //echo  json_encode(array($documentTemplate)); 
 //echo  $documentTemplate; 
 
@@ -390,8 +395,6 @@ exit(0);
 
 //DECLARANDO VARIAVEIS DO ARQUIVO PARA IMPORTACAO PARA O BANCO
 //$image = file_get_contents($dompdf);
-
-
 
 ?>
 
