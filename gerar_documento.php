@@ -54,6 +54,7 @@
 	//Verifica se existe pdf///
 	//para aquele atendimento//
 	///////////////////////////
+
 	if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdpdf']) ){
 	$cons_pdf ="SELECT *
 			FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
@@ -232,7 +233,8 @@
 						<div style="margin-top: 20px; margin-left: 15px;">
 							<a style="height: 100%; width: 100% "  class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="hos_faa" data-identificador="hos_faa_assinado"><i class="fas fa-file-pdf"></i> Ficha Atendimento</a>
 						</div>
-					<?php } ?>	
+					<?php } ?>						
+
 				<?php }else{?>				
 
 					<div class="col-md-2" >
@@ -245,6 +247,13 @@
 
 				<?php }	?>
 		</div>
+
+		<?php if(isset($var_pdf_existe)){ ?>
+
+			<!-- CHAMA A TABELA BAIXAR PDF -->
+			<?php include 'tabela_baixar_pdf.php'; ?>	
+			
+		<?php } ?>
 
 		<!--MODAL ASSINATURA-->
 			<div class="modal fade" id="exampleModalCenter" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

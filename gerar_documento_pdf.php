@@ -11,7 +11,7 @@ $count = 1;
 $img = $_POST['escondidinho'];
 $tp_doc = 'tiss_pa';
 
-$nm_documneto = 'pdf_guia_tiss_pa'.$var_cd_atendimento.'.pdf';
+$nm_documneto = 'pdf_guia_tiss_pa_'.$var_cd_atendimento.'.pdf';
 
 @$_SESSION['atdconsulta'] = $_POST['cd_atendimento'];
 
