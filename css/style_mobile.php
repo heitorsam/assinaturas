@@ -4,6 +4,21 @@
 ?>
 
 <style>
+
+
+
+
+
+@media (max-width: 2000px) {
+
+	.footer-bs  { 
+		
+		display: none !important;
+	}
+
+}
+
+
 @media (max-width: 768px) {
 
 	/********/
@@ -95,11 +110,14 @@
 		
 		padding: 20px 30px !important;
 		border: transparent;
+		display: none;
 	}
 
 	.footer-bs .footer-nav, .footer-bs .footer-social, .footer-bs .footer-ns { 
 		border: transparent;
 	}
+
+
 		
 }
 

@@ -6,7 +6,7 @@
 
     <!--RODAPE -->
     <footer class="footer-bs">
-        <div class="row">
+        <div class="row" >
         	<div class="col-md-5 footer-brand animated fadeInLeft">
             
             	<h2> <img src="img/logo/icone_santa_casa_sjc_branco.png" height="28px" width="28px"  alt="Santa Casa de São José dos Campos">
