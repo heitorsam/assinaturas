@@ -27,7 +27,7 @@ body{
     padding-left: 0px !important;
     padding-right: 0px !important;
     padding-bottom: 20px;
-    min-height: 46vh;
+    min-height: 91vh;
     /*max-width: 90% !important;*/
 }
 
