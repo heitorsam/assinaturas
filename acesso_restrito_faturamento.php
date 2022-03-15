@@ -28,7 +28,7 @@ if($_SESSION['sn_faturamento'] == 'N'){
 	session_start();
 	
 	$_SESSION['msgerro_usuario'] = "Usuário sem permissão!";
-	header("Location: home.php");
+	header("Location: index.php");
 }
 
 ?>
