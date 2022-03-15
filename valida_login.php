@@ -52,7 +52,8 @@
 			if($resultado[0] == 'Login efetuado com sucesso') {
 				$_SESSION['usuarioLogin'] = $usuario;
 				$_SESSION['usuarioNome'] = $resultado[1];
-				$_SESSION['sn_faturamento'] = $resultado[2];
+				$_SESSION['sn_usuario_comum'] = $resultado[2];
+				$_SESSION['sn_faturamento'] = $resultado[3];
 				header("Location: $pag_apos");
 			} else { 
 				$_SESSION['msgerro'] = $resultado[0] . '!';
