@@ -134,7 +134,11 @@ $count = 1;
  
  h2{ 
     font-weight: normal;
-     font-size: 1.900em;
+     font-size: 1.300em;
+ }
+ h1{ 
+    font-weight: normal;
+     font-size: 1.500em;
  }
  .imagem {
      width: 200px;
@@ -170,122 +174,127 @@ $count = 1;
 
          <form>
             <div class=' texto'>
-                <div style='width: 80%; height: 100%; margin: 0 auto;'>
-                    <p style='text-align: center; '><b>FICHA DE ATENDIMENTO</b>
-                    <p style='text-align: center;'><b>Pronto Atendimento/Ambulatório</b>
+                <div class='row'>
+                    <div style='width: 80%; height: 100%; margin: 0 auto;'>
+                        <div class='col-hss-12' style='border: none !important; text-align: center;'>
+                            <h1><b>FICHA DE ATENDIMENTO</b></h1>
+                        </div>
+                        </br>
+                        </br>
+                        </br>
+                </div>
+
                 </br>
                 </br>
                     <form>
-                        <div class='' style='width:95% ;margin:0 auto; padding: 1% ;' >
+                        <div class='' style='width:75%; margin:0 auto;' >
                         
                             <div class='row'>
-                                <div class='col-hss-4' style='height: 30px;  border: none !important;  '>
+                                <div class='col-hss-4' style='height: 20px;  border: none !important;   '>
                                     <h2><b>ATENDIMENTO:</b>  ".@$dados_pac_resp['ATENDIMENTO']."</h2>
                                 </div>
                 
-                                <div class='col-hss-3' style='height: 30px;  border: none !important;  '>
+                                <div class='col-hss-3' style='height: 20px;  border: none !important;  '>
                                     <h2><b>PRONTUÁRIO:</b> ".@$dados_pac_resp['PRONTUARIO']."</h2>
                                 </div>
                 
-                                <div class='col-hss-5' style='height: 30px;  border: none !important;  '>
+                                <div class='col-hss-5' style='height: 20px;  border: none !important;  '>
                                     <h2><b>DT.ATEND:</b> ".@date("d/m/Y",strtotime($dados_pac_resp['DATA_ATENDIMENTO']))."    ".@$dados_pac_resp['HORA_ATENDIMENTO']."</h2>
                                 </div> 
                             </div>
                             
                             <div class='row'>
-                                <div class='col-hss-7' style='height: 30px;  border: none !important; '>
+                                <div class='col-hss-7' style='height: 20px;  border: none !important; '>
                                     <h2><b>ORIGEM:</b> ".@$dados_pac_resp['ORIGEM_ATENDIMENTO']."</h2>
                                 </div>
                 
-                                <div class='col-hss-4' style='height: 30px;  border: none !important;  '>
+                                <div class='col-hss-4' style='height: 20px;  border: none !important;  '>
                                     <h2><b>N.CHAMADA:</b> ".@$dados_pac_resp['NUMERO_CHAMADA']."</h2>
                                 </div>
                             </div>
                 
                             <div class='row'>
-                                <div class='col-hss-12' style='height: 30px;  border: none !important;  '>
+                                <div class='col-hss-12' style='height: 20px;  border: none !important;  '>
                                     <h2></h2>
                                 </div>
                             </div>
                 
                             <div class='row'>
-                                <div class='col-hss-12' style='height: 30px;  border: none !important;  '>
+                                <div class='col-hss-12' style='height: 20px;  border: none !important;  '>
                                     <h2><b>PACIENTE:</b> ".@$dados_pac_resp['PACIENTE']."</h2>
                                 </div>
                             </div>
                             
                             <div class='row'>
-                                <div class='col-hss-7' style='height: 30px;  border: none !important; '>
-                                    <h2><b>DT.NASC:</b> ".@$dados_pac_resp['DATA_NASCIMENTO']." </h2>
+                                <div class='col-hss-7' style='height: 20px;  border: none !important; '>
+                                    <h2><b>DT.NASC:</b> ".@$dados_pac_resp['DATA_NASCIMENTO']."</h2>
                                 </div>                              
-                                <div class='col-hss-5' style='height: 30px;  border: none !important;  '>
+                                <div class='col-hss-5' style='height: 20px;  border: none !important;  '>
                                     <h2><b>SEXO:</b> ".@$dados_pac_resp['SEXO']."</h2>
                                 </div>
                             </div>
                             
                             <div class='row'>
-                                <div class='col-hss-4' style='height: 30px;  border: none !important; '>
+                                <div class='col-hss-4' style='height: 20px;  border: none !important; '>
                                     <h2><b>RG:</b> ".@$dados_pac_resp['RG']."</h2>
                                 </div>
-                                <div class='col-hss-3' style='height: 30px;  border: none !important; '>
+                                <div class='col-hss-3' style='height: 20px;  border: none !important; '>
                                     <h2><b>CPF:</b> ".@$dados_pac_resp['CPF']."</h2>
                                 </div>
 
-                                <div class='col-hss-5' style='height: 30px;  border: none !important; '>
+                                <div class='col-hss-5' style='height: 20px;  border: none !important; '>
                                     <h2><b>CNS:</b> ".@$dados_pac_resp['CNS']."</h2>
                                 </div>
                             </div>
 
                             <div class='row'>
-                                <div class='col-hss-12' style='height: 30px;  border: none !important; '>
+                                <div class='col-hss-12' style='height: 20px;  border: none !important; '>
                                     <h2><b>NOME DA MÃE:</b> ".@$dados_pac_resp['NOME_MAE']."</h2>
                                 </div>  
                             </div>
 
                             <div class='row'>
-                                <div class='col-hss-12' style='height: 30px;  border: none !important; '>
+                                <div class='col-hss-12' style='height: 20px;  border: none !important; '>
                                     <h2></h2>
                                 </div>
                             </div>
 
                             <div class='row'>
-                                <div class='col-hss-12' style='height: 30px;  border: none !important;  '>
+                                <div class='col-hss-12' style='height: 20px;  border: none !important;  '>
                                     <h2><b>CONVÊNIO:</b> ".@$dados_pac_resp['CONVEINO']."</h2>
                                 </div>  
                             </div>
 
                             <div class='row'>
-                                <div class='col-hss-12' style='height: 30px;  border: none !important; '>
+                                <div class='col-hss-12' style='height: 20px;  border: none !important; '>
                                     <h2><b>CARTEIRINHA:</b> ".@$dados_pac_resp['NUMERO_CARTEIRINHA']."</h2>
                                 </div>
                             </div>
 
                             <div class='row'>
-                                <div class='col-hss-12' style='height: 30px;  border: none !important;  '>
+                                <div class='col-hss-12' style='height: 20px;  border: none !important;  '>
                                     <h2></h2>
                                 </div>
                             </div>
 
                             <div class='row'>
-                                <div class='col-hss-7' style='height: 30px;  border: none !important; '>
+                                <div class='col-hss-7' style='height: 20px;  border: none !important; '>
                                     <h2><b>RESPONSAVEL:</b> ".@$dados_pac_resp['PACIENTE']."</h2>
                                 </div>
 
-                                <div class='col-hss-4' style='height: 30px;  border: none !important; '>
+                                <div class='col-hss-4' style='height: 20px;  border: none !important; '>
                                     <h2><b>RG:</b> ".@$dados_pac_resp['RG']."</h2>
                                 </div>
                             </div>
-
-                            
+                            <br>
+                            <br>        
                             <div class='row'>
-                            <div class='col-hss-4' style='height: 30px; border: none !important; border-bottom: solid 1px black !important; '></div>
+                            <div class='col-hss-4' style='height: 20px; border: none !important; border-bottom: solid 1px black !important; '></div>
                             </div>
-
-                            <br>
-                            <br>
-                            <br>
-                          
-                            
+                            <br> 
+                             
+                           
+ 
                         </div> 
                     </form>
                 </div>
