@@ -165,7 +165,6 @@ p{
                 <div class='row'>
                 <div style='width: 100%; padding-left: 4.5%; padding-right: 0%;'>
                     <div class='col-hss-12' style='border: none !important; text-align: center;'>
-                        
                             <img class='imagem' src='https://i2.wp.com/santacasasaude.com.br/wp-content/uploads/2018/07/Santa-Casa-SJC.gif?fit=730%2C457&ssl=1'>
                     </div>
                 </div>
@@ -178,7 +177,7 @@ p{
         <br>
         <form>
             <div class='container texto'>
-                <div style='width: 90%; height: 100%; padding-left: 7%; padding-right: 7%;'>
+                <div style='width: 90%;  margin: 0 auto; border-radius: 15px;'>
                 <p style='text-align: center; font-weight: bold;'>CONTRATO DE PRESTAÇÃO DE SERVIÇOS   /   PRONTO ATENDIMENTO 
                 
                 </br>
