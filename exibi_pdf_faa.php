@@ -50,7 +50,7 @@ loadingTask.promise.then(function(pdf) {
   pdf.getPage(pageNumber).then(function(page) {
     console.log('Page loaded');
     
-    var scale = 1.5;
+    var scale = 2.0;
     var viewport = page.getViewport({scale: scale});
 
     // Prepare canvas using PDF page dimensions

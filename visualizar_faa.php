@@ -173,22 +173,20 @@ $count = 1;
          <br>
 
          <form>
-            <div class=' texto'>
-                <div class='row'>
-                    <div style='width: 80%; height: 100%; margin: 0 auto;'>
-                        <div class='col-hss-12' style='border: none !important; text-align: center;'>
-                            <h1><b>FICHA DE ATENDIMENTO</b></h1>
-                        </div>
-                        </br>
-                        </br>
-                        </br>
-                </div>
-
-                </br>
-                </br>
-                    <form>
-                        <div class='' style='width:75%; margin:0 auto;' >
-                        
+         <div class=' texto'>
+         <div class='row'>
+             <div class='col-hss-12' style='border: none !important; text-align: center;'>
+                 <h1><b>FICHA DE ATENDIMENTO</b> </h1>
+             </div>
+             </br>
+             </br>
+         </div>
+             </br>
+             </br>
+         
+             <form>
+                 <div class='' style='width:75%; margin:0 auto;' >
+                 
                             <div class='row'>
                                 <div class='col-hss-4' style='height: 20px;  border: none !important;   '>
                                     <h2><b>ATENDIMENTO:</b>  ".@$dados_pac_resp['ATENDIMENTO']."</h2>

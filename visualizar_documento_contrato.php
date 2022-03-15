@@ -178,7 +178,7 @@ p{
         <form>
             <div class='container texto'>
                 <div style='width:85%; margin: 0 auto;'>
-                <p style='text-align: center; font-weight: bold;'>CONTRATO DE PRESTAÇÃO DE SERVIÇOS   /   PRONTO ATENDIMENTO 
+                <p style='text-align: center; font-weight: bold;'>CONTRATO DE PRESTAÇÃO DE SERVIÇOS
                 
                
                 </br>

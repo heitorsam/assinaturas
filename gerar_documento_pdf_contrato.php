@@ -178,7 +178,7 @@ p{
         <form>
             <div class='container texto'>
                 <div style='width: 90%;  margin: 0 auto;'>
-                <p style='text-align: center; font-weight: bold;'>CONTRATO DE PRESTAÇÃO DE SERVIÇOS   /   PRONTO ATENDIMENTO 
+                <p style='text-align: center; font-weight: bold;'>CONTRATO DE PRESTAÇÃO DE SERVIÇOS
                 
                 </br>
                 </br>
@@ -238,7 +238,7 @@ $dompdf->set_option('isRemoteEnabled', TRUE);
 $dompdf->load_html($documentTemplate);
 
 // dados do documento destino
-$dompdf->set_paper("A4", "landscape");
+$dompdf->set_paper("A4", "retreat");
 
 // gerar documento destino
 $dompdf->render();
