@@ -292,7 +292,7 @@ include 'sql_consulta_faa.php';
                             <br>
                             <br>
                             <div class='row'>
-                                <div class='col-hss-5' style='height: 15px; border: none !important; border-bottom: solid 1px black !important; '>
+                                <div class='col-hss-4' style='height: 25px; border: none !important; border-bottom: solid 1px black !important; '>
                                  <img src='$img' width='100%' height='100%'  style:'float: right;'>
                                 </div>
                             </div>

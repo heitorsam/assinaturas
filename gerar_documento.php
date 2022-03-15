@@ -31,8 +31,8 @@
 	//PACIENTE//
 	///////////
 		$cons_atend="SELECT ate.CD_ATENDIMENTO, pac.NM_PACIENTE, TO_CHAR(ate.DT_ATENDIMENTO, 'DD/MM/YYYY') AS DT_ATENDIMENTO, 
-				con.CD_CONVENIO, con.NM_CONVENIO
-				FROM ATENDIME ate
+							con.CD_CONVENIO, con.NM_CONVENIO, pac.NR_IDENTIDADE, pac.NR_CPF, TO_CHAR(pac.DT_NASCIMENTO,'DD/MM/YYYY') AS DT_NASCIMENTO
+							FROM ATENDIME ate
 				INNER JOIN paciente  pac ON pac.cd_paciente = ate.cd_paciente
 				INNER JOIN CONVENIO  con ON con.cd_convenio = ate.cd_convenio
 				WHERE ate.cd_atendimento = '$var_cd_atendimento'";
@@ -49,6 +49,9 @@
 	@$var_dt_aten = $row_aten['DT_ATENDIMENTO'];
 	@$var_nm_conv = $row_aten['NM_CONVENIO'];
 	@$var_cd_conv = $row_aten['CD_CONVENIO'];
+	@$var_nr_identidade = $row_aten['NR_IDENTIDADE'];
+	@$var_nr_cpf = $row_aten['NR_CPF'];
+	@$var_dt_nascimento = $row_aten['DT_NASCIMENTO'];
 
 	///////////////////////////
 	//Verifica se existe pdf///
@@ -147,23 +150,47 @@
 		<?php if(strlen(@$var_nm_paciente) > 1){ ?>
 		<form autocomplete="off" id="assinatura"  method="get//" action="gerar_documento_pdf.php">
 		<div class="row">
-			<div class="col-md-3" id="div_sn_exame_mv">
-					<label>Atendimento:</label>
-					<input type="text"  class="form-control" value="<?php echo @$var_cd_atendimento?>" id="atendimento" name="cd_atendimento" readonly></input>
-			</div>
+
+			
+
 			<div class="col-md-3" id="div_sn_exame_mv">
 					<label>Paciente:</label>
 					<input type="text"  class="form-control" value="<?php echo @$var_nm_paciente?>" id="paciente" name="nm_paciente" readonly></input>
 			</div>
-			<div class="col-md-3" id="div_sn_exame_mv">
-					<label>Data Atendimento:</label>
-					<input type="text" value="<?php echo @$var_dt_aten ?>" class="form-control" id="dt_atendimento" name="dt_aten" readonly></input>
+
+			<div class="col-md-2" id="div_sn_exame_mv">
+					<label>Nascimento:</label>
+					<input type="text" value="<?php echo @$var_dt_nascimento ?>" class="form-control" id="" name="" readonly></input>
 			</div>
+
+			<div class="col-md-2" id="div_sn_exame_mv">
+					<label>CPF:</label>
+					<input type="text" value="<?php echo @$var_nr_cpf;?>" class="form-control" id="" name="" readonly></input>
+			</div>
+
+			<div class="col-md-2" id="div_sn_exame_mv">
+					<label>RG:</label>
+					<input type="text" value="<?php echo @$var_nr_identidade;?>" class="form-control" id="" name="" readonly></input>
+			</div>
+
 			<div class="col-md-3" id="div_sn_exame_mv">
-					<label>Nome Convenio:</label>
+					<label>Convenio:</label>
 					<input type="text" value="<?php echo @$var_nm_conv;?>" class="form-control" id="nm_convenio" name="nm_conv" readonly></input>
 			</div>
-			<div class="col-md-3" id="div_sn_exame_mv">
+
+
+
+			<div class="col-md-0" id="div_sn_exame_mv">
+					<!--<label>Data Atendimento:</label>-->
+					<input type="hidden" value="<?php echo @$var_dt_aten ?>" class="form-control" id="dt_atendimento" name="dt_aten" readonly></input>
+			</div>
+
+			<div class="col-md-0" id="div_sn_exame_mv">
+					<!--<label>Atendimento:</label>-->
+					<input type="hidden"  class="form-control" value="<?php echo @$var_cd_atendimento?>" id="atendimento" name="cd_atendimento" readonly></input>
+			</div>
+
+			<div class="col-md-0" id="div_sn_exame_mv">
 					<input type="hidden" value="<?php echo @$var_cd_conv;?>" class="form-control" id="cd_convenio" name="cd_conv" ></input>
 			</div>
 		</div>
