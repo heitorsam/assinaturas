@@ -27,7 +27,8 @@
     <main>
 
         <div class="conteudo_login" style="min-height: 100vh; height: 100vh;">
-            <div class="container" style="position: relative; top: 50%; transform: translateY(-50%); ">
+            <div class="container" style="position: relative; top: 50%; transform: translateY(-50%); 
+            min-height: 1vh !important;">
 
                 <!--TELA LOGIN -->
 
