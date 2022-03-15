@@ -154,7 +154,7 @@ h2{
     font-size: 1.875em;
 }
 p{
-    font-size: 0.350em;
+    font-size: 0.320em;
 }
 
 </style> 
@@ -177,7 +177,7 @@ p{
  
         <form>
             <div class='container texto'>
-                <div style='width: 100%; padding-left: 7%; padding-right: 7%;'>
+                <div style='width:85%; margin: 0 auto;'>
                 <p style='text-align: center; font-weight: bold;'>CONTRATO DE PRESTAÇÃO DE SERVIÇOS   /   PRONTO ATENDIMENTO 
                 
                
