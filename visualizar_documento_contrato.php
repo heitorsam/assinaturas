@@ -179,10 +179,9 @@ p{
         <form>
             <div class='container texto'>
                 <div style='width: 100%; padding-left: 7%; padding-right: 7%;'>
-                <p style='text-align: center; font-weight: bold;'>CONTRATO DE PRESTAÇÃO DE SERVIÇOS
-                <p style='text-align: center; font-weight: bold;'>PRONTO ATENDIMENTO 
+                <p style='text-align: center; font-weight: bold;'>CONTRATO DE PRESTAÇÃO DE SERVIÇOS  /  PRONTO ATENDIMENTO 
                 
-                </br>
+               
                 </br>
                     <p>Paciente: <b>" . @$dados_pac_resp['NOME_PACIENTE']. "</b> Prontuário: <b>" .@$dados_pac_resp['PRONTUARIO'] . "</b> 
                     <p> Data do Atendimento: <b>" . @$dados_pac_resp['DT_ATENDIMENTO']. "</b>
@@ -204,8 +203,7 @@ p{
                     
                     <p>E, por estarem assim justos e contratados, assinam o presente instrumento Particular de Contrato de Assistência Médica Hospitalar, em duas vias de igual teor e forma, na presença de duas testemunhas, para que produza seus jurídicos e legais efeitos. 
                     
-                    <p>RESPONSAVEL: <b>" . @$dados_pac_resp['NOME_RESPONSAVEL']. "</b> 
-                    <p>RG: <b>" . @$dados_pac_resp['RG_RESPONSAVEL']. "</b>
+                    <p>RESPONSAVEL: <b>" . @$dados_pac_resp['NOME_RESPONSAVEL']. "</b>        RG: <b>" . @$dados_pac_resp['RG_RESPONSAVEL']. "</b>
 
                 </div>
             </div>
