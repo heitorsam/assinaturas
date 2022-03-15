@@ -251,7 +251,12 @@
 		<?php if(isset($var_pdf_existe)){ ?>
 
 			<!-- CHAMA A TABELA BAIXAR PDF -->
-			<?php include 'tabela_baixar_pdf.php'; ?>	
+
+			<?php if(@$_SESSION['sn_admin'] == 'S'){ ?>
+
+				<?php include 'tabela_baixar_pdf.php'; ?>
+					
+			<?php } ?>
 			
 		<?php } ?>
 
