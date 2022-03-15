@@ -252,10 +252,10 @@
 
 			<!-- CHAMA A TABELA BAIXAR PDF -->
 
-			<?php if(@$_SESSION['sn_admin'] == 'S'){ ?>
+			<?php if(@$_SESSION['sn_faturamento'] == 'S'){ ?>
 
 				<?php include 'tabela_baixar_pdf.php'; ?>
-					
+
 			<?php } ?>
 			
 		<?php } ?>
