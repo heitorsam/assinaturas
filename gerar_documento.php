@@ -252,7 +252,7 @@
 
 			<!-- CHAMA A TABELA BAIXAR PDF -->
 
-			<?php echo $_SESSION['sn_faturamento']; ?>
+			<?php //echo $_SESSION['sn_faturamento']; ?>
 
 			<?php if(@$_SESSION['sn_faturamento'] == 'S'){ ?>
 
