@@ -21,12 +21,19 @@
 		$result_usuario = oci_parse($conn_ora, "SELECT assinaturas.VALIDA_SENHA_FUNC_ASSINATURAS(:usuario,:senha) AS RESP_LOGIN,
 												(SELECT INITCAP(usu.NM_USUARIO)
 													FROM dbasgu.USUARIOS usu
-													WHERE usu.CD_USUARIO = :usuario) AS NM_USUARIO,													CASE
+													WHERE usu.CD_USUARIO = :usuario) AS NM_USUARIO,													
+													CASE
 														WHEN :usuario IN (SELECT DISTINCT puia.CD_USUARIO
 																			FROM dbasgu.PAPEL_USUARIOS puia
 																			WHERE puia.CD_PAPEL = 347) THEN 'S' --PORTAL ASSINATURAS
 														ELSE 'N'
-													END SN_USUARIO_COMUM
+													END SN_USUARIO_COMUM,
+													CASE
+														WHEN :usuario IN (SELECT DISTINCT puia.CD_USUARIO
+																			FROM dbasgu.PAPEL_USUARIOS puia
+																			WHERE puia.CD_PAPEL = 358) THEN 'S' --PORTAL ASSINATURAS FATURAMENTO
+														ELSE 'N'
+													END SN_FATURAMENTO
 												FROM DUAL");																															
 												
 		oci_bind_by_name($result_usuario, ':usuario', $usuario);
@@ -45,10 +52,7 @@
 			if($resultado[0] == 'Login efetuado com sucesso') {
 				$_SESSION['usuarioLogin'] = $usuario;
 				$_SESSION['usuarioNome'] = $resultado[1];
-				$_SESSION['sn_admin'] = $resultado[2];
-				$_SESSION['sn_lancamento'] = $resultado[3];
-				$_SESSION['sn_cadastro'] = $resultado[4];
-				$_SESSION['sn_usuario_comum'] = $resultado[5];
+				$_SESSION['sn_faturamento'] = $resultado[2];
 				header("Location: $pag_apos");
 			} else { 
 				$_SESSION['msgerro'] = $resultado[0] . '!';

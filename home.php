@@ -21,6 +21,8 @@
 
             <div class="div_br"> </div>
 
+            <!--
+
             <h11><i class="fas fa-signature"></i> Checagem Beira Leito</h11>
 
             <div class="div_br"> </div>
@@ -33,9 +35,11 @@
 
             <div class="div_br"> </div>
 
+            -->
+
         <?php if(@$_SESSION['sn_admin'] == 'S'){ ?>
 
-            <!--TITULO-->
+            <!--TITULO
             <h11><i class="fa fa-cogs" aria-hidden="true"></i> Administrador</h11>
             
             <div class="div_br"> </div>
@@ -43,7 +47,7 @@
             <a href="permissoes.php" class="botao_home_adm" type="submit"><i class="fas fa-user-cog"></i> Permissões</a></td></tr>
             <span class="espaco_pequeno"></span>
             <a href="cad_assinatura.php" class="botao_home_adm" type="submit"><i class="fas fa-user-nurse"></i> Cadastrar Assinatura</a></td></tr>
-            
+            -->
 
         <?php } ?>
             
