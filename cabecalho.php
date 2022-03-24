@@ -70,7 +70,6 @@ session_start();
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown06">
 
                         <a class="dropdown-item" style="background-color: #f3f3f3;" href="javascript:void(0)" ><i class="fas fa-signature"></i> Assinaturas</a>
-                        <a class="dropdown-item" style="background-color: #ffffff;" href="gerar_documento.php" ><i class="fas fa-file-signature"></i> Gerar Documento</a>
                                           
                         <?php if(@$_SESSION['sn_admin'] == 'S'){ ?>
                             <!--ADMINISTRADOR-->

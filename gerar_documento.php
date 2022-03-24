@@ -26,13 +26,13 @@
 
 	}
 
-
 	////////////
 	//PACIENTE//
-	///////////
-		$cons_atend="SELECT ate.CD_ATENDIMENTO, pac.NM_PACIENTE, TO_CHAR(ate.DT_ATENDIMENTO, 'DD/MM/YYYY') AS DT_ATENDIMENTO, 
-							con.CD_CONVENIO, con.NM_CONVENIO, pac.NR_IDENTIDADE, pac.NR_CPF, TO_CHAR(pac.DT_NASCIMENTO,'DD/MM/YYYY') AS DT_NASCIMENTO
-							FROM ATENDIME ate
+	////////////
+
+	$cons_atend="SELECT ate.CD_ATENDIMENTO, pac.NM_PACIENTE, TO_CHAR(ate.DT_ATENDIMENTO, 'DD/MM/YYYY') AS DT_ATENDIMENTO, 
+						con.CD_CONVENIO, con.NM_CONVENIO, pac.NR_IDENTIDADE, pac.NR_CPF, TO_CHAR(pac.DT_NASCIMENTO,'DD/MM/YYYY') AS DT_NASCIMENTO
+						FROM ATENDIME ate
 				INNER JOIN paciente  pac ON pac.cd_paciente = ate.cd_paciente
 				INNER JOIN CONVENIO  con ON con.cd_convenio = ate.cd_convenio
 				WHERE ate.cd_atendimento = '$var_cd_atendimento'";
@@ -141,17 +141,34 @@
 					<input type="hidden" id="valor" type="text" readonly />
 				</div> 
 			</div>
+			
 		</div>
 		</form>
+		</br>
+
+		<div class="row">
+
+			<div style="margin-left: 15px;">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalanexomv">
+						<i class="fas fa-camera"></i> Anexar arquivo
+					</button>
+			</div>
+
+			<?php 
+
+				//MODAL ANEXO MV
+				include 'modal_anexo_mv.php';
+				
+			?>
+			
+		</div>
 		</br>
 
 		<!---RESULTADO DA PESQUISA-->
 
 		<?php if(strlen(@$var_nm_paciente) > 1){ ?>
 		<form autocomplete="off" id="assinatura"  method="get//" action="gerar_documento_pdf.php">
-		<div class="row">
-
-			
+		<div class="row">		
 
 			<div class="col-md-3" id="div_sn_exame_mv">
 					<label>Paciente:</label>
@@ -198,6 +215,7 @@
 
 		<!--SE NÃO TIVER ASSINADO -->
 		<div class="row">
+			
 			<?php if(!isset($var_pdf_existe)){?>
 				<!-- APENAS GERA A GUIA TISS SE FOR CONVENIO -->
 				<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105){?>
@@ -313,7 +331,6 @@
 					</div>
 				</div>
 			</div>
-
 
 		</form>
 		<?php }?>

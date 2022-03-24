@@ -4,6 +4,7 @@
 	if (!isset($_SESSION['usuarioNome'])){
 		
 		unset(
+			
 			$_SESSION['usuarioLogin'],
 			$_SESSION['usuarioNome'],
 			$_SESSION['usuariocpf'],
