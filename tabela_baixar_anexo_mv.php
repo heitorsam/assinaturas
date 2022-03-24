@@ -8,7 +8,7 @@
                        INNER JOIN dbamv.ARQUIVO_DOCUMENTO ad 
                          ON ad.CD_ARQUIVO_DOCUMENTO = aa.CD_ARQUIVO_DOCUMENTO
                        WHERE aa.CD_ATENDIMENTO = $var_cd_atendimento
-                       ORDER BY aa.DS_DESCRICAO ASC";
+                       ORDER BY TO_CHAR(aa.DH_CRIACAO,'DD/MM/YYYY HH24:MI') DESC";
 
     $result_lista_doc = oci_parse($conn_ora, $cons_lista_doc);
     @oci_execute($result_lista_doc);

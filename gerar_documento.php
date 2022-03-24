@@ -146,6 +146,12 @@
 		</form>
 		</br>
 
+		<?php 
+
+			if(strlen(@$var_nm_paciente) > 1){ 
+
+		?>
+
 		<div class="row">
 
 			<div style="margin-left: 15px;">
@@ -155,14 +161,22 @@
 			</div>
 
 			<?php 
+			
 
 				//MODAL ANEXO MV
 				include 'modal_anexo_mv.php';
+
 				
 			?>
 			
 		</div>
 		</br>
+
+		<?php 
+
+			}
+
+		?>
 
 		<!---RESULTADO DA PESQUISA-->
 
@@ -195,8 +209,6 @@
 					<input type="text" value="<?php echo @$var_nm_conv;?>" class="form-control" id="nm_convenio" name="nm_conv" readonly></input>
 			</div>
 
-
-
 			<div class="col-md-0" id="div_sn_exame_mv">
 					<!--<label>Data Atendimento:</label>-->
 					<input type="hidden" value="<?php echo @$var_dt_aten ?>" class="form-control" id="dt_atendimento" name="dt_aten" readonly></input>
@@ -211,7 +223,6 @@
 					<input type="hidden" value="<?php echo @$var_cd_conv;?>" class="form-control" id="cd_convenio" name="cd_conv" ></input>
 			</div>
 		</div>
-		<br>
 
 		<!--SE NÃO TIVER ASSINADO -->
 		<div class="row">

@@ -28,7 +28,7 @@
                 <div class="form-group col-md-12">
                     <label for="frm_doc">Arquivo:</label>
                     <br>
-                    <input type="file" accept="image/png, image/jpeg" id='file' name='file' required>
+                    <input type="file" id='file' name='file' required>
                 </div>
                 
                 <div class="form-group col-md-12">
