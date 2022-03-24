@@ -180,15 +180,14 @@ include 'sql_consulta_faa.php';
                 <div class='row'>
                     <div class='col-hss-12' style='border: none !important; text-align: center;'>
                         <h1><b>FICHA DE ATENDIMENTO</b> </h1>
-                    </div>
-                    </br>
-                    </br>
+                    </div></br></br>
                 </div>
+                
                     </br>
                     </br>
                 
                     <form>
-                        <div class='' style='width:70% ;margin:0 auto;' >
+                        <div class='' style='width:80%; margin:0 auto;' >
                         
                             <div class='row'>
                                 <div class='col-hss-4' style='height: 15px;  border: none !important;  '>
@@ -324,7 +323,7 @@ $dompdf->set_option('isRemoteEnabled', TRUE);
 $dompdf->load_html($documentTemplate);
 
 // dados do documento destino
-$dompdf->set_paper("A4", "landscape");
+$dompdf->set_paper("A4", "retreat");
 
 // gerar documento destino
 $dompdf->render();

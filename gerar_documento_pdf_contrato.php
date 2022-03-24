@@ -178,14 +178,14 @@ p{
         <form>
             <div class='container texto'>
                 <div style='width: 90%;  margin: 0 auto;'>
-                <p style='text-align: center; font-weight: bold;'>CONTRATO DE PRESTAÇÃO DE SERVIÇOS   /   PRONTO ATENDIMENTO 
+                <p style='text-align: center; font-weight: bold;'>CONTRATO DE PRESTAÇÃO DE SERVIÇOS
                 
                 </br>
                 </br>
               
                 <p>Paciente: <b>" . @$dados_pac_resp['NOME_PACIENTE']. "</b>    Prontuário: <b>" .@$dados_pac_resp['PRONTUARIO'] . "</b>    Data do Atendimento: <b>" . @$dados_pac_resp['DT_ATENDIMENTO']. "</b>
                     
-                    <p>Pelo presente instrumento e na melhor forma de direito, eu: <b>" . @$dados_pac_resp['NOME_RESPONSAVEL']. "</b>, portador (a) da Cédula da identidade R.G. n° <b>" . @$dados_pac_resp['RG_RESPONSAVEL']. "</b> devidamente inscrito (a) no CPF/MF sob o n° <b>" . @$dados_pac_resp['CPF_RESPONSAVEL']. "</b>, telefone: <b> " . @$dados_pac_resp['TELEFONE_RESPONSAVEL']. "</b>, residente e domiciliado (a) na <b>" . @$dados_pac_resp['ENDERECO_RESPONSAVEL']. "</b> N°: <b>" . @$dados_pac_resp['NUMERO_ENDERECO_RESPONSAVEL']. "</b> assumo a total responsabilidade, na qualidade de devedor solidário e/ou principal pelas despesas de serviços, médicos e hospitalares, medicamentos, materiais e exames laboratoriais ou imagens, inclusive pelos serviços, materiais e medicamentos fornecidos por terceiros para o (e) paciente <b>" . @$dados_pac_resp['NOME_PACIENTE']. "</b>, portador (a) da Cedúla  de identidade RG N° <b>" . @$dados_pac_resp['CPF_PACIENTE']. "</b> devidamente inscrito no CPF/MF sob o N° <b>" . @$dados_pac_resp['RG_PACIENTE']. "</b> residente e domiciliado (a) na <b>" . @$dados_pac_resp['ENDERECO_PACIENTE']. "</b> N°: <b>" . @$dados_pac_resp['NUMERO_ENDERECO_PACIENTE']. "</b>, telefone: <b>" . @$dados_pac_resp['TELEFONE_PACIENTE']. "</b>.  
+                    <p>Pelo presente instrumento e na melhor forma de direito, eu: <b>" . @$dados_pac_resp['NOME_RESPONSAVEL']. "</b>, portador (a) da Cédula da identidade R.G. n° <b>" . @$dados_pac_resp['RG_RESPONSAVEL']. "</b> devidamente inscrito (a) no CPF/MF sob o n° <b>" . @$dados_pac_resp['CPF_RESPONSAVEL']. "</b>, telefone: <b> " . @$dados_pac_resp['TELEFONE_RESPONSAVEL']. "</b>, residente e domiciliado (a) na <b>" . @$dados_pac_resp['ENDERECO_RESPONSAVEL']. "</b> N°: <b>" . @$dados_pac_resp['NUMERO_ENDERECO_RESPONSAVEL']. "</b> assumo a total responsabilidade, na qualidade de devedor solidário e/ou principal pelas despesas de serviços, médicos e hospitalares, medicamentos, materiais e exames laboratoriais ou imagens, inclusive pelos serviços, materiais e medicamentos fornecidos por terceiros para o (e) paciente <b>" . @$dados_pac_resp['NOME_PACIENTE']. "</b>, portador (a) da Cédula de identidade RG N° <b>" . @$dados_pac_resp['CPF_PACIENTE']. "</b> devidamente inscrito no CPF/MF sob o N° <b>" . @$dados_pac_resp['RG_PACIENTE']. "</b> residente e domiciliado (a) na <b>" . @$dados_pac_resp['ENDERECO_PACIENTE']. "</b> N°: <b>" . @$dados_pac_resp['NUMERO_ENDERECO_PACIENTE']. "</b>, telefone: <b>" . @$dados_pac_resp['TELEFONE_PACIENTE']. "</b>.  
                     
                     <p><b>OBJETO:</b> A prestação de serviços médicos/hospitalares ao paciente retro qualificado, em atendimento nas dependências da CONTRATADA, por determinação do Médico Responsável pelo atendimento, ficando a CONTRATADA expressamente autorizada a executar todos os atendimentos que façam necessários e indispensáveis a salvaguarda da vida do paciente. 
                     
@@ -238,7 +238,7 @@ $dompdf->set_option('isRemoteEnabled', TRUE);
 $dompdf->load_html($documentTemplate);
 
 // dados do documento destino
-$dompdf->set_paper("A4", "landscape");
+$dompdf->set_paper("A4", "retreat");
 
 // gerar documento destino
 $dompdf->render();
