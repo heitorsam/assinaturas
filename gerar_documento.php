@@ -148,7 +148,8 @@
 
 		<?php 
 
-			if(strlen(@$var_nm_paciente) > 1){ 
+			if(strlen(@$var_nm_paciente) > 1 AND $_SESSION['sn_usuario_comum'] == 'S'){ 
+				
 
 		?>
 
@@ -160,12 +161,10 @@
 					</button>
 			</div>
 
-			<?php 
-			
+			<?php 		
 
 				//MODAL ANEXO MV
 				include 'modal_anexo_mv.php';
-
 				
 			?>
 			
@@ -291,15 +290,19 @@
 						</div>
 					<?php } ?>						
 
-				<?php }else{?>				
+				<?php }else{?>
+					
+					<?php if($_SESSION['sn_usuario_comum'] == 'S'){ ?>
 
-					<div class="col-md-2" >
+						<div class="col-md-2" >
 
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-						<i class="fas fa-signature"></i> Assinar
-						</button>
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+							<i class="fas fa-signature"></i> Assinar
+							</button>
 
-					</div>
+						</div>
+
+					<?php } ?>
 
 				<?php }	?>
 		</div>
