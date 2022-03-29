@@ -158,14 +158,13 @@ $count = 1;
                  <div class='row '>
                      <div class='col-hss-2' style='height: 30px;'>
                          1 - Registro ANS
-                         <br>
-                         <br>
+                         <P>
                          <h2>".@$row_cons_guia_consulta['CP_01']."</h2>
                      </div>
 
-                     <div class='col-hss-10'>
+                     <div class='col-hss-10' style='height: 30px;'>
                         3 - Númeo da Guia Atribuído pela Operadora
-                         <br>
+                         <P>
                          <h2>".@$row_cons_guia_consulta['CP_03']."</h2>
                      </div>
                  </div>
@@ -181,32 +180,32 @@ $count = 1;
                  </div>
 
                  <div class='row'>
-                     <div class='col-hss-8'>
+                     <div class='col-hss-8' style='height: 30px;'>
                      4 - Número da Carteira
-                         <br>
+                        <P>
                          <h2>".@$row_cons_guia_consulta['CP_04']."</h2>
                      </div>
-                     <div class='col-hss-2'>
+                     <div class='col-hss-2' style='height: 30px;'>
                      5 - Validade da Carteira
-                         <br>
+                        <P>
                          <h2>".@$row_cons_guia_consulta['CP_05']."</h2>
                      </div>
-                     <div class='col-hss-2'>
+                     <div class='col-hss-2' style='height: 30px;'>
                      6 - Atendimento a RN (Sim ou Não)
-                         <br>
+                        <P>
                          <h2>".@$row_cons_guia_consulta['CP_06']."</h2>
                      </div>
                 </div>
 
                 <div class='row'>
-                     <div class='col-hss-9'>
+                     <div class='col-hss-9' style='height: 30px;'>
                     7 - Nome
-                         <br>
+                        <P>
                          <h2>".@$row_cons_guia_consulta['CP_07']."</h2>
                      </div>
-                     <div class='col-hss-3'>
+                     <div class='col-hss-3' style='height: 30px;'>
                      8 - Cartão Nacional de Saúde
-                         <br>
+                        <P>
                          <h2>".@$row_cons_guia_consulta['CP_08']."</h2>
                      </div>
                  </div>
@@ -222,45 +221,45 @@ $count = 1;
                  </div>
 
                  <div class='row'>
-                     <div class='col-hss-3'>
+                     <div class='col-hss-3' style='height: 30px;'>
                      9 - Código da Operadora
-                         <br>
+                        <P>
                          <h2>".@$row_cons_guia_consulta['CP_09']."</h2>
                      </div>
-                     <div class='col-hss-7'>
+                     <div class='col-hss-7' style='height: 30px;'>
                      10 - Nome do Contratado
-                         <br>
+                        <P>
                          <h2>".@$row_cons_guia_consulta['CP_10']."</h2>
                      </div>
-                     <div class='col-hss-2'>
+                     <div class='col-hss-2' style='height: 30px;'>
                      11 - Código CNES
-                         <br >
+                         <P>
                          <h2>".@$row_cons_guia_consulta['CP_11']."</h2>
                      </div>
                  </div>
 
                  <div class='row'>
-                     <div class='col-hss-5'>
+                     <div class='col-hss-5' style='height: 30px;'>
                      12 - Nome do Profissional Executante
-                         <br>
+                         <P>
                          <h2>".@$row_cons_guia_consulta['CP_12']."</h2>
                      </div>
-                     <div class='col-hss-2'>
+                     <div class='col-hss-2' style='height: 30px;'>
                      13 - Conselho Profissional
-                         <br>
+                         <P>
                          <h2>".@$row_cons_guia_consulta['CP_13']."</h2>
                      </div>
-                     <div class='col-hss-2'>
+                     <div class='col-hss-2' style='height: 30px;'>
                      14 - Número no Conselho
-                         <br>
+                         <P>
                          <h2>".@$row_cons_guia_consulta['CP_14']."</h2>
                      </div>
-                     <div class='col-hss-1'>
+                     <div class='col-hss-1' style='height: 30px;'>
                      15 - UF
-                         <br>
+                         <P>
                          <h2>".@$row_cons_guia_consulta['CP_15']."</h2>
                      </div>
-                     <div class='col-hss-2'>
+                     <div class='col-hss-2' style='height: 30px;'>
                      16 - Código CBO
                      </div>
                  </div>
@@ -275,9 +274,9 @@ $count = 1;
                      </div>
                  </div>
                  <div class='row'>
-                     <div class='col-hss-3' style='height: 35px;'>
+                     <div class='col-hss-3' style='height: 35px;' >
                      17 - Indicação de Acidente (Acidente ou doença relacionada)
-                         <br>
+                         <P>
                          <h2>".@$row_cons_guia_consulta['CP_17']."</h2>
                      </div>    
                  </div>
@@ -293,30 +292,29 @@ $count = 1;
                      </div>
                  </div>
                  <div class='row'>
-                     <div class='col-hss-3'>
+                     <div class='col-hss-3' style='height: 30px;'>
                      18 - Data de Atendimento
-
-                         <br>
+                         <P>
                          <h2>".@$row_cons_guia_consulta['CP_18']."</h2>
                      </div>
-                     <div class='col-hss-2'>
+                     <div class='col-hss-2' style='height: 30px;'>
                      19 - Tipo de Consulta
-                         <br>
+                         <P>
                          <h2>".@$row_cons_guia_consulta['CP_19']."</h2>
                      </div>
-                     <div class='col-hss-2'>
+                     <div class='col-hss-2' style='height: 30px;'>
                      20 - Tabela
-                         <br>
+                         <P>
                          <h2>".@$row_cons_guia_consulta['CP_20']."</h2>
                      </div>
-                     <div class='col-hss-3'>
+                     <div class='col-hss-3' style='height: 30px;'>
                      21 - Código Procedimento
-                         <br>
+                         <P>
                          <h2>".@$row_cons_guia_consulta['CP_21']."</h2>
                      </div>
-                     <div class='col-hss-2'>
+                     <div class='col-hss-2' style='height: 30px;'>
                      22 - Valor do Procedimento
-                         <br>
+                         <P>
                          <h2>".@$row_cons_guia_consulta['CP_22']."</h2>
                      </div>
                  </div>
@@ -332,25 +330,21 @@ $count = 1;
                  <div class='row'>
                      <div class='col-hss-6' style='height: 45px;'>
                      24 - Assinatura do Profissional Executante
-                         <br>
+                         <P>
                          <h2>".@$row_cons_guia_consulta['CP_24']."</h2>
                      </div>
                      
                      <div class='col-hss-6' style='height: 45px;'>
                      25 - Assinatura do Beneficiário ou Responsável
-                         <br>
+                         <P>
                          <h2>".@$row_cons_guia_consulta['CP_25']."</h2>
                      </div> 
                  </div>
                  <!-- FIM Dados do Atendimento / Procedimento Realizado -->
-             
-            
-
-
          </form>
  ";
 
  //visualiza documentTemplate
-//echo  json_encode(array($documentTemplate)); 
- echo $documentTemplate;
+echo  json_encode(array($documentTemplate)); 
+ //echo $documentTemplate;
 ?>
