@@ -612,7 +612,7 @@ $(document).ready(function(){
 
 			});
 
-		}else if(identificador == 'cons_pa'){
+		}else if(identificador == 'guia_consulta'){
 
 			$.getJSON('visualizar_guia_consulta.php?search=',{cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv, ajax: 'true'}, function(j){
 

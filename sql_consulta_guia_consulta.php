@@ -23,7 +23,7 @@
                     FROM TISS_GUIA
                     WHERE TISS_GUIA.ID          IN (SELECT ID
                                                 FROM dbamv.TISS_GUIA tg
-                                                WHERE tg.CD_ATENDIMENTO = 3842618)";
+                                                WHERE tg.CD_ATENDIMENTO = '$var_cd_atendimento')";
        
     $result_guia_cons = oci_parse($conn_ora, $guia_cons);
     oci_execute($result_guia_cons);

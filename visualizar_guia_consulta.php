@@ -117,6 +117,12 @@ $count = 1;
      float: center;
      margin-top: 0px; 
  }
+
+ h1{
+    font-size: 15px;
+    margin-top: 30px;
+    
+}
  h2-footer{
      font-size: 10px;
      float: center;
@@ -138,7 +144,7 @@ $count = 1;
                         <div class='col-hss-5' style='height: 60px; border: none !important;'>
                         </div>
                         <div class='col-hss-2' style='text-align: center; height: 60px; border: none !important;'>
-                            <h1>GUIA DE CONSULTA</h1>
+                            <h1><b>GUIA DE CONSULTA</b></h1>
                         </div>
                         <div class='col-hss-5' style='text-align: center; height: 30px; padding-top: 30px; border: none !important;'>
                             <h2><b>2 - N° no Prestador: ".@$row_cons_guia_consulta['CP_02']."</b></h2>
