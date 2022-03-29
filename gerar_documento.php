@@ -31,7 +31,7 @@
 	////////////
 
 	$cons_atend="SELECT ate.CD_ATENDIMENTO, pac.NM_PACIENTE, TO_CHAR(ate.DT_ATENDIMENTO, 'DD/MM/YYYY') AS DT_ATENDIMENTO, 
-						con.CD_CONVENIO, con.NM_CONVENIO, pac.NR_IDENTIDADE, pac.NR_CPF, TO_CHAR(pac.DT_NASCIMENTO,'DD/MM/YYYY') AS DT_NASCIMENTO
+						con.CD_CONVENIO, con.NM_CONVENIO, pac.NR_IDENTIDADE, pac.NR_CPF, TO_CHAR(pac.DT_NASCIMENTO,'DD/MM/YYYY') AS DT_NASCIMENTO, ate.TP_ATENDIMENTO
 						FROM ATENDIME ate
 				INNER JOIN paciente  pac ON pac.cd_paciente = ate.cd_paciente
 				INNER JOIN CONVENIO  con ON con.cd_convenio = ate.cd_convenio
@@ -52,6 +52,7 @@
 	@$var_nr_identidade = $row_aten['NR_IDENTIDADE'];
 	@$var_nr_cpf = $row_aten['NR_CPF'];
 	@$var_dt_nascimento = $row_aten['DT_NASCIMENTO'];
+	@$var_consulta = $row_aten['TP_ATENDIMENTO'];
 
 	///////////////////////////
 	//Verifica se existe pdf///
@@ -228,11 +229,22 @@
 			
 			<?php if(!isset($var_pdf_existe)){?>
 				<!-- APENAS GERA A GUIA TISS SE FOR CONVENIO -->
-				<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105){?>
+				<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105 && $var_consulta <> 'A'){?>
 					
 					<div style="margin-top: 20px; margin-left: 15px;">
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="guia_tiss">
 							<i class="far fa-eye"></i> Guia TISS
+						</button>
+					</div>
+					
+				<?php } ?>
+
+				<!-- APENAS GERA A GUIA CONSULTA SE FOR CONVENIO  -->
+				<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105 && $var_consulta == 'A'){?>
+					
+					<div style="margin-top: 20px; margin-left: 15px;">
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="guia_consulta">
+							<i class="far fa-eye"></i> Guia Consulta
 						</button>
 					</div>
 					
@@ -270,14 +282,21 @@
 				<?php if(isset($var_pdf_existe)){ ?>
 					
 					<!-- APENAS GERA A GUIA TISS SE FOR CONVENIO -->
-					<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105){?>
+					<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105 && $var_consulta <> 'A'){?>
 						<div style="margin-top: 20px; margin-left: 15px; ">
 							<a  style="height: 100%; width: 100% " class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="tiss_pa" data-identificador="guia_tiss_assinado"><i class="fas fa-file-pdf"></i> Guia Tiss</a>
 						</div>
 					<?php } ?>
+
+					<!-- APENAS GERA A GUIA CONSULTA SE FOR CONVENIO -->
+					<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105 && $var_consulta == 'A'){?>
+						<div style="margin-top: 20px; margin-left: 15px; ">
+							<a  style="height: 100%; width: 100% " class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="cons_pa" data-identificador="guia_consulta_assinado"><i class="fas fa-file-pdf"></i> Guia Consulta</a>
+						</div>
+					<?php } ?>
 					
 					<!-- GERA CONTRATO EXCETO SUS -->
-					<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 105){?>
+					<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 105 && $var_consulta == 'A' ){?>
 						<div style="margin-top: 20px; margin-left: 15px;">
 							<a style="height: 100%; width: 100% "  class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="cont_pa" data-identificador="cont_pa_assinado"><i class="fas fa-file-pdf"></i> Contrato</a>
 						</div>
@@ -593,6 +612,20 @@ $(document).ready(function(){
 
 			});
 
+		}else if(identificador == 'cons_pa'){
+
+			$.getJSON('visualizar_guia_consulta.php?search=',{cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv, ajax: 'true'}, function(j){
+
+				if(j){
+					$("#visualizaModal .modal-body").html(j[0]);            
+				} 
+				else {
+					alert("Erro");
+				}
+
+
+			});
+
 		}else if(identificador == 'hos_faa'){
 
 			//BUSCANDO INFORMACOES VIA JSON E ADICIONANDO A VARIAVEL J
@@ -618,6 +651,10 @@ $(document).ready(function(){
 
 			$("#visualizaModalAssinado .modal-body").load('exibi_pdf.php');
        
+		}else if(identificador == 'guia_consulta_assinado'){
+
+			$("#visualizaModalAssinado .modal-body").load('exibi_pdf_guia_consulta.php');
+
 		}else if(identificador == 'cont_pa_assinado'){
 
 			$("#visualizaModalAssinado .modal-body").load('exibi_pdf_contrato.php');
