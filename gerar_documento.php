@@ -297,7 +297,9 @@
 						<div class="col-md-2" >
 
 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-							<i class="fas fa-signature"></i> Assinar
+								
+								<i class="fas fa-signature"></i> Assinar
+								
 							</button>
 
 						</div>
