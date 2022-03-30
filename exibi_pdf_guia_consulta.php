@@ -15,7 +15,7 @@
     $cons_dowload="SELECT *
     FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
     WHERE ass.cd_atendimento = $var_cd_atendimento
-    AND TP_DOCUMENTO LIKE 'hos_faa'";
+    AND TP_DOCUMENTO LIKE 'cons_pa'";
 
     $result_dowload = oci_parse($conn_ora, $cons_dowload);
     @oci_execute($result_dowload);

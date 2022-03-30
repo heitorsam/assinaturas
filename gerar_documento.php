@@ -220,6 +220,11 @@
 			</div>
 
 			<div class="col-md-0" id="div_sn_exame_mv">
+					<!--<label>Tipo Atendimeno:</label>-->
+					<input type="hidden"  class="form-control" value="<?php echo @$var_consulta?>" id="tp_atendimento" name="tp_atendimento" readonly></input>
+			</div>
+
+			<div class="col-md-0" id="div_sn_exame_mv">
 					<input type="hidden" value="<?php echo @$var_cd_conv;?>" class="form-control" id="cd_convenio" name="cd_conv" ></input>
 			</div>
 		</div>
@@ -296,7 +301,7 @@
 					<?php } ?>
 					
 					<!-- GERA CONTRATO EXCETO SUS -->
-					<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 105 && $var_consulta == 'A' ){?>
+					<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 105){?>
 						<div style="margin-top: 20px; margin-left: 15px;">
 							<a style="height: 100%; width: 100% "  class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="cont_pa" data-identificador="cont_pa_assinado"><i class="fas fa-file-pdf"></i> Contrato</a>
 						</div>
@@ -691,8 +696,13 @@ $(document).ready(function(){
 		//CONVENIO 
 		var cd_conv = document.getElementById("cd_convenio").value;
 
+		
+		//TIPO ATENDIMENTO 
+		var tb_atd = document.getElementById("tp_atendimento").value;
+		
+	
 		//APENAS GERA A GUIA TISS SE FOR CONVENIO
-		if(cd_conv != 1 && cd_conv != 2 && cd_conv != 40 && cd_conv != 105){
+		if(cd_conv != 1 && cd_conv != 2 && cd_conv != 40 && cd_conv != 105 && tb_atd != 'A'){
 			
 			//SALVANDO NO BANCO GUIA TISS 
 			$.ajax({
@@ -712,6 +722,30 @@ $(document).ready(function(){
 				}*/				
 			});		
 		}
+
+		
+		//APENAS GERA A GUIA CONSULTA SE FOR CONVENIO
+		if(cd_conv != 1 && cd_conv != 2 && cd_conv != 40 && cd_conv != 105 && tb_atd == 'A'){
+			
+			//SALVANDO NO BANCO GUIA CONSLUTA 
+			$.ajax({
+				//Configurações
+				type: 'POST',//Método que está sendo utilizado.
+				dataType: 'html',//É o tipo de dado que a página vai retornar.
+				url: 'gerar_documento_pdf_guia_consulta.php',//Indica a página que está sendo solicitada.
+				//função que vai ser executada assim que a requisição for enviada
+				data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
+				//função que será executada quando a solicitação for finalizada.
+				/*
+				success: function (msg){
+					alert("Sucesso");
+				},
+
+				error: function (msg){
+					alert("Erro");
+				}*/				
+			});		
+		} 
 
 		//GERA CONTRATO EXCETO SUS
 		if(cd_conv != 1 && cd_conv != 2 && cd_conv != 105){
