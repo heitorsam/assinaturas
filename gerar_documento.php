@@ -219,9 +219,9 @@
 					<input type="hidden"  class="form-control" value="<?php echo @$var_cd_atendimento?>" id="atendimento" name="cd_atendimento" readonly></input>
 			</div>
 
-			<div class="col-md-0" id="div_sn_exame_mv">
-					<!--<label>Tipo Atendimeno:</label>-->
-					<input type="hidden"  class="form-control" value="<?php echo @$var_consulta?>" id="tp_atendimento" name="tp_atendimento" readonly></input>
+			<div class="col-md-2" id="div_sn_exame_mv">
+					<label>Tipo Atendimeno:</label>
+					<input type="text"  class="form-control" value="<?php echo @$var_consulta?>" id="tipoatendimento" name="tipoatendimento" readonly></input>
 			</div>
 
 			<div class="col-md-0" id="div_sn_exame_mv">
@@ -698,11 +698,11 @@ $(document).ready(function(){
 
 		
 		//TIPO ATENDIMENTO 
-		var tb_atd = document.getElementById("tp_atendimento").value;
+		var tb_atd = document.getElementById("tipoatendimento").value;
 		
 	
 		//APENAS GERA A GUIA TISS SE FOR CONVENIO
-		if(cd_conv != 1 && cd_conv != 2 && cd_conv != 40 && cd_conv != 105 && tb_atd != 'A'){
+		if(cd_conv != 1 && cd_conv != 2 && cd_conv != 40 && cd_conv != 105 && tb_atd != "A"){
 			
 			//SALVANDO NO BANCO GUIA TISS 
 			$.ajax({
@@ -725,7 +725,7 @@ $(document).ready(function(){
 
 		
 		//APENAS GERA A GUIA CONSULTA SE FOR CONVENIO
-		if(cd_conv != 1 && cd_conv != 2 && cd_conv != 40 && cd_conv != 105 && tb_atd == 'A'){
+		if(cd_conv != 1 && cd_conv != 2 && cd_conv != 40 && cd_conv != 105 && tb_atd == "A"){
 			
 			//SALVANDO NO BANCO GUIA CONSLUTA 
 			$.ajax({

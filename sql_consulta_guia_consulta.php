@@ -18,7 +18,8 @@
                     TISS_GUIA.TP_ACIDENTE AS CP_17, TISS_GUIA.DH_ATENDIMENTO AS CP_18, 
                     TISS_GUIA.TP_CONSULTA AS CP_19, TISS_GUIA.TP_TAB_FAT_CO AS CP_20, 
                     TISS_GUIA.CD_PROCEDIMENTO_CO AS CP_21, '' AS CP_22,
-                    '' AS CP_23, '' AS CP_24, '' AS CP_25, TISS_GUIA.CD_CONVENIO
+                    '' AS CP_23, '' AS CP_24, '' AS CP_25, TISS_GUIA.CD_CONVENIO,
+                    NVL(TISS_GUIA.CD_REG_FAT, TISS_GUIA.CD_REG_AMB) AS CD_CONTA
                     --SELECT *
                     FROM TISS_GUIA
                     WHERE TISS_GUIA.ID          IN (SELECT ID
