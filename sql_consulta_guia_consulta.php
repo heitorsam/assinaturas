@@ -4,7 +4,8 @@
 
     //@$var_cd_atendimento = $_POST['cd_atendimento'];
     //@$var_cd_atendimento = $_REQUEST['cd_atendimento'];   
-    //$var_cd_atendimento = '4237666';
+    //$var_cd_atendimento = '4238415';
+
     //CONSULTA 
     $guia_cons = "SELECT 
                     TISS_GUIA.NR_REGISTRO_OPERADORA_ANS AS CP_01, TISS_GUIA.NR_GUIA AS CP_02, 
@@ -33,13 +34,20 @@
     //PEGAR LOGO DO CONVÊNIO
     @$cd_convenio = $row_cons_guia_consulta['CD_CONVENIO'];
 
-    $cons_logo_con="SELECT con.logotipo
+    $cons_logo_con="SELECT con.logotipo, NVL(LENGTH(con.logotipo),0) AS CARACT
                     FROM dbamv.convenio con
                     WHERE con.cd_convenio = '$cd_convenio'";
 
     @$result_cons_logo_con = oci_parse($conn_ora, $cons_logo_con);
     @oci_execute($result_cons_logo_con);
     @$row_cons_logo_con = oci_fetch_array($result_cons_logo_con);
-    @$image = @$row_cons_logo_con['LOGOTIPO']->load();
+
+    if($row_cons_logo_con['CARACT'] > 0){
+        @$image = @$row_cons_logo_con['LOGOTIPO']->load();
+    }else{
+        @$image = '';
+    }
+
+    
 ?>
 

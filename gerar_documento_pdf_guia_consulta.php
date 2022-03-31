@@ -28,6 +28,7 @@ include 'sql_consulta_guia_consulta.php';
 
 /* Preparação do documento final
  */
+
 $documentTemplate = "
 <html lang='en'> 
      <head> 
@@ -154,30 +155,54 @@ h3{
     }
 
  </style> 
- 
- <form>
-     <div class='container'>
-         <div class='row'>
-             
-             <div class='col-hss-4' style=' height: 100px;'>
-             <img src='data:application/pdf;base64, ".base64_encode(@$image)." type='application/pdf' style='width: 180px; height: 95px;'>
-             </div>
+ ";
 
-             <div class='col-hss-4' style='height: 100px;'>
-                 <h3>GUIA DE CONSULTA</h3>
-             </div>
-             <div class='col-hss-4' style='height: 100px;'>
-                 <h4>2- N° Guia no Prestador: ".@$row_cons_guia_consulta['CP_02']."</h4>
-             </div>
-         </div>
-     </div>
- </form>
-         </br>
-         </br>
-         </br>
-         
-         
+ if($row_cons_logo_con['CARACT'] > 0){
+        $documentTemplate .=" 
+            <form>
+                <div class='container'>
+                    <div class='row'>
+                        
+                        <div class='col-hss-4' style=' height: 100px;'>
+            
+                        <img src='data:application/pdf;base64, ".base64_encode(@$image)." type='application/pdf' style='width: 180px; height: 95px;'>
+                        </div>
+        
+                        <div class='col-hss-4' style='height: 100px;'>
+                            <h3>GUIA DE CONSULTA</h3>
+                        </div>
+                        <div class='col-hss-4' style='height: 100px;'>
+                            <h4>2- N° Guia no Prestador: ".@$row_cons_guia_consulta['CP_02']."</h4>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        ";
+}else{
+        $documentTemplate .=" 
+            <form>
+                <div class='container'>
+                    <div class='row'>
+                        
+                        <div class='col-hss-4' style=' height: 100px;'>
+                        </div>
+        
+                        <div class='col-hss-4' style='height: 100px;'>
+                            <h3>GUIA DE CONSULTA</h3>
+                        </div>
+                        <div class='col-hss-4' style='height: 100px;'>
+                            <h4>2- N° Guia no Prestador: ".@$row_cons_guia_consulta['CP_02']."</h4>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        ";
+}
 
+$documentTemplate .=" 
+         </br>
+         </br>
+         </br>
          </br>
          <form>
              <!--Primeiras infos -->

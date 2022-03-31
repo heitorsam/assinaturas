@@ -348,19 +348,19 @@ h3{
                  <div class='container'>
                  <div class='row' >
                      <div class='col-hss-3' style=' padding-left: 30px;   border: none !important;'>
-                         <h2-footer><B>".$var_user_logado."</B></h2-footer>
+                         <h2-footer><B>".@$var_user_logado."</B></h2-footer>
                      </div>
                      <div class='col-hss-2' style=' padding-left: 5px; border: none !important;'>
-                         <h2-footer><B>Data:".$hora."</B></h2-footer>
+                         <h2-footer><B>Data:".@$hora."</B></h2-footer>
                      </div>
                      <div class='col-hss-2' style=' padding-left: 5px;border: none !important;'>
-                         <h2-footer><B>Conta/Lote: ".$row_cons_guia_consulta['CD_CONTA']."</B></h2-footer>
+                         <h2-footer><B>Conta/Lote: ".@$row_cons_guia_consulta['CD_CONTA']."</B></h2-footer>
                      </div>
                      <div class='col-hss-2' style=' padding-left: 5px; border: none !important;'>
-                         <h2-footer><B>Atendimento: ".$var_cd_atendimento."</B></h2-footer>
+                         <h2-footer><B>Atendimento: ".@$var_cd_atendimento."</B></h2-footer>
                      </div>
                      <div class='col-hss-3' style=' padding-left: 5px; border: none !important;'>
-                         <h2-footer><B>Convenio: ".$nm_conv."</B><h2-footer>
+                         <h2-footer><B>Convenio: ".@$nm_conv."</B><h2-footer>
                  </div>
              </div>
           </div>

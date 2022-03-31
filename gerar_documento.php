@@ -74,11 +74,9 @@
 	//VALIDANDO SE A GUIA TISS FOI GERADA NO SISTEMA NA REGRA DO CONVENIO
 	if(isset($_GET['cd_atendimento'])){
 		//CONSULTA ID
-		$cons_id = "SELECT LPAD(ID,15,0) as ID
-					FROM dbamv.tiss_itguia
-					WHERE ID_PAI in( SELECT ID
-									FROM dbamv.TISS_GUIA tg
-									WHERE tg.CD_ATENDIMENTO = $var_cd_atendimento)";
+		$cons_id = "SELECT ID
+					FROM dbamv.TISS_GUIA tg
+					WHERE tg.CD_ATENDIMENTO = $var_cd_atendimento";
 
 		$result_cons_id = oci_parse($conn_ora, $cons_id);
 		@oci_execute($result_cons_id);
@@ -90,12 +88,19 @@
 		if(!isset($id_guia_00)){
 
 			//E FOR CONVENIO
-			if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40 && $var_cd_conv <> 105){
+			if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40 && $var_cd_conv <> 105 && $var_consulta <> 'A'){
 			
 				$_SESSION['msgerro'] = "Guia TISS não foi gerada no sistema!"; 
 				header('Location: gerar_documento.php');
 				return 0;
+			}
 
+			//E FOR CONVENIO
+			if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40 && $var_cd_conv <> 105 && $var_consulta == 'A'){
+			
+				$_SESSION['msgerro'] = "Guia Consulta não foi gerada no sistema!"; 
+				header('Location: gerar_documento.php');
+				return 0;
 			}
 
 		}
@@ -220,8 +225,8 @@
 			</div>
 
 			<div class="col-md-2" id="div_sn_exame_mv">
-					<label>Tipo Atendimeno:</label>
-					<input type="text"  class="form-control" value="<?php echo @$var_consulta?>" id="tipoatendimento" name="tipoatendimento" readonly></input>
+					<!--<label>Tipo Atendimeno:</label>-->
+					<input type="hidden"  class="form-control" value="<?php echo @$var_consulta?>" id="tipoatendimento" name="tipoatendimento" readonly></input>
 			</div>
 
 			<div class="col-md-0" id="div_sn_exame_mv">
