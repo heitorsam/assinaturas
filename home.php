@@ -19,6 +19,10 @@
 
             <a href="gerar_documento.php" class="botao_home" type="submit"><i class="fas fa-file-signature"></i> Gerar Documento</a></td></tr>
 
+            <span class="espaco_pequeno"></span>
+
+            <a href="anexos.php" class="botao_home" type="submit"><i class="fas fa-camera"></i> Anexos</a></td></tr>
+
             <div class="div_br"> </div>
 
             <!--
