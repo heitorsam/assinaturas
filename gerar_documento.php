@@ -52,7 +52,7 @@
 	@$var_nr_identidade = $row_aten['NR_IDENTIDADE'];
 	@$var_nr_cpf = $row_aten['NR_CPF'];
 	@$var_dt_nascimento = $row_aten['DT_NASCIMENTO'];
-	@$var_consulta = $row_aten['TP_ATENDIMENTO'];
+	@$var_tp_atendimento = $row_aten['TP_ATENDIMENTO'];
 
 	///////////////////////////
 	//Verifica se existe pdf///
@@ -88,7 +88,7 @@
 		if(!isset($id_guia_00)){
 
 			//E FOR CONVENIO
-			if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40 && $var_cd_conv <> 105 && $var_consulta <> 'A'){
+			if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40 && $var_cd_conv <> 105 && $var_tp_atendimento <> 'A'){
 			
 				$_SESSION['msgerro'] = "Guia TISS não foi gerada no sistema!"; 
 				header('Location: gerar_documento.php');
@@ -96,7 +96,7 @@
 			}
 
 			//E FOR CONVENIO
-			if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40 && $var_cd_conv <> 105 && $var_consulta == 'A'){
+			if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40 && $var_cd_conv <> 105 && $var_tp_atendimento == 'A'){
 			
 				$_SESSION['msgerro'] = "Guia Consulta não foi gerada no sistema!"; 
 				header('Location: gerar_documento.php');
@@ -226,7 +226,7 @@
 
 			<div class="col-md-2" id="div_sn_exame_mv">
 					<!--<label>Tipo Atendimeno:</label>-->
-					<input type="hidden"  class="form-control" value="<?php echo @$var_consulta?>" id="tipoatendimento" name="tipoatendimento" readonly></input>
+					<input type="hidden"  class="form-control" value="<?php echo @$var_tp_atendimento?>" id="tipoatendimento" name="tipoatendimento" readonly></input>
 			</div>
 
 			<div class="col-md-0" id="div_sn_exame_mv">
@@ -239,7 +239,7 @@
 			
 			<?php if(!isset($var_pdf_existe)){?>
 				<!-- APENAS GERA A GUIA TISS SE FOR CONVENIO -->
-				<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105 && $var_consulta <> 'A'){?>
+				<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105 && $var_tp_atendimento <> 'A'){?>
 					
 					<div style="margin-top: 20px; margin-left: 15px;">
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="guia_tiss">
@@ -250,7 +250,7 @@
 				<?php } ?>
 
 				<!-- APENAS GERA A GUIA CONSULTA SE FOR CONVENIO  -->
-				<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105 && $var_consulta == 'A'){?>
+				<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105 && $var_tp_atendimento == 'A'){?>
 					
 					<div style="margin-top: 20px; margin-left: 15px;">
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="guia_consulta">
@@ -292,14 +292,14 @@
 				<?php if(isset($var_pdf_existe)){ ?>
 					
 					<!-- APENAS GERA A GUIA TISS SE FOR CONVENIO -->
-					<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105 && $var_consulta <> 'A'){?>
+					<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105 && $var_tp_atendimento <> 'A'){?>
 						<div style="margin-top: 20px; margin-left: 15px; ">
 							<a  style="height: 100%; width: 100% " class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="tiss_pa" data-identificador="guia_tiss_assinado"><i class="fas fa-file-pdf"></i> Guia Tiss</a>
 						</div>
 					<?php } ?>
 
 					<!-- APENAS GERA A GUIA CONSULTA SE FOR CONVENIO -->
-					<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105 && $var_consulta == 'A'){?>
+					<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105 && $var_tp_atendimento == 'A'){?>
 						<div style="margin-top: 20px; margin-left: 15px; ">
 							<a  style="height: 100%; width: 100% " class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="cons_pa" data-identificador="guia_consulta_assinado"><i class="fas fa-file-pdf"></i> Guia Consulta</a>
 						</div>
