@@ -152,21 +152,43 @@ h2{
 
 </style> 
     <body>
-        <form style='height: 40px;'>
-            <div class='container'>
-                <div class='row'>
-                    <div class='col-hss-4' style='border: none !important;'>
-                        <img src='data:application/pdf;base64, ".base64_encode(@$image)." type='application/pdf' style='width: 150; height: 30;'>
-                    </div>
-                    <div class='col-hss-4' style='border: none !important; text-align: center;'>
-                        <h2>GUIA DE SERVIÇO PROFISSIONAL / SERVIÇO AUXILIAR DE <BR> DIAGNÓSTICO E TERAPIA - SP/SADT</h2>
-                    </div>
-                    <div class='col-hss-4' style='border: none !important; padding-left: 50px;'>
-                        <h2>2- N° Guia no Prestador: ".@$row_cons_guia_tiss['CP_02']."</h2>
+    ";
+    if($row_cons_logo_con['CARACT'] > 0){
+        $documentTemplate .="
+            <form style='height: 40px;'>
+                <div class='container'>
+                    <div class='row'>
+                        <div class='col-hss-4' style='border: none !important;'>
+                            <img src='data:application/pdf;base64, ".base64_encode(@$image)." type='application/pdf' style='width: 150; height: 30;'>
+                        </div>
+                        <div class='col-hss-4' style='border: none !important; text-align: center;'>
+                            <h2>GUIA DE SERVIÇO PROFISSIONAL / SERVIÇO AUXILIAR DE <BR> DIAGNÓSTICO E TERAPIA - SP/SADT</h2>
+                        </div>
+                        <div class='col-hss-4' style='border: none !important; padding-left: 50px;'>
+                            <h2>2- N° Guia no Prestador: ".@$row_cons_guia_tiss['CP_02']."</h2>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>";
+    } else{
+        $documentTemplate .="
+            <form style='height: 40px;'>
+                <div class='container'>
+                    <div class='row'>
+                        <div class='col-hss-4' style='border: none !important;'>
+                        </div>
+                        <div class='col-hss-4' style='border: none !important; text-align: center;'>
+                            <h2>GUIA DE SERVIÇO PROFISSIONAL / SERVIÇO AUXILIAR DE <BR> DIAGNÓSTICO E TERAPIA - SP/SADT</h2>
+                        </div>
+                        <div class='col-hss-4' style='border: none !important; padding-left: 50px;'>
+                            <h2>2- N° Guia no Prestador: ".@$row_cons_guia_tiss['CP_02']."</h2>
+                        </div>
+                    </div>
+                </div>
+            </form>";
+    }
+
+$documentTemplate .=" 
         </br>
         </br>
         </br>

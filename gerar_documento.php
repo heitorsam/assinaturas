@@ -32,7 +32,7 @@
 
 	$cons_atend="SELECT ate.CD_ATENDIMENTO, pac.NM_PACIENTE, TO_CHAR(ate.DT_ATENDIMENTO, 'DD/MM/YYYY') AS DT_ATENDIMENTO, 
 						con.CD_CONVENIO, con.NM_CONVENIO, pac.NR_IDENTIDADE, pac.NR_CPF, TO_CHAR(pac.DT_NASCIMENTO,'DD/MM/YYYY') AS DT_NASCIMENTO, ate.TP_ATENDIMENTO
-						FROM ATENDIME ate
+				FROM ATENDIME ate
 				INNER JOIN paciente  pac ON pac.cd_paciente = ate.cd_paciente
 				INNER JOIN CONVENIO  con ON con.cd_convenio = ate.cd_convenio
 				WHERE ate.cd_atendimento = '$var_cd_atendimento'";
@@ -131,254 +131,233 @@
 
 		<div class="div_br"> </div>
 		<form method="get" autocomplete="off" action="gerar_documento.php">
-		<div class="row">
-			<div class="col-md-3 ">
-				Atendimento:
-				<div class="input-group">
+			<div class="row">
+				<div class="col-md-3 ">
+					Atendimento:
+					<div class="input-group">
 
-				<?php if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdconsulta'])){ ?>
-					<input class="form-control input-group" type="text" value="<?php echo @$var_cd_atendimento;?>" name="cd_atendimento" required>
-					<input class="form-control input-group" type="hidden" value="<?php echo 'A';?>" id="tp_atendimento" required>
-				<?php } else { ?>
-					<input class="form-control input-group" type="text"  name="cd_atendimento" required>
-				<?php }?>
+					<?php if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdconsulta'])){ ?>
+						<input class="form-control input-group" type="text" value="<?php echo @$var_cd_atendimento;?>" name="cd_atendimento" required>
+						<input class="form-control input-group" type="hidden" value="<?php echo 'A';?>" id="tp_atendimento" required>
+					<?php } else { ?>
+						<input class="form-control input-group" type="text"  name="cd_atendimento" required>
+					<?php }?>
 
-					<button type="submit" class=" btn btn-primary" id="btn_pesquisar"> <i class="fa fa-search" aria-hidden="true"></i></button>	
-					<input type="hidden" id="valor" type="text" readonly />
-				</div> 
+						<button type="submit" class=" btn btn-primary" id="btn_pesquisar"> <i class="fa fa-search" aria-hidden="true"></i></button>	
+						<input type="hidden" id="valor" type="text" readonly />
+					</div> 
+				</div>
+				
 			</div>
-			
-		</div>
 		</form>
 		</br>
 
 		<?php 
-
 			if(strlen(@$var_nm_paciente) > 1 AND $_SESSION['sn_usuario_comum'] == 'S'){ 
-				
-
 		?>
 
 		<div class="row">
 
 			<div style="margin-left: 15px;">
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalanexomv">
-						<i class="fas fa-camera"></i> Anexar arquivo
-					</button>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalanexomv">
+					<i class="fas fa-camera"></i> Anexar arquivo
+				</button>
 			</div>
 
 			<?php 		
-
 				//MODAL ANEXO MV
-				include 'modal_anexo_mv.php';
-				
+				include 'modal_anexo_mv.php';	
 			?>
 			
-		</div>
-		</br>
+		</div></br>
 
 		<?php 
-
 			}
-
 		?>
 
-		<!---RESULTADO DA PESQUISA-->
-
-		<?php if(strlen(@$var_nm_paciente) > 1){ ?>
+				<!---RESULTADO DA PESQUISA-->
+				<?php if(strlen(@$var_nm_paciente) > 1 ){ ?>
 		<form autocomplete="off" id="assinatura"  method="get//" action="gerar_documento_pdf.php">
-		<div class="row">		
+			<div class="row">		
 
-			<div class="col-md-3" id="div_sn_exame_mv">
-					<label>Paciente:</label>
-					<input type="text"  class="form-control" value="<?php echo @$var_nm_paciente?>" id="paciente" name="nm_paciente" readonly></input>
+				<div class="col-md-3" id="div_sn_exame_mv">
+						<label>Paciente:</label>
+						<input type="text"  class="form-control" value="<?php echo @$var_nm_paciente?>" id="paciente" name="nm_paciente" readonly></input>
+				</div>
+
+				<div class="col-md-2" id="div_sn_exame_mv">
+						<label>Nascimento:</label>
+						<input type="text" value="<?php echo @$var_dt_nascimento ?>" class="form-control" id="" name="" readonly></input>
+				</div>
+
+				<div class="col-md-2" id="div_sn_exame_mv">
+						<label>CPF:</label>
+						<input type="text" value="<?php echo @$var_nr_cpf;?>" class="form-control" id="" name="" readonly></input>
+				</div>
+
+				<div class="col-md-2" id="div_sn_exame_mv">
+						<label>RG:</label>
+						<input type="text" value="<?php echo @$var_nr_identidade;?>" class="form-control" id="" name="" readonly></input>
+				</div>
+
+				<div class="col-md-3" id="div_sn_exame_mv">
+						<label>Convenio:</label>
+						<input type="text" value="<?php echo @$var_nm_conv;?>" class="form-control" id="nm_convenio" name="nm_conv" readonly></input>
+				</div>
+
+				<div class="col-md-0" id="div_sn_exame_mv">
+						<!--<label>Data Atendimento:</label>-->
+						<input type="hidden" value="<?php echo @$var_dt_aten ?>" class="form-control" id="dt_atendimento" name="dt_aten" readonly></input>
+				</div>
+
+				<div class="col-md-0" id="div_sn_exame_mv">
+						<!--<label>Atendimento:</label>-->
+						<input type="hidden"  class="form-control" value="<?php echo @$var_cd_atendimento?>" id="atendimento" name="cd_atendimento" readonly></input>
+				</div>
+
+				<div class="col-md-2" id="div_sn_exame_mv">
+						<!--<label>Tipo Atendimeno:</label>-->
+						<input type="hidden"  class="form-control" value="<?php echo @$var_tp_atendimento?>" id="tipoatendimento" name="tipoatendimento" readonly></input>
+				</div>
+
+				<div class="col-md-0" id="div_sn_exame_mv">
+						<input type="hidden" value="<?php echo @$var_cd_conv;?>" class="form-control" id="cd_convenio" name="cd_conv" ></input>
+				</div>
+				
 			</div>
 
-			<div class="col-md-2" id="div_sn_exame_mv">
-					<label>Nascimento:</label>
-					<input type="text" value="<?php echo @$var_dt_nascimento ?>" class="form-control" id="" name="" readonly></input>
-			</div>
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+		<!-- URGENCIA / AMBULATORIO -->
+		<?php
+			include 'include_ambulatorio_urgencia.php';
+		?>
 
-			<div class="col-md-2" id="div_sn_exame_mv">
-					<label>CPF:</label>
-					<input type="text" value="<?php echo @$var_nr_cpf;?>" class="form-control" id="" name="" readonly></input>
-			</div>
-
-			<div class="col-md-2" id="div_sn_exame_mv">
-					<label>RG:</label>
-					<input type="text" value="<?php echo @$var_nr_identidade;?>" class="form-control" id="" name="" readonly></input>
-			</div>
-
-			<div class="col-md-3" id="div_sn_exame_mv">
-					<label>Convenio:</label>
-					<input type="text" value="<?php echo @$var_nm_conv;?>" class="form-control" id="nm_convenio" name="nm_conv" readonly></input>
-			</div>
-
-			<div class="col-md-0" id="div_sn_exame_mv">
-					<!--<label>Data Atendimento:</label>-->
-					<input type="hidden" value="<?php echo @$var_dt_aten ?>" class="form-control" id="dt_atendimento" name="dt_aten" readonly></input>
-			</div>
-
-			<div class="col-md-0" id="div_sn_exame_mv">
-					<!--<label>Atendimento:</label>-->
-					<input type="hidden"  class="form-control" value="<?php echo @$var_cd_atendimento?>" id="atendimento" name="cd_atendimento" readonly></input>
-			</div>
-
-			<div class="col-md-2" id="div_sn_exame_mv">
-					<!--<label>Tipo Atendimeno:</label>-->
-					<input type="hidden"  class="form-control" value="<?php echo @$var_tp_atendimento?>" id="tipoatendimento" name="tipoatendimento" readonly></input>
-			</div>
-
-			<div class="col-md-0" id="div_sn_exame_mv">
-					<input type="hidden" value="<?php echo @$var_cd_conv;?>" class="form-control" id="cd_convenio" name="cd_conv" ></input>
-			</div>
-		</div>
-
-		<!--SE NÃO TIVER ASSINADO -->
+		<!-- INTERNAÇÃO -->
+			<!-- BOTOES INTERNAÇÃO
 		<div class="row">
 			
-			<?php if(!isset($var_pdf_existe)){?>
-				<!-- APENAS GERA A GUIA TISS SE FOR CONVENIO -->
-				<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105 && $var_tp_atendimento <> 'A'){?>
-					
-					<div style="margin-top: 20px; margin-left: 15px;">
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="guia_tiss">
-							<i class="far fa-eye"></i> Guia TISS
-						</button>
-					</div>
-					
-				<?php } ?>
+			<div style="margin-top: 20px; margin-left: 5px;">
+				<button type="button" class="btn btn-primary" id="escdoc1" style="width: 150px; height: 60px; display: none;">
+					Guia Internação
+				</button>
+			</div>
 
-				<!-- APENAS GERA A GUIA CONSULTA SE FOR CONVENIO  -->
-				<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105 && $var_tp_atendimento == 'A'){?>
-					
-					<div style="margin-top: 20px; margin-left: 15px;">
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="guia_consulta">
-							<i class="far fa-eye"></i> Guia Consulta
-						</button>
-					</div>
-					
-				<?php } ?>
-				
-				<!-- GERA CONTRATO EXCETO SUS -->
-				<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 105){?>
-					
-					<div style="margin-top: 20px; margin-left: 15px;">
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="contrato">
-							<i class="far fa-eye"></i> Contrato
-						</button>
-					</div>
-					
-				<?php } ?>
-				
-				<!-- GERA FAA APENAS SUS -->
-				<?php if($var_cd_conv == 1 || $var_cd_conv == 2 || $var_cd_conv == 105){?>
-					
-					<div style="margin-top: 20px; margin-left: 15px;">
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="hos_faa">
-							<i class="far fa-eye"></i> Ficha Atendimento
-						</button>
-					</div>
-				
-				<?php } ?>
+			<div style="margin-top: 20px; margin-left: 5px;">
+				<button type="button" class="btn btn-primary" id="escdoc2" style="width: 150px; height: 60px; display: none;">
+					Carta Golpe
+				</button>
+			</div>
 
-			<?php } ?>
-		</div>
-
-		<br>
-		<div class="row">
-			<!-- SE TIVER ASSINADO -->
-
+			<div style="margin-top: 20px; margin-left: 5px;">
+				<button type="button" class="btn btn-primary" id="escdoc3" style="width: 150px; height: 60px; display: none;">
+					Termo de Responsabilidade
+				</button>
+			</div>
+		</div> -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 				<?php if(isset($var_pdf_existe)){ ?>
-					
-					<!-- APENAS GERA A GUIA TISS SE FOR CONVENIO -->
-					<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105 && $var_tp_atendimento <> 'A'){?>
-						<div style="margin-top: 20px; margin-left: 15px; ">
-							<a  style="height: 100%; width: 100% " class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="tiss_pa" data-identificador="guia_tiss_assinado"><i class="fas fa-file-pdf"></i> Guia Tiss</a>
-						</div>
-					<?php } ?>
 
-					<!-- APENAS GERA A GUIA CONSULTA SE FOR CONVENIO -->
-					<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105 && $var_tp_atendimento == 'A'){?>
-						<div style="margin-top: 20px; margin-left: 15px; ">
-							<a  style="height: 100%; width: 100% " class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="cons_pa" data-identificador="guia_consulta_assinado"><i class="fas fa-file-pdf"></i> Guia Consulta</a>
-						</div>
-					<?php } ?>
-					
-					<!-- GERA CONTRATO EXCETO SUS -->
-					<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 105){?>
-						<div style="margin-top: 20px; margin-left: 15px;">
-							<a style="height: 100%; width: 100% "  class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="cont_pa" data-identificador="cont_pa_assinado"><i class="fas fa-file-pdf"></i> Contrato</a>
-						</div>
-					<?php } ?>
-					
-					<!-- GERA FAA APENAS SUS -->
-					<?php if($var_cd_conv == 1 || $var_cd_conv == 2 || $var_cd_conv == 105){?>
-						<div style="margin-top: 20px; margin-left: 15px;">
-							<a style="height: 100%; width: 100% "  class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="hos_faa" data-identificador="hos_faa_assinado"><i class="fas fa-file-pdf"></i> Ficha Atendimento</a>
-						</div>
-					<?php } ?>						
+				<!-- CHAMA A TABELA BAIXAR PDF -->
 
-				<?php }else{?>
-					
-					<?php if($_SESSION['sn_usuario_comum'] == 'S'){ ?>
+				<?php //echo $_SESSION['sn_faturamento']; ?>
 
-						<div class="col-md-2" >
+				<?php if(@$_SESSION['sn_faturamento'] == 'S'){ ?>
 
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-								
-								<i class="fas fa-signature"></i> Assinar
-								
-							</button>
+					<?php include 'tabela_baixar_pdf.php'; ?>
 
-						</div>
-
-					<?php } ?>
-
-				<?php }	?>
-		</div>
-
-		<?php if(isset($var_pdf_existe)){ ?>
-
-			<!-- CHAMA A TABELA BAIXAR PDF -->
-
-			<?php //echo $_SESSION['sn_faturamento']; ?>
-
-			<?php if(@$_SESSION['sn_faturamento'] == 'S'){ ?>
-
-				<?php include 'tabela_baixar_pdf.php'; ?>
-
+				<?php } ?>
+				
 			<?php } ?>
-			
-		<?php } ?>
 
-		<!--MODAL ASSINATURA-->
-			<div class="modal fade" id="exampleModalCenter" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-				<div class="modal-dialog modal-dialog" role="document">
-					<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLongTitle">Assinatura</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body" style="margin: 0 auto;">
-						<canvas id="sig-canvas" width="620" height="160" style="border: solid 1px black; 
-								margin-top: 20px;
-								width: 600px; height: 150px;">
-						</canvas>
-						<input type="hidden" name="escondidinho" id="escondidinho"></input>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" id="sig-clearBtn" onClick="redraw()"><i class="fas fa-eraser"></i> Limpar</button>
-						<button type="button" type="submit" class="btn btn-primary" id="sig-submitBtn"><i class="fas fa-paper-plane"></i> Enviar</button>
-					</div>
+			<!--MODAL ASSINATURA-->
+				<div class="modal fade" id="exampleModalCenter" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLongTitle">Assinatura</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body" style="margin: 0 auto;">
+							<canvas id="sig-canvas" width="620" height="160" style="border: solid 1px black; 
+									margin-top: 20px;
+									width: 600px; height: 150px;">
+							</canvas>
+							<input type="hidden" name="escondidinho" id="escondidinho"></input>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" id="sig-clearBtn" onClick="redraw()"><i class="fas fa-eraser"></i> Limpar</button>
+							<button type="button" type="submit" class="btn btn-primary" id="sig-submitBtn"><i class="fas fa-paper-plane"></i> Enviar</button>
+						</div>
+						</div>
 					</div>
 				</div>
-			</div>
 
 		</form>
 		<?php }?>
+
+		<!--- CHECK BOX INTERNAÇÃO -->	
+		<?php if(@$var_tp_atendimento == 'I'){?>
+				
+			<br><br>
+				<div class="form-check form-check-inline">
+					<input type="checkbox" id="chkDoc1" checked>
+					<label id="lbDoc1"> Guia Tiss Internação</label></br>
+				</div>
+
+				<div class="form-check form-check-inline">
+					<input type="checkbox" id="chkDoc2" >
+					<label id="lbDoc2"> Carta Golpe</label></br>
+				</div>
+
+				<div class="form-check form-check-inline">
+					<input type="checkbox" id="chkDoc3">
+					<label id="lbDoc3"> Termo de Responsabilidade</label></br>
+				</div>
+				</br>
+				
+<!--- EM CONSTRUÇÃO 
+				<div class="form-check form-check">
+					<input type="checkbox" id="" >
+					<label id=""> Termo de Responsabilidade e Consentimento Internação</label></br>
+				</div>
+
+
+				<div class="form-check form-check">
+					<input type="checkbox" id="" >
+					<label id=""> Termo de Responsabilidade e Consentimento Laqueadura tubárea</label></br>
+				</div>
+
+				<div class="form-check form-check">
+					<input type="checkbox" id="" >
+					<label id=""> Termo de Responsabilidade e Consentimento Anestésico ou Sedação</label></br>
+				</div>
+
+				<div class="form-check form-check">
+					<input type="checkbox" id="">
+					<label id=""> Termo de Responsabilidade e Consentimento Cirurgia</label></br>
+				</div>
+				</br>
+				-->	
+				<button class="btn btn-primary" id="btnChkDoc"  onclick="funcao_ocultar_exibir()"> 
+				<i class="fas fa-clipboard-check" ></i> Selecionar 
+				</button></br></br>
+		<?php } ?></br>	
+
+		<br>
+		<br>
 		
 		<?php
 
@@ -530,6 +509,11 @@
 </body>
 </html>
 
+<style>
+	.modal-content {
+        height: 100%;
+      }
+</style>
 <!--MODAL VISUALIZA-->
 
 <div class="modal fade " id="visualizaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -652,6 +636,38 @@ $(document).ready(function(){
 
 
 			});
+
+		}else if(identificador == 'carta_golpe'){
+
+		//BUSCANDO INFORMACOES VIA JSON E ADICIONANDO A VARIAVEL J
+
+		$.getJSON('visualizar_Internação golpe.php?search=',{cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv, ajax: 'true'}, function(j){
+
+			//SE A VARIAVEL J FOR ADICIONADA COM SUCESSO, CONSTROI O HTML NA MA
+			if(j){
+				$("#visualizaModal .modal-body").html(j[0]);            
+			} 
+			else {
+				alert("Erro");
+			}
+
+		});
+
+		}else if(identificador == 'term_cirurgia'){
+
+		//BUSCANDO INFORMACOES VIA JSON E ADICIONANDO A VARIAVEL J
+
+		$.getJSON('visualizar_Internação_termo_cirurgia.php?search=',{cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv, ajax: 'true'}, function(j){
+
+			//SE A VARIAVEL J FOR ADICIONADA COM SUCESSO, CONSTROI O HTML NA MA
+			if(j){
+				$("#visualizaModal .modal-body").html(j[0]);            
+			} 
+			else {
+				alert("Erro");
+			}
+			
+		});
 
 		
 
@@ -812,5 +828,63 @@ $(document).ready(function(){
 	});
 
 });
-        
+
+
+			//SCRIPT INTERNAÇÃO 
+		
+				//Checkbox
+				var chkDoc1 = document.getElementById("chkDoc1");
+				document.getElementById("chkDoc1").disabled = true;
+				var chkDoc2 = document.getElementById("chkDoc2");
+				var chkDoc3 = document.getElementById("chkDoc3");
+			
+				//label
+				var lbDoc1 = document.getElementById("lbDoc1");
+				var lbDoc2 = document.getElementById("lbDoc2");
+				var lbDoc3 = document.getElementById("lbDoc3");
+			
+				var btnChkDoc = document.getElementById("btnChkDoc");
+				
+
+
+			//alert('ola mundo!');
+			function funcao_ocultar_exibir(){
+
+				btnAssinar.style.display = 'inline';
+
+				//Ocultar checkbox
+				chkDoc1.style.display = 'none';
+				chkDoc2.style.display = 'none';
+				chkDoc3.style.display = 'none';
+
+				//Ocultar label
+				lbDoc1.style.display = 'none';
+				lbDoc2.style.display = 'none';
+				lbDoc3.style.display = 'none';
+
+				//Ocultar Botoes
+				btnChkDoc.style.display = 'none';
+
+
+				//Mostrar Botoes
+				if (chkDoc1.checked) {
+					escdoc1.style.display = 'inline';
+				} else {
+					escdoc1.style.display = 'none';
+				}
+
+				if (chkDoc2.checked) {
+					escdoc2.style.display = 'inline';
+				} else {
+					escdoc2.style.display = 'none';
+				}
+
+				if (chkDoc3.checked) {
+					escdoc3.style.display = 'inline';
+				} else {
+					escdoc3.style.display = 'none';
+				}
+			}
+			
+			
 </script>

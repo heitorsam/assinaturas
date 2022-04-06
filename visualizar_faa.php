@@ -302,6 +302,6 @@ $count = 1;
  ";
 
  //visualiza documentTemplate
- //echo $documentTemplate
+ //echo $documentTemplate;
  echo  json_encode(array($documentTemplate)); 
  

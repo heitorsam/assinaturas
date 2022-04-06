@@ -19,7 +19,7 @@
 
 DOC 1 <input type="checkbox" id="Doc1"></br>
 DOC 2 <input type="checkbox" id="Doc2"></br>
-DOC 3 <input type="checkbox" id="Doc3"></br></br></br>
+DOC 3 <input type="checkbox" id="Doc3"></br>
 
 <button onclick="funcao_ocultar_exibir()";> Ocultar/Exibir </button></br></br>
 
@@ -30,15 +30,15 @@ DOC 3 <input type="checkbox" id="Doc3"></br></br></br>
 
 		<div class="row">
 			<div class="col-md-12" id="">
-				<input type="button" id="escdoc1" value="DOC 1" style="width: 100px; height: 30px; display: none;"></input>
+				<input type="button" class="btn-danger" id="escdoc1" value="DOC 1" style="width: 100px; height: 30px; display: none;"></input>
 			</div>
 
 			<div class="col-md-12" id="">
-			<input type="button" id="escdoc2" value="DOC 2" style="width: 100px; height: 30px; display: none;"></input>
+				<input type="button" class="btn-warning" id="escdoc2" value="DOC 2" style="width: 100px; height: 30px; display: none;"></input>
 			</div>
 
 			<div class="col-md-12" id="">
-			<input type="button" id="escdoc3" value="DOC 3" style="width: 100px; height: 30px; display: none;"></input>
+				<input type="button" class="btn-success" id="escdoc3" value="DOC 3" style="width: 100px; height: 30px; display: none;"></input>
 			</div>
 		</div>
 
