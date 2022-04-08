@@ -25,6 +25,19 @@ DOC 3 <input type="checkbox" id="Doc3"></br>
 
  </br></br>
 
+
+
+
+ <form onsubmit="myFunction()">
+  Enter name: <input type="text" id="text">
+
+  <button type="submit">enviar</button>
+
+  <input type="submit">
+</form>
+
+event.preventDefault()
+
  
 
 
@@ -49,6 +62,12 @@ DOC 3 <input type="checkbox" id="Doc3"></br>
 	var chkDoc1 = document.getElementById("Doc1");	
 	var chkDoc2 = document.getElementById("Doc2");
 	var chkDoc3 = document.getElementById("Doc3");
+
+
+	function funcao_ocultar_exibir(){
+		var text = document.getElementById("text");
+	}
+
 
 	//alert('ola mundo!');
 	function funcao_ocultar_exibir(){
@@ -95,3 +114,14 @@ DOC 3 <input type="checkbox" id="Doc3"></br>
 	}
 
 </script>
+
+
+
+
+
+
+
+
+
+
+

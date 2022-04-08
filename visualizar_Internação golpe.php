@@ -156,7 +156,7 @@ h2{
                         </div>
 
                         <div class='col-hss-10' style='height: 30px; margin: 1px; border-style: none !important;'>
-                            <h1>São José dos Campos, ____ de __________ de _____.</h1>
+                        <h1><p>São José dos Campos,<b> ".@$dados_result_term_cirurgia['DIA_ATD']." </b>de<b> ".@$dados_result_term_cirurgia['MES_EXTENSO']." </b>de<b> ".@$dados_result_term_cirurgia['ANO_ATD']." </b></h1>
                         </div>
                  </div>
 
