@@ -69,7 +69,113 @@
 	@oci_execute($result_pdf_exis);
 	@$row_pdf_exis = oci_fetch_array($result_pdf_exis);
 	@$var_pdf_existe = $row_pdf_exis['BLOB_ANEXO'];
-	}	
+	}
+	
+
+	///////////////////////////////////////
+	//Verifica se existe pdf carta golpe///
+	//para aquele atendimento//////////////
+	///////////////////////////////////////
+
+	if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdpdf']) ){
+		$cons_pdf_cart_golpe ="SELECT *
+					FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
+					WHERE ass.cd_atendimento = $var_cd_atendimento
+					AND ass.TP_DOCUMENTO LIKE 'cart_golpe'
+				";
+	
+		$result_pdf_exis_cart_golpe = oci_parse($conn_ora, $cons_pdf_cart_golpe);
+		@oci_execute($result_pdf_exis_cart_golpe);
+		@$row_pdf_exis_cart_golpe = oci_fetch_array($result_pdf_exis_cart_golpe);
+		@$pdf_cart_golpe_existe = $row_pdf_exis_cart_golpe['BLOB_ANEXO'];
+		}
+
+
+	//////////////////////////////////////////
+	//Verifica se existe pdf termo cirurgia///
+	//para aquele atendimento/////////////////
+	//////////////////////////////////////////
+
+	if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdpdf']) ){
+		$cons_pdf_term_cirurgia ="SELECT *
+					FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
+					WHERE ass.cd_atendimento = $var_cd_atendimento
+					AND ass.TP_DOCUMENTO LIKE 'term_cirurgia'
+				";
+	
+		$result_pdf_exis_term_cirurgia = oci_parse($conn_ora, $cons_pdf_term_cirurgia);
+		@oci_execute($result_pdf_exis_term_cirurgia);
+		@$row_pdf_exis_term_cirurgia = oci_fetch_array($result_pdf_exis_term_cirurgia);
+		@$pdf_cart_term_cirurgia = $row_pdf_exis_term_cirurgia['BLOB_ANEXO'];
+		}
+
+	//////////////////////////////////////////
+	//Verifica se existe pdf termo cirurgia///
+	//para aquele atendimento/////////////////
+	//////////////////////////////////////////
+
+	if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdpdf']) ){
+		$cons_pdf_tiss_int ="SELECT *
+					FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
+					WHERE ass.cd_atendimento = $var_cd_atendimento
+					AND ass.TP_DOCUMENTO LIKE 'tiss_pa'
+				";
+	
+		$result_pdf_exis_tiss_int = oci_parse($conn_ora, $cons_pdf_tiss_int);
+		@oci_execute($result_pdf_exis_tiss_int);
+		@$row_pdf_exis_tiss_int = oci_fetch_array($result_pdf_exis_tiss_int);
+		@$pdf_cart_tiss_int = $row_pdf_exis_tiss_int['BLOB_ANEXO'];
+		}
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	//VALIDANDO SE A GUIA TISS FOI GERADA NO SISTEMA NA REGRA DO CONVENIO
 	if(isset($_GET['cd_atendimento'])){
@@ -236,7 +342,6 @@
 		<?php
 			include 'include_ambulatorio_urgencia.php';
 		?>
-
 <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
@@ -287,31 +392,55 @@
 		<?php }?>
 
 		<!--- ESCONDE OS CHECKBOX DEPOIS DE ASSINADOS  -->
-		<?php if(isset($var_pdf_existe)){ ?>
+		<?php /* if(isset($var_pdf_existe)){ */ ?>
 		
 		<!--- MOSTRA O CHECKBOX ANTES DE ASSINAR -->
-		<?php }else{?>
-	
+		<?php /* }else{ */ ?>
 			<!--- CHECK BOX INTERNAÇÃO -->	
 			<?php if(@$var_tp_atendimento == 'I'){?>
 						<form onsubmit="funcao_ocultar()" method="post">
 								<br><br>
-								<div class="form-check form-check-inline">
-									<input type="checkbox" id="chkDoc1" checked>
-									<label id="lbDoc1"> Guia Tiss Internação</label></br>
-								</div>
 
-								<div class="form-check form-check-inline">
-									<input type="checkbox" id="chkDoc2" >
-									<label id="lbDoc2"> Carta Golpe</label></br>
-								</div>
 
-								<div class="form-check form-check-inline">
-									<input type="checkbox" id="chkDoc3">
-									<label id="lbDoc3"> Termo de Responsabilidade</label></br>
-								</div>
+								<?php if(isset($pdf_cart_tiss_int)){ ?>
+									<!-- GERAR -->
+								<?php }else{?>
+									<!-- NÃO GERAR -->
+									<div class="form-check form-check-inline">
+										<input type="checkbox" id="chkDoc1" checked>
+										<label id="lbDoc1"> Guia Tiss Internação</label></br>
+									</div>
+								<?php } ?>
+
+								<?php if(isset($pdf_cart_golpe_existe)){ ?>
+									<!-- GERAR -->
+									
+
+								<?php }else{?>
+									<!-- NÃO GERAR -->
+									<div class="form-check form-check-inline">
+										<input type="checkbox" id="chkDoc2" >
+										<label id="lbDoc2"> Carta Golpe</label></br>
+									</div>
+								<?php } ?>
+
+								<?php if(isset($pdf_cart_term_cirurgia)){ ?>
+									<!-- GERAR -->
+									
+								<?php }else{?>
+									<!-- NÃO GERAR -->
+									<div class="form-check form-check-inline">
+										<input type="checkbox" id="chkDoc3">
+										<label id="lbDoc3"> Termo de Responsabilidade</label></br>
+									</div>
+								<?php } ?>
+
+								
+
+								
 								</br>
 								
+
 								<!--- EM CONSTRUÇÃO CHECKBOX 
 									<div class="form-check form-check">
 										<input type="checkbox" id="" >
@@ -335,23 +464,20 @@
 									</div>
 									</br>
 								-->	
-								<button type="submit" class="btn btn-primary" id="btnChkDoc">enviar</button>
+								<button type="submit" class="btn btn-primary" id="btnChkDoc">Enviar</button>
 							
 						</form>
 			<?php } ?></br>	
-		<?php } ?>
+		<?php /*}*/ ?>
 
 
 		<br>
 		<br>
 		
 		<?php
-
-		//RODAPE
-		include 'rodape.php';
-
-		unset($_SESSION["atdconsulta"]);
-
+			//RODAPE
+			include 'rodape.php';
+			unset($_SESSION["atdconsulta"]);
 		?>
 		
 	</div>
@@ -495,11 +621,13 @@
 </body>
 </html>
 
+<!--TAMANHO DA MODAL -->
 <style>
 	.modal-content {
         height: 100%;
       }
 </style>
+
 <!--MODAL VISUALIZA-->
 
 <div class="modal fade " id="visualizaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -676,7 +804,7 @@ $(document).ready(function(){
 		}
 
 		else if(identificador == 'guia_internacao_assinada'){
-			$("#visualizaModalAssinado .modal-body").load('.php');
+			$("#visualizaModalAssinado .modal-body").load('exibi_pdf.php');
 		}
 
 		else if(identificador == 'carta_golpe_assinada'){
@@ -819,45 +947,71 @@ $(document).ready(function(){
 		}
 		
 		
-		//GERA INTERNAÇÃO
+		//GERA DOCUMENTOS PARA INTERNAÇÃO
 		if(tb_atd == "I"){
 
-		$.ajax({
-			//Configurações
-			type: 'POST',//Método que está sendo utilizado.
-			dataType: 'html',//É o tipo de dado que a página vai retornar.
-			url: 'gerar_documento_Internação_termo_cirurgia.php',//Indica a página que está sendo solicitada.
-			//função que vai ser executada assim que a requisição for enviada
-			data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
-			//função que será executada quando a solicitação for finalizada.
-			/*success: function (msg){
-						console.log("Sucesso");
-					},
+			//GERA CARTA GOLPE
+			if (chkDoc1.checked) {
+					
+					$.ajax({
+						//Configurações
+						type: 'POST',//Método que está sendo utilizado.
+						dataType: 'html',//É o tipo de dado que a página vai retornar.
+						url: 'gerar_documento_pdf.php',//Indica a página que está sendo solicitada.
+						//função que vai ser executada assim que a requisição for enviada
+						data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
+						//função que será executada quando a solicitação for finalizada.
+						/*success: function (msg){
+									console.log("Sucesso");
+								},
+	
+						error: function (msg){
+							console.log("Erro");
+						}*/
+					});
+				} else {}
 
-			error: function (msg){
-				console.log("Erro");
-			}*/
-		});
+			//GERA CARTA GOLPE
+			if (chkDoc2.checked) {
+					
+				$.ajax({
+					//Configurações
+					type: 'POST',//Método que está sendo utilizado.
+					dataType: 'html',//É o tipo de dado que a página vai retornar.
+					url: 'gerar_documento_Internação_carta_golpe.php',//Indica a página que está sendo solicitada.
+					//função que vai ser executada assim que a requisição for enviada
+					data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
+					//função que será executada quando a solicitação for finalizada.
+					/*success: function (msg){
+								console.log("Sucesso");
+							},
 
-		$.ajax({
-			//Configurações
-			type: 'POST',//Método que está sendo utilizado.
-			dataType: 'html',//É o tipo de dado que a página vai retornar.
-			url: 'gerar_documento_Internação_carta_golpe.php',//Indica a página que está sendo solicitada.
-			//função que vai ser executada assim que a requisição for enviada
-			data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
-			//função que será executada quando a solicitação for finalizada.
-			/*success: function (msg){
-						console.log("Sucesso");
-					},
+					error: function (msg){
+						console.log("Erro");
+					}*/
+				});
+			} else {}
 
-			error: function (msg){
-				console.log("Erro");
-			}*/
-		});
+			//GERA TERMO CIRURGIA
+			if (chkDoc3.checked) {
+					$.ajax({
+						//Configurações
+						type: 'POST',//Método que está sendo utilizado.
+						dataType: 'html',//É o tipo de dado que a página vai retornar.
+						url: 'gerar_documento_Internação_termo_cirurgia.php',//Indica a página que está sendo solicitada.
+						//função que vai ser executada assim que a requisição for enviada
+						data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
+						//função que será executada quando a solicitação for finalizada.
+						/*success: function (msg){
+									console.log("Sucesso");
+								},
 
+						error: function (msg){
+							console.log("Erro");
+						}*/
+					});
+			} else {}
 		
-
 		}	
 
 		//document.location.assign('gerar_documento.php');
@@ -880,39 +1034,41 @@ $(document).ready(function(){
 
 			//SCRIPT INTERNAÇÃO 
 		
-				//Checkbox
+				//IDENTIFICA AS CHECKBOXS
 				var chkDoc1 = document.getElementById("chkDoc1");
 				//document.getElementById("chkDoc1").disabled = true;
 				var chkDoc2 = document.getElementById("chkDoc2");
 				var chkDoc3 = document.getElementById("chkDoc3");
 			
-				//label
+				//IDENTIFICA OS LABELS
 				var lbDoc1 = document.getElementById("lbDoc1");
 				var lbDoc2 = document.getElementById("lbDoc2");
 				var lbDoc3 = document.getElementById("lbDoc3");
 			
+				//IDENTIFICA O BOTAO
 				var btnChkDoc = document.getElementById("btnChkDoc");
 				
 
 
-			
+			//FUNCAO AO SELECIONAR AS CHECKBOX
 			function funcao_ocultar(){
-				//alert('O elemento clicado foi o ');
 				
-				//impedir da pagina de recarregar 
+				//alert('TESTE);
+				
+				//IMPEDIR DA PAGINA DE RECARREGAR -- IMPORTANTE 
 				event.preventDefault()
 
 				btnAssinar.style.display = 'inline';
 
 				//Ocultar checkbox
-				chkDoc1.style.display = 'none';
-				chkDoc2.style.display = 'none';
-				chkDoc3.style.display = 'none';
+				//chkDoc1.style.display = 'none';
+				//chkDoc2.style.display = 'none';
+				//chkDoc3.style.display = 'none';
 
 				//Ocultar label
-				lbDoc1.style.display = 'none';
-				lbDoc2.style.display = 'none';
-				lbDoc3.style.display = 'none';
+				//lbDoc1.style.display = 'none';
+				//lbDoc2.style.display = 'none';
+				//lbDoc3.style.display = 'none';
 
 				//Ocultar Botoes
 				btnChkDoc.style.display = 'none';
