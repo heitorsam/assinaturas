@@ -128,6 +128,24 @@
 		}
 
 
+	////////////////////////////////////////////////
+	//Verifica se existe pdf termo parto cesareo////
+	//para aquele atendimento///////////////////////
+	////////////////////////////////////////////////
+
+	if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdpdf']) ){
+		$cons_pdf_term_part_cesareo ="SELECT *
+					FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
+					WHERE ass.cd_atendimento = $var_cd_atendimento
+					AND ass.TP_DOCUMENTO LIKE 'term_part_cesareo'
+				";
+	
+		$result_pdf_exis_term_part_cesareo = oci_parse($conn_ora, $cons_pdf_term_part_cesareo);
+		@oci_execute($result_pdf_exis_term_part_cesareo);
+		@$row_pdf_exis_term_part_cesareo = oci_fetch_array($result_pdf_exis_term_part_cesareo);
+		@$pdf_cart_term_part_cesareo = $row_pdf_exis_term_part_cesareo['BLOB_ANEXO'];
+		}
+
 	
 
 
@@ -435,7 +453,17 @@
 									</div>
 								<?php } ?>
 
-								
+								<?php if(isset($pdf_cart_term_part_cesareo)){ ?>
+									<!-- GERAR -->
+									
+								<?php }else{?>
+									<!-- NÃO GERAR -->
+									<div class="form-check form-check-inline">
+										<input type="checkbox" id="chkDoc4">
+										<label id="lbDoc4"> Termo de Responsabilidade Parto Cesáreo</label></br>
+									</div>
+								<?php } ?>
+
 
 								
 								</br>
@@ -783,6 +811,22 @@ $(document).ready(function(){
 			
 		});
 
+		}else if(identificador == 'term_part_cesareo'){
+
+		//BUSCANDO INFORMACOES VIA JSON E ADICIONANDO A VARIAVEL J
+
+		$.getJSON('visualizar_Internação_termo_parto_cesareo.php?search=',{cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv, ajax: 'true'}, function(j){
+
+			//SE A VARIAVEL J FOR ADICIONADA COM SUCESSO, CONSTROI O HTML NA MA
+			if(j){
+				$("#visualizaModal .modal-body").html(j[0]);            
+			} 
+			else {
+				alert("Erro");
+			}
+			
+		});
+
 		
 
 		//ASSINADOS
@@ -815,13 +859,9 @@ $(document).ready(function(){
 			$("#visualizaModalAssinado .modal-body").load('exibi_pdf_Internação_termo_cirurgia.php');
 		}
 
-
-
-
-
-
-
-
+		else if(identificador == 'termo_parto_cesareo'){
+			$("#visualizaModalAssinado .modal-body").load('exibi_pdf_Internação_termo_parto_cesareo.php');
+		}
 
 
      });
@@ -1011,6 +1051,27 @@ $(document).ready(function(){
 						}*/
 					});
 			} else {}
+
+
+			//GERA TERMO PARTO CIRURGIA
+			if (chkDoc4.checked) {
+					$.ajax({
+						//Configurações
+						type: 'POST',//Método que está sendo utilizado.
+						dataType: 'html',//É o tipo de dado que a página vai retornar.
+						url: 'gerar_documento_Internação_termo_parto_cesareo.php',//Indica a página que está sendo solicitada.
+						//função que vai ser executada assim que a requisição for enviada
+						data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
+						//função que será executada quando a solicitação for finalizada.
+						/*success: function (msg){
+									console.log("Sucesso");
+								},
+
+						error: function (msg){
+							console.log("Erro");
+						}*/
+					});
+			} else {}
 		
 		}	
 
@@ -1039,11 +1100,13 @@ $(document).ready(function(){
 				//document.getElementById("chkDoc1").disabled = true;
 				var chkDoc2 = document.getElementById("chkDoc2");
 				var chkDoc3 = document.getElementById("chkDoc3");
+				var chkDoc4 = document.getElementById("chkDoc4");
 			
 				//IDENTIFICA OS LABELS
 				var lbDoc1 = document.getElementById("lbDoc1");
 				var lbDoc2 = document.getElementById("lbDoc2");
 				var lbDoc3 = document.getElementById("lbDoc3");
+				var lbDoc4 = document.getElementById("lbDoc4");
 			
 				//IDENTIFICA O BOTAO
 				var btnChkDoc = document.getElementById("btnChkDoc");
@@ -1061,14 +1124,17 @@ $(document).ready(function(){
 				btnAssinar.style.display = 'inline';
 
 				//Ocultar checkbox
-				//chkDoc1.style.display = 'none';
-				//chkDoc2.style.display = 'none';
-				//chkDoc3.style.display = 'none';
+				chkDoc1.style.display = 'none';
+				chkDoc2.style.display = 'none';
+				chkDoc3.style.display = 'none';
+				chkDoc4.style.display = 'none';
+
 
 				//Ocultar label
-				//lbDoc1.style.display = 'none';
-				//lbDoc2.style.display = 'none';
-				//lbDoc3.style.display = 'none';
+				lbDoc1.style.display = 'none';
+				lbDoc2.style.display = 'none';
+				lbDoc3.style.display = 'none';
+				lbDoc4.style.display = 'none';
 
 				//Ocultar Botoes
 				btnChkDoc.style.display = 'none';
@@ -1091,6 +1157,12 @@ $(document).ready(function(){
 					escdoc3.style.display = 'inline';
 				} else {
 					escdoc3.style.display = 'none';
+				}
+
+				if (chkDoc4.checked) {
+					escdoc4.style.display = 'inline';
+				} else {
+					escdoc4.style.display = 'none';
 				}
 			}
 			

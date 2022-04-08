@@ -49,6 +49,7 @@
 					<!-- GERA GUIA INTERNAÇÃO -->
 					<?php if($var_tp_atendimento =='I'){?>
 						
+
 						<div style="margin-top: 20px; margin-left: 15px;">
 							<button type="button" class="btn btn-primary" id="escdoc1" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="guia_tiss">
 							<i class="far fa-eye"></i> Guia Internação
@@ -63,8 +64,13 @@
 
 						<div style="margin-top: 20px; margin-left: 5px;">
 							<button type="button" class="btn btn-primary" id="escdoc3" style=" display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="term_cirurgia">
-							<i class="far fa-eye"></i> Termo de Responsabilidade
+							<i class="far fa-eye"></i> Termo de Responsabilidade Cirurgia
 							</button>
+						</div>
+
+						<div style="margin-top: 20px; margin-left: 15px;">
+							<button type="button" class="btn btn-primary" id="escdoc4" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="term_part_cesareo">
+							<i class="far fa-eye"></i>Termo de Responsabilidade Parto Cesáreo
 						</div>
 
 					<?php } ?>
@@ -112,10 +118,10 @@
 						<?php } ?>		
 						
 						
-						<!-- GERA GUIA INTERNAÇÃO -->
+						<!-- GERA INTERNAÇÃO -->
 						<?php if($var_tp_atendimento =='I'){?>
 							
-		
+							
 							<?php if(isset($pdf_cart_tiss_int)){ ?>
 								<!-- GERAR -->
 								<div style="margin-top: 20px; margin-left: 15px;">
@@ -145,6 +151,19 @@
 								<div style="margin-top: 20px; margin-left: 5px;">
 									<button type="button" class="btn btn-primary" id="assinado_escdoc3"  data-toggle="modal" data-target="#visualizaModalAssinado"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="term_cirurgia" data-identificador="termo_cirurgia_assinada">
 									<i class="fas fa-file-pdf"></i> Termo de Responsabilidade Cirurgia
+									</button>
+								</div>
+
+							<?php }else{?>
+								<!-- NÃO GERAR -->
+							<?php } ?>
+
+
+							<?php if(isset($pdf_cart_term_part_cesareo)){ ?>
+								<!-- GERAR -->
+								<div style="margin-top: 20px; margin-left: 5px;">
+									<button type="button" class="btn btn-primary" id="assinado_escdoc4"  data-toggle="modal" data-target="#visualizaModalAssinado"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="term_part_cesareo" data-identificador="termo_parto_cesareo">
+									<i class="fas fa-file-pdf"></i> Termo de Responsabilidade Parto Cesáreo
 									</button>
 								</div>
 
@@ -182,7 +201,3 @@
 
 					<?php }	?>
 			</div>
-
-			<?php if(isset($var_pdf_existe)){ ?>
-
-			<?php } ?>
