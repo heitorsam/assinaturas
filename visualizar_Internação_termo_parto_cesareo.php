@@ -163,7 +163,7 @@ h2{
 
                      <div class='col-hss-10' style='height: 500px; margin: 1px; '>
                         
-                            <p><h1>Eu, <b>".@$dados_result_term_cirurgia['PACIENTE']."</b>, ______________________ (nacionalidade), portadora do RG <b>".@$dados_result_term_cirurgia['RG']."</b> e inscrita no CPF/MF sob nº <b>".@$dados_result_term_cirurgia['CPF']."</b>, residente e domiciliada na <b>".@$dados_result_term_cirurgia['ENDERECO']."</b>, <b>".@$dados_result_term_cirurgia['CIDADE'].",</b> / <b>".@$dados_result_term_cirurgia['ESTADO']."</b>, declaro para os devidos fins minha decisão de realizar PARTO CESÁREO.</h1>
+                            <p><h1>Eu, <b>".@$dados_result_term_cirurgia['PACIENTE']."</b>, <b>".@$dados_result_term_cirurgia['CIDADANIA']."</b>, portadora do RG <b>".@$dados_result_term_cirurgia['RG']."</b> e inscrita no CPF/MF sob nº <b>".@$dados_result_term_cirurgia['CPF']."</b>, residente e domiciliada na <b>".@$dados_result_term_cirurgia['ENDERECO']."</b>, <b>".@$dados_result_term_cirurgia['CIDADE'].",</b> / <b>".@$dados_result_term_cirurgia['ESTADO']."</b>, declaro para os devidos fins minha decisão de realizar PARTO CESÁREO.</h1>
 
 
                             <br>

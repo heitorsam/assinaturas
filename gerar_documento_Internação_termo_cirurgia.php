@@ -39,7 +39,7 @@ include 'sql_consulta_internacao.php';
      background-color: #ffffff;
      margin: 1 1 1 1;
      padding: 5 10 5 5;
-    
+     border: solid 0px black !important;
  }
 
  .row{
@@ -212,17 +212,17 @@ h2{
                     <div class='row'>
                         
 
-                        <div class='col-hss-4' style='height: 60px; margin: 1px;'>
+                        <div class='col-hss-4' style='height: 80px; margin: 1px;'>
                                 <h1>Assinatura do (a) Paciente: </h1>
 
-                            <div class='col-hss-4' style='height: 20px; border: none !important; border-bottom: solid 1px black !important; '>
+                            <div class='col-hss-8' style='height: 60px; border: none !important; border-bottom: solid 1px black !important; '>
                                 <img src='$img' width='100%' height='100%'  style:'float: right;'>
                             </div>
                         </div>
 
-                        <div class='col-hss-4' style='height: 60px; margin: 1px;'>
+                        <div class='col-hss-4' style='height: 80px; margin: 1px;'>
                                 <h1>Assinatura do Familiar e/ou Responsável</h1>
-                            <div class='col-hss-4' style='height: 20px; border: none !important; border-bottom: solid 1px black !important; '>
+                            <div class='col-hss-8' style='height: 60px; border: none !important; border-bottom: solid 1px black !important; '>
                                 <img src='$img' width='100%' height='100%'  style:'float: right;'>
                             </div>
 

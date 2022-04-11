@@ -74,9 +74,51 @@
 						</div>
 
 					<?php } ?>
+				<?php }else{ ?>
 
+
+					<!-- RE-ASSINATURA -->
+					<?php if($var_tp_atendimento =='I'){?>
+						<br><br>
+						<div class="col-md-12"><h11 id="lbReAssinar" style=" display: none;"><i class="fas fa-redo"></i> Assinar Novamente:</h11></div>
+						<div style="margin-top: 20px; margin-left: 15px;">
+							<button type="button" class="btn btn-primary" id="re_escdoc1" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="guia_tiss">
+							<i class="far fa-eye"></i> Guia Internação
+							</button>
+						</div>
+
+						<div style="margin-top: 20px; margin-left: 5px;">
+							<button type="button" class="btn btn-primary" id="re_escdoc2" style=" display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="carta_golpe">
+							<i class="far fa-eye"></i> Carta Golpe
+							</button>
+						</div>
+
+						<div style="margin-top: 20px; margin-left: 5px;">
+							<button type="button" class="btn btn-primary" id="re_escdoc3" style=" display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="term_cirurgia">
+							<i class="far fa-eye"></i> Termo de Responsabilidade Cirurgia
+							</button>
+						</div>
+
+						<div style="margin-top: 20px; margin-left: 15px;">
+							<button type="button" class="btn btn-primary" id="re_escdoc4" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="term_part_cesareo">
+							<i class="far fa-eye"></i>Termo de Responsabilidade Parto Cesáreo
+						</div>
+
+						
+					<?php } ?>
+						
+					
+					<div style="margin-top: 20px; margin-left: 15px;">
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="butao" style="display: none;">
+								<i class="fas fa-signature"></i> Assinar
+						</button>
+					</div>
+
+					<br><br><br><br>
 				<?php } ?>
 			</div>
+
+				
 
 			<br>
 
@@ -88,6 +130,8 @@
 			<!-- SE TIVER ASSINADO -->
 
 					<?php if(isset($var_pdf_existe)){ ?>
+						
+						<div class="col-md-12"><h11 id=""><i class="fas fa-file-contract"></i> Documentos Assinados:</h11></div>
 						
 						<!-- APENAS GERA A GUIA TISS SE FOR CONVENIO -->
 						<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105 && $var_tp_atendimento <> 'A' && $var_tp_atendimento <> 'I'){?>

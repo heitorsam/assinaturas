@@ -39,7 +39,7 @@ include 'sql_consulta_internacao.php';
      background-color: #ffffff;
      margin: 1 1 1 1;
      padding: 5 10 5 5;
-    
+     border: solid 0px black !important;
  }
 
  .row{
@@ -124,7 +124,7 @@ h2{
      margin-top: 5px; 
  }
  h4{
-    font-size: 6px;
+    font-size: 10px;
     line-height: 10px !important; 
     text-align: justify !important;
     font-weight: normal;
@@ -241,10 +241,10 @@ h2{
                      <h1>RG: </h1><h4><b>".@$dados_result_cart_golpe['RG']."</b></h4>
                  </div>
 
-                 <div class='col-hss-4' style='height: 60px; margin: 1px;'>
+                 <div class='col-hss-4' style='height: 90px; margin: 1px;'>
                                 <h1>Assinatura do (a) Paciente: </h1>
 
-                            <div class='col-hss-4' style='height: 20px; border: none !important; border-bottom: solid 1px black !important; '>
+                            <div class='col-hss-8' style='height: 60px; border: none !important; border-bottom: solid 1px black !; '>
                                 <img src='$img' width='100%' height='100%'  style:'float: right;'>
                             </div>
                 </div>

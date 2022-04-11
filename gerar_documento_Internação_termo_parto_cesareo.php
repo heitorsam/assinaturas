@@ -39,7 +39,7 @@ include 'sql_consulta_internacao.php';
      background-color: #ffffff;
      margin: 1 1 1 1;
      padding: 5 10 5 5;
-    
+     border: solid 0px black !important;
  }
 
  .row{
@@ -150,7 +150,7 @@ h2{
     
                  <div class='row'>
                         <div class='col-hss-12' style='height: 30px; margin: 1px;'>
-                            <h2><b>TERMO DE RESPONSABILIDADE E CONSENTIMENTO INFORMADO PARA CIRURGIA</b></h2>
+                            <h2><b>TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO PARTO CESÁREO</b></h2>
                         </div>
                  </div>
              </div>
@@ -159,12 +159,12 @@ h2{
  
                 <!--TEXTO-->
                  <div class='row '>
-                    <div class='col-hss-1' style='height: 540px; margin: 1px;'>
+                    <div class='col-hss-1' style='height: 325px; margin: 1px;'>
                     </div>
 
-                     <div class='col-hss-10' style='height: 540px; margin: 1px;'>
+                     <div class='col-hss-10' style='height: 325px; margin: 1px;'>
                     
-                        <p><h1>Eu, <b>".@$dados_result_term_cirurgia['PACIENTE']."</b>, ______________________ (nacionalidade), portadora do RG <b>".@$dados_result_term_cirurgia['RG']."</b> e inscrita no CPF/MF sob nº <b>".@$dados_result_term_cirurgia['CPF']."</b>, residente e domiciliada na <b>".@$dados_result_term_cirurgia['ENDERECO']."</b>, <b>".@$dados_result_term_cirurgia['CIDADE'].",</b> / <b>".@$dados_result_term_cirurgia['ESTADO']."</b>, declaro para os devidos fins minha decisão de realizar PARTO CESÁREO.</h1>
+                        <p><h1>Eu, <b>".@$dados_result_term_cirurgia['PACIENTE']."</b>, <b>".@$dados_result_term_cirurgia['CIDADANIA']."</b>, portadora do RG <b>".@$dados_result_term_cirurgia['RG']."</b> e inscrita no CPF/MF sob nº <b>".@$dados_result_term_cirurgia['CPF']."</b>, residente e domiciliada na <b>".@$dados_result_term_cirurgia['ENDERECO']."</b>, <b>".@$dados_result_term_cirurgia['CIDADE'].",</b> / <b>".@$dados_result_term_cirurgia['ESTADO']."</b>, declaro para os devidos fins minha decisão de realizar PARTO CESÁREO.</h1>
 
 
                         <br>
@@ -188,13 +188,9 @@ h2{
 
 
                         <h1>Este documento foi elaborado em duas vias, sendo que uma ficará com o obstetra responsável e a outra, com a gestante.</h1>
-
-                        <br>
-                        <br>
-
                      </div>
 
-                    <div class='col-hss-1' style='height: 540px; margin: 1px;'>
+                    <div class='col-hss-1' style='height: 325px; margin: 1px;'>
                     </div>   
                  </div>
                     <div class='row'>
@@ -214,17 +210,17 @@ h2{
                     <div class='row'>
                         
 
-                        <div class='col-hss-4' style='height: 60px; margin: 1px;'>
+                        <div class='col-hss-4' style='height: 80px; margin: 1px;'>
                                 <h1>Assinatura do (a) Paciente: </h1>
 
-                            <div class='col-hss-4' style='height: 20px; border: none !important; border-bottom: solid 1px black !important; '>
+                            <div class='col-hss-8' style='height: 60px; border: none !important; border-bottom: solid 1px black !important; '>
                                 <img src='$img' width='100%' height='100%'  style:'float: right;'>
                             </div>
                         </div>
 
-                        <div class='col-hss-4' style='height: 60px; margin: 1px;'>
+                        <div class='col-hss-4' style='height: 80px; margin: 1px;'>
                                 <h1>Assinatura do Familiar e/ou Responsável</h1>
-                            <div class='col-hss-4' style='height: 20px; border: none !important; border-bottom: solid 1px black !important; '>
+                            <div class='col-hss-8' style='height: 60px; border: none !important; border-bottom: solid 1px black !important; '>
                                 <img src='$img' width='100%' height='100%'  style:'float: right;'>
                             </div>
 

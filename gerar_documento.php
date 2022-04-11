@@ -72,6 +72,29 @@
 	}
 	
 
+	///////////////////////////
+	//Verifica se existe pdf///
+	//para aquele atendimento//
+	///////////////////////////
+
+	if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdpdf']) ){
+		$cons_pdf ="SELECT 
+							res.TOTAL - res.ASSINADO AS RESTANTE 
+					FROM(
+					SELECT COUNT(CD_ATENDIMENTO) AS ASSINADO,
+							4 as TOTAL
+						FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
+					WHERE ass.cd_atendimento = $var_cd_atendimento
+					) res
+				";
+	
+		$result_pdf_exis = oci_parse($conn_ora, $cons_pdf);
+		@oci_execute($result_pdf_exis);
+		@$row_pdf_exis = oci_fetch_array($result_pdf_exis);
+		@$var_total_pdf = $row_pdf_exis['RESTANTE'];
+		}
+		
+
 	///////////////////////////////////////
 	//Verifica se existe pdf carta golpe///
 	//para aquele atendimento//////////////
@@ -347,7 +370,7 @@
 				<div class="col-md-0" id="div_sn_exame_mv">
 						<input type="hidden" value="<?php echo @$var_cd_conv;?>" class="form-control" id="cd_convenio" name="cd_conv" ></input>
 				</div>
-				
+				<br>
 			</div>
 
 <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
@@ -410,15 +433,126 @@
 		<?php }?>
 
 		<!--- ESCONDE OS CHECKBOX DEPOIS DE ASSINADOS  -->
-		<?php /* if(isset($var_pdf_existe)){ */ ?>
-		
+		<?php  if(isset($var_pdf_existe)){ ?>
+			<?php if(@$var_tp_atendimento == 'I'){?>
+			<form onsubmit="funcao_re_gerar()" method="post">
+								<br><br>
+
+								<h11 id="lbSelect"><i class="far fa-check-square"></i> Assinar Novamente:</h11><p>
+									<?php if($var_total_pdf == 0){ ?>
+										<label id="lbcont">Sem Documentos Restantes</label>
+									<?php }else{?>
+										<label id="lbcont"><?php echo $var_total_pdf ?>: Documentos Restantes</label>
+									<?php }?>
+								
+
+								<?php if(isset($pdf_cart_tiss_int)){ ?>
+									<!-- GERAR -->
+									<div class="form-check form-check-inline">
+										<input type="checkbox" id="chkDoc1" style="display: none;" >
+										<label id="lbDoc1" style="display: none;"> Guia Tiss Internação</label></br>
+									</div>
+								<?php }else{?>
+									<!-- NÃO GERAR -->
+									<div class="form-check form-check-inline">
+										<input type="checkbox" id="chkDoc1" checked>
+										<label id="lbDoc1"> Guia Tiss Internação</label></br>
+									</div>
+								<?php } ?>
+
+								<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+								<?php if(isset($pdf_cart_golpe_existe)){ ?>
+									<!-- GERAR -->
+									<div class="form-check form-check-inline">
+										<input type="checkbox" id="chkDoc2" style="display: none;" >
+										<label id="lbDoc2" style="display: none;"> Carta Golpe</label></br>
+									</div>
+								<?php }else{?>
+									<!-- NÃO GERAR -->
+									<div class="form-check form-check-inline">
+										<input type="checkbox" id="chkDoc2"  >
+										<label id="lbDoc2"> Carta Golpe</label></br>
+									</div>
+								<?php } ?>
+
+								<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->								
+
+								<?php if(isset($pdf_cart_term_cirurgia)){ ?>
+									<!-- GERAR -->
+									<div class="form-check form-check-inline">
+										<input type="checkbox" id="chkDoc3" style="display: none;">
+										<label id="lbDoc3" style="display: none;"> Termo de Responsabilidade</label></br>
+									</div>
+								<?php }else{?>
+									<!-- NÃO GERAR -->
+									<div class="form-check form-check-inline">
+										<input type="checkbox" id="chkDoc3">
+										<label id="lbDoc3"> Termo de Responsabilidade</label></br>
+									</div>
+								<?php } ?>
+
+								<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+								<?php if(isset($pdf_cart_term_part_cesareo)){ ?>
+									<!-- GERAR -->
+									<div class="form-check form-check-inline" >
+										<input type="checkbox" id="chkDoc4" style="display: none;">
+										<label id="lbDoc4" style="display: none;"> Termo de Responsabilidade Parto Cesáreo</label></br>
+									</div>
+								<?php }else{?>
+									<!-- NÃO GERAR -->
+									<div class="form-check form-check-inline">
+										<input type="checkbox" id="chkDoc4">
+										<label id="lbDoc4"> Termo de Responsabilidade Parto Cesáreo</label></br>
+									</div>
+								<?php } ?>
+
+								<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+								
+								</br>
+								
+
+								<!--- EM CONSTRUÇÃO CHECKBOX 
+									<div class="form-check form-check">
+										<input type="checkbox" id="" >
+										<label id=""> Termo de Responsabilidade e Consentimento Internação</label></br>
+									</div>
+
+
+									<div class="form-check form-check">
+										<input type="checkbox" id="" >
+										<label id=""> Termo de Responsabilidade e Consentimento Laqueadura tubárea</label></br>
+									</div>
+
+									<div class="form-check form-check">
+										<input type="checkbox" id="" >
+										<label id=""> Termo de Responsabilidade e Consentimento Anestésico ou Sedação</label></br>
+									</div>
+
+									<div class="form-check form-check">
+										<input type="checkbox" id="">
+										<label id=""> Termo de Responsabilidade e Consentimento Cirurgia</label></br>
+									</div>
+									</br>
+								-->	
+
+								<?php if($var_total_pdf <> 0){ ?>
+									<button type="submit" class="btn btn-primary" id="btnChkDoc">Enviar</button>			
+								<?php }?>
+								
+							
+						</form>
+			<?php }?>
+
 		<!--- MOSTRA O CHECKBOX ANTES DE ASSINAR -->
-		<?php /* }else{ */ ?>
+		<?php }else{ ?>
 			<!--- CHECK BOX INTERNAÇÃO -->	
 			<?php if(@$var_tp_atendimento == 'I'){?>
 						<form onsubmit="funcao_ocultar()" method="post">
 								<br><br>
-
+								<h11 id="lbSelect"><i class="far fa-check-square"></i> Selecione os Documentos:</h11><p>
 
 								<?php if(isset($pdf_cart_tiss_int)){ ?>
 									<!-- GERAR -->
@@ -492,11 +626,11 @@
 									</div>
 									</br>
 								-->	
-								<button type="submit" class="btn btn-primary" id="btnChkDoc">Enviar</button>
+								<button type="submit" class="btn btn-primary" id="btnChkDoc"> Enviar</button>
 							
 						</form>
 			<?php } ?></br>	
-		<?php /*}*/ ?>
+		<?php } ?>
 
 
 		<br>
@@ -1092,7 +1226,6 @@ $(document).ready(function(){
 
 });
 
-
 			//SCRIPT INTERNAÇÃO 
 		
 				//IDENTIFICA AS CHECKBOXS
@@ -1101,70 +1234,155 @@ $(document).ready(function(){
 				var chkDoc2 = document.getElementById("chkDoc2");
 				var chkDoc3 = document.getElementById("chkDoc3");
 				var chkDoc4 = document.getElementById("chkDoc4");
-			
+
 				//IDENTIFICA OS LABELS
 				var lbDoc1 = document.getElementById("lbDoc1");
 				var lbDoc2 = document.getElementById("lbDoc2");
 				var lbDoc3 = document.getElementById("lbDoc3");
 				var lbDoc4 = document.getElementById("lbDoc4");
-			
-				//IDENTIFICA O BOTAO
-				var btnChkDoc = document.getElementById("btnChkDoc");
+				var lbSelect = document.getElementById("lbSelect");
+				var lbReAssinar = document.getElementById("lbReAssinar");
+				var lbcont = document.getElementById("lbcont");
 				
 
+				//IDENTIFICA O BOTAO
+				var btnChkDoc = document.getElementById("btnChkDoc");
+				var butao = document.getElementById("butao");
+				
+				
+				////////////////////////////////////////////////////
+				var re_escdoc1 = document.getElementById("re_escdoc1");
+				var re_escdoc2 = document.getElementById("re_escdoc2");
+				var re_escdoc3 = document.getElementById("re_escdoc3");
+				var re_escdoc4 = document.getElementById("re_escdoc4");
+
+
+				
+			//FUNCAO AO SELECIONAR AS CHECKBOX
+			function funcao_re_gerar(){
+				//alert('oi');
+				if (chkDoc1.checked == false && chkDoc2.checked == false && chkDoc3.checked == false && chkDoc4.checked == false){
+					alert('Erro, Por favor selecione um documento');
+					location.reload();
+				
+				} else {
+					//IMPEDIR DA PAGINA DE RECARREGAR -- IMPORTANTE 
+					event.preventDefault()
+					//butao.style.display = 'inline';
+					
+					//Ocultar checkbox
+					chkDoc1.style.display = 'none';
+					chkDoc2.style.display = 'none';
+					chkDoc3.style.display = 'none';
+					chkDoc4.style.display = 'none';
+
+					//Ocultar label
+					lbDoc1.style.display = 'none';
+					lbDoc2.style.display = 'none';
+					lbDoc3.style.display = 'none';
+					lbDoc4.style.display = 'none';
+					lbSelect.style.display = 'none';
+					lbcont.style.display = 'none';
+
+					//Ocultar Botoes
+					btnChkDoc.style.display = 'none';
+					
+
+					//erro .checked
+					if (chkDoc1.checked) {
+						re_escdoc1.style.display = 'inline';
+					} else {
+						re_escdoc1.style.display = 'none';
+					}
+
+					if (chkDoc2.checked) {
+						re_escdoc2.style.display = 'inline';
+					} else {
+						re_escdoc2.style.display = 'none';
+					}
+
+					if (chkDoc3.checked) {
+						re_escdoc3.style.display = 'inline';
+					} else {
+						re_escdoc3.style.display = 'none';
+					}
+
+
+					if (chkDoc4.checked) {
+						re_escdoc4.style.display = 'inline';
+					} else {
+						re_escdoc4.style.display = 'none';
+					}
+
+					if (chkDoc1.checked || chkDoc2.checked || chkDoc3.checked || chkDoc4.checked){
+						butao.style.display = 'inline';
+						lbReAssinar.style.display = 'inline';
+					} else {
+						butao.style.display = 'none';
+					}
+				}
+				
+			}
 
 			//FUNCAO AO SELECIONAR AS CHECKBOX
 			function funcao_ocultar(){
 				
-				//alert('TESTE);
+				if (chkDoc1.checked == false && chkDoc2.checked == false && chkDoc3.checked == false && chkDoc4.checked == false){
+					alert('Erro, Por favor selecione um documento');
+					location.reload();
 				
-				//IMPEDIR DA PAGINA DE RECARREGAR -- IMPORTANTE 
-				event.preventDefault()
-
-				btnAssinar.style.display = 'inline';
-
-				//Ocultar checkbox
-				chkDoc1.style.display = 'none';
-				chkDoc2.style.display = 'none';
-				chkDoc3.style.display = 'none';
-				chkDoc4.style.display = 'none';
-
-
-				//Ocultar label
-				lbDoc1.style.display = 'none';
-				lbDoc2.style.display = 'none';
-				lbDoc3.style.display = 'none';
-				lbDoc4.style.display = 'none';
-
-				//Ocultar Botoes
-				btnChkDoc.style.display = 'none';
-
-
-				//Mostrar Botoes
-				if (chkDoc1.checked) {
-					escdoc1.style.display = 'inline';
 				} else {
-					escdoc1.style.display = 'none';
-				}
 
-				if (chkDoc2.checked) {
-					escdoc2.style.display = 'inline';
-				} else {
-					escdoc2.style.display = 'none';
-				}
+					//IMPEDIR DA PAGINA DE RECARREGAR -- IMPORTANTE 
+					event.preventDefault()
 
-				if (chkDoc3.checked) {
-					escdoc3.style.display = 'inline';
-				} else {
-					escdoc3.style.display = 'none';
-				}
+					btnAssinar.style.display = 'inline';
 
-				if (chkDoc4.checked) {
-					escdoc4.style.display = 'inline';
-				} else {
-					escdoc4.style.display = 'none';
+					//Ocultar checkbox
+					chkDoc1.style.display = 'none';
+					chkDoc2.style.display = 'none';
+					chkDoc3.style.display = 'none';
+					chkDoc4.style.display = 'none';
+
+
+					//Ocultar label
+					lbDoc1.style.display = 'none';
+					lbDoc2.style.display = 'none';
+					lbDoc3.style.display = 'none';
+					lbDoc4.style.display = 'none';
+					lbSelect.style.display = 'none';
+					
+					//Ocultar Botoes
+					btnChkDoc.style.display = 'none';
+
+
+					//Mostrar Botoes
+					if (chkDoc1.checked) {
+						escdoc1.style.display = 'inline';
+					} else {
+						escdoc1.style.display = 'none';
+					}
+
+					if (chkDoc2.checked) {
+						escdoc2.style.display = 'inline';
+					} else {
+						escdoc2.style.display = 'none';
+					}
+
+					if (chkDoc3.checked) {
+						escdoc3.style.display = 'inline';
+					} else {
+						escdoc3.style.display = 'none';
+					}
+
+					if (chkDoc4.checked) {
+						escdoc4.style.display = 'inline';
+					} else {
+						escdoc4.style.display = 'none';
+					}
 				}
 			}
 			
+				
 			
 </script>

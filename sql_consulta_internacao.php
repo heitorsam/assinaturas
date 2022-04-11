@@ -26,7 +26,8 @@
                     pac.DS_ENDERECO || ' N° ' || pac.NR_ENDERECO        AS ENDERECO, 
                     cid.NM_CIDADE AS CIDADE,                               
                     cid.CD_UF AS ESTADO,                              
-                    pac.NR_CEP AS CEP,                                 
+                    pac.NR_CEP AS CEP,
+                    cida.DS_CIDADANIA AS CIDADANIA,                                  
                     EXTRACT (DAY FROM atd.DT_ATENDIMENTO)               AS DIA_ATD,
                     EXTRACT (MONTH FROM atd.DT_ATENDIMENTO)             AS MES_ATD,
                     EXTRACT (YEAR FROM atd.DT_ATENDIMENTO)              AS ANO_ATD,
@@ -48,9 +49,11 @@
                     
                     FROM dbamv.ATENDIME atd
                     INNER JOIN dbamv.PACIENTE pac
-                    ON pac.CD_PACIENTE = atd.CD_PACIENTE
+                      ON pac.CD_PACIENTE = atd.CD_PACIENTE
                     INNER JOIN dbamv.CIDADE cid
-                    ON cid.CD_CIDADE = pac.CD_CIDADE
+                      ON cid.CD_CIDADE = pac.CD_CIDADE
+                    INNER JOIN dbamv.CIDADANIAS cida
+                      ON cida.CD_CIDADANIA = pac.CD_CIDADANIA
                     WHERE atd.CD_ATENDIMENTO = '$var_cd_atendimento'
     ";
    
