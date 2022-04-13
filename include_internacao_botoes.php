@@ -7,7 +7,7 @@
 						
 						<div style="margin-top: 20px; margin-left: 15px;">
 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="guia_tiss">
-								<i class="far fa-eye"></i> Guia TISS
+								<i class="far fa-eye"></i> Guia TISS
 							</button>
 						</div>
 						
@@ -18,7 +18,7 @@
 						
 						<div style="margin-top: 20px; margin-left: 15px;">
 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="guia_consulta">
-								<i class="far fa-eye"></i> Guia Consulta
+								<i class="far fa-eye"></i> Guia Consulta
 							</button>
 						</div>
 						
@@ -29,7 +29,7 @@
 						
 						<div style="margin-top: 20px; margin-left: 15px;">
 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="contrato">
-								<i class="far fa-eye"></i> Contrato
+								<i class="far fa-eye"></i> Contrato
 							</button>
 						</div>
 						
@@ -40,13 +40,13 @@
 						
 						<div style="margin-top: 20px; margin-left: 15px;">
 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="hos_faa">
-								<i class="far fa-eye"></i> Ficha Atendimento
+								<i class="far fa-eye"></i> Ficha Atendimento
 							</button>
 						</div>
 					
 					<?php } ?>
 
-					<!-- GERA GUIA INTERNAÇÃO -->
+					<!-- GERA GUIAS INTERNAÇÃO -->
 					<?php if($var_tp_atendimento =='I'){?>
 						
 
@@ -70,17 +70,19 @@
 
 						<div style="margin-top: 20px; margin-left: 15px;">
 							<button type="button" class="btn btn-primary" id="escdoc4" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="term_part_cesareo">
-							<i class="far fa-eye"></i>Termo de Responsabilidade Parto Cesáreo
+							<i class="far fa-eye"></i> Termo de Responsabilidade Parto Cesáreo
 						</div>
 
 					<?php } ?>
+
+				<!-- GERA A GUIA INTERNAÇÃO PARA RE-ASSINATURA -->
 				<?php }else{ ?>
-
-
-					<!-- RE-ASSINATURA -->
 					<?php if($var_tp_atendimento =='I'){?>
-						<br><br>
+
+						<br>
+						<br>
 						<div class="col-md-12"><h11 id="lbReAssinar" style=" display: none;"><i class="fas fa-redo"></i> Assinar Novamente:</h11></div>
+
 						<div style="margin-top: 20px; margin-left: 15px;">
 							<button type="button" class="btn btn-primary" id="re_escdoc1" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="guia_tiss">
 							<i class="far fa-eye"></i> Guia Internação
@@ -101,16 +103,14 @@
 
 						<div style="margin-top: 20px; margin-left: 15px;">
 							<button type="button" class="btn btn-primary" id="re_escdoc4" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="term_part_cesareo">
-							<i class="far fa-eye"></i>Termo de Responsabilidade Parto Cesáreo
+							<i class="far fa-eye"></i> Termo de Responsabilidade Parto Cesáreo
 						</div>
-
-						
 					<?php } ?>
 						
-					
+					<!-- BOTÃO PARA REASSINAR -->
 					<div style="margin-top: 20px; margin-left: 15px;">
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="butao" style="display: none;">
-								<i class="fas fa-signature"></i> Assinar
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="btnReAssinar" style="display: none;">
+								<i class="fas fa-signature"></i> Assinar
 						</button>
 					</div>
 
@@ -124,40 +124,38 @@
 
 
 
-
-
 			<div class="row">
 			<!-- SE TIVER ASSINADO -->
 
 					<?php if(isset($var_pdf_existe)){ ?>
 						
-						<div class="col-md-12"><h11 id=""><i class="fas fa-file-contract"></i> Documentos Assinados:</h11></div>
+						<div class="col-md-12"><h11 id=""><i class="fas fa-file-contract"></i> Documentos Assinados:</h11></div>
 						
 						<!-- APENAS GERA A GUIA TISS SE FOR CONVENIO -->
 						<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105 && $var_tp_atendimento <> 'A' && $var_tp_atendimento <> 'I'){?>
 							<div style="margin-top: 20px; margin-left: 15px; ">
-								<a  style="height: 100%; width: 100% " class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="tiss_pa" data-identificador="guia_tiss_assinado"><i class="fas fa-file-pdf"></i> Guia Tiss</a>
+								<a  style="height: 100%; width: 100% " class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="tiss_pa" data-identificador="guia_tiss_assinado"><i class="fas fa-file-pdf"></i> Guia Tiss</a>
 							</div>
 						<?php } ?>
 
 						<!-- APENAS GERA A GUIA CONSULTA SE FOR CONVENIO -->
 						<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105 && $var_tp_atendimento == 'A' && $var_tp_atendimento <> 'I'){?>
 							<div style="margin-top: 20px; margin-left: 15px; ">
-								<a  style="height: 100%; width: 100% " class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="cons_pa" data-identificador="guia_consulta_assinado"><i class="fas fa-file-pdf"></i> Guia Consulta</a>
+								<a  style="height: 100%; width: 100% " class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="cons_pa" data-identificador="guia_consulta_assinado"><i class="fas fa-file-pdf"></i> Guia Consulta</a>
 							</div>
 						<?php } ?>
 						
 						<!-- GERA CONTRATO EXCETO SUS -->
 						<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 105 && $var_tp_atendimento <> 'I'){?>
 							<div style="margin-top: 20px; margin-left: 15px;">
-								<a style="height: 100%; width: 100% "  class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="cont_pa" data-identificador="cont_pa_assinado"><i class="fas fa-file-pdf"></i> Contrato</a>
+								<a style="height: 100%; width: 100% "  class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="cont_pa" data-identificador="cont_pa_assinado"><i class="fas fa-file-pdf"></i> Contrato</a>
 							</div>
 						<?php } ?>
 						
 						<!-- GERA FAA APENAS SUS -->
 						<?php if($var_cd_conv == 1 || $var_cd_conv == 2 || $var_cd_conv == 105){?>
 							<div style="margin-top: 20px; margin-left: 15px;">
-								<a style="height: 100%; width: 100% "  class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="hos_faa" data-identificador="hos_faa_assinado"><i class="fas fa-file-pdf"></i> Ficha Atendimento</a>
+								<a style="height: 100%; width: 100% "  class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="hos_faa" data-identificador="hos_faa_assinado"><i class="fas fa-file-pdf"></i> Ficha Atendimento</a>
 							</div>
 						<?php } ?>		
 						
@@ -231,11 +229,11 @@
 								<!-- QUANTO FOR ATENDIMENTO I TRAZAR O BOTÃO OCULTO PARA QUE function funcao_ocultar() MOSTRE ELE -->
 								<?php if($var_tp_atendimento =='I'){ ?>
 									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="btnAssinar" style="display: none;">
-										<i class="fas fa-signature"></i> Assinar
+										<i class="fas fa-signature"></i> Assinar
 									</button>
 								<?php }else{?>
 									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="btnAssinar" >
-										<i class="fas fa-signature"></i> Assinar
+										<i class="fas fa-signature"></i> Assinar
 									</button>
 								<?php }	?>
 

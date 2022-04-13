@@ -228,7 +228,7 @@ h2{
                         <h1><p>RG: <b>".@$dados_result_cart_golpe['RG']."</b></h1>
                     </div>
 
-                    <div class='col-hss-3' style='height: 40px; margin: 5px; border-style: none !important;'>
+                    <div class='col-hss-3' style='height: 60px; margin: 5px; border-style: none !important; border-bottom: 1px solid black !important;'>
                         <h1><p>Assinatura: </h1>
                     </div>
                  </div>

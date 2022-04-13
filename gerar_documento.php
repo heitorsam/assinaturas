@@ -72,10 +72,10 @@
 	}
 	
 
-	///////////////////////////
-	//Verifica se existe pdf///
-	//para aquele atendimento//
-	///////////////////////////
+	////////////////////////////////////////////////////////
+	//Quantidade restante de documentos a serem assinados///
+	////////////////////////////////////////////////////////
+
 
 	if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdpdf']) ){
 		$cons_pdf ="SELECT 
@@ -132,10 +132,10 @@
 		@$pdf_cart_term_cirurgia = $row_pdf_exis_term_cirurgia['BLOB_ANEXO'];
 		}
 
-	//////////////////////////////////////////
-	//Verifica se existe pdf termo cirurgia///
-	//para aquele atendimento/////////////////
-	//////////////////////////////////////////
+	////////////////////////////////////////////////
+	//Verifica se existe pdf Guia Tiss Internação///
+	//para aquele atendimento///////////////////////
+	////////////////////////////////////////////////
 
 	if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdpdf']) ){
 		$cons_pdf_tiss_int ="SELECT *
@@ -169,55 +169,10 @@
 		@$pdf_cart_term_part_cesareo = $row_pdf_exis_term_part_cesareo['BLOB_ANEXO'];
 		}
 
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	//VALIDANDO SE A GUIA TISS FOI GERADA NO SISTEMA NA REGRA DO CONVENIO
 	if(isset($_GET['cd_atendimento'])){
 		//CONSULTA ID
@@ -378,18 +333,17 @@
 <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-		<!-- INCLUDE BOTOES VISUALIZAR / PESQUISA -->
+	
 		<?php
-			include 'include_ambulatorio_urgencia.php';
+			// INCLUDE BOTOES VISUALIZAR / PESQUISA
+			include 'include_internacao_botoes.php';
 		?>
 <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+		
 			<?php if(isset($var_pdf_existe)){ ?>
 
 				<!-- CHAMA A TABELA BAIXAR PDF -->
@@ -432,206 +386,20 @@
 		</form>
 		<?php }?>
 
-		<!--- ESCONDE OS CHECKBOX DEPOIS DE ASSINADOS  -->
-		<?php  if(isset($var_pdf_existe)){ ?>
-			<?php if(@$var_tp_atendimento == 'I'){?>
-			<form onsubmit="funcao_re_gerar()" method="post">
-								<br><br>
-
-								<h11 id="lbSelect"><i class="far fa-check-square"></i> Assinar Novamente:</h11><p>
-									<?php if($var_total_pdf == 0){ ?>
-										<label id="lbcont">Sem Documentos Restantes</label>
-									<?php }else{?>
-										<label id="lbcont"><?php echo $var_total_pdf ?>: Documentos Restantes</label>
-									<?php }?>
-								
-
-								<?php if(isset($pdf_cart_tiss_int)){ ?>
-									<!-- GERAR -->
-									<div class="form-check form-check-inline">
-										<input type="checkbox" id="chkDoc1" style="display: none;" >
-										<label id="lbDoc1" style="display: none;"> Guia Tiss Internação</label></br>
-									</div>
-								<?php }else{?>
-									<!-- NÃO GERAR -->
-									<div class="form-check form-check-inline">
-										<input type="checkbox" id="chkDoc1" checked>
-										<label id="lbDoc1"> Guia Tiss Internação</label></br>
-									</div>
-								<?php } ?>
-
-								<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-
-								<?php if(isset($pdf_cart_golpe_existe)){ ?>
-									<!-- GERAR -->
-									<div class="form-check form-check-inline">
-										<input type="checkbox" id="chkDoc2" style="display: none;" >
-										<label id="lbDoc2" style="display: none;"> Carta Golpe</label></br>
-									</div>
-								<?php }else{?>
-									<!-- NÃO GERAR -->
-									<div class="form-check form-check-inline">
-										<input type="checkbox" id="chkDoc2"  >
-										<label id="lbDoc2"> Carta Golpe</label></br>
-									</div>
-								<?php } ?>
-
-								<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->								
-
-								<?php if(isset($pdf_cart_term_cirurgia)){ ?>
-									<!-- GERAR -->
-									<div class="form-check form-check-inline">
-										<input type="checkbox" id="chkDoc3" style="display: none;">
-										<label id="lbDoc3" style="display: none;"> Termo de Responsabilidade</label></br>
-									</div>
-								<?php }else{?>
-									<!-- NÃO GERAR -->
-									<div class="form-check form-check-inline">
-										<input type="checkbox" id="chkDoc3">
-										<label id="lbDoc3"> Termo de Responsabilidade</label></br>
-									</div>
-								<?php } ?>
-
-								<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-
-								<?php if(isset($pdf_cart_term_part_cesareo)){ ?>
-									<!-- GERAR -->
-									<div class="form-check form-check-inline" >
-										<input type="checkbox" id="chkDoc4" style="display: none;">
-										<label id="lbDoc4" style="display: none;"> Termo de Responsabilidade Parto Cesáreo</label></br>
-									</div>
-								<?php }else{?>
-									<!-- NÃO GERAR -->
-									<div class="form-check form-check-inline">
-										<input type="checkbox" id="chkDoc4">
-										<label id="lbDoc4"> Termo de Responsabilidade Parto Cesáreo</label></br>
-									</div>
-								<?php } ?>
-
-								<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-
-								
-								</br>
-								
-
-								<!--- EM CONSTRUÇÃO CHECKBOX 
-									<div class="form-check form-check">
-										<input type="checkbox" id="" >
-										<label id=""> Termo de Responsabilidade e Consentimento Internação</label></br>
-									</div>
-
-
-									<div class="form-check form-check">
-										<input type="checkbox" id="" >
-										<label id=""> Termo de Responsabilidade e Consentimento Laqueadura tubárea</label></br>
-									</div>
-
-									<div class="form-check form-check">
-										<input type="checkbox" id="" >
-										<label id=""> Termo de Responsabilidade e Consentimento Anestésico ou Sedação</label></br>
-									</div>
-
-									<div class="form-check form-check">
-										<input type="checkbox" id="">
-										<label id=""> Termo de Responsabilidade e Consentimento Cirurgia</label></br>
-									</div>
-									</br>
-								-->	
-
-								<?php if($var_total_pdf <> 0){ ?>
-									<button type="submit" class="btn btn-primary" id="btnChkDoc">Enviar</button>			
-								<?php }?>
-								
-							
-						</form>
-			<?php }?>
-
-		<!--- MOSTRA O CHECKBOX ANTES DE ASSINAR -->
-		<?php }else{ ?>
-			<!--- CHECK BOX INTERNAÇÃO -->	
-			<?php if(@$var_tp_atendimento == 'I'){?>
-						<form onsubmit="funcao_ocultar()" method="post">
-								<br><br>
-								<h11 id="lbSelect"><i class="far fa-check-square"></i> Selecione os Documentos:</h11><p>
-
-								<?php if(isset($pdf_cart_tiss_int)){ ?>
-									<!-- GERAR -->
-								<?php }else{?>
-									<!-- NÃO GERAR -->
-									<div class="form-check form-check-inline">
-										<input type="checkbox" id="chkDoc1" checked>
-										<label id="lbDoc1"> Guia Tiss Internação</label></br>
-									</div>
-								<?php } ?>
-
-								<?php if(isset($pdf_cart_golpe_existe)){ ?>
-									<!-- GERAR -->
-									
-
-								<?php }else{?>
-									<!-- NÃO GERAR -->
-									<div class="form-check form-check-inline">
-										<input type="checkbox" id="chkDoc2" >
-										<label id="lbDoc2"> Carta Golpe</label></br>
-									</div>
-								<?php } ?>
-
-								<?php if(isset($pdf_cart_term_cirurgia)){ ?>
-									<!-- GERAR -->
-									
-								<?php }else{?>
-									<!-- NÃO GERAR -->
-									<div class="form-check form-check-inline">
-										<input type="checkbox" id="chkDoc3">
-										<label id="lbDoc3"> Termo de Responsabilidade</label></br>
-									</div>
-								<?php } ?>
-
-								<?php if(isset($pdf_cart_term_part_cesareo)){ ?>
-									<!-- GERAR -->
-									
-								<?php }else{?>
-									<!-- NÃO GERAR -->
-									<div class="form-check form-check-inline">
-										<input type="checkbox" id="chkDoc4">
-										<label id="lbDoc4"> Termo de Responsabilidade Parto Cesáreo</label></br>
-									</div>
-								<?php } ?>
-
-
-								
-								</br>
-								
-
-								<!--- EM CONSTRUÇÃO CHECKBOX 
-									<div class="form-check form-check">
-										<input type="checkbox" id="" >
-										<label id=""> Termo de Responsabilidade e Consentimento Internação</label></br>
-									</div>
-
-
-									<div class="form-check form-check">
-										<input type="checkbox" id="" >
-										<label id=""> Termo de Responsabilidade e Consentimento Laqueadura tubárea</label></br>
-									</div>
-
-									<div class="form-check form-check">
-										<input type="checkbox" id="" >
-										<label id=""> Termo de Responsabilidade e Consentimento Anestésico ou Sedação</label></br>
-									</div>
-
-									<div class="form-check form-check">
-										<input type="checkbox" id="">
-										<label id=""> Termo de Responsabilidade e Consentimento Cirurgia</label></br>
-									</div>
-									</br>
-								-->	
-								<button type="submit" class="btn btn-primary" id="btnChkDoc"> Enviar</button>
-							
-						</form>
-			<?php } ?></br>	
-		<?php } ?>
-
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+		<?php
+			//INCLUDE INTERNAÇÃO CHECKBOXS
+			include 'include_internacao_checkbox.php';
+		?>
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
 		<br>
 		<br>
@@ -644,9 +412,11 @@
 		
 	</div>
 
-	<!-- Scripts -->
-	<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
-	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<!-- ESTOU NO "gerar_documento.php" -->
+	<!-- Scripts 
+		<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+		<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	-->
 	<!--<script src="https://code.angularjs.org/snapshot/angular.min.js"></script>-->
 	
 	<script>
@@ -783,11 +553,12 @@
 </body>
 </html>
 
-<!--TAMANHO DA MODAL -->
+<!--TAMANHO DA MODAL / SCROLL -->
 <style>
-	.modal-content {
-        height: 100%;
-      }
+	.modal-body {
+    
+    height: 100%;
+}
 </style>
 
 <!--MODAL VISUALIZA-->
@@ -1230,7 +1001,6 @@ $(document).ready(function(){
 		
 				//IDENTIFICA AS CHECKBOXS
 				var chkDoc1 = document.getElementById("chkDoc1");
-				//document.getElementById("chkDoc1").disabled = true;
 				var chkDoc2 = document.getElementById("chkDoc2");
 				var chkDoc3 = document.getElementById("chkDoc3");
 				var chkDoc4 = document.getElementById("chkDoc4");
@@ -1240,14 +1010,13 @@ $(document).ready(function(){
 				var lbDoc2 = document.getElementById("lbDoc2");
 				var lbDoc3 = document.getElementById("lbDoc3");
 				var lbDoc4 = document.getElementById("lbDoc4");
-				var lbSelect = document.getElementById("lbSelect");
+				var lbAssinarNovamente = document.getElementById("lbAssinarNovamente");
 				var lbReAssinar = document.getElementById("lbReAssinar");
-				var lbcont = document.getElementById("lbcont");
+				var lbDocsRestantes = document.getElementById("lbDocsRestantes");
 				
-
-				//IDENTIFICA O BOTAO
+				//IDENTIFICA O BOTOES
 				var btnChkDoc = document.getElementById("btnChkDoc");
-				var butao = document.getElementById("butao");
+				var btnReAssinar = document.getElementById("btnReAssinar");
 				
 				
 				////////////////////////////////////////////////////
@@ -1268,7 +1037,7 @@ $(document).ready(function(){
 				} else {
 					//IMPEDIR DA PAGINA DE RECARREGAR -- IMPORTANTE 
 					event.preventDefault()
-					//butao.style.display = 'inline';
+					//btnReAssinar.style.display = 'inline';
 					
 					//Ocultar checkbox
 					chkDoc1.style.display = 'none';
@@ -1281,8 +1050,8 @@ $(document).ready(function(){
 					lbDoc2.style.display = 'none';
 					lbDoc3.style.display = 'none';
 					lbDoc4.style.display = 'none';
-					lbSelect.style.display = 'none';
-					lbcont.style.display = 'none';
+					lbAssinarNovamente.style.display = 'none';
+					lbDocsRestantes.style.display = 'none';
 
 					//Ocultar Botoes
 					btnChkDoc.style.display = 'none';
@@ -1315,10 +1084,10 @@ $(document).ready(function(){
 					}
 
 					if (chkDoc1.checked || chkDoc2.checked || chkDoc3.checked || chkDoc4.checked){
-						butao.style.display = 'inline';
+						btnReAssinar.style.display = 'inline';
 						lbReAssinar.style.display = 'inline';
 					} else {
-						butao.style.display = 'none';
+						btnReAssinar.style.display = 'none';
 					}
 				}
 				
@@ -1350,11 +1119,10 @@ $(document).ready(function(){
 					lbDoc2.style.display = 'none';
 					lbDoc3.style.display = 'none';
 					lbDoc4.style.display = 'none';
-					lbSelect.style.display = 'none';
+					lbAssinarNovamente.style.display = 'none';
 					
 					//Ocultar Botoes
 					btnChkDoc.style.display = 'none';
-
 
 					//Mostrar Botoes
 					if (chkDoc1.checked) {

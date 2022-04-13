@@ -214,16 +214,14 @@ h2{
 
                         <div class='col-hss-4' style='height: 80px; margin: 1px;'>
                                 <h1>Assinatura do (a) Paciente: </h1>
-
-                            <div class='col-hss-8' style='height: 60px; border: none !important; border-bottom: solid 1px black !important; '>
+                            <div class='col-hss-8' style='height: 45px; border: none !important; border-bottom: solid 1px black !important; '>
                                 <img src='$img' width='100%' height='100%'  style:'float: right;'>
                             </div>
                         </div>
 
                         <div class='col-hss-4' style='height: 80px; margin: 1px;'>
                                 <h1>Assinatura do Familiar e/ou Responsável</h1>
-                            <div class='col-hss-8' style='height: 60px; border: none !important; border-bottom: solid 1px black !important; '>
-                                <img src='$img' width='100%' height='100%'  style:'float: right;'>
+                            <div class='col-hss-8' style='height: 45px; border: none !important; border-bottom: solid 1px black !important; '>
                             </div>
 
                         </div>
