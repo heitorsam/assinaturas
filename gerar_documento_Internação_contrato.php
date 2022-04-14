@@ -9,7 +9,7 @@ session_start();
 $img = $_REQUEST['escondidinho'];
 $tp_doc = 'cont_int';
 
-$nm_documneto = 'pdf_term_cirurgia_'.$var_cd_atendimento.'.pdf';
+$nm_documneto = 'pdf_term_internacao_cirurgia_'.$var_cd_atendimento.'.pdf';
 
 @$_SESSION['atdconsulta'] = $_REQUEST['cd_atendimento'];
 
@@ -114,7 +114,7 @@ include 'sql_consulta_internacao.php';
     font-weight: normal;
 }
 h2{
-    font-size: 9px;
+    font-size: 8px;
     line-height: 15px !important; 
     text-align: left !important;
 }
@@ -139,8 +139,8 @@ h2{
  </style> 
 
 
-    <form style='height: 00px;'>
-        <div class='col-hss-12' style='height: 45px; margin: 1px; text-align: center;' >
+    <form style='height: 0px;'>
+        <div class='col-hss-12' style='height: 45px; margin: 1px; text-align: center; padding-top: 0px !important;' >
             <img class='imagem' src='https://i2.wp.com/santacasasaude.com.br/wp-content/uploads/2018/07/Santa-Casa-SJC.gif?fit=730%2C457&ssl=1' style='width: 140px; height: 60px;'>
         </div>
     </form>
@@ -172,115 +172,103 @@ h2{
 
                         <br>
 
-                        <h1>OBJETO: A prestação de serviços médicos/hospitalares ao paciente retro qualificado, internado nas dependências da CONTRATADA, por determinação do Médico Responsável acima identificado, ficando a CONTRATADA expressamente autorizada a executar, por si ou por terceiros especializados, todos os procedimentos diagnósticos e/ou terapêuticos, clínicos, cirúrgicos e/ou laboratoriais que venham a participar do atendimento e que façam necessários e indispensáveis a salvaguarda da vida do paciente para outro local ou hospital para promover o adequado tratamento necessário ao mesmo.</h1>
-            
-                        <h1>PAGAMENTO: Os valores referentes tanto para parte médica como para parte hospitalar serão apurados em tríduos e apresentados ao CONTRATANTE juntamente como os respectivos demonstrativos para efetuar os respectivos pagamentos.</h
-                        <h1>Após a alta do (a) paciente acima identificado (a), será apurado o valor do período remanescente a última apuração e efetivo pagamento.</h
-                        <h1>Os valores apresentados ao CONTRATANTE passarão a fazer parte integrante do presente instrumento.</h1>
-            
-                        <h1>Todos os custos e intercorrências serão comunicados com antecedência ao CONTRATANTE, caso haja possibilidade e tempo suficiente para tanto.</h
-                        <h1>Caso seja necessário, no curso do tratamento, o adiantamento de valores não previstos neste contrato o CONTRATANTE desde já se compromete a depositá-los no prazo máximo de 12h, junto à CONTRATADA.</h
-                        <h1>No caso de cobertura por CONVÊNIO MÉDICO, fica concedida ao paciente a utilização do PLANO DE ASSISTÊNCIA MÉDICA com qual a CONTRATADA mantém convênio, ficando observado que as despesas não cobertas por este PLANO DE SAÚDE serão de responsabilidade do CONTRATANTE.</h
-                        <h1>A responsabilidade da CONTRATADA estará sempre vinculada aos serviços e atendimento que forem por ela prestados, sem prejuízo de eventual responsabilidade solidária com terceiros (médicos, laboratórios e outros), ou exclusiva destes que venham a participar dos procedimentos clínico-cirúrgicos que forem adotados.</h
-                        <h1>DIREITOS/CARÊNCIAS/EXCLUSÕES: O CONTRATANTE e o paciente têm pleno conhecimento dos DIREITOS, CARÊNCIAS E EXCLUSÕES, contratualmente estabelecidas no PLANO DE SAÚDE, com o qual o paciente mantém contrato.</h
-                        <h1>MÉDICO RESPONSÁVEL: Os médicos responsáveis pela internação e pelo tratamento serão escolhidos pelo CONTRANTE e/ou pelo paciente, sendo certo que os honorários profissionais decorrentes do atendimento serão da sua exclusiva responsabilidade, sem qualquer vinculação com a CONTRATADA e, serão saldados com recursos próprios ou através da utilização do plano de assistência médica.</h
-                        <h1>REGULAMENTO INTERNO E VALORES DE DIÁRIAS E PROCEDIMENTOS: O CONTRATANTE declara expressamente ter ciência nesta data da tabela de preços de diárias vigentes na data de internação, tendo conhecimento de que os preços dos medicamentos, exames laboratoriais, materiais e outros, serão aplicados de acordo com a Tabela Vigente na data de cada procedimento efetuado. Se por eventualidade for necessário a utilização de horas excedentes de centro cirúrgico dos previstos na tabela de procedimentos estéticos / plásticas, os mesmos serão cobrados do CONTRATANTE.</h
-                        <h1>Declara haver recebido o Guia de Orientações que contém as normas do complexo hospitalar Santa Casa, comprometendo-se a cumpri-lo e dar o seu conhecimento ao paciente, seus familiares e visitantes, que fica fazendo parte integrante deste instrumento.</h
-                        <h1>HIPÓTESE DE INADIMPLÊNCIA: Na hipótese de não cumprimento espontâneo das obrigações assumidas, acarretando via de conseqüência, cobrança judicial dos títulos sacados, assume, também, a responsabilidade pelo pagamento das custas e despesas processuais/extrajudiciais, dos juros legais, da correção monetária, calculada “PRÓ-RATA TEMPORE”, e incidente sobre o valor total do débito e dos honorários advocatícios devidos também no caso de cobrança amigável.</h
-                        <h1>FORNECIMENTO DE MATERIAL: Se no tratamento dispensado ao PACIENTE for necessária a utilização de qualquer material especial, poderá a CONTRATANTE fornecer o respectivo material diretamente, desde que cumpridas às exigências que para este fim venham a ser apresentadas pela CONTRATADA, notadamente no que se refere aos critérios e procedimentos relativos à esterilização do material. Caso seja necessária a efetivação de atendimento de “URGÊNCIA”, imperiosa a salvaguarda da vida do paciente, estará a CONTRATADA expressamente autorizada a adquirir o material requisitado pela equipe médica e realizar o respectivo fornecimento, independentemente de qualquer outra autorização ou formalidade. Se por eventualidade e indicação médica, for necessário a utilização de fios excedentes dos previstos na tabela de procedimentos estéticos / plásticas, os mesmos serão cobrados do CONTRATANTE.</h
-                        <h1>TRANSFERÊNCIA: O CONTRATANTE autoriza, desde já, a CONTRATADA a efetivar a transferência do paciente para outro hospital, caso venha a descumprir com as obrigações assumidas neste instrumento, desde que o quadro clínico do internado assim o permita, e sem restrição médica.</h
-                        <h1>ALTA DO PACIENTE: Após a alta, o paciente terá duas horas para liberar a acomodação, pois estará sujeito a cobrança particular do período excedente.</h
-                        <h1>FORO DE ELEIÇÃO: Fica eleito o Foro da comarca de São José dos Campos, como competente para dirimir todas as dúvidas que por ventura venham a ser suscitada com relação aos serviços prestados no esteio do presente instrumento, ressalvada a hipótese do artigo 51, parágrafo primeiro, III da Lei nº 8.078 de 11 de setembro de 1990 (Código de Defesa do Consumidor).</h
-                        <h1>E, por estarem assim justos e contratados, assinam o presente instrumento Particular de Contrato de Assistência Médica Hospitalar, em duas vias de igual teor e forma, na presença de duas testemunhas, para que produza seus jurídicos e legais efeitos.</h
+                        <h1><b>OBJETO:</b> A prestação de serviços médicos/hospitalares ao paciente retro qualificado, internado nas dependências da <b>CONTRATADA</b>, por determinação do Médico Responsável acima identificado, ficando a <b>CONTRATADA</b> expressamente autorizada a executar, por si ou por terceiros especializados, todos os procedimentos diagnósticos e/ou terapêuticos, clínicos, cirúrgicos e/ou laboratoriais que venham a participar do atendimento e que façam necessários e indispensáveis a salvaguarda da vida do paciente para outro local ou hospital para promover o adequado tratamento necessário ao mesmo.</h1>
+                    
+                        <h1><b>PAGAMENTO:</b> Os valores referentes tanto para parte médica como para parte hospitalar serão apurados em tríduos e apresentados ao <b>CONTRATANTE</b> juntamente como os respectivos demonstrativos para efetuar os respectivos pagamentos.</h1>
+
+                        <h1>Após a alta do (a) paciente acima identificado (a), será apurado o valor do período remanescente a última apuração e efetivo pagamento.</h1>
+
+                        <h1>Os valores apresentados ao <b>CONTRATANTE</b> passarão a fazer parte integrante do presente instrumento.</h1>
+                    
+                        <h1>Todos os custos e intercorrências serão comunicados com antecedência ao <b>CONTRATANTE</b>, caso haja possibilidade e tempo suficiente para tanto.</h1>
+
+                        <h1>Caso seja necessário, no curso do tratamento, o adiantamento de valores não previstos neste contrato o <b>CONTRATANTE</b> desde já se compromete a depositá-los no prazo máximo de 12h, junto à <b>CONTRATADA</b>.</h1>
+
+                        <h1>No caso de cobertura por <b>CONVÊNIO MÉDICO</b>, fica concedida ao paciente a utilização do <b>PLANO DE ASSISTÊNCIA MÉDICA</b> com qual a <b>CONTRATADA</b> mantém convênio, ficando observado que as despesas não cobertas por este <b>PLANO DE SAÚDE</b> serão de responsabilidade do <b>CONTRATANTE</b>.</h1>
+
+                        <h1>A responsabilidade da <b>CONTRATADA</b> estará sempre vinculada aos serviços e atendimento que forem por ela prestados, sem prejuízo de eventual responsabilidade solidária com terceiros (médicos, laboratórios e outros), ou exclusiva destes que venham a participar dos procedimentos clínico-cirúrgicos que forem adotados.</h1>
+
+                        <h1><b>DIREITOS/CARÊNCIAS/EXCLUSÕES: O CONTRATANTE</b> e o paciente têm pleno conhecimento dos <b>DIREITOS, CARÊNCIAS E EXCLUSÕES</b>, contratualmente estabelecidas no <b>PLANO DE SAÚDE</b>, com o qual o paciente mantém contrato.</h1>
+
+                        <h1><b>MÉDICO RESPONSÁVEL:</b> Os médicos responsáveis pela internação e pelo tratamento serão escolhidos pelo <b>CONTRANTE</b> e/ou pelo paciente, sendo certo que os honorários profissionais decorrentes do atendimento serão da sua exclusiva responsabilidade, sem qualquer vinculação com a <b>CONTRATADA</b> e, serão saldados com recursos próprios ou através da utilização do plano de assistência médica.</h1>
+
+                        <h1><b>REGULAMENTO INTERNO E VALORES DE DIÁRIAS E PROCEDIMENTOS: O CONTRATANTE</b> declara expressamente ter ciência nesta data da tabela de preços de diárias vigentes na data de internação, tendo conhecimento de que os preços dos medicamentos, exames laboratoriais, materiais e outros, serão aplicados de acordo com a Tabela Vigente na data de cada procedimento efetuado. Se por eventualidade for necessário a utilização de horas excedentes de centro cirúrgico dos previstos na tabela de procedimentos estéticos / plásticas, os mesmos serão cobrados do <b>CONTRATANTE.</b></h1>
+
+                        <h1>Declara haver recebido o Guia de Orientações que contém as normas do complexo hospitalar Santa Casa, comprometendo-se a cumpri-lo e dar o seu conhecimento ao paciente, seus familiares e visitantes, que fica fazendo parte integrante deste instrumento.</h1>
+
+                        <h1><b>HIPÓTESE DE INADIMPLÊNCIA:</b> Na hipótese de não cumprimento espontâneo das obrigações assumidas, acarretando via de consequência, cobrança judicial dos títulos sacados, assume, também, a responsabilidade pelo pagamento das custas e despesas processuais/extrajudiciais, dos juros legais, da correção monetária, calculada <b>“PRÓ-RATA TEMPORE”</b>, e incidente sobre o valor total do débito e dos honorários advocatícios devidos também no caso de cobrança amigável.</h1>
+
+                        <h1><b>FORNECIMENTO DE MATERIAL:</b> Se no tratamento dispensado ao <b>PACIENTE</b> for necessária a utilização de qualquer material especial, poderá a <b>CONTRATANTE</b> fornecer o respectivo material diretamente, desde que cumpridas às exigências que para este fim venham a ser apresentadas pela <b>CONTRATADA</b>, notadamente no que se refere aos critérios e procedimentos relativos à esterilização do material. Caso seja necessária a efetivação de atendimento de <b>“URGÊNCIA”</b>, imperiosa a salvaguarda da vida do paciente, estará a <b>CONTRATADA</b> expressamente autorizada a adquirir o material requisitado pela equipe médica e realizar o respectivo fornecimento, independentemente de qualquer outra autorização ou formalidade. Se por eventualidade e indicação médica, for necessário a utilização de fios excedentes dos previstos na tabela de procedimentos estéticos / plásticas, os mesmos serão cobrados do <b>CONTRATANTE.</b> </h1>
+
+                        <h1><b>TRANSFERÊNCIA: O CONTRATANTE</b> autoriza, desde já, a <b>CONTRATADA</b> a efetivar a transferência do paciente para outro hospital, caso venha a descumprir com as obrigações assumidas neste instrumento, desde que o quadro clínico do internado assim o permita, e sem restrição médica.</h1>
+
+                        <h1><b>ALTA DO PACIENTE:</b> Após a alta, o paciente terá duas horas para liberar a acomodação, pois estará sujeito a cobrança particular do período excedente.</h1>
+
+                        <h1><b>FORO DE ELEIÇÃO:</b> Fica eleito o Foro da comarca de São José dos Campos, como competente para dirimir todas as dúvidas que por ventura venham a ser suscitada com relação aos serviços prestados no esteio do presente instrumento, ressalvada a hipótese do artigo 51, parágrafo primeiro, III da Lei nº 8.078 de 11 de setembro de 1990 (Código de Defesa do Consumidor).</h1>
+
+                        <h1>E, por estarem assim justos e contratados, assinam o presente instrumento Particular de Contrato de Assistência Médica Hospitalar, em duas vias de igual teor e forma, na presença de duas testemunhas, para que produza seus jurídicos e legais efeitos.</h1>
+
                         <h1>Declaro que recebi, li e compreendi o guia geral do hospital com todas as informações necessárias para a internação.</h1>
 
-                        <br>
+
+                      
 
                      </div>
 
-                    <div class='col-hss-1' style='height: 700px; margin: 1px;'>
+                    <div class='col-hss-1' style='height: 700px; margin: 1px; '>
                     </div>   
+                 </div>
+                    <div class='row'>
 
-                </div>
+                        <div class='col-hss-1' style='height: 30px; margin: 1px; '>
+                        </div>
 
-                <div class='row'>
+                        <div class='col-hss-10' style='height: 30px; margin: 1px; '>
+                            <h2>São José dos Campos,<b> ".@$dados_result_term_cirurgia['DIA_ATD']." </b>de<b> ".@$dados_result_term_cirurgia['MES_EXTENSO']." </b>de<b> ".@$dados_result_term_cirurgia['ANO_ATD']." </b></h2>
+                        </div>
 
-                    <div class='col-hss-1' style='height: 20px; margin: 1px;'>
-                    </div>
-
-                    <div class='col-hss-10' style='height: 20px; margin: 1px;'>
-                        <h2>São José dos Campos,<b> ".@$dados_result_term_cirurgia['DIA_ATD']." </b>de<b> ".@$dados_result_term_cirurgia['MES_EXTENSO']." </b>de<b> ".@$dados_result_term_cirurgia['ANO_ATD']." </b></h2>
-                    </div>
-
-                    <div class='col-hss-1' style='height: 20px; margin: 1px;'>
-                    </div>
-                </div> 
+                        <div class='col-hss-1' style='height: 30px; margin: 1px; '>
+                        </div>
+                    </div> 
 
                     
-                <div class='row'>
-
-
-                    <div class='col-hss-4' style='height: 50px; margin: 1px; border: none !important; border-bottom: solid 1px black !important'>
-                        <h1>Assinatura do (a) Paciente: </h1>
-                        <img src='$img' width='70%' height='70%'>
-                        
-                    </div>
-
-                    <div class='col-hss-2' style='height: 40px; margin: 1px;'>
-                    </div>
-
-                    <div class='col-hss-4' style='height: 50px; margin: 1px; border: none !important; border-bottom: solid 1px black !important'>
-                        <h1>Assinatura do Responsável: </h1>
-                    </div>
-
-                 
-                </div> 
-
-                <div class='row'>
-
-        
-                    <div class='col-hss-4' style='height: 50px; margin: 1px; border: none !important; border-bottom: solid 1px black !important'>
-                        <h1>Testemunhas: </h1>
-                    </div>
-                    <div class='col-hss-2' style='height: 40px; margin: 1px;'>
-                    </div>
-
-                    <div class='col-hss-4' style='height: 50px; margin: 1px; border: none !important; border-bottom: solid 1px black !important'>
-                        <h1>Testemunhas: </h1>
-                    </div>
-                </div> 
-
-
-
-
-
-
-
-
                     <div class='row'>
-                        <div class='col-hss-1' style='height: 60px; margin: 1px; '>
-                        </div>
-                        <div class='col-hss-4' style='height: 0px; border: none !important; border-bottom: solid 1px black !important; '>
-                        <img src='$img' width='0%' height='0%'>
-                    </div>
-                        <div class='col-hss-4' style='height: 80px; margin: 1px;'>
-                                <h1>Assinatura do (a) Paciente: </h1>
-                            <div class='col-hss-8' style='height: 45px; border: none !important; border-bottom: solid 1px black !important; '>
-                               
-                            </div>
+                        <div class='col-hss-1' style='height: 50px; margin: 1px; '>
                         </div>
 
-                        <div class='col-hss-1' style='height: 60px; margin: 1px; '>
+                        <div class='col-hss-4' style='height: 50px; margin: 5px; border-style: none !important; border-bottom: 1px solid black !important;'>
+                            <h1>Assinatura do Paciente:</h1>
                         </div>
 
-                        <div class='col-hss-4' style='height: 80px; margin: 1px;'>
+                        <div class='col-hss-1' style='height: 50px; margin: 1px; '>
+                        </div>
+
+                        <div class='col-hss-4' style='height: 50px; margin: 5px; border-style: none !important; border-bottom: 1px solid black !important;'>
                             <h1>Assinatura do Responsável: </h1>
-                            <div class='col-hss-8' style='height: 45px; border: none !important; border-bottom: solid 1px black !important;'></div>
                         </div>
 
-                       
-                        
+                        <div class='col-hss-1' style='height: 50px; margin: 1px; '>
+                        </div>
                     </div>
+                    
+                    <div class='row'>
+                        <div class='col-hss-1' style='height: 50px; margin: 1px; '>
+                        </div>
+
+                        <div class='col-hss-4' style='height: 50px; margin: 5px; border-style: none !important; border-bottom: 1px solid black !important;'>
+                            <h1>Testemunhas:: </h1>
+                        </div>
+
+                        <div class='col-hss-1' style='height: 50px; margin: 1px; '>
+                        </div>
+
+                        <div class='col-hss-4' style='height: 50px; margin: 5px; border-style: none !important; border-bottom: 1px solid black !important;'>
+                            <h1>Testemunhas:: </h1>
+                        </div>
+ 
+                    </div> 
+
+
              </div>
           </div>
          </form>

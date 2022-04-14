@@ -9,7 +9,7 @@ session_start();
 $img = $_REQUEST['escondidinho'];
 $tp_doc = 'term_cirurgia';
 
-$nm_documneto = 'pdf_term_internacao_contrato'.$var_cd_atendimento.'.pdf';
+$nm_documneto = 'pdf_term_cirurgia_'.$var_cd_atendimento.'.pdf';
 
 @$_SESSION['atdconsulta'] = $_REQUEST['cd_atendimento'];
 

@@ -37,7 +37,7 @@ $count = 1;
      background-color: #ffffff;
      margin: 1 1 1 1;
      padding: 3 1 1 3;
-     border: solid 1px black !important;
+     border: solid 0px black !important;
  }
 
  .row{

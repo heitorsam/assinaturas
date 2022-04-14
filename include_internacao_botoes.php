@@ -51,7 +51,7 @@
 						
 						<div style="margin-top: 20px; margin-left: 15px;">
 							<button type="button" class="btn btn-primary" id="escdoc1" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="cont_int">
-							<i class="far fa-eye"></i> Guia Internação
+							<i class="far fa-eye"></i> Contrato Internação
 							</button>
 						</div>
 
@@ -74,7 +74,7 @@
 
 					<?php } ?>
 
-				<!-- VISUALIZAR -- GERA A GUIA INTERNAÇÃO PARA RE-ASSINATURA -->
+				<!-- VISUALIZAR -- GERA A Contrato Internação PARA RE-ASSINATURA -->
 				<?php }else{ ?>
 					<?php if($var_tp_atendimento =='I'){?>
 
