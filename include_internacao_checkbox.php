@@ -13,17 +13,18 @@
 
 								<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 								<!--- GUIA TISS INTERNAÇÃO  -->		
-								<?php if(isset($pdf_cart_tiss_int)){ ?>
+								<?php if(isset($pdf_cart_contrato_internacao)){ ?>
 									<!-- NÃO MOSTRAR CHECKBOX -->
 									<div class="form-check form-check-inline">
 										<input type="checkbox" id="chkDoc1" style="display: none;" >
-										<label id="lbDoc1" style="display: none;"> Guia Tiss Internação</label></br>
+										<label id="lbDoc1" style="display: none;"> Contrato Internação</label></br>
 									</div>
+
 								<?php }else{?>
 									<!--MOSTRAR CHECKBOX-->
 									<div class="form-check form-check-inline">
 										<input type="checkbox" id="chkDoc1">
-										<label id="lbDoc1"> Guia Tiss Internação</label></br>
+										<label id="lbDoc1"> Contrato Internação</label></br>
 									</div>
 								<?php } ?>
 
@@ -121,13 +122,13 @@
 								<br><br>
 								<h11 id="lbAssinarNovamente"><i class="far fa-check-square"></i> Selecione os Documentos:</h11><p>
 
-								<?php if(isset($pdf_cart_tiss_int)){ ?>
+								<?php if(isset($pdf_cart_contrato_internacao)){ ?>
 									<!-- NÃO MOSTRAR CHECKBOX -->
 								<?php }else{?>
 									<!--MOSTRAR CHECKBOX-->
 									<div class="form-check form-check-inline">
 										<input type="checkbox" id="chkDoc1">
-										<label id="lbDoc1"> Guia Tiss Internação</label></br>
+										<label id="lbDoc1"> Contrato Internação</label></br>
 									</div>
 								<?php } ?>
 
@@ -191,3 +192,5 @@
 						</form>
 			<?php } ?></br>	
 		<?php } ?>
+
+

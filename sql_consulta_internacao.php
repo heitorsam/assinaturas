@@ -20,14 +20,18 @@
     $dados_result_cart_golpe = oci_fetch_array($result_cart_golpe);
 
     $term_cirurgia = "SELECT
+                    pac.CD_PACIENTE                                     AS PRONTUARIO,
                     pac.NM_PACIENTE                                     AS PACIENTE,
-                    pac.NR_IDENTIDADE                                   AS RG,
-                    pac.NR_CPF                                          AS CPF,
+                    NVL( pac.NR_IDENTIDADE, '___________')              AS RG,                                    
+                    NVL(pac.NR_CPF , '___________')                     AS CPF,
+                    NVL(pac.NR_CELULAR , '___________')                 AS NR_CELULAR,
                     pac.DS_ENDERECO || ' N° ' || pac.NR_ENDERECO        AS ENDERECO, 
                     cid.NM_CIDADE AS CIDADE,                               
                     cid.CD_UF AS ESTADO,                              
                     pac.NR_CEP AS CEP,
-                    cida.DS_CIDADANIA AS CIDADANIA,                                  
+                    cida.DS_CIDADANIA AS CIDADANIA,
+
+                    atd.DT_ATENDIMENTO                                  AS DATA_ATENDIMENTO,
                     EXTRACT (DAY FROM atd.DT_ATENDIMENTO)               AS DIA_ATD,
                     EXTRACT (MONTH FROM atd.DT_ATENDIMENTO)             AS MES_ATD,
                     EXTRACT (YEAR FROM atd.DT_ATENDIMENTO)              AS ANO_ATD,

@@ -169,6 +169,24 @@
 		@$pdf_cart_term_part_cesareo = $row_pdf_exis_term_part_cesareo['BLOB_ANEXO'];
 		}
 
+	////////////////////////////////////////////////
+	//Verifica se existe pdf termo parto cesareo////
+	//para aquele atendimento///////////////////////
+	////////////////////////////////////////////////
+
+	if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdpdf']) ){
+		$cons_pdf_contrato_internacao ="SELECT *
+					FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
+					WHERE ass.cd_atendimento = $var_cd_atendimento
+					AND ass.TP_DOCUMENTO LIKE 'cont_int'
+				";
+	
+		$result_pdf_exis_contrato_internacao = oci_parse($conn_ora, $cons_pdf_contrato_internacao);
+		@oci_execute($result_pdf_exis_contrato_internacao);
+		@$row_pdf_exis_contrato_internacao = oci_fetch_array($result_pdf_exis_contrato_internacao);
+		@$pdf_cart_contrato_internacao = $row_pdf_exis_contrato_internacao['BLOB_ANEXO'];
+		}
+
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -636,7 +654,6 @@ $(document).ready(function(){
 					alert("Erro");
 				}
 
-
 			});
 			
 		}else if(identificador == 'guia_tiss'){
@@ -683,6 +700,24 @@ $(document).ready(function(){
 
 
 			});
+
+
+				}else if(identificador == 'cont_int'){
+
+		//BUSCANDO INFORMACOES VIA JSON E ADICIONANDO A VARIAVEL J
+
+		$.getJSON('visualizar_Internação_contrato.php?search=',{cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv, ajax: 'true'}, function(j){
+
+			//SE A VARIAVEL J FOR ADICIONADA COM SUCESSO, CONSTROI O HTML NA MA
+			if(j){
+				$("#visualizaModal .modal-body").html(j[0]);            
+			} 
+			else {
+				alert("Erro");
+			}
+
+		});
+
 
 		}else if(identificador == 'carta_golpe'){
 
@@ -752,10 +787,10 @@ $(document).ready(function(){
 			$("#visualizaModalAssinado .modal-body").load('exibi_pdf_faa.php');
 		}
 
-		else if(identificador == 'guia_internacao_assinada'){
-			$("#visualizaModalAssinado .modal-body").load('exibi_pdf.php');
+		else if(identificador == 'contrato_internacao_assinada'){
+			$("#visualizaModalAssinado .modal-body").load('exibi_pdf_Internação_contrato.php');
 		}
-
+	
 		else if(identificador == 'carta_golpe_assinada'){
 			$("#visualizaModalAssinado .modal-body").load('exibi_pdf_Internação_carta_golpe.php');
 		}
@@ -820,7 +855,8 @@ $(document).ready(function(){
 				error: function (msg){
 					alert("Erro");
 				}*/				
-			});		
+			});
+
 		}
 
 		
@@ -895,14 +931,14 @@ $(document).ready(function(){
 		//GERA DOCUMENTOS PARA INTERNAÇÃO
 		if(tb_atd == "I"){
 
-			//GERA CARTA GOLPE
+			//GERA CONTRATO INERNAÇÃO
 			if (chkDoc1.checked) {
 					
 					$.ajax({
 						//Configurações
 						type: 'POST',//Método que está sendo utilizado.
 						dataType: 'html',//É o tipo de dado que a página vai retornar.
-						url: 'gerar_documento_pdf.php',//Indica a página que está sendo solicitada.
+						url: 'gerar_documento_Internação_contrato.php',//Indica a página que está sendo solicitada.
 						//função que vai ser executada assim que a requisição for enviada
 						data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
 						//função que será executada quando a solicitação for finalizada.

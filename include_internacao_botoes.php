@@ -49,9 +49,8 @@
 					<!-- GERA GUIAS INTERNAÇÃO -->
 					<?php if($var_tp_atendimento =='I'){?>
 						
-
 						<div style="margin-top: 20px; margin-left: 15px;">
-							<button type="button" class="btn btn-primary" id="escdoc1" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="guia_tiss">
+							<button type="button" class="btn btn-primary" id="escdoc1" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="cont_int">
 							<i class="far fa-eye"></i> Guia Internação
 							</button>
 						</div>
@@ -75,7 +74,7 @@
 
 					<?php } ?>
 
-				<!-- GERA A GUIA INTERNAÇÃO PARA RE-ASSINATURA -->
+				<!-- VISUALIZAR -- GERA A GUIA INTERNAÇÃO PARA RE-ASSINATURA -->
 				<?php }else{ ?>
 					<?php if($var_tp_atendimento =='I'){?>
 
@@ -84,8 +83,8 @@
 						<div class="col-md-12"><h11 id="lbReAssinar" style=" display: none;"><i class="fas fa-redo"></i> Assinar Novamente:</h11></div>
 
 						<div style="margin-top: 20px; margin-left: 15px;">
-							<button type="button" class="btn btn-primary" id="re_escdoc1" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="guia_tiss">
-							<i class="far fa-eye"></i> Guia Internação
+							<button type="button" class="btn btn-primary" id="re_escdoc1" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="cont_int">
+							<i class="far fa-eye"></i> Contrato Internação
 							</button>
 						</div>
 
@@ -134,7 +133,7 @@
 						<!-- APENAS GERA A GUIA TISS SE FOR CONVENIO -->
 						<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105 && $var_tp_atendimento <> 'A' && $var_tp_atendimento <> 'I'){?>
 							<div style="margin-top: 20px; margin-left: 15px; ">
-								<a  style="height: 100%; width: 100% " class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="tiss_pa" data-identificador="guia_tiss_assinado"><i class="fas fa-file-pdf"></i> Guia Tiss</a>
+								<a  style="height: 100%; width: 100% " class="btn btn-primary" data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="tiss_pa" data-identificador="guia_tiss_assinado"><i class="fas fa-file-pdf"></i> Contrato Internação</a>
 							</div>
 						<?php } ?>
 
@@ -164,11 +163,11 @@
 						<?php if($var_tp_atendimento =='I'){?>
 							
 							
-							<?php if(isset($pdf_cart_tiss_int)){ ?>
+							<?php if(isset($pdf_cart_contrato_internacao)){ ?>
 								<!-- GERAR -->
 								<div style="margin-top: 20px; margin-left: 15px;">
-									<button type="button" class="btn btn-primary" id="assinado_escdoc1"  data-toggle="modal" data-target="#visualizaModalAssinado"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="hos_faa" data-identificador="guia_internacao_assinada">
-									<i class="fas fa-file-pdf"></i> Guia Internação
+									<button type="button" class="btn btn-primary" id="assinado_escdoc1"  data-toggle="modal" data-target="#visualizaModalAssinado"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="cont_int" data-identificador="contrato_internacao_assinada">
+									<i class="fas fa-file-pdf"></i> Contrato Internação
 									</button>
 								</div>
 							<?php }else{?>
