@@ -47,9 +47,10 @@
 					<?php } ?>
 
 					<!-- GERA GUIAS INTERNAÇÃO -->
+					<!-- SEM NADA ASSINADO  -->
 					<?php if($var_tp_atendimento =='I'){?>
 						
-						<div style="margin-top: 20px; margin-left: 15px;">
+						<div style="margin-top: 20px; margin-left: 5px;">
 							<button type="button" class="btn btn-primary" id="escdoc1" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="cont_int">
 							<i class="far fa-eye"></i> Contrato Internação
 							</button>
@@ -63,13 +64,23 @@
 
 						<div style="margin-top: 20px; margin-left: 5px;">
 							<button type="button" class="btn btn-primary" id="escdoc3" style=" display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="term_cirurgia">
-							<i class="far fa-eye"></i> Termo de Responsabilidade Cirurgia
+							<i class="far fa-eye"></i> Termo - Cirurgia
 							</button>
 						</div>
 
-						<div style="margin-top: 20px; margin-left: 15px;">
+						<div style="margin-top: 20px; margin-left: 5px;">
 							<button type="button" class="btn btn-primary" id="escdoc4" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="term_part_cesareo">
-							<i class="far fa-eye"></i> Termo de Responsabilidade Parto Cesáreo
+							<i class="far fa-eye"></i> Termo - Parto Cesáreo
+						</div>
+
+						<div style="margin-top: 20px; margin-left: 5px;">
+							<button type="button" class="btn btn-primary" id="escdoc5" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="term_sedacao">
+							<i class="far fa-eye"></i> Termo - Sedação
+						</div>
+
+						<div style="margin-top: 20px; margin-left: 5px;">
+							<button type="button" class="btn btn-primary" id="escdoc6" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="term_laqueadura">
+							<i class="far fa-eye"></i> Termo - Laqueadura
 						</div>
 
 					<?php } ?>
@@ -203,8 +214,34 @@
 							<?php if(isset($pdf_cart_term_part_cesareo)){ ?>
 								<!-- GERAR -->
 								<div style="margin-top: 20px; margin-left: 5px;">
-									<button type="button" class="btn btn-primary" id="assinado_escdoc4"  data-toggle="modal" data-target="#visualizaModalAssinado"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="term_part_cesareo" data-identificador="termo_parto_cesareo">
+									<button type="button" class="btn btn-primary" id="assinado_escdoc4"  data-toggle="modal" data-target="#visualizaModalAssinado"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="term_part_cesareo" data-identificador="termo_parto_cesareo_assinada">
 									<i class="fas fa-file-pdf"></i> Termo de Responsabilidade Parto Cesáreo
+									</button>
+								</div>
+
+							<?php }else{?>
+								<!-- NÃO GERAR -->
+							<?php } ?>
+
+
+							<?php if(isset($pdf_termo_sedacao)){ ?>
+								<!-- GERAR -->
+								<div style="margin-top: 20px; margin-left: 5px;">
+									<button type="button" class="btn btn-primary" id="assinado_escdoc5"  data-toggle="modal" data-target="#visualizaModalAssinado"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="term_sedacao" data-identificador="term_sedacao_assinado">
+									<i class="fas fa-file-pdf"></i> Termo - Sedação
+									</button>
+								</div>
+
+							<?php }else{?>
+								<!-- NÃO GERAR -->
+							<?php } ?>
+
+							 
+							<?php if(isset($pdf_termo_laqueadura)){ ?>
+								<!-- GERAR -->
+								<div style="margin-top: 20px; margin-left: 5px;">
+									<button type="button" class="btn btn-primary" id="assinado_escdoc6"  data-toggle="modal" data-target="#visualizaModalAssinado"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="term_laqueadura" data-identificador="term_laqueadura_assinado">
+									<i class="fas fa-file-pdf"></i> Termo - Laqueadura
 									</button>
 								</div>
 

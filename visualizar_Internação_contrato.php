@@ -256,14 +256,14 @@ h2{
                         </div>
 
                         <div class='col-hss-4' style='height: 60px; margin: 5px; border-style: none !important; border-bottom: 1px solid black !important;'>
-                            <h1><p>Testemunhas:: </h1>
+                            <h1><p>Testemunhas: </h1>
                         </div>
 
                         <div class='col-hss-1' style='height: 60px; margin: 1px; '>
                         </div>
 
                         <div class='col-hss-4' style='height: 60px; margin: 5px; border-style: none !important; border-bottom: 1px solid black !important;'>
-                            <h1><p>Testemunhas:: </h1>
+                            <h1><p>Testemunhas: </h1>
                         </div>
 
                        

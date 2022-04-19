@@ -203,6 +203,7 @@ p{
                     <p>E, por estarem assim justos e contratados, assinam o presente instrumento Particular de Contrato de Assistência Médica Hospitalar, em duas vias de igual teor e forma, na presença de duas testemunhas, para que produza seus jurídicos e legais efeitos. 
                     
                     <p>RESPONSAVEL: <b>" . @$dados_pac_resp['NOME_RESPONSAVEL']. "</b>        RG: <b>" . @$dados_pac_resp['RG_RESPONSAVEL']. "</b>
+                    
                     <br>
                     <br>
                     <br>

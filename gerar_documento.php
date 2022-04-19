@@ -188,6 +188,43 @@
 		}
 
 
+	////////////////////////////////////////////////
+	//Verifica se existe pdf termo sedação//////////
+	//para aquele atendimento///////////////////////
+	////////////////////////////////////////////////
+
+	if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdpdf']) ){
+		$cons_pdf_termo_sedacao ="SELECT *
+					FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
+					WHERE ass.cd_atendimento = $var_cd_atendimento
+					AND ass.TP_DOCUMENTO LIKE 'term_sedacao'
+				";
+	
+		$result_pdf_exis_termo_sedacao = oci_parse($conn_ora, $cons_pdf_termo_sedacao);
+		@oci_execute($result_pdf_exis_termo_sedacao);
+		@$row_pdf_exis_termo_sedacao = oci_fetch_array($result_pdf_exis_termo_sedacao);
+		@$pdf_termo_sedacao = $row_pdf_exis_termo_sedacao['BLOB_ANEXO'];
+		}
+
+
+	////////////////////////////////////////////////
+	//Verifica se existe pdf termo laqueadura///////
+	//para aquele atendimento///////////////////////
+	////////////////////////////////////////////////
+
+	if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdpdf']) ){
+		$cons_pdf_termo_laqueadura ="SELECT *
+					FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
+					WHERE ass.cd_atendimento = $var_cd_atendimento
+					AND ass.TP_DOCUMENTO LIKE 'term_laqueadura'
+				";
+	
+		$result_pdf_exis_termo_laqueadura = oci_parse($conn_ora, $cons_pdf_termo_laqueadura);
+		@oci_execute($result_pdf_exis_termo_laqueadura);
+		@$row_pdf_exis_termo_laqueadura = oci_fetch_array($result_pdf_exis_termo_laqueadura);
+		@$pdf_termo_laqueadura = $row_pdf_exis_termo_laqueadura['BLOB_ANEXO'];
+		}
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	
@@ -767,6 +804,38 @@ $(document).ready(function(){
 			
 		});
 
+		}else if(identificador == 'term_sedacao'){
+
+		//BUSCANDO INFORMACOES VIA JSON E ADICIONANDO A VARIAVEL J
+
+		$.getJSON('visualizar_Internação_sedação.php?search=',{cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv, ajax: 'true'}, function(j){
+
+			//SE A VARIAVEL J FOR ADICIONADA COM SUCESSO, CONSTROI O HTML NA MA
+			if(j){
+				$("#visualizaModal .modal-body").html(j[0]);            
+			} 
+			else {
+				alert("Erro");
+			}
+			
+		});
+
+		}else if(identificador == 'term_laqueadura'){
+
+		//BUSCANDO INFORMACOES VIA JSON E ADICIONANDO A VARIAVEL J
+
+		$.getJSON('visualizar_Internação_laqueadura.php?search=',{cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv, ajax: 'true'}, function(j){
+
+			//SE A VARIAVEL J FOR ADICIONADA COM SUCESSO, CONSTROI O HTML NA MA
+			if(j){
+				$("#visualizaModal .modal-body").html(j[0]);            
+			} 
+			else {
+				alert("Erro");
+			}
+			
+		});
+
 		
 
 		//ASSINADOS
@@ -799,9 +868,18 @@ $(document).ready(function(){
 			$("#visualizaModalAssinado .modal-body").load('exibi_pdf_Internação_termo_cirurgia.php');
 		}
 
-		else if(identificador == 'termo_parto_cesareo'){
+		else if(identificador == 'termo_parto_cesareo_assinada'){
 			$("#visualizaModalAssinado .modal-body").load('exibi_pdf_Internação_termo_parto_cesareo.php');
 		}
+
+		else if(identificador == 'term_sedacao_assinado'){
+			$("#visualizaModalAssinado .modal-body").load('exibi_pdf_Internação_sedação.php');
+		}
+		
+		else if(identificador == 'term_laqueadura_assinado'){
+			$("#visualizaModalAssinado .modal-body").load('exibi_pdf_Internação_laqueadura.php');
+		}
+
 
 
      });
@@ -1013,6 +1091,46 @@ $(document).ready(function(){
 						}*/
 					});
 			} else {}
+
+			//GERA TERMO SEDAÇÃO
+			if (chkDoc5.checked) {
+					$.ajax({
+						//Configurações
+						type: 'POST',//Método que está sendo utilizado.
+						dataType: 'html',//É o tipo de dado que a página vai retornar.
+						url: 'gerar_documento_Internação_sedação.php',//Indica a página que está sendo solicitada.
+						//função que vai ser executada assim que a requisição for enviada
+						data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
+						//função que será executada quando a solicitação for finalizada.
+						/*success: function (msg){
+									console.log("Sucesso");
+								},
+
+						error: function (msg){
+							console.log("Erro");
+						}*/
+					});
+			} else {}
+
+			//GERA TERMO LAQUEADURA
+			if (chkDoc6.checked) {
+					$.ajax({
+						//Configurações
+						type: 'POST',//Método que está sendo utilizado.
+						dataType: 'html',//É o tipo de dado que a página vai retornar.
+						url: 'gerar_documento_Internação_laqueadura.php',//Indica a página que está sendo solicitada.
+						//função que vai ser executada assim que a requisição for enviada
+						data: {cd_atendimento: cd_atendimento,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
+						//função que será executada quando a solicitação for finalizada.
+						/*success: function (msg){
+									console.log("Sucesso");
+								},
+
+						error: function (msg){
+							console.log("Erro");
+						}*/
+					});
+			} else {}
 		
 		}	
 
@@ -1040,12 +1158,16 @@ $(document).ready(function(){
 				var chkDoc2 = document.getElementById("chkDoc2");
 				var chkDoc3 = document.getElementById("chkDoc3");
 				var chkDoc4 = document.getElementById("chkDoc4");
+				var chkDoc5 = document.getElementById("chkDoc5");
+				var chkDoc6 = document.getElementById("chkDoc6");
 
 				//IDENTIFICA OS LABELS
 				var lbDoc1 = document.getElementById("lbDoc1");
 				var lbDoc2 = document.getElementById("lbDoc2");
 				var lbDoc3 = document.getElementById("lbDoc3");
 				var lbDoc4 = document.getElementById("lbDoc4");
+				var lbDoc5 = document.getElementById("lbDoc5");
+				var lbDoc6 = document.getElementById("lbDoc6");
 				var lbAssinarNovamente = document.getElementById("lbAssinarNovamente");
 				var lbReAssinar = document.getElementById("lbReAssinar");
 				var lbDocsRestantes = document.getElementById("lbDocsRestantes");
@@ -1066,7 +1188,7 @@ $(document).ready(function(){
 			//FUNCAO AO SELECIONAR AS CHECKBOX
 			function funcao_re_gerar(){
 				//alert('oi');
-				if (chkDoc1.checked == false && chkDoc2.checked == false && chkDoc3.checked == false && chkDoc4.checked == false){
+				if (chkDoc1.checked == false && chkDoc2.checked == false && chkDoc3.checked == false && chkDoc4.checked == false && chkDoc5.checked == false && chkDoc6.checked == false){
 					alert('Erro, Por favor selecione um documento');
 					location.reload();
 				
@@ -1080,12 +1202,16 @@ $(document).ready(function(){
 					chkDoc2.style.display = 'none';
 					chkDoc3.style.display = 'none';
 					chkDoc4.style.display = 'none';
+					chkDoc5.style.display = 'none';
+					chkDoc6.style.display = 'none';
 
 					//Ocultar label
 					lbDoc1.style.display = 'none';
 					lbDoc2.style.display = 'none';
 					lbDoc3.style.display = 'none';
 					lbDoc4.style.display = 'none';
+					lbDoc5.style.display = 'none';
+					lbDoc6.style.display = 'none';
 					lbAssinarNovamente.style.display = 'none';
 					lbDocsRestantes.style.display = 'none';
 
@@ -1119,7 +1245,19 @@ $(document).ready(function(){
 						re_escdoc4.style.display = 'none';
 					}
 
-					if (chkDoc1.checked || chkDoc2.checked || chkDoc3.checked || chkDoc4.checked){
+					if (chkDoc5.checked) {
+						re_escdoc4.style.display = 'inline';
+					} else {
+						re_escdoc4.style.display = 'none';
+					}
+
+					if (chkDoc6.checked) {
+						re_escdoc4.style.display = 'inline';
+					} else {
+						re_escdoc4.style.display = 'none';
+					}
+
+					if (chkDoc1.checked || chkDoc2.checked || chkDoc3.checked || chkDoc4.checked || chkDoc5.checked || chkDoc6.checked){
 						btnReAssinar.style.display = 'inline';
 						lbReAssinar.style.display = 'inline';
 					} else {
@@ -1132,7 +1270,7 @@ $(document).ready(function(){
 			//FUNCAO AO SELECIONAR AS CHECKBOX
 			function funcao_ocultar(){
 				
-				if (chkDoc1.checked == false && chkDoc2.checked == false && chkDoc3.checked == false && chkDoc4.checked == false){
+				if (chkDoc1.checked == false && chkDoc2.checked == false && chkDoc3.checked == false && chkDoc4.checked == false && chkDoc5.checked == false && chkDoc6.checked == false){
 					alert('Erro, Por favor selecione um documento');
 					location.reload();
 				
@@ -1148,6 +1286,8 @@ $(document).ready(function(){
 					chkDoc2.style.display = 'none';
 					chkDoc3.style.display = 'none';
 					chkDoc4.style.display = 'none';
+					chkDoc5.style.display = 'none';
+					chkDoc6.style.display = 'none';
 
 
 					//Ocultar label
@@ -1155,6 +1295,9 @@ $(document).ready(function(){
 					lbDoc2.style.display = 'none';
 					lbDoc3.style.display = 'none';
 					lbDoc4.style.display = 'none';
+					lbDoc5.style.display = 'none';
+					lbDoc6.style.display = 'none';
+
 					lbAssinarNovamente.style.display = 'none';
 					
 					//Ocultar Botoes
@@ -1183,6 +1326,18 @@ $(document).ready(function(){
 						escdoc4.style.display = 'inline';
 					} else {
 						escdoc4.style.display = 'none';
+					}
+
+					if (chkDoc5.checked) {
+						escdoc5.style.display = 'inline';
+					} else {
+						escdoc5.style.display = 'none';
+					}
+
+					if (chkDoc6.checked) {
+						escdoc6.style.display = 'inline';
+					} else {
+						escdoc6.style.display = 'none';
 					}
 				}
 			}
