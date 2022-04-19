@@ -114,7 +114,21 @@
 						<div style="margin-top: 20px; margin-left: 15px;">
 							<button type="button" class="btn btn-primary" id="re_escdoc4" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="term_part_cesareo">
 							<i class="far fa-eye"></i> Termo de Responsabilidade Parto Cesáreo
+							</button>
 						</div>
+
+						<div style="margin-top: 20px; margin-left: 15px;">
+							<button type="button" class="btn btn-primary" id="re_escdoc5" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="term_sedacao">
+							<i class="far fa-eye"></i> Termo - Sedação
+							</button>
+						</div>
+
+						<div style="margin-top: 20px; margin-left: 15px;">
+							<button type="button" class="btn btn-primary" id="re_escdoc6" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="term_laqueadura">
+							<i class="far fa-eye"></i> Termo - Laqueadura
+							</button>
+						</div>
+
 					<?php } ?>
 						
 					<!-- BOTÃO PARA REASSINAR -->

@@ -78,7 +78,7 @@
 
 								<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 								<!--- TERMO DE RESPONSABILIDADE PARTO CESAREO  -->
-								<?php if(isset($pdf_cart_term_part_cesareo)){ ?>
+								<?php if(isset($pdf_termo_sedacao)){ ?>
 									<!-- NÃO MOSTRAR CHECKBOX -->
 									<div class="form-check form-check-inline" >
 										<input type="checkbox" id="chkDoc5" style="display: none;">
@@ -94,7 +94,7 @@
 
 								<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 								<!--- TERMO DE RESPONSABILIDADE PARTO CESAREO  -->
-								<?php if(isset($pdf_cart_term_part_cesareo)){ ?>
+								<?php if(isset($pdf_termo_laqueadura)){ ?>
 									<!-- NÃO MOSTRAR CHECKBOX -->
 									<div class="form-check form-check-inline" >
 										<input type="checkbox" id="chkDoc6" style="display: none;">

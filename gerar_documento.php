@@ -82,7 +82,7 @@
 							res.TOTAL - res.ASSINADO AS RESTANTE 
 					FROM(
 					SELECT COUNT(CD_ATENDIMENTO) AS ASSINADO,
-							4 as TOTAL
+							6 as TOTAL
 						FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
 					WHERE ass.cd_atendimento = $var_cd_atendimento
 					) res
@@ -1189,7 +1189,7 @@ $(document).ready(function(){
 			function funcao_re_gerar(){
 				//alert('oi');
 				if (chkDoc1.checked == false && chkDoc2.checked == false && chkDoc3.checked == false && chkDoc4.checked == false && chkDoc5.checked == false && chkDoc6.checked == false){
-					alert('Erro, Por favor selecione um documento');
+					alert('Por favor selecione um documento');
 					location.reload();
 				
 				} else {
@@ -1271,7 +1271,7 @@ $(document).ready(function(){
 			function funcao_ocultar(){
 				
 				if (chkDoc1.checked == false && chkDoc2.checked == false && chkDoc3.checked == false && chkDoc4.checked == false && chkDoc5.checked == false && chkDoc6.checked == false){
-					alert('Erro, Por favor selecione um documento');
+					alert('Por favor selecione um documento');
 					location.reload();
 				
 				} else {
