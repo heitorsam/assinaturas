@@ -174,12 +174,12 @@ h2{
                         
                     <p><h1><b>Identificação do paciente:</b></h1>
 
-                    <p><h1>Nome: ______________________________________________________________________________
-                    Portador(a) da Cédula de Identidade RG nº ______________________________,
-                    Inscrito(a) no CPF/MF sob nº __________________________________, residente na 
-                    _____________________________________________________________________________________
-                    Cidade___________________________________ Estado______, CEP : ______________, 
-                    Telefone:______________.</h1>
+                    <p><h1>Nome: <b>".@$dados_result_term_cirurgia['PACIENTE']."</b>
+                    Portador(a) da Cédula de Identidade RG nº <b>".@$dados_result_term_cirurgia['RG']."</b>,
+                    Inscrito(a) no CPF/MF sob nº <b>".@$dados_result_term_cirurgia['CPF']."</b>, residente na 
+                    <b>".@$dados_result_term_cirurgia['ENDERECO']."</b>
+                    Cidade <b>".@$dados_result_term_cirurgia['CIDADE']."</b> Estado <b>".@$dados_result_term_cirurgia['ESTADO']."</b>, CEP : <b>".@$dados_result_term_cirurgia['CEP']."</b>, 
+                    Telefone:<b>".@$dados_result_term_cirurgia['NR_CELULAR']."</b>.</h1>
 
                     <p><h1><b>Identificação do Representante Legal</b></h1>
 
@@ -239,7 +239,7 @@ h2{
 
                     <p><h1>Reservo-me expressamente o direito de revogar a qualquer momento meu consentimento antes que o procedimento objeto deste documento se realize. </h1>
 
-                    <p><h1>São José dos Campos, ______ de ________________ de ____________.</h1>
+                    <p><h1>São José dos Campos, <b> ".@$dados_result_term_cirurgia['DIA_ATD']." </b>de<b> ".@$dados_result_term_cirurgia['MES_EXTENSO']." </b>de<b> ".@$dados_result_term_cirurgia['ANO_ATD']." </b>.</h1>
 
                     <div class='row'>
                         <div class='col-hss-1' style='height: 50px; margin: 1px; '>

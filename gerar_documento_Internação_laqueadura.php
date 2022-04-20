@@ -168,12 +168,12 @@ h2{
                      
                  <h1><b>Identificação do paciente:</b></h1>
 
-                 <h1>Nome: ______________________________________________________________________________
-                 Portador(a) da Cédula de Identidade RG nº ______________________________,
-                 Inscrito(a) no CPF/MF sob nº __________________________________, residente na 
-                 _____________________________________________________________________________________
-                 Cidade___________________________________ Estado______, CEP : ______________, 
-                 Telefone:______________.</h1>
+                 <h1>Nome: <b>".@$dados_result_term_cirurgia['PACIENTE']."</b>
+                 Portador(a) da Cédula de Identidade RG nº <b>".@$dados_result_term_cirurgia['RG']."</b>,
+                 Inscrito(a) no CPF/MF sob nº <b>".@$dados_result_term_cirurgia['CPF']."</b>, residente na 
+                 <b>".@$dados_result_term_cirurgia['ENDERECO']."</b>
+                 Cidade <b>".@$dados_result_term_cirurgia['CIDADE']."</b> Estado <b>".@$dados_result_term_cirurgia['ESTADO']."</b>, CEP : <b>".@$dados_result_term_cirurgia['CEP']."</b>, 
+                 Telefone:<b>".@$dados_result_term_cirurgia['NR_CELULAR']."</b>.</h1>
 
                  <h1><b>Identificação do Representante Legal</b></h1>
 
@@ -254,13 +254,14 @@ h2{
              <h1>Assinatura Médico: </h1>
          </div>
 
-         <div class='col-hss-3' style='height: 50px; margin: 5px; border-style: none !important; border-bottom: 1px solid black !important;'>
+         <div class='col-hss-3' style='height: 50px; margin: 1px; '>
              <h1>Assinatura da Paciente: </h1>
+             <div class='col-hss-8' style='height: 35px; border: none !important; border-bottom: solid 1px black !important; '>
+                <img src='$img' width='100%' height='100%'  style:'float: right;'>
+             </div>
          </div>
 
-         <div class='col-hss-3' style='height: 50px; margin: 5px; border-style: none !important; border-bottom: 1px solid black !important;'>
-             <h1>Assinatura Representante Legal: </h1>
-         </div>
+      
     </div>
 
      <br>

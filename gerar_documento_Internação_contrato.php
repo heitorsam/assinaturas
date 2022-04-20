@@ -236,12 +236,16 @@ h2{
                         <div class='col-hss-1' style='height: 50px; margin: 1px; '>
                         </div>
 
-                        <div class='col-hss-4' style='height: 50px; margin: 5px; border-style: none !important; border-bottom: 1px solid black !important;'>
+                       
+                        
+                        <div class='col-hss-4' style='height: 50px; border: none !important; border-bottom: solid 1px black !important; '>
                             <h1>Assinatura do Paciente:</h1>
+                            <img src='$img' width='100%' height='100%'  style:'float: right;'>
                         </div>
-
+                    
                         <div class='col-hss-1' style='height: 50px; margin: 1px; '>
                         </div>
+
 
                         <div class='col-hss-4' style='height: 50px; margin: 5px; border-style: none !important; border-bottom: 1px solid black !important;'>
                             <h1>Assinatura do Responsável: </h1>

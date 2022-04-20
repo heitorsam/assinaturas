@@ -21,7 +21,9 @@
 
     $term_cirurgia = "SELECT
                     pac.CD_PACIENTE                                     AS PRONTUARIO,
+                    atd.CD_ATENDIMENTO                                  AS ATENDIMENTO,
                     pac.NM_PACIENTE                                     AS PACIENTE,
+                    TO_CHAR(pac.DT_NASCIMENTO,'DD/MM/YYYY')             AS DT_NASCIMENTO,
                     NVL( pac.NR_IDENTIDADE, '___________')              AS RG,                                    
                     NVL(pac.NR_CPF , '___________')                     AS CPF,
                     NVL(pac.NR_CELULAR , '___________')                 AS NR_CELULAR,
@@ -30,8 +32,8 @@
                     cid.CD_UF AS ESTADO,                              
                     pac.NR_CEP AS CEP,
                     cida.DS_CIDADANIA AS CIDADANIA,
-
-                    atd.DT_ATENDIMENTO                                  AS DATA_ATENDIMENTO,
+                    
+                    TO_CHAR(atd.DT_ATENDIMENTO,'DD/MM/YYYY')            AS DATA_ATENDIMENTO,
                     EXTRACT (DAY FROM atd.DT_ATENDIMENTO)               AS DIA_ATD,
                     EXTRACT (MONTH FROM atd.DT_ATENDIMENTO)             AS MES_ATD,
                     EXTRACT (YEAR FROM atd.DT_ATENDIMENTO)              AS ANO_ATD,

@@ -168,7 +168,7 @@ h2{
 
              <div class='col-hss-10' style='height: 180px; margin: 1px; '>
                      
-                 <h1>Paciente:__________________________________ Data de nascimento:____/____/______ Data de Internação:____/____/______ Atendimento nº: _________________ Leito : ___________</h1>
+                <h1>Paciente:<b>".@$dados_result_term_cirurgia['PACIENTE']."</b> Data de nascimento: <b>".@$dados_result_term_cirurgia['DT_NASCIMENTO']."</b> Data de Internação:<b>".@$dados_result_term_cirurgia['DATA_ATENDIMENTO']."</b> Atendimento nº: <b>".@$dados_result_term_cirurgia['ATENDIMENTO']."</b> Leito : ___________</h1>
 
                  <h1>Autorizo o(a)  Dr(a)._________________________________________________________________ credenciado(a) pela Santa Casa de São José dos Campos, a realizar na minha pessoa a técnica anestésica adequada à cirurgia a que serei submetido(a).</h1>
 
@@ -202,14 +202,19 @@ h2{
              </div>
 
              <div class='col-hss-4' style='height: 50px; margin: 5px; border-style: none !important; border-bottom: 1px solid black !important;'>
-                 <h1>Paciente: </h1>
+                 <h1>Paciente:</h1><br>
+                 <h1><b>".@$dados_result_term_cirurgia['PACIENTE']."</b></h1>
+                 
              </div>
 
              <div class='col-hss-1' style='height: 50px; margin: 1px; '>
              </div>
 
-             <div class='col-hss-4' style='height: 50px; margin: 5px; border-style: none !important; border-bottom: 1px solid black !important;'>
+             <div class='col-hss-4' style='height: 50px; margin: 1px; '>
                  <h1>Assinatura do Paciente: </h1>
+                <div class='col-hss-8' style='height: 35px; border: none !important; border-bottom: solid 1px black !important; '>
+                    <img src='$img' width='100%' height='100%'  style:'float: right;'>
+                </div>
              </div>
 
              <div class='col-hss-1' style='height: 50px; margin: 1px; '>
@@ -295,20 +300,25 @@ h2{
 
          <!--ASSINATURAS MEDICO-->
          <div class='row'>
-             <div class='col-hss-1' style='height: 250px; margin: 1px; '>
+             <div class='col-hss-1' style='height: 50px; margin: 1px; '>
              </div>
 
-             <div class='col-hss-4' style='height: 250px; margin: 5px; border-style: none !important; border-bottom: 1px solid black !important;'>
+             <div class='col-hss-4' style='height: 50px; margin: 5px; border-style: none !important; border-bottom: 1px solid black !important;'>
                  <h1>NOME LEGÍVEL e/ou CARIMBO: </h1>
              </div>
 
              
-             <div class='col-hss-4' style='height: 250px; margin: 5px; border-style: none !important; border-bottom: 1px solid black !important;'>
+             <div class='col-hss-4' style='height: 50px; margin: 5px; border-style: none !important; border-bottom: 1px solid black !important;'>
                  <h1>Assinatura: </h1>
              </div>
 
-             <div class='col-hss-2' style='height: 250px; margin: 5px; border-style: none !important; border-bottom: 1px solid black !important;'>
+             <div class='col-hss-2' style='height: 50px; margin: 5px; border-style: none !important; border-bottom: 1px solid black !important;'>
                  <h1>CRM: </h1>
+             </div>
+         </div>
+
+         <div class='row'>
+             <div class='col-hss-12' style='height: 190px; margin: 1px; '>
              </div>
          </div>
 

@@ -172,7 +172,7 @@ h2{
 
                 <div class='col-hss-10' style='height: 320px; margin: 1px; '>
                         
-                    <p><h1>Paciente:__________________________________ Data de nascimento:____/____/______ Data de Internação:____/____/______ Atendimento nº: _________________ Leito : ___________</h1>
+                    <p><h1>Paciente:<b>".@$dados_result_term_cirurgia['PACIENTE']."</b> Data de nascimento: <b>".@$dados_result_term_cirurgia['DT_NASCIMENTO']."</b> Data de Internação:<b>".@$dados_result_term_cirurgia['DATA_ATENDIMENTO']."</b> Atendimento nº: <b>".@$dados_result_term_cirurgia['ATENDIMENTO']."</b> Leito : ___________</h1>
 
                     <p><h1>Autorizo o(a)  Dr(a)._________________________________________________________________ credenciado(a) pela Santa Casa de São José dos Campos, a realizar na minha pessoa a técnica anestésica adequada à cirurgia a que serei submetido(a).</h1>
 

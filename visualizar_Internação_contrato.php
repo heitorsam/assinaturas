@@ -163,9 +163,9 @@ h2{
 
                         <div class='col-hss-10' style='height: 1250px; margin: 1px; '>
                                 
-                        <p><h1>Paciente:<b> ".@$dados_result_term_cirurgia['PACIENTE']." </b>Prontuário:<b> ".@$dados_result_term_cirurgia['PRONTUARIO']." </b></h1>
+                        <p><h1>Paciente:<b> ".@$dados_result_term_cirurgia['PACIENTE']."   </b>Prontuário:<b> ".@$dados_result_term_cirurgia['PRONTUARIO']." </b></h1>
 
-                        <p><h1>Data da Internação:<b> ".@$dados_result_term_cirurgia['DATA_ATENDIMENTO']." </b> Leito: __________</h1>
+                        <p><h1>Data da Internação: ".@$dados_result_term_cirurgia['DIA_ATD']." de ".@$dados_result_term_cirurgia['MES_EXTENSO']." de ".@$dados_result_term_cirurgia['ANO_ATD']." </b> Leito: __________</h1>
 
                         <p><h1>Pelo presente instrumento e na melhor forma de direito, eu _______________________________, portador (a) da Cédula de Identidade R. G. nº ______________________ devidamente inscrito (a) no CPF/MF sob o nº______________________, telefone (___) ______________, residente e domiciliado (a) na _______________________________________________________________________________________, assumo a total responsabilidade, na qualidade de devedor solidário e/ou principal pelas despesas de serviços, médicos e hospitalares, medicamentos, materiais e exames laboratoriais ou imagens, inclusive pelos serviços, materiais e medicamentos fornecidos por terceiros para o (a) paciente <b> ".@$dados_result_term_cirurgia['PACIENTE']." </b>, portador (a) da Cédula de Identidade RG nº <b> ".@$dados_result_term_cirurgia['RG']." </b> devidamente inscrito no CPF/MF sob o nº <b> ".@$dados_result_term_cirurgia['CPF']." </b> residente e domiciliado (a) na <b> ".@$dados_result_term_cirurgia['ENDERECO']." </b>, telefone <b> ".@$dados_result_term_cirurgia['NR_CELULAR']." </b>. Internado (a) na data <b> ".@$dados_result_term_cirurgia['DATA_ATENDIMENTO']." </b>, por determinação do (a) Dr. (a) ___________________________ devidamente inscrito (a) no CRM sob o nº ___________.</h1>
 

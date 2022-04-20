@@ -164,7 +164,7 @@ h2{
                      <div class='col-hss-10' style='height: 810px; margin: 1px; border-style: none !important;'>
                         
                             <p>Por este termo de consentimento livre e informado,
-                            <p><h1>Nome: <b>".@$dados_result_term_cirurgia['PACIENTE']."</b>, Portador (a) da Cédula de Identidade RG nº <b>".@$dados_result_term_cirurgia['RG']."</b>, Inscrito (a) no CPF/MF sob nº <b>".@$dados_result_term_cirurgia['CPF']."</b>, residente na <b>".@$dados_result_term_cirurgia['ENDERECO']."</b>, Cidade <b>".@$dados_result_term_cirurgia['CIDADE'].",</b> Estado <b>".@$dados_result_term_cirurgia['ESTADO']."</b>, CEP: <b>".@$dados_result_term_cirurgia['CEP']."</b>.
+                            <p><h1>Nome: <b>".@$dados_result_term_cirurgia['PACIENTE']."</b>, Portador (a) da Cédula de Identidade RG nº <b>".@$dados_result_term_cirurgia['RG']."</b>, Inscrito (a) no CPF/MF sob nº <b>".@$dados_result_term_cirurgia['CPF']."</b>, residente na <b>".@$dados_result_term_cirurgia['ENDERECO']."</b>, Cidade <b>".@$dados_result_term_cirurgia['CIDADE'].",</b> Estado <b>".@$dados_result_term_cirurgia['ESTADO']."</b>, CEP: <b>".@$dados_result_term_cirurgia['CEP']."</b>.
 
 
 

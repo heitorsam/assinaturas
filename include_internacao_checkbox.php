@@ -3,7 +3,50 @@
 			<?php if(@$var_tp_atendimento == 'I'){?>
 			<form onsubmit="funcao_re_gerar()" method="post">
 								<br><br>
-
+								<style>
+									.alinhamneto_Contrato{
+										border: solid 0px black !important; 
+										height: 40px;  
+										width: 170px;
+										padding: 1px; 
+										margin: 1px;
+									}
+									.alinhamneto_Golpe{
+										border: solid 0px black !important; 
+										height: 40px;  
+										width: 110px;
+										padding: 1px; 
+										margin: 1px;
+									}
+									.alinhamneto_Cirurgia{
+										border: solid 0px black !important; 
+										height: 40px;  
+										width: 150px;
+										padding: 1px; 
+										margin: 1px;
+									}
+									.alinhamneto_Sedacao{
+										border: solid 0px black !important; 
+										height: 40px;  
+										width: 150px;
+										padding: 1px; 
+										margin: 1px;
+									}
+									.alinhamneto_Laqueadura{
+										border: solid 0px black !important; 
+										height: 40px;  
+										width: 170px;
+										padding: 1px; 
+										margin: 1px;
+									}
+									.alinhamneto_Parto{
+										border: solid 0px black !important; 
+										height: 40px;  
+										width: 180px;
+										padding: 1px; 
+										margin: 1px;
+									}
+								</style>
 								<h11 id="lbAssinarNovamente"><i class="far fa-check-square"></i> Assinar Novamente:</h11><p>
 									<?php if($var_total_pdf == 0){ ?>
 										<label id="lbDocsRestantes">Sem Documentos Restantes</label>
@@ -22,7 +65,7 @@
 
 								<?php }else{?>
 									<!--MOSTRAR CHECKBOX-->
-									<div class="form-check form-check-inline">
+									<div class="form-check form-check-inline alinhamneto_Contrato">
 										<input type="checkbox" id="chkDoc1">
 										<label id="lbDoc1"> Contrato Internação</label></br>
 									</div>
@@ -32,13 +75,13 @@
 								<!--- CARTA GOLPE  -->		
 								<?php if(isset($pdf_cart_golpe_existe)){ ?>
 									<!-- NÃO MOSTRAR CHECKBOX -->
-									<div class="form-check form-check-inline">
+									<div class="form-check form-check-inline ">
 										<input type="checkbox" id="chkDoc2" style="display: none;" >
 										<label id="lbDoc2" style="display: none;"> Carta Golpe</label></br>
 									</div>
 								<?php }else{?>
 									<!--MOSTRAR CHECKBOX-->
-									<div class="form-check form-check-inline">
+									<div class="form-check form-check-inline alinhamneto_Golpe">
 										<input type="checkbox" id="chkDoc2"  >
 										<label id="lbDoc2"> Carta Golpe</label></br>
 									</div>
@@ -50,13 +93,13 @@
 									<!-- NÃO MOSTRAR CHECKBOX -->
 									<div class="form-check form-check-inline">
 										<input type="checkbox" id="chkDoc3" style="display: none;">
-										<label id="lbDoc3" style="display: none;"> Termo de Responsabilidade Cirurgia</label></br>
+										<label id="lbDoc3" style="display: none;"> Termo - Cirurgia</label></br>
 									</div>
 								<?php }else{?>
 									<!--MOSTRAR CHECKBOX-->
-									<div class="form-check form-check-inline">
+									<div class="form-check form-check-inline alinhamneto_Cirurgia ">
 										<input type="checkbox" id="chkDoc3">
-										<label id="lbDoc3"> Termo de Responsabilidade Cirurgia</label></br>
+										<label id="lbDoc3"> Termo - Cirurgia</label></br>
 									</div>
 								<?php } ?>
 
@@ -66,13 +109,13 @@
 									<!-- NÃO MOSTRAR CHECKBOX -->
 									<div class="form-check form-check-inline" >
 										<input type="checkbox" id="chkDoc4" style="display: none;">
-										<label id="lbDoc4" style="display: none;"> Termo de Responsabilidade Parto Cesáreo</label></br>
+										<label id="lbDoc4" style="display: none;"> Termo - Parto Cesáreo</label></br>
 									</div>
 								<?php }else{?>
 									<!--MOSTRAR CHECKBOX-->
-									<div class="form-check form-check-inline">
+									<div class="form-check form-check-inline alinhamneto_Parto">
 										<input type="checkbox" id="chkDoc4">
-										<label id="lbDoc4"> Termo de Responsabilidade Parto Cesáreo</label></br>
+										<label id="lbDoc4"> Termo - Parto Cesáreo</label></br>
 									</div>
 								<?php } ?>
 
@@ -86,7 +129,7 @@
 									</div>
 								<?php }else{?>
 									<!--MOSTRAR CHECKBOX-->
-									<div class="form-check form-check-inline">
+									<div class="form-check form-check-inline alinhamneto_Sedacao">
 										<input type="checkbox" id="chkDoc5">
 										<label id="lbDoc5"> Termo - Sedação</label></br>
 									</div>
@@ -102,7 +145,7 @@
 									</div>
 								<?php }else{?>
 									<!--MOSTRAR CHECKBOX-->
-									<div class="form-check form-check-inline">
+									<div class="form-check form-check-inline alinhamneto_Laqueadura">
 										<input type="checkbox" id="chkDoc6">
 										<label id="lbDoc6"> Termo - Laqueadura</label></br>
 									</div>
@@ -137,7 +180,7 @@
 								-->	
 
 								<?php if($var_total_pdf <> 0){ ?>
-									<button type="submit" class="btn btn-primary" id="btnChkDoc">Enviar</button>			
+									<button type="submit" class="btn btn-primary" id="btnChkDoc"><i class="fas fa-paper-plane"></i> Enviar</button>			
 								<?php }?>
 						</form>
 			<?php }?>
@@ -150,78 +193,105 @@
 
 					<br><br>
 					<h11 id="lbAssinarNovamente"><i class="far fa-check-square"></i> Selecione os Documentos:</h11><p>
-
-					<div class='row'>
 					
-						<?php if(isset($pdf_cart_contrato_internacao)){ ?>
-							<!-- NÃO MOSTRAR CHECKBOX -->
-						<?php }else{?>
-							<!--MOSTRAR CHECKBOX-->
-							<div class="form-check form-check-inline" style="border: solid 0px black !important; height: 40px;  width: 190px;">
-								<input type="checkbox" id="chkDoc1">
-								<label id="lbDoc1"> Contrato - Internação</label></br>
-							</div>
-						<?php } ?>
 
-						<?php if(isset($pdf_cart_golpe_existe)){ ?>
-							<!-- NÃO MOSTRAR CHECKBOX -->
-						<?php }else{?>
-							<!--MOSTRAR CHECKBOX-->
-							<div class="form-check form-check-inline" style="border: solid 0px black !important; height: 40px;  width: 150px;">
-								<input type="checkbox" id="chkDoc2" >
-								<label id="lbDoc2"> Carta Golpe</label></br>
-							</div>
-						<?php } ?>
+					<style>
+						.alinhamneto_coluna1{
+							border: solid 0px black !important; 
+							height: 40px;  
+							width: 115px;
+							padding: 1px; 
+							margin: 1px;
+						}
 
-						<?php if(isset($pdf_cart_term_cirurgia)){ ?>
-							<!-- NÃO MOSTRAR CHECKBOX -->
-						<?php }else{?>
-							<!--MOSTRAR CHECKBOX-->
-							<div class="form-check form-check-inline"style="border: solid 0px black !important; 40px;  width: 170px;">
-								<input type="checkbox" id="chkDoc3">
-								<label id="lbDoc3"> Termo - Cirurgia</label></br>
-							</div>
-						<?php } ?>
+						.alinhamneto_coluna2{
+							border: solid 0px black !important; 
+							height: 40px;  
+							width: 150px;
+							padding: 1px; 
+							margin: 1px;
+						}
 
-						</br>
+						.alinhamneto_coluna3{
+							border: solid 0px black !important; 
+							height: 40px;  
+							width: 180px;
+							padding: 1px; 
+							margin: 1px;
+						}
 
+						.alinhamneto_assinar{
+							margin-top: 10px; 
+							margin-left: 0px;
+						}
+					</style>
+
+					<div style="border: solid 0px red !important;">
 						
-					</div>
-					<div class='row'>
-
-					<?php if(isset($pdf_cart_term_part_cesareo)){ ?>
-							<!-- NÃO MOSTRAR CHECKBOX -->
-						<?php }else{?>
-							<!--MOSTRAR CHECKBOX-->
-							<div class="form-check form-check-inline"style="border: solid 0px black !important; 40px;  width: 190px;">
-								<input type="checkbox" id="chkDoc4">
-								<label id="lbDoc4"> Termo - Parto Cesáreo</label></br>
-							</div>
-						<?php } ?>
-
-						<?php if(isset($pdf_termo_sedacao)){ ?>
+							<?php if(isset($pdf_cart_contrato_internacao)){ ?>
 								<!-- NÃO MOSTRAR CHECKBOX -->
-						<?php }else{?>
-							<!--MOSTRAR CHECKBOX-->
-							<div class="form-check form-check-inline"style="border: solid 0px black !important; 40px;  width: 150px;">
-								<input type="checkbox" id="chkDoc5">
-								<label id="lbDoc5"> Termo - Sedação</label></br>
-							</div>
-						<?php } ?>
+							<?php }else{?>
+								<!--MOSTRAR CHECKBOX-->
+								<div class="form-check form-check-inline alinhamneto_coluna1" style="">
+									<input type="checkbox" id="chkDoc1" >
+									<label id="lbDoc1"> Contrato</label></br>
+								</div>
+							<?php } ?>
 
-						<?php if(isset($pdf_termo_laqueadura)){ ?>
+							<?php if(isset($pdf_cart_term_cirurgia)){ ?>
 								<!-- NÃO MOSTRAR CHECKBOX -->
-						<?php }else{?>
-							<!--MOSTRAR CHECKBOX-->
-							<div class="form-check form-check-inline"style="border: solid 0px black !important; 40px;  width: 170px;">
-								<input type="checkbox" id="chkDoc6">
-								<label id="lbDoc6"> Termo - Laqueadura</label></br>
-							</div>
-						<?php } ?>
+							<?php }else{?>
+								<!--MOSTRAR CHECKBOX-->
+								<div class="form-check form-check-inline alinhamneto_coluna2"style="">
+									<input type="checkbox" id="chkDoc3" >
+									<label id="lbDoc3"> Termo - Cirurgia</label></br>
+								</div>
+							<?php } ?>
+
+							<?php if(isset($pdf_cart_term_part_cesareo)){ ?>
+									<!-- NÃO MOSTRAR CHECKBOX -->
+								<?php }else{?>
+									<!--MOSTRAR CHECKBOX-->
+									<div class="form-check form-check-inline alinhamneto_coluna3"style="">
+										<input type="checkbox" id="chkDoc4" >
+										<label id="lbDoc4"> Termo - Parto Cesáreo</label></br>
+									</div>
+							<?php } ?>
+
+							</br>
+
+							<?php if(isset($pdf_cart_golpe_existe)){ ?>
+								<!-- NÃO MOSTRAR CHECKBOX -->
+							<?php }else{?>
+								<!--MOSTRAR CHECKBOX-->
+								<div class="form-check form-check-inline alinhamneto_coluna1" style="">
+									<input type="checkbox" id="chkDoc2"  >
+									<label id="lbDoc2"> Carta Golpe</label></br>
+								</div>
+							<?php } ?>
 
 
+								<?php if(isset($pdf_termo_sedacao)){ ?>
+										<!-- NÃO MOSTRAR CHECKBOX -->
+								<?php }else{?>
+									<!--MOSTRAR CHECKBOX-->
+									<div class="form-check form-check-inline alinhamneto_coluna2"style="">
+										<input type="checkbox" id="chkDoc5" >
+										<label id="lbDoc5"> Termo - Sedação</label></br>
+									</div>
+							<?php } ?>
+
+								<?php if(isset($pdf_termo_laqueadura)){ ?>
+										<!-- NÃO MOSTRAR CHECKBOX -->
+								<?php }else{?>
+									<!--MOSTRAR CHECKBOX-->
+									<div class="form-check form-check-inline alinhamneto_coluna3"style="">
+										<input type="checkbox" id="chkDoc6" >
+										<label id="lbDoc6"> Termo - Laqueadura</label></br>
+									</div>
+							<?php } ?>
 					</div>
-					<button type="submit" class="btn btn-primary" id="btnChkDoc"> Enviar</button>
+					<button type="submit" class="btn btn-primary alinhamneto_assinar" id="btnChkDoc"> Enviar</button>
 				
 				</form>
 			<?php } ?>

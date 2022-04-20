@@ -1182,6 +1182,8 @@ $(document).ready(function(){
 				var re_escdoc2 = document.getElementById("re_escdoc2");
 				var re_escdoc3 = document.getElementById("re_escdoc3");
 				var re_escdoc4 = document.getElementById("re_escdoc4");
+				var re_escdoc5 = document.getElementById("re_escdoc5");
+				var re_escdoc6 = document.getElementById("re_escdoc6");
 
 
 				
@@ -1246,15 +1248,15 @@ $(document).ready(function(){
 					}
 
 					if (chkDoc5.checked) {
-						re_escdoc4.style.display = 'inline';
+						re_escdoc5.style.display = 'inline';
 					} else {
-						re_escdoc4.style.display = 'none';
+						re_escdoc5.style.display = 'none';
 					}
 
 					if (chkDoc6.checked) {
-						re_escdoc4.style.display = 'inline';
+						re_escdoc6.style.display = 'inline';
 					} else {
-						re_escdoc4.style.display = 'none';
+						re_escdoc6.style.display = 'none';
 					}
 
 					if (chkDoc1.checked || chkDoc2.checked || chkDoc3.checked || chkDoc4.checked || chkDoc5.checked || chkDoc6.checked){
