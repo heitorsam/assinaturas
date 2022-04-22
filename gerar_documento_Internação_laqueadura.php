@@ -149,8 +149,7 @@ h2{
      <div class='row'>
 
          <div class='col-hss-12' style='height: 30px; margin: 1px; '>
-             <h3><b>TERMO DE RESPONSABILIDADE E CONSENTIMENTO INFORMADO PROCEDIMENTO ANESTÉSICO OU SEDAÇÃO
-             </b></h3>
+             <h3><b>TERMO DE RESPONSABILIDADE E CONSENTIMENTO INFORMADO INTERVENÇÃO DE LAQUEADURA TUBÁREA </b></h3>
          </div>
      </div>
  </div>

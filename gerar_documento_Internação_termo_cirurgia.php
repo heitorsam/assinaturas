@@ -123,6 +123,11 @@ h2{
      text-align: center !important;
      margin-top: 5px; 
  }
+ h4{
+    font-size: 11px;
+    line-height: 15px !important; 
+    text-align: center !important;
+}
  h2-footer{
      font-size: 10px;
      float: center;
@@ -150,7 +155,7 @@ h2{
     
                  <div class='row'>
                         <div class='col-hss-12' style='height: 30px; margin: 1px;'>
-                            <h2><b>TERMO DE RESPONSABILIDADE E CONSENTIMENTO INFORMADO PARA CIRURGIA</b></h2>
+                            <h4><b>TERMO DE RESPONSABILIDADE E CONSENTIMENTO INFORMADO PARA CIRURGIA</b></h4>
                         </div>
                  </div>
              </div>
