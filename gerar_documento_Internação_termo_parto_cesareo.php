@@ -123,6 +123,13 @@ h2{
      text-align: center !important;
      margin-top: 5px; 
  }
+
+ h4{
+    font-size: 10px;
+    line-height: 10px !important; 
+    text-align: center !important;
+}
+
  h2-footer{
      font-size: 10px;
      float: center;
@@ -150,7 +157,7 @@ h2{
     
                  <div class='row'>
                         <div class='col-hss-12' style='height: 30px; margin: 1px;'>
-                            <h2><b>TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO PARTO CESÁREO</b></h2>
+                            <h4><b>TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO PARTO CESÁREO</b></h4>
                         </div>
                  </div>
              </div>

@@ -155,7 +155,8 @@ h2{
     
                  <div class='row'>
                         <div class='col-hss-12' style='height: 30px; margin: 1px;'>
-                            <h4><b>TERMO DE RESPONSABILIDADE E CONSENTIMENTO INFORMADO PARA CIRURGIA</b></h4>
+                            <h4><b>CONTRATO DE PRESTAÇÃO DE SERVIÇOS INTERNAÇÃO
+                            </b></h4>
                         </div>
                  </div>
              </div>

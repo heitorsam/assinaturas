@@ -245,7 +245,8 @@ $documentTemplate .="
                         5 - Validade da Carteira
                         <br>
                         <br>
-                        <h2><B>".@$row_cons_guia_consulta['CP_05']."</B></h2>
+                        <h2><B>".@date("d/m/Y",strtotime($row_cons_guia_consulta['CP_05']))."</B></h2>
+                        
                      </div>
 
                      <div class='col-hss-2' style='height: 30px; margin: 1px;'>

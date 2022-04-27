@@ -25,6 +25,17 @@
 
             <div class="div_br"> </div>
 
+            <!--    -->
+            <div class="div_br"> </div>
+            <div class="div_br"> </div>
+
+            <h11><i class="fa fa-address-book-o" aria-hidden="true"></i> SAME</h11>
+
+            <div class="div_br"> </div>
+
+            <a href="gerar_documento_same.php" class="botao_home" type="submit"><i class="fas fa-file-signature"></i> Gerar Documento</a></td></tr>
+            
+           
             <!--
 
             <h11><i class="fas fa-signature"></i> Checagem Beira Leito</h11>

@@ -155,8 +155,8 @@ h2{
                         <div class='col-hss-1' style='height: 30px; margin: 1px; border-style: none !important;'>
                         </div>
 
-                        <div class='col-hss-10' style='height: 30px; margin: 1px; border-style: none !important;'>
-                        <h1><p>São José dos Campos,<b> ".@$dados_result_term_cirurgia['DIA_ATD']." </b>de<b> ".@$dados_result_term_cirurgia['MES_EXTENSO']." </b>de<b> ".@$dados_result_term_cirurgia['ANO_ATD']." </b></h1>
+                        <div class='col-hss-10' style='height: 30px; margin: 1px; border-style: none !i<b> ".@$dados_result_term_cirurgia['DIA_ATD']." </b>mportant;'>
+                        <h1><p>São José dos Campos,de<b> ".@$dados_result_term_cirurgia['MES_EXTENSO']." </b>de<b> ".@$dados_result_term_cirurgia['ANO_ATD']." </b></h1>
                         </div>
                  </div>
 

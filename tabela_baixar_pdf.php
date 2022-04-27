@@ -2,7 +2,7 @@
 
     echo '</br>';
 
-    $cons_lista_doc = " SELECT tp.DESC_DOC, da.NOME_ANEXO, da.NM_USER, 
+    $cons_lista_doc = " SELECT tp.NM_DOC, tp.DESC_DOC, da.NOME_ANEXO, da.NM_USER, 
                         TO_CHAR(da.DT_CRIACAO,'DD/MM/YYYY HH24:MI') AS DT_CRIACAO
                         FROM assinaturas.documentos_assinados da
                         INNER JOIN assinaturas.TP_DOCUMENTO tp
@@ -24,35 +24,49 @@
             
             <thead>
                 <tr>
+                    
                     <th style="text-align: center;">Descrição</th>
                     <th style="text-align: center;">Usuário</th>
                     <th style="text-align: center;">Data Criação</th>
-                    <th style="text-align: center;">Ações</th>
+                    <th style="text-align: center;">Visualizar</th>
+                    <th style="text-align: center;">Baixar</th>
+
                 </tr>
             </thead>
 
             <tbody>
                 
-                <?php
+            <?php
+            $var_modal_visualizar = 1;
 
-                    while($row_lista_doc = oci_fetch_array($result_lista_doc)){	
+                while($row_lista_doc = @oci_fetch_array($result_lista_doc)){  ?>  
+                    
+                <tr>
+                    
+                    <td class='align-middle' style='text-align: center;'><?php echo @$row_lista_doc['DESC_DOC']; ?></td>
+                    <td class='align-middle' style='text-align: center;'><?php echo @$row_lista_doc['NM_USER']; ?></td>
+                    <td class='align-middle' style='text-align: center;'><?php echo @$row_lista_doc['DT_CRIACAO']; ?></td>
+                     
+                    <!--MODEL EDITAR-->
+                     <td class="align-middle" style="text-align: center !important;">
+                        <?php include "include_visualizar.php"?>
+                    </td>
 
-                        echo '<tr>';
-
-                            echo '<td style="text-align: center; vertical-align : middle;">' . $row_lista_doc['DESC_DOC'] . '</td>';
-                            echo '<td style="text-align: center; vertical-align : middle;">' . $row_lista_doc['NM_USER'] . '</td>'; 
-                            echo '<td style="text-align: center; vertical-align : middle;">' . $row_lista_doc['DT_CRIACAO'] . '</td>';
-
-                            //VISUALIZAR
-
-
+                        <?php
                             //BAIXAR                            
-                            echo '<td style="text-align: center; vertical-align : middle;"> <a type="button" class="btn btn-primary" target="_blank" href="baixar_pdf.php?nm_doc='. $row_lista_doc['NOME_ANEXO'] . '">'
-                            . ' <i class="fas fa-download"></i></a> </td>'; 
-                                                                        
-                        echo '</tr>';
-                    }
-                ?>
+                            echo '<td style="text-align: center; vertical-align : middle;"> 
+                                    <a type="button" class="btn btn-primary" target="_blank" href="baixar_pdf.php?nm_doc='. $row_lista_doc['NOME_ANEXO'] . '">'. ' <i class="fas fa-download"></i></a> 
+                                  </td>'; 
+                        ?>
+
+                   
+
+                </tr>
+                
+                <?php 
+                    $var_modal_visualizar = $var_modal_visualizar + 1;
+                    
+                } ?>
 
             </tbody>
 
@@ -60,5 +74,4 @@
 
     </div>
 
-     
-
+    

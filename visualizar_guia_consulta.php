@@ -199,7 +199,7 @@ h3{
 
                      <div class='col-hss-2' style='height: 30px; margin: 1px;'>
                         5 - Validade da Carteira
-                        <h2><B>".@$row_cons_guia_consulta['CP_05']."</B></h2>
+                        <h2><B>".@date("d/m/Y",strtotime($row_cons_guia_consulta['CP_05']))."</B></h2>
                      </div>
 
                      <div class='col-hss-2' style='height: 30px; margin: 1px;'>
@@ -302,7 +302,7 @@ h3{
                  <div class='row'>
                      <div class='col-hss-3' style='height: 30px; margin: 1px;'>
                         18 - Data de Atendimento
-                        <h2><B>".@$row_cons_guia_consulta['CP_18']."</B></h2>
+                        <h2><B>".@date("d/m/Y",strtotime($row_cons_guia_consulta['CP_18']))."</B></h2>
                      </div>
                      <div class='col-hss-2' style='height: 30px; margin: 1px;'>
                         19 - Tipo de Consulta
