@@ -407,11 +407,11 @@
 
 				<?php //echo $_SESSION['sn_faturamento']; ?>
 
-				<?php if(@$_SESSION['sn_faturamento'] == 'S'){ ?>
+				<?php //if(@$_SESSION['sn_faturamento'] == 'S'){ ?>
 
 					<?php include 'tabela_baixar_pdf.php'; ?>
 
-				<?php } ?>
+				<?php //} ?>
 				
 			<?php } ?>
 

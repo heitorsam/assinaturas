@@ -26,14 +26,6 @@ if($row_lista_doc['NM_DOC'] == 'hos_faa' ){
 }
 
 //Visualizar Assinada - Ficha Atendimento
-if($row_lista_doc['NM_DOC'] == 'hos_faa' ){
-                                
-	echo '<a type="button" class="btn btn-primary"data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="hos_faa" data-identificador="hos_faa_assinado"><i class="fas fa-eye"></i></a>';
-}
-
-
-
-//Visualizar Assinada - Ficha Atendimento
 if($row_lista_doc['NM_DOC'] == 'cont_int' ){
                                 
 	echo '<a type="button" class="btn btn-primary"data-toggle="modal" data-target="#visualizaModalAssinado"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="cont_int" data-identificador="contrato_internacao_assinada"><i class="fas fa-eye"></i></a>';

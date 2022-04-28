@@ -28,8 +28,14 @@
                     <th style="text-align: center;">Descrição</th>
                     <th style="text-align: center;">Usuário</th>
                     <th style="text-align: center;">Data Criação</th>
-                    <th style="text-align: center;">Visualizar</th>
-                    <th style="text-align: center;">Baixar</th>
+
+                    <?php if(@$_SESSION['sn_usuario_comum'] == 'S'){ ?>
+                     <th style="text-align: center;">Visualizar</th>
+                    <?php } ?>
+
+                    <?php if(@$_SESSION['sn_faturamento'] == 'S'){ ?>
+                        <th style="text-align: center;">Baixar</th>
+                    <?php } ?>
 
                 </tr>
             </thead>
@@ -47,16 +53,20 @@
                     <td class='align-middle' style='text-align: center;'><?php echo @$row_lista_doc['NM_USER']; ?></td>
                     <td class='align-middle' style='text-align: center;'><?php echo @$row_lista_doc['DT_CRIACAO']; ?></td>
                      
-                    <!--MODEL EDITAR-->
-                     <td class="align-middle" style="text-align: center !important;">
-                        <?php include "include_visualizar.php"?>
-                    </td>
+                    <?php if(@$_SESSION['sn_usuario_comum'] == 'S'){ ?>
+                        <!--MODEL VISUALIZAR-->
+                        <td class="align-middle" style="text-align: center !important;">
+                            <?php include "include_visualizar.php"?>
+                        </td>
+                    <?php } ?>
 
                         <?php
+                            if(@$_SESSION['sn_faturamento'] == 'S'){
                             //BAIXAR                            
                             echo '<td style="text-align: center; vertical-align : middle;"> 
                                     <a type="button" class="btn btn-primary" target="_blank" href="baixar_pdf.php?nm_doc='. $row_lista_doc['NOME_ANEXO'] . '">'. ' <i class="fas fa-download"></i></a> 
-                                  </td>'; 
+                                  </td>';
+                            }
                         ?>
 
                    

@@ -9,7 +9,7 @@ session_start();
 $img = $_REQUEST['escondidinho'];
 $tp_doc = 'cont_int';
 
-$nm_documneto = 'pdf_term_internacao_cirurgia_'.$var_cd_atendimento.'.pdf';
+$nm_documneto = 'pdf_contrato_internação_'.$var_cd_atendimento.'.pdf';
 
 @$_SESSION['atdconsulta'] = $_REQUEST['cd_atendimento'];
 
@@ -155,7 +155,7 @@ h2{
     
                  <div class='row'>
                         <div class='col-hss-12' style='height: 30px; margin: 1px;'>
-                            <h4><b>CONTRATO DE PRESTAÇÃO DE SERVIÇOS INTERNAÇÃO
+                            <h4><b>CONTRATO DE PRESTAÇÃO DE SERVIÇOS - INTERNAÇÃO
                             </b></h4>
                         </div>
                  </div>

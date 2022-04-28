@@ -9,7 +9,7 @@ session_start();
 $img = $_REQUEST['escondidinho'];
 $tp_doc = 'term_part_cesareo';
 
-$nm_documneto = 'pdf_term_part_cesareo_'.$var_cd_atendimento.'.pdf';
+$nm_documneto = 'pdf_termo_parto_cesareo_'.$var_cd_atendimento.'.pdf';
 
 @$_SESSION['atdconsulta'] = $_REQUEST['cd_atendimento'];
 
@@ -343,7 +343,3 @@ exit(0);
 //$image = file_get_contents($dompdf);
 
 ?>
-
-
-
-

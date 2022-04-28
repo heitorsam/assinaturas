@@ -9,7 +9,7 @@ echo $nm_conv = $_REQUEST['nm_conv'];
 $img = $_REQUEST['escondidinho'];
 $tp_doc = 'term_laqueadura';
 
-$nm_documneto = 'pdf_term_internacao_laqueadura_'.$var_cd_atendimento.'.pdf';
+$nm_documneto = 'pdf_termo_laqueadura_'.$var_cd_atendimento.'.pdf';
 
 @$_SESSION['atdconsulta'] = $_REQUEST['cd_atendimento'];
 

@@ -11,8 +11,8 @@
 </style>
 
 <!--SE NÃO TIVER ASSINADO -->
-<div class="row" style="margin: 0 0 0 0 ; padding: 0 0 0 0 ;" >
-
+<div class="row" style="margin: 0 0 0 0 ; padding: 0 0 0 0 ;" id="div">
+			<?php if($_SESSION['sn_usuario_comum'] == 'S'){ ?>
 				<?php if(!isset($var_pdf_existe)){?>
 					<!-- APENAS GERA A GUIA TISS SE FOR CONVENIO -->
 					<?php if($var_cd_conv <> 1 && $var_cd_conv <> 2 && $var_cd_conv <> 40  && $var_cd_conv <> 105 && $var_tp_atendimento <> 'A' && $var_tp_atendimento <> 'I'){?>
@@ -102,45 +102,45 @@
 				<?php }else{ ?>
 					<?php if($var_tp_atendimento =='I'){?>
 
-						<br>
-						<br>
-						<div class="col-md-12"><h11 id="lbReAssinar" style=" display: none;"><i class="fas fa-redo"></i> Assinar Novamente:</h11></div>
+							<br>
+							<br>
+							<div class="col-md-12"><h11 id="lbReAssinar" style=" display: none;"><i class="fas fa-redo"></i> Assinar Novamente:</h11></div>
 
-						<div style="">
-							<button type="button" class="btn btn-primary alinhamneto" id="re_escdoc1" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="cont_int">
-							<i class="far fa-eye"></i> Contrato Internação
-							</button>
-						</div>
+							<div style="">
+								<button type="button" class="btn btn-primary alinhamneto" id="re_escdoc1" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="cont_int">
+								<i class="far fa-eye"></i> Contrato Internação
+								</button>
+							</div>
 
-						<div style="">
-							<button type="button" class="btn btn-primary alinhamneto" id="re_escdoc2" style=" display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="carta_golpe">
-							<i class="far fa-eye"></i> Carta Golpe
-							</button>
-						</div>
+							<div style="">
+								<button type="button" class="btn btn-primary alinhamneto" id="re_escdoc2" style=" display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="carta_golpe">
+								<i class="far fa-eye"></i> Carta Golpe
+								</button>
+							</div>
 
-						<div style="">
-							<button type="button" class="btn btn-primary alinhamneto" id="re_escdoc3" style=" display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="term_cirurgia">
-							<i class="far fa-eye"></i> Termo de Responsabilidade Cirurgia
-							</button>
-						</div>
+							<div style="">
+								<button type="button" class="btn btn-primary alinhamneto" id="re_escdoc3" style=" display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="term_cirurgia">
+								<i class="far fa-eye"></i> Termo de Responsabilidade Cirurgia
+								</button>
+							</div>
 
-						<div style="">
-							<button type="button" class="btn btn-primary alinhamneto" id="re_escdoc4" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="term_part_cesareo">
-							<i class="far fa-eye"></i> Termo de Responsabilidade Parto Cesáreo
-							</button>
-						</div>
+							<div style="">
+								<button type="button" class="btn btn-primary alinhamneto" id="re_escdoc4" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="term_part_cesareo">
+								<i class="far fa-eye"></i> Termo de Responsabilidade Parto Cesáreo
+								</button>
+							</div>
 
-						<div style="">
-							<button type="button" class="btn btn-primary alinhamneto" id="re_escdoc5" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="term_sedacao">
-							<i class="far fa-eye"></i> Termo - Sedação
-							</button>
-						</div>
+							<div style="">
+								<button type="button" class="btn btn-primary alinhamneto" id="re_escdoc5" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="term_sedacao">
+								<i class="far fa-eye"></i> Termo - Sedação
+								</button>
+							</div>
 
-						<div style="">
-							<button type="button" class="btn btn-primary alinhamneto" id="re_escdoc6" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="term_laqueadura">
-							<i class="far fa-eye"></i> Termo - Laqueadura
-							</button>
-						</div>
+							<div style="">
+								<button type="button" class="btn btn-primary alinhamneto" id="re_escdoc6" style="display: none;" data-toggle="modal" data-target="#visualizaModal"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-nm_paciente="<?php echo $var_nm_paciente ?>" data-dt_aten="<?php echo $var_dt_aten ?>"  data-nm_conv="<?php echo $var_nm_conv ?>" data-identificador="term_laqueadura">
+								<i class="far fa-eye"></i> Termo - Laqueadura
+								</button>
+							</div>
 
 					<?php } ?>
 						
@@ -153,19 +153,22 @@
 
 					<br><br>
 				<?php } ?>
-			</div>
+			<?php } ?>
+</div>
 
 			<br>
 			<div class="row" style="margin: 0 0 0 0 ; padding: 0 0 0 0 ;">
 			<!-- SE TIVER ASSINADO -->
 				
 					<?php if(isset($var_pdf_existe)){ ?>
+
+					
 						
 		
 					<?php }else{?>
 						
 						<?php if($_SESSION['sn_usuario_comum'] == 'S'){ ?>
-
+					
 							<div class="col-md-2" style="margin: 0 0 0 0 ; padding: 0 0 0 0 ;">
 
 								<!-- QUANTO FOR ATENDIMENTO I TRAZAR O BOTÃO OCULTO PARA QUE function funcao_ocultar() MOSTRE ELE -->
