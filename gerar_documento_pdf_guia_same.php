@@ -11,7 +11,7 @@ $img = $_REQUEST['escondidinho'];
 $tp_doc = 'same';
 $nm_documneto = 'pdf_guia_same_'.$var_cd_paciente.'.pdf';
 
-@$_SESSION['atdconsulta'] = $_REQUEST['cd_paciente'];
+
 
 $var_user_logado = $_SESSION['usuarioLogin'];
 
@@ -22,185 +22,255 @@ date_default_timezone_set('America/Sao_Paulo');
 //Data e hora de agora
 $hora = date("d/m/Y H:i:s"); 
 
-//include 'sql_consulta_contrato.php';
+include 'sql_consulta_same.php';
 
 //echo $html;
 
 $documentTemplate = "
 <html lang='en'> 
-    <head> 
-        <!-- Required meta tags --> 
-        <meta charset='utf-8'> 
-        <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'> 
-    </head>
-    <style>
+<head> 
+    <!-- Required meta tags --> 
+    <meta charset='utf-8'> 
+    <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'> 
+</head>
+<style>
+.col-hss-1,.col-hss-2,.col-hss-3,.col-hss-4, .col-hss-5, .col-hss-6, .col-hss-7, .col-hss-8, .col-hss-9, .col-hss-10, .col-hss-11, .col-hss-12 {
 
-    .col-hss-1,.col-hss-2,.col-hss-3,.col-hss-4, .col-hss-5, .col-hss-6, .col-hss-7, .col-hss-8, .col-hss-9, .col-hss-10, .col-hss-11, .col-hss-12 {
-    
-    height: 25px;
-    font-size: 7px;
-    background-color: #ffffff;
-    margin: 1 1 1 1;
-    border: solid 1px black !important;
+height: 25px;
 
+font-family: Arial, Helvetica, sans-serif;
+background-color: #ffffff;
+margin: 1 1 1 1;
+padding: 3 1 1 3;
+border: solid 0px black !important;
 }
-
-.faixa-cinza{
-
-    height: 10px !important;
-    font-size: 8px; 
-    background-color: #cccccc;
-    line-height: 7px;
-    clear:both;
-}
-
 
 .row{
-
-    width: 100% !important;
-    clear:both;
-
+width: 100% !important;
+clear:both;
 }
 .col-hss-12{
-
-    width: 99% !important;
-    height: 20px;
-    float: left;
+width: 98.60% !important;
+height: 20px;
+float: left;
 }
 .col-hss-11{
-
-    width: 90.66% !important;
-    height: 20px;
-    float: left;
+width: 90.66% !important;
+height: 20px;
+float: left;
 }
 .col-hss-10{
-
-    width: 82.33% !important;
-    height: 20px;
-    float: left;
+width: 82.05% !important;
+height: 20px;
+float: left;
 }
 .col-hss-9{
-
-    width: 74% !important;
-    height: 20px;
-    float: left;
+width: 74% !important;
+height: 20px;
+float: left;
 }
 .col-hss-8{
-
-    width: 65.66% !important;
-    height: 20px;
-    float: left;
+width: 65.66% !important;
+height: 20px;
+float: left;
 }
 .col-hss-7{
-
-    width: 57.33% !important;
-    height: 20px;
-    float: left;
+width: 57.40% !important;
+height: 20px;
+float: left;
 }
 .col-hss-6{
-
-    width: 49% !important;
-    height: 20px;
-    float: left;
+width: 49.22% !important;
+height: 20px;
+float: left;
 }
 .col-hss-5{
-
-    width: 40.66% !important;
-    height: 20px;
-    float: left;
+width: 40.75% !important;
+height: 20px;
+float: left;
 }
 .col-hss-4{
-
-    width: 32.33% !important;
-    height: 20px;
-    float: left;
+width: 32.65% !important;
+height: 20px;
+float: left;
 }
 .col-hss-3{
-
-    width: 24% !important;
-    height: 20px;
-    float: left;
+width: 24.59% !important;
+height: 20px;
+float: left;
 }
-
 .col-hss-2{
+width: 16.20% !important;
+height: 20px;
+float: left;
 
-    width: 15.66% !important;
-    height: 20px;
-    float: left;
-    
 }
-
 .col-hss-1{
-
-    width: 7.33% !important;
-    height: 20px;
-    float: left;
+width: 7.90% !important;
+height: 20px;
+float: left;
 }
-
+h1{
+font-size: 10px;
+line-height: 15px !important; 
+text-align: justify !important;
+}
 h2{
-   
-    line-height: 4px;
-    float: center;
-    margin-top: 0px;
+font-size: 9px;
+line-height: 12px !important; 
+text-align: left !important;
+}
+h3{
+font-size: 12px;
+text-align: center !important;
+margin-top: 5px; 
+}
+h4{
+font-size: 10px;
+line-height: 15px !important; 
+text-align: right !important;
+}
+h2-footer{
+font-size: 10px;
+float: center;
+margin-top: 0px;
+}
+font{
+font-family: Arial, Helvetica, sans-serif;
+}
+B{
 
-    
-}
-.imagem {
-    width: 200px;
-    height: 120px;
-    object-fit: cover;
-}
-.texto{
-    text-align: justify;
-    font-size: 1.875em;
-}
-p{
-    font-size: 0.350em;
+text-transform: uppercase;
 }
 
 </style> 
 
-        <form style='height: 40px;'>
-            <div class='container texto'>
-                <div class='row'>
-                <div style='width: 100%; padding-left: 4.5%; padding-right: 0%;'>
-                    <div class='col-hss-12' style='border: none !important; text-align: center;'>
-                            <img class='imagem' src='https://i2.wp.com/santacasasaude.com.br/wp-content/uploads/2018/07/Santa-Casa-SJC.gif?fit=730%2C457&ssl=1'>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </form>
-        <br>
-        <br>
-        <br>
-        <br>
-        <form>
-            <div class='container texto'>
-                <div style='width: 90%;  margin: 0 auto;'>
-                <p style='text-align: center; font-weight: bold;'>CONTRATO DE PRESTAÇÃO DE SERVIÇOS
-                
-                </br>
-                </br>
-              
-                                    
-                    <p><b>OBJETO:</b> A prestação de serviços médicos/hospitalares ao paciente retro qualificado, em atendimento nas dependências da CONTRATADA, por determinação do Médico Responsável pelo atendimento, ficando a CONTRATADA expressamente autorizada a executar todos os atendimentos que façam necessários e indispensáveis a salvaguarda da vida do paciente. 
-                    
-                    <p><b>CONTRATANTE:</b> No caso de cobertura por CONVENIO MÉDICO, fica concedida ao paciente a utilização do PLANO DE ASSISTENCIA MEDICA com qual a CONTRATADA mantém convênio, ficando observado que as despesas NÃO cobertas por este PLANO DE SAUDE serão de responsabilidade do CONTRATANTE. 
 
-                    <p><b>FORO DE ELEIÇÃO:</b> Fica eleito o Foro da comarca de São José dos Campos, como competente para dirimir todas as dúvidas que por ventura venham a ser suscitada com relação aos serviços prestados no esteio do presente instrumento, ressalvada a hipótese do artigo 51, parágrafo primeiro, III da Lei nº 8.078 de 11 de setembro de 1990 (Código de Defesa do Consumidor).             
-                    
-                    <p>E, por estarem assim justos e contratados, assinam o presente instrumento Particular de Contrato de Assistência Médica Hospitalar, em duas vias de igual teor e forma, na presença de duas testemunhas, para que produza seus jurídicos e legais efeitos. 
+<form style='height: 95px;'>
+   <div class='col-hss-12' style='border: none !important; text-align: center;'>
+       <img class='imagem' src='https://i2.wp.com/santacasasaude.com.br/wp-content/uploads/2018/07/Santa-Casa-SJC.gif?fit=730%2C457&ssl=1' style='width: 200px; height: 110px;'>
+   </div>
+</form>
 
-                    <br>
-                    <br>
-                    
-                    <div class='col-hss-4' style='height: 30px; border: none !important; border-bottom: solid 1px black !important;'>
-                            <img src='$img' width='100%' height='100%'  style:'float: right;'>
-                    </div>
-                </div>
+<form style='height: 40px;'>
+   <div class='container'>
+   
+
+       <div class='row'>
+
+           <div class='col-hss-12' style='height: 30px; margin: 1px; '>
+               <h3><b>REQUERIMENTO CÓPIA DE PRONTUÁRIO</b></h3>
+           </div>
+       </div>
+   </div>
+</form>
+        <div class='container'>
+
+           <!--TEXTO-->
+            <div class='row '>
+               <div class='col-hss-1' style='height: 720px; margin: 1px; '>
+               </div>
+
+                   <div class='col-hss-10' style='height: 720px; margin: 1px; '>
+                           
+                   <h1>O(A) Requerente abaixo identificado(a) e assinado(a) vem solicitar de Vossa Senhoria, cópia do prontuário médico, relativo ao atendimento a que foi submetido(a) o(a) paciente abaixo identificado(a) neste Hospital.</h1>
+                   
+
+                   <h1><b>DADOS DO(A) PACIENTE:</b></h1>
+                   <h1>Nome: <b>".@$dados_result_resp_doc['RESP_NOME']." </b> RG: <b>".@$dados_result_resp_doc['RESP_RG']."</b> CPF: <b>".@$dados_result_resp_doc['RESP_CPF']."</b> Data de Nascimento: <b>".@$dados_result_resp_doc['RESP_NASCIMENTO']."</b> </h1>
+                   <h1>Período de Internação: (informação obrigatória):  <b>".@$dados_result_resp_doc['RESP_PERIODO_INT']."</b> </h1>
+                   <br>
+                   <h1><b>DADOS DO(A) REQUERENTE: </b></h1>
+                   <h1>( <b>".@$dados_result_resp_doc['RESP_CHECK_PACIENTE']." </b>) Paciente   ( <b>".@$dados_result_resp_doc['RESP_CHECK_REP_LEGAL']." </b>) Representante Legal   ( <b>".@$dados_result_resp_doc['RESP_CHECK_CURADOR']." </b>) Tutor/Curador   ( <b>".@$dados_result_resp_doc['RESP_CHECK_PARENTE']." </b>) Parente<br> 
+                   Nome: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_NOME']." </b>
+                   RG: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_RG']." </b> CPF: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_CPF']." </b> Data de Nascimento: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_NASC']." </b> 
+                   Estado Civil: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_EST_CIVIL']." </b> Profissão: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_PROFISSAO']." </b> Endereço: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_ENDERECO']." </b> Bairro: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_BAIRRO']." </b> Cidade: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_CIDADE']." </b> Estado: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_ESTADO']." </b> Telefone(s):  <b>".@$dados_result_resp_doc['RESP_REQUERENTE_TELEFONE_1']." </b> /  <b>".@$dados_result_resp_doc['RESP_REQUERENTE_TELEFONE_2']." </b> /  <b>".@$dados_result_resp_doc['RESP_REQUERENTE_TELEFONE_3']." </b>
+                   </h1>
+
+
+                   <h1><b>MOTIVO DO REQUERIMENTO: (preenchimento obrigatório)</b></h1>
+                   <h1> ".@$dados_result_resp_doc['RESP_MOTIVO_REQUERIMENTO']." </h1>
+                   <br>
+
+
+                   <h2><b>Declaro, sob as penas da Lei, que os dados informados acima são verdadeiros e que tenho pleno conhecimento do sigilo das informações contidas no documento requerido, bem como da minha responsabilidade civil e criminal pela indevida publicação e utilização das informações nele contidas.</b></h2>
+
+                   <h2>Obs.: Com base na Resolução CFM nº 2.217/2018 e na Recomendação CFM nº 03/2014, se: </h2>
+                   <h2><b>  (i)</b> Requerente é Paciente, entregar cópia do seu RG;</h2>
+                   <h2><b>  (ii)</b> Requerente é Representante Legal, entregar procuração com poderes específicos, bem como entregar cópia do RG do paciente e cópia do seu RG; </h2>
+                   <h2><b>  (iii)</b> Requerente é Tutor/Curador, entregar cópia do termo de tutela/curatela e cópia do seu RG; </h2>
+                   <h2><b>  (iv)</b> Requerente é Parente, entregar cópia do RG do paciente falecido, cópia do seu RG e/ou qualquer outro documento a fim de comprovar o vínculo familiar e verificar a ordem de vocação hereditária, bem como cópia do atestado de óbito. </h2>
+                   <h2><b>  1.</b> Cônjuge/companheiro; </h2>
+                   <h2><b>  2.</b> Filhos, netos, bisnetos (descendentes); </h2>
+                   <h2><b>  3.</b> Pais, avós, bisavós (ascendentes); </h2>
+                   <h2><b>  4.</b> Irmãos (colaterais de 2º grau);</h2>
+                   <h2><b>  5.</b> Sobrinhos/Tios (colaterais de 3º grau);</h2>
+                   <h2><b>  6.</b> Sobrinhos-netos/tios-avós/primos (colaterais de 4º grau).</h2>
+                   
+                   <h1><b>Valor do Xerox: R$ 0,30 (Trinta centavos) por folha ou salvo em pen drive sem nenhum custo. </b></h1>
+                   <h1><b>O pen drive é de responsabilidade do solicitante e deve ser entregue no momento que o prontuário estiver disponível para entrega. Prazo de entrega do documento: 20 (dias) dias úteis </b></h1>
+                   <h1></h1>
+                   </div>
+
+               <div class='col-hss-1' style='height: 720px; margin: 1px; '>
+               </div>   
             </div>
-        </form>
+            
+
+               <div class='row'>
+                   <div class='col-hss-1' style='height: 30px; margin: 1px; '>
+                   </div>
+
+                   <div class='col-hss-10' style='height: 30px; margin: 1px; '>
+                       <h4> <b>".@$dados_result_resp_doc['RESP_DATA_EXTENSO']." </b></h4>
+                   </div>
+
+                   <div class='col-hss-1' style='height: 30px; margin: 1px; '>
+                   </div>
+               </div> 
+
+
+               <div class='row'>
+                   <div class='col-hss-1' style='height: 30px; margin: 1px; '>
+                   </div>
+
+                   <div class='col-hss-4' style='height: 30px; margin: 1px; '>
+                       <h1>Autorizado em: <b>".@$dados_result_resp_doc['RESP_DATA_AUTORIZACAO']." </b></h1>
+                   </div>
+
+                   <div class='col-hss-1' style='height: 30px; margin: 1px; '>
+                   </div>
+
+                   <div class='col-hss-4' style='height: 30px; margin: 1px; '>
+                       <h1>Atendente: <b>".@$dados_result_resp_doc['RESP_ATENDENTE']." </b></h1>
+                   </div>
+
+               </div>
+
+               <div class='row'>
+                   <div class='col-hss-1' style='height: 55px; margin: 1px; '>
+                   </div>
+
+                   <div class='col-hss-4' style='height: 55px;'>
+                       <h1>Assinatura (Requerente)</h1>
+                       <img src='$img' width='80%' height='80%'  style:'float: right; margin: 1px; border-style: none !important; border-bottom: 1px solid black !important;'>
+                   </div>
+                   
+
+                   <div class='col-hss-1' style='height: 55px; margin: 1px; '>
+                   </div>
+
+                   <div class='col-hss-4' style='height: 55px; margin: 1px; border-style: none !important; border-bottom: 1px solid black !important;'>
+                       <h1>Assinatura e Carimbo do Diretor Clínico: </h1>
+                   </div>
+               </div>
+
+               
+
+                 
+        </div>
+     </div>
+    </form>
 ";
 
      

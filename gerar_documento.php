@@ -79,6 +79,17 @@
 
 
 	if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdpdf']) ){
+		if($var_cd_conv == 1 || $var_cd_conv == 2 || $var_cd_conv == 105 ){
+		$cons_pdf ="SELECT 
+							res.TOTAL - res.ASSINADO AS RESTANTE 
+					FROM(
+					SELECT COUNT(CD_ATENDIMENTO) AS ASSINADO,
+							7 as TOTAL
+						FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
+					WHERE ass.cd_atendimento = $var_cd_atendimento
+					) res
+				";
+		}else{
 		$cons_pdf ="SELECT 
 							res.TOTAL - res.ASSINADO AS RESTANTE 
 					FROM(
@@ -88,6 +99,7 @@
 					WHERE ass.cd_atendimento = $var_cd_atendimento
 					) res
 				";
+		}
 	
 		$result_pdf_exis = oci_parse($conn_ora, $cons_pdf);
 		@oci_execute($result_pdf_exis);

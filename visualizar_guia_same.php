@@ -17,7 +17,7 @@ $count = 1;
  //Data e hora de agora
  $hora = date("d/m/Y H:i:s"); 
  
- include 'sql_consulta_same_guia_tiss.php';
+ include 'sql_consulta_same.php';
  
  $documentTemplate = "
  <html lang='en'> 
@@ -31,7 +31,7 @@ $count = 1;
      
      height: 25px;
      
-     font-family: Arial, Helvetica, sans-serif;
+     
      background-color: #ffffff;
      margin: 1 1 1 1;
      padding: 3 1 1 3;
@@ -110,7 +110,7 @@ $count = 1;
 }
 h2{
     font-size: 11px;
-    line-height: 15px !important; 
+    line-height: 12px !important; 
     text-align: left !important;
 }
  h3{
@@ -129,7 +129,7 @@ h2{
      margin-top: 0px;
  }
  font{
-    font-family: Arial, Helvetica, sans-serif;
+    
  }
  B{
      
@@ -139,56 +139,55 @@ h2{
  </style> 
 
 
-    <form style='height: 100px;'>
+    <form style='height: 75px;'>
         <div class='col-hss-12' style='border: none !important; text-align: center;'>
             <img class='imagem' src='https://i2.wp.com/santacasasaude.com.br/wp-content/uploads/2018/07/Santa-Casa-SJC.gif?fit=730%2C457&ssl=1' style='width: 200px; height: 110px;'>
         </div>
     </form>
+
+    <form style='height: 30px;'>
+        <div class='container'>
         
-         <form style='height: 50px;'>
-             <div class='container'>
-               
 
-                 <div class='row'>
+            <div class='row'>
 
-                        <div class='col-hss-12' style='height: 30px; margin: 1px; '>
-                            <h3><b>REQUERIMENTO CÓPIA DE PRONTUÁRIO</b></h3>
-                        </div>
-                 </div>
-             </div>
-         </form>
+                <div class='col-hss-12' style='height: 30px; margin: 1px; '>
+                    <h3><b>REQUERIMENTO CÓPIA DE PRONTUÁRIO</b></h3>
+                </div>
+            </div>
+        </div>
+    </form>
              <div class='container'>
  
                 <!--TEXTO-->
                  <div class='row '>
-                    <div class='col-hss-1' style='height: 780px; margin: 1px; '>
+                    <div class='col-hss-1' style='height: 760px; margin: 1px; '>
                     </div>
 
-                        <div class='col-hss-10' style='height: 780px; margin: 1px; '>
+                        <div class='col-hss-10' style='height: 760px; margin: 1px; '>
                                 
                         <p><h1>O(A) Requerente abaixo identificado(a) e assinado(a) vem solicitar de Vossa Senhoria, cópia do prontuário médico, relativo ao atendimento a que foi submetido(a) o(a) paciente abaixo identificado(a) neste Hospital.</h1>
                         
 
                         <p><h1><b>DADOS DO(A) PACIENTE:</b></h1>
-                        <h1>Nome: <b>".@$dados_result_resp_doc['RESP_NOME']." </b> RG: <b>".@$dados_result_resp_doc['RESP_RG']."</b> CPF: <b>".@$dados_result_resp_doc['RESP_CPF']."</b> Data de Nascimento: <b>".@$dados_result_resp_doc['RESP_NASCIMENTO']."</b> 
-                        </h1>
+                        <h1>Nome: <b>".@$dados_result_resp_doc['RESP_NOME']." </b> RG: <b>".@$dados_result_resp_doc['RESP_RG']."</b> CPF: <b>".@$dados_result_resp_doc['RESP_CPF']."</b> Data de Nascimento: <b>".@$dados_result_resp_doc['RESP_NASCIMENTO']."</b> </h1>
+                        <p><h1>Período de Internação: (informação obrigatória):  <b>".@$dados_result_resp_doc['RESP_PERIODO_INT']."</b> </h1>
                         
-
                         <p><h1><b>DADOS DO(A) REQUERENTE: </b></h1>
-                        <h1>( <b>".@$dados_result_resp_doc['RESP_CHECK_PAC']." </b>) Paciente ( <b>".@$dados_result_resp_doc['RESP_CHECK_REP_LEGAL']." </b>) Representante Legal ( <b>".@$dados_result_resp_doc['RESP_CHECK_CURADOR']." </b>) Tutor/Curador ( <b>".@$dados_result_resp_doc['RESP_CHECK_PARENTE']." </b>) Parente:  <b>".@$dados_result_resp_doc['RESP_REQUERENTE_NOME']." </b> <br> 
+                        <p><h1>( <b>".@$dados_result_resp_doc['RESP_CHECK_PACIENTE']." </b>) Paciente ( <b>".@$dados_result_resp_doc['RESP_CHECK_REP_LEGAL']." </b>) Representante Legal ( <b>".@$dados_result_resp_doc['RESP_CHECK_CURADOR']." </b>) Tutor/Curador ( <b>".@$dados_result_resp_doc['RESP_CHECK_PARENTE']." </b>) Parente:   <b>".@$dados_result_resp_doc['RESP_PARENTE_NOME']." <br> 
                         Nome: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_NOME']." </b>
-RG: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_RG']." </b> CPF: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_CPF']." </b> Data de Nascimento: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_NASC']." </b> 
-Estado Civil: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_EST_CIVIL']." </b> Profissão: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_PROFISSAO']." </b> Endereço: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_ENDERECO']." </b> Bairro: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_BAIRRO']." </b> Cidade: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_CIDADE']." </b> Estado: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_ESTADO']." </b> Telefone(s):  <b>".@$dados_result_resp_doc['RESP_REQUERENTE_TELEFONE_1']." </b> /  <b>".@$dados_result_resp_doc['RESP_REQUERENTE_TELEFONE_2']." </b> /  <b>".@$dados_result_resp_doc['RESP_REQUERENTE_TELEFONE_3']." </b>
+                        RG: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_RG']." </b> CPF: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_CPF']." </b> Data de Nascimento: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_NASC']." </b> 
+                        Estado Civil: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_EST_CIVIL']." </b> Profissão: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_PROFISSAO']." </b> Endereço: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_ENDERECO']." </b> Bairro: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_BAIRRO']." </b> Cidade: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_CIDADE']." </b> Estado: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_ESTADO']." </b> Telefone(s):  <b>".@$dados_result_resp_doc['RESP_REQUERENTE_TELEFONE_1']." </b> /  <b>".@$dados_result_resp_doc['RESP_REQUERENTE_TELEFONE_2']." </b> /  <b>".@$dados_result_resp_doc['RESP_REQUERENTE_TELEFONE_3']." </b>
                         </h1>
-
 
                         <p><h1><b>MOTIVO DO REQUERIMENTO: (preenchimento obrigatório)</b></h1>
-                        <h1> ".@$dados_result_resp_doc['RESP_MOTIVO_REQUERIMENTO']." 
-                        </h1>
-                        <br>
+                        <div class='col-hss-12' style='height: 70px; margin: 1px; border-style: none !important; border: 1px solid black !important;'>
+                        <h1> ".@$dados_result_resp_doc['RESP_MOTIVO_REQUERIMENTO']." </h1>
+                        </div>
+                        
 
 
-                        <p><h1><b>Declaro, sob as penas da Lei, que os dados informados acima são verdadeiros e que tenho pleno conhecimento do sigilo das informações contidas no documento requerido, bem como da minha responsabilidade civil e criminal pela indevida publicação e utilização das informações nele contidas.</b></h1>
+                        <p><h2><b>Declaro, sob as penas da Lei, que os dados informados acima são verdadeiros e que tenho pleno conhecimento do sigilo das informações contidas no documento requerido, bem como da minha responsabilidade civil e criminal pela indevida publicação e utilização das informações nele contidas.</b></h2>
 
                         <p><h2>Obs.: Com base na Resolução CFM nº 2.217/2018 e na Recomendação CFM nº 03/2014, se: </h2>
                         <h2><b>  (i)</b> Requerente é Paciente, entregar cópia do seu RG;</h2>
@@ -207,7 +206,7 @@ Estado Civil: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_EST_CIVIL']." </b>
                         <p><h1></h1>
                         </div>
 
-                    <div class='col-hss-1' style='height: 780px; margin: 1px; '>
+                    <div class='col-hss-1' style='height: 760px; margin: 1px; '>
                     </div>   
                  </div>
                  
@@ -217,7 +216,7 @@ Estado Civil: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_EST_CIVIL']." </b>
                         </div>
 
                         <div class='col-hss-10' style='height: 40px; margin: 1px; '>
-                            <p><h4>São José dos Campos, ______ de ________________ de ____________.</h4>
+                            <p><h4> <b>".@$dados_result_resp_doc['RESP_DATA_EXTENSO']." </b></h4>
                         </div>
 
                         <div class='col-hss-1' style='height: 40px; margin: 1px; '>
@@ -225,46 +224,37 @@ Estado Civil: <b>".@$dados_result_resp_doc['RESP_REQUERENTE_EST_CIVIL']." </b>
                     </div> 
 
                     <div class='row'>
-                        <div class='col-hss-1' style='height: 60px; margin: 1px; '>
-                        </div>
+                   <div class='col-hss-1' style='height: 60px; margin: 1px; '>
+                   </div>
 
-                        <div class='col-hss-4' style='height: 60px; margin: 5px; border-style: none !important; border-bottom: 1px solid black !important;'>
-                            <h1><p>Assinatura (Requerente)</h1>
-                        </div>
+                   <div class='col-hss-4' style='height: 60px; margin: 1px; border-style: none !important; border-bottom: 1px solid black !important;'>
+                       <h1>Assinatura (Requerente)</h1>
+                   </div>
 
-                        <div class='col-hss-6' style='height: 60px; margin: 1px; '>
-                        </div>
-                    </div>
+                   <div class='col-hss-1' style='height: 60px; margin: 1px; '>
+                   </div>
 
-                    <div class='row'>
-                        <div class='col-hss-1' style='height: 60px; margin: 1px; '>
-                        </div>
+                   <div class='col-hss-4' style='height: 60px; margin: 1px; border-style: none !important; border-bottom: 1px solid black !important;'>
+                       <h1>Assinatura e Carimbo do Diretor Clínico: </h1>
+                   </div>
+               </div>
 
-                        <div class='col-hss-4' style='height: 60px; padding-top: 40px; margin: 5px; border-style: none !important; border-bottom: 0px solid black !important;'>
-                            <h1><p>Autorizado em: ______/_______/_________</h1>
-                        </div>
+               <div class='row'>
+                   <div class='col-hss-1' style='height: 40px; margin: 1px; '>
+                   </div>
 
-                        <div class='col-hss-1' style='height: 60px; margin: 1px; '>
-                        </div>
+                   <div class='col-hss-4' style='height: 40px; margin: 1px; '>
+                       <h1<p>Autorizado em: <b>".@$dados_result_resp_doc['RESP_DATA_AUTORIZACAO']." </b></h1>
+                   </div>
 
-                        <div class='col-hss-4' style='height: 60px; margin: 5px; border-style: none !important; border-bottom: 1px solid black !important;'>
-                            <h1><p>Assinatura e Carimbo do Diretor Clínico: </h1>
-                        </div>
+                   <div class='col-hss-1' style='height: 40px; margin: 1px; '>
+                   </div>
 
-                        <div class='col-hss-1' style='height: 60px; margin: 1px; '>
-                        </div>
-                    </div>
+                   <div class='col-hss-4' style='height: 40px; margin: 1px; '>
+                       <h1><p>Atendente: <b>".@$dados_result_resp_doc['RESP_ATENDENTE']." </b></h1>
+                   </div>
 
-                    <div class='row'>
-                        <div class='col-hss-1' style='height: 60px; margin: 1px; '>
-                        </div>
-
-                        <div class='col-hss-4' style='height: 60px; margin: 5px; border-style: none !important; border-bottom: 0px solid black !important;'>
-                            <h1><p>Atendente: __________________________</h1>
-                        </div>
-
-                       
-                    </div>
+               </div>
                       
              </div>
           </div>

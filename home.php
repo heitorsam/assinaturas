@@ -11,30 +11,33 @@
             include 'js/mensagens_usuario.php';
         ?>
                 
-            <div class="div_br"> </div>        
+            <div class="div_br"> </div>  
 
+            <?php if(@$_SESSION['sn_usuario_comum'] == 'S' || @$_SESSION['sn_faturamento'] == 'S'){ ?>      
             <h11><i class="fas fa-signature"></i> Guia TISS</h11>
 
-            <div class="div_br"> </div>
+                <div class="div_br"> </div>
 
-            <a href="gerar_documento.php" class="botao_home" type="submit"><i class="fas fa-file-signature"></i> Gerar Documento</a></td></tr>
+                <a href="gerar_documento.php" class="botao_home" type="submit"><i class="fas fa-file-signature"></i> Gerar Documento</a></td></tr>
 
-            <span class="espaco_pequeno"></span>
+                <span class="espaco_pequeno"></span>
 
-            <a href="anexos.php" class="botao_home" type="submit"><i class="fas fa-camera"></i> Anexos</a></td></tr>
-
+                <a href="anexos.php" class="botao_home" type="submit"><i class="fas fa-camera"></i> Anexos</a></td></tr>
+                
+            <?php } ?>
             <div class="div_br"> </div>
 
             <!--    -->
             <div class="div_br"> </div>
             <div class="div_br"> </div>
 
-            <h11><i class="fa fa-address-book-o" aria-hidden="true"></i> SAME</h11>
+            <?php if(@$_SESSION['sn_usuario_same'] == 'S'){ ?>
+                <h11><i class="fa fa-address-book-o" aria-hidden="true"></i> SAME</h11>
 
-            <div class="div_br"> </div>
+                <div class="div_br"> </div>
 
-            <a href="gerar_documento_same.php" class="botao_home" type="submit"><i class="fas fa-file-signature"></i> Gerar Documento</a></td></tr>
-            
+                <a href="gerar_documento_same.php" class="botao_home" type="submit"><i class="fas fa-file-signature"></i> Gerar Documento</a></td></tr>
+            <?php } ?>
            
             <!--
 

@@ -25,42 +25,49 @@ if($row_lista_doc['NM_DOC'] == 'hos_faa' ){
 	echo '<a type="button" class="btn btn-primary"data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="hos_faa" data-identificador="hos_faa_assinado"><i class="fas fa-eye"></i></a>';
 }
 
-//Visualizar Assinada - Ficha Atendimento
+//Visualizar Assinada - Contrato Internação
 if($row_lista_doc['NM_DOC'] == 'cont_int' ){
                                 
 	echo '<a type="button" class="btn btn-primary"data-toggle="modal" data-target="#visualizaModalAssinado"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="cont_int" data-identificador="contrato_internacao_assinada"><i class="fas fa-eye"></i></a>';
 }
 
-//Visualizar Assinada - Ficha Atendimento
+//Visualizar Assinada - Carta Golpe 
 if($row_lista_doc['NM_DOC'] == 'cart_golpe' ){
                                 
 	echo '<a type="button" class="btn btn-primary"data-toggle="modal" data-target="#visualizaModalAssinado"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="cart_golpe" data-identificador="carta_golpe_assinada"><i class="fas fa-eye"></i></a>';
 }
 
-//Visualizar Assinada - Ficha Atendimento
+//Visualizar Assinada - Termo Cirurgia
 if($row_lista_doc['NM_DOC'] == 'term_cirurgia' ){
                                 
 	echo '<a type="button" class="btn btn-primary"data-toggle="modal" data-target="#visualizaModalAssinado"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="term_cirurgia" data-identificador="termo_cirurgia_assinada"><i class="fas fa-eye"></i></a>';
 }
 
 
-//Visualizar Assinada - Ficha Atendimento
+//Visualizar Assinada - Termo Parto
 if($row_lista_doc['NM_DOC'] == 'term_part_cesareo' ){
                                 
 	echo '<a type="button" class="btn btn-primary"data-toggle="modal" data-target="#visualizaModalAssinado"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="term_part_cesareo" data-identificador="termo_parto_cesareo_assinada"><i class="fas fa-eye"></i></a>';
 }
 
-//Visualizar Assinada - Ficha Atendimento
+//Visualizar Assinada - Termo Sedação
 if($row_lista_doc['NM_DOC'] == 'term_sedacao' ){
                                 
 	echo '<a type="button" class="btn btn-primary"data-toggle="modal" data-target="#visualizaModalAssinado"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="term_sedacao" data-identificador="term_sedacao_assinado"><i class="fas fa-eye"></i></a>';
 }
 
-//Visualizar Assinada - Ficha Atendimento
+//Visualizar Assinada - Termo Laqueadura
 if($row_lista_doc['NM_DOC'] == 'term_laqueadura' ){
                                 
 	echo '<a type="button" class="btn btn-primary"data-toggle="modal" data-target="#visualizaModalAssinado"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="term_laqueadura" data-identificador="term_laqueadura_assinado"><i class="fas fa-eye"></i></a>';
 }
+
+//Visualizar Assinada - Requerimento Prontuário
+if($row_lista_doc['NM_DOC'] == 'same' ){
+                                
+	echo '<a type="button" class="btn btn-primary"data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_paciente="<?php echo $var_cd_paciente ?>" data-tp_doc="same" data-identificador="guia_same_assinado"><i class="fas fa-eye"></i></a>';
+}
+
 
 
 ?>

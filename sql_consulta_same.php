@@ -49,6 +49,18 @@
                     AND vdic.CD_PACIENTE = '$var_cd_paciente'
                     )AS RESP_PERIODO_INT,
                     
+                    --DADOS CHECK PACIENTE
+                    (SELECT 
+                        CASE
+                            WHEN vdic.DS_RESPOSTA = 'true' THEN 'X'
+                            ELSE NULL
+                        END AS RESP_NOME
+                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
+                    WHERE vdic.CD_DOCUMENTO = '993'
+                    AND vdic.DS_IDENTIFICADOR = 'same_radio_paciente_1'
+                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
+                    )AS RESP_CHECK_PACIENTE,
+
                     --DADOS CHECK REPRESENTANTE LEGAL
                     (SELECT 
                         CASE
@@ -57,7 +69,7 @@
                         END AS RESP_NOME
                     FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
                     WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'SC_CHECKBOX_REPRESENTANTE_LEGAL_1'
+                    AND vdic.DS_IDENTIFICADOR = 'same_radio_ep_legal_1'
                     AND vdic.CD_PACIENTE = '$var_cd_paciente'
                     )AS RESP_CHECK_REP_LEGAL,
                     
@@ -69,7 +81,7 @@
                         END AS RESP_NOME
                     FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
                     WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'SC_CHECKBOX_TUTOR_CURADOR_1'
+                    AND vdic.DS_IDENTIFICADOR = 'same_radio_tutor_curador_1'
                     AND vdic.CD_PACIENTE = '$var_cd_paciente'
                     )AS RESP_CHECK_CURADOR,
                     
@@ -81,9 +93,17 @@
                         END AS RESP_NOME
                     FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
                     WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'SC_CHECKBOX_PARENTE_1'
+                    AND vdic.DS_IDENTIFICADOR = 'same_radio_parente_1'
                     AND vdic.CD_PACIENTE = '$var_cd_paciente'
                     )AS RESP_CHECK_PARENTE,
+
+                    --PARENTE NOME
+                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
+                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
+                    WHERE vdic.CD_DOCUMENTO = '993'
+                    AND vdic.DS_IDENTIFICADOR = 'same_text_radio_parente_1'
+                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
+                    )AS RESP_PARENTE_NOME,
                     
                     --REQUERENTE NOME
                     (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME

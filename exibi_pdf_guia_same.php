@@ -7,14 +7,14 @@
 
     @$_SESSION['atdconsulta'] = $_SESSION['atdpdf'];
 
-    $var_cd_atendimento = $_SESSION['atdpdf'];
+    $var_cd_atendimento = $_SESSION['cd_atendimento'];
 
     ///////////////
     //PDF DOWLOAD//
     ///////////////
     $cons_dowload="SELECT *
     FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
-    WHERE ass.cd_atendimento = 4289573
+    WHERE ass.cd_atendimento = $var_cd_atendimento
     AND TP_DOCUMENTO LIKE 'same'";
 
     $result_dowload = oci_parse($conn_ora, $cons_dowload);

@@ -33,7 +33,22 @@
 																			FROM dbasgu.PAPEL_USUARIOS puia
 																			WHERE puia.CD_PAPEL = 358) THEN 'S' --PORTAL ASSINATURAS FATURAMENTO
 														ELSE 'N'
-													END SN_FATURAMENTO
+													END SN_FATURAMENTO,
+
+													CASE
+														WHEN :usuario IN (SELECT DISTINCT puia.CD_USUARIO
+																			FROM dbasgu.PAPEL_USUARIOS puia
+																			WHERE puia.CD_PAPEL = 361) THEN 'S' --PORTAL SAME
+														ELSE 'N'
+													END SN_USUARIO_SAME,
+													CASE
+														WHEN :usuario IN (SELECT DISTINCT puia.CD_USUARIO
+																			FROM dbasgu.PAPEL_USUARIOS puia
+																			WHERE puia.CD_PAPEL = 364) THEN 'S' --PORTAL SAME RECEPÇÃO
+														ELSE 'N'
+													END SN_USUARIO_SAME_RECEPCAO
+
+													
 												FROM DUAL");																															
 												
 		oci_bind_by_name($result_usuario, ':usuario', $usuario);
@@ -54,6 +69,8 @@
 				$_SESSION['usuarioNome'] = $resultado[1];
 				$_SESSION['sn_usuario_comum'] = $resultado[2];
 				$_SESSION['sn_faturamento'] = $resultado[3];
+				$_SESSION['sn_usuario_same'] = $resultado[4];
+				$_SESSION['sn_usuario_same_recepcao'] = $resultado[5];
 				header("Location: $pag_apos");
 			} else { 
 				$_SESSION['msgerro'] = $resultado[0] . '!';
