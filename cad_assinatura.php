@@ -92,8 +92,8 @@
 							$cons_nome_pres = "SELECT DISTINCT  pres.CD_PRESTADOR, pres.NM_PRESTADOR
 												FROM dbamv.PRESTADOR pres
 												JOIN dbasgu.usuarios usu ON pres.cd_prestador = usu.cd_prestador
-												WHERE pres.CD_TIP_PRESTA <> 8
-												AND usu.SN_ATIVO = 'S'
+												--WHERE pres.CD_TIP_PRESTA <> 8
+												WHERE usu.SN_ATIVO = 'S'
 												ORDER BY pres.NM_PRESTADOR ASC ";
 							$result_nome_pres = oci_parse($conn_ora, $cons_nome_pres);
 							@oci_execute($result_nome_pres);

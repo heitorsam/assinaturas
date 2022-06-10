@@ -29,12 +29,12 @@ $deleta_dados = oci_parse($conn_ora, $consult_delete);
 oci_execute($deleta_dados);
 
 /*
-$consulta_long_raw = "INSERT INTO dbamv.PRESTADOR_ASSINATURA
-                      (CD_PRESTADOR, ASSINATURA)
-                      VALUES 
-                      ('$var_cd_prestador',utl_raw.cast_to_raw('$image'))";
-$insere_dados = oci_parse($conn_ora, $consulta_long_raw);
-oci_execute($insere_dados);
+    $consulta_long_raw = "INSERT INTO dbamv.PRESTADOR_ASSINATURA
+                        (CD_PRESTADOR, ASSINATURA)
+                        VALUES 
+                        ('$var_cd_prestador',utl_raw.cast_to_raw('$image'))";
+    $insere_dados = oci_parse($conn_ora, $consulta_long_raw);
+    oci_execute($insere_dados);
 */
 
 $consulta_insert = 
@@ -65,8 +65,8 @@ $blob->free();
 //echo "</br></br>";
 //SQL BUSCA ASSINATURA
 $cons_assinatura_prest = "SELECT ASSINATURA_TISS, ASSINATURA
-FROM dbamv.prestador_assinatura
-WHERE CD_PRESTADOR = 5959";
+                            FROM dbamv.prestador_assinatura
+                            WHERE CD_PRESTADOR = $var_cd_prestador";
 
 @$result_assinatura_prest = oci_parse($conn_ora, @$cons_assinatura_prest);
 @oci_execute(@$result_assinatura_prest);
