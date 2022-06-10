@@ -43,15 +43,15 @@
                         pac.NR_CPF, 
                         TO_CHAR(pac.DT_NASCIMENTO,'DD/MM/YYYY') AS DT_NASCIMENTO, 
                         ate.TP_ATENDIMENTO
-    FROM ATENDIME ate
-    INNER JOIN paciente  pac ON pac.cd_paciente = ate.cd_paciente
-    INNER JOIN CONVENIO  con ON con.cd_convenio = ate.cd_convenio
-    WHERE ate.cd_paciente = '$var_cd_paciente'
-    AND ate.cd_atendimento = (SELECT MAX(vdic.CD_ATENDIMENTO) AS ATENDIMENTO 
-                                FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                                WHERE vdic.CD_DOCUMENTO = '993'
-                                AND vdic.CD_PACIENTE = pac.CD_PACIENTE
-                             )
+				FROM ATENDIME ate
+				INNER JOIN paciente  pac ON pac.cd_paciente = ate.cd_paciente
+				INNER JOIN CONVENIO  con ON con.cd_convenio = ate.cd_convenio
+				WHERE ate.cd_paciente = '$var_cd_paciente'
+				AND ate.cd_atendimento = (SELECT MAX(vdic.CD_ATENDIMENTO) AS ATENDIMENTO 
+											FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
+											WHERE vdic.CD_DOCUMENTO = '993'
+											AND vdic.CD_PACIENTE = pac.CD_PACIENTE
+										)
     ";
 
     $result_atendimento = oci_parse($conn_ora, $cons_atend);
@@ -85,36 +85,12 @@
                 FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
                 WHERE ass.cd_atendimento = $var_cd_atendimento
                 ";
-
+    
         $result_pdf_exis = oci_parse($conn_ora, $cons_pdf);
         @oci_execute($result_pdf_exis);
         @$row_pdf_exis = oci_fetch_array($result_pdf_exis);
         @$var_pdf_existe = $row_pdf_exis['BLOB_ANEXO'];
         }
-
-
-    ///////////////////////////////////////////
-	//Verifica se existe prontuario (editor)///
-    ///////////////////////////////////////////
-	/*
-	if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdpdf']) ){
-        $cons_pdf ="SELECT 
-                        CASE 
-                            WHEN COUNT(vdic.*) > 0 THEN COUNT(vdic.*)
-                            ELSE NULL
-                        END AS doc
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                ";
-    
-        $result_pdf_exis = oci_parse($conn_ora, $cons_pdf);
-        @oci_execute($result_pdf_exis);
-        @$row_pdf_exis = oci_fetch_array($result_pdf_exis);
-        @$var_pdf_existe = $row_pdf_exis['CD_PACIENTE'];
-      
-        }
-	*/
 ?>
 
 <!DOCTYPE HTML>
@@ -138,7 +114,7 @@
 
 
 		<div class="div_br"> </div>
-		<!-- FORMULARIO - PRONTUARIO -->
+		<!--FORM - PRONTUARIO-->
 		<form method="get" autocomplete="off" action="gerar_documento_same.php">
 			<div class="row">
 				<div class="col-md-3 ">
@@ -161,170 +137,156 @@
 		</form>
 		</br>
 
-		<!---ANEXAR ARQUIVO-->
-		<?php 
-			if(strlen(@$var_nm_paciente) > 1 AND $_SESSION['sn_usuario_comum'] == 'S'){ 
-		?>
-            <div class="row">
-
-                <div style="margin-left: 15px;">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalanexomv">
-                        <i class="fas fa-camera"></i> Anexar arquivo
-                    </button>
-                </div>
-
-                <?php 		
-                    //MODAL ANEXO MV
-                    include 'modal_anexo_mv.php';	
-                ?>
-                
-            </div></br>
-		<?php 
-			}
-		?>
-
 		<!---RESULTADO DA PESQUISA-->
-		<?php if(strlen(@$var_nm_pacformiente) > 1 ){ ?>
-		<form autocomplete="off" id="assinatura"  method="get//" action="gerar_documento_pdf.php">
-			
-			<!---ROW DADOS PAC-->
-			<div class="row">		
+		<?php if(strlen(@$var_nm_paciente) > 1 ){ ?>
+			<form autocomplete="off" id="assinatura"  method="get//" action="gerar_documento_pdf.php">
+				<div class="row">		
 
-				<div class="col-md-3" id="div_sn_exame_mv">
+					<div class="col-md-3" id="div_sn_exame_mv">
 						<label>Paciente:</label>
 						<input type="text"  class="form-control" value="<?php echo @$var_nm_paciente?>" id="paciente" name="nm_paciente" readonly></input>
-				</div>
+					</div>
 
-				<div class="col-md-2" id="div_sn_exame_mv">
+					<div class="col-md-2" id="div_sn_exame_mv">
 						<label>Nascimento:</label>
 						<input type="text" value="<?php echo @$var_dt_nascimento ?>" class="form-control" id="" name="" readonly></input>
-				</div>
+					</div>
 
-				<div class="col-md-2" id="div_sn_exame_mv">
+					<div class="col-md-2" id="div_sn_exame_mv">
 						<label>CPF:</label>
 						<input type="text" value="<?php echo @$var_nr_cpf;?>" class="form-control" id="" name="" readonly></input>
-				</div>
+					</div>
 
-				<div class="col-md-2" id="div_sn_exame_mv">
+					<div class="col-md-2" id="div_sn_exame_mv">
 						<label>RG:</label>
 						<input type="text" value="<?php echo @$var_nr_identidade;?>" class="form-control" id="" name="" readonly></input>
-				</div>
+					</div>
 
-				<div class="col-md-3" id="div_sn_exame_mv">
+					<div class="col-md-3" id="div_sn_exame_mv">
 						<!--<label>Convenio:</label>-->
 						<input type="hidden" value="<?php echo @$var_nm_conv;?>" class="form-control" id="nm_convenio" name="nm_conv" readonly></input>
-				</div>
+					</div>
 
-				<div class="col-md-0" id="div_sn_exame_mv">
-                <!--<label>Data Atendimento:</label>-->
+					<div class="col-md-0" id="div_sn_exame_mv">
+						<!--<label>Data Atendimento:</label>-->
 						<input type="hidden" value="<?php echo @$var_dt_aten ?>" class="form-control" id="dt_atendimento" name="dt_aten" readonly></input>
-				</div>
+					</div>
 
-				<div class="col-md-0" id="div_sn_exame_mv">
-                <!--<label>Atendimento:</label>-->
+					<div class="col-md-0" id="div_sn_exame_mv">
+						<!--<label>Atendimento:</label>-->
 						<input type="hidden"  class="form-control" value="<?php echo @$var_cd_atendimento?>" id="atendimento" name="cd_atendimento" readonly></input>
-				</div>
+					</div>
 
-                <div class="col-md-0" id="div_sn_exame_mv">
-               <!-- <label>paciente:</label>-->
+					<div class="col-md-0" id="div_sn_exame_mv">
+						<!-- <label>paciente:</label>-->
 						<input type="hidden"  class="form-control" value="<?php echo @$var_cd_paciente?>" id="cd_paciente" name="cd_paciente" readonly></input>
-				</div>
+					</div>
 
-				<div class="col-md-2" id="div_sn_exame_mv">
-                <!--<label>Tipo Atendimeno:</label>-->
+					<div class="col-md-2" id="div_sn_exame_mv">
+						<!--<label>Tipo Atendimeno:</label>-->
 						<input type="hidden"  class="form-control" value="<?php echo @$var_tp_atendimento?>" id="tipoatendimento" name="tipoatendimento" readonly></input>
-				</div>
+					</div>
 
-				<div class="col-md-0" id="div_sn_exame_mv">
+					<div class="col-md-0" id="div_sn_exame_mv">
 						<input type="hidden" value="<?php echo @$var_cd_conv;?>" class="form-control" id="cd_convenio" name="cd_conv" ></input>
-				</div>
-				<br>
-			</div>
-
-			
-			
-			<div class="row" style="margin: 0 0 0 0 ; padding: 0 0 0 0 ;" >
-				<!-- SE NÃO TIVER ASSINADO -->
-				<?php if(!isset($var_pdf_existe)){?>
-					<!-- GERA GUIA SAME PARA VISUALIZAÇÃO -->
-					<div style="margin-top: 20px; margin-right: 10px;">
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal" data-cd_paciente="<?php echo $var_cd_paciente ?>"  data-nm_paciente="<?php echo $var_nm_paciente ?>" data-identificador="same">
-							<i class="far fa-eye"></i> Guia SAME
-						</button><br><br>
 					</div>
-						
-				<?php }else{ ?>		
-				<?php } ?>
-			</div>
-
-
-			<div class="row" style="margin: 0 0 0 0 ; padding: 0 0 0 0 ;">
-				<!-- SE TIVER ASSINADO -->
-				<?php if(isset($var_pdf_existe)){ ?>
 					<br>
-					<!--
-						<div class="col-md-12"><h11 id=""><i class="fas fa-file-contract"></i> Documentos Assinados:</h11></div>
-						APENAS GERA A GUIA TISS SE FOR CONVENIO 
-						<div style="margin-top: 20px; margin-right: 10px; ">
-							<a  style="height: 100%; width: 100% " class="btn btn-primary " data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_paciente="<?php echo $var_cd_paciente ?>" data-tp_doc="same" data-identificador="guia_same_assinado"><i class="fas fa-file-pdf"></i> Guia Same</a>
-						</div>
-					-->
+				</div>
+
+				<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+				<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 				
-				<?php }else{?>
-					
-					<?php if(@$_SESSION['sn_usuario_same'] == 'S'){ ?>
-
-						<div class="col-md-2" style="margin: 0 0 0 0 ; padding: 0 0 0 0 ;">
-							<button type="button" class="btn btn-primary alinhamneto_assinar" data-toggle="modal" data-target="#exampleModalCenter" id="btnAssinar" >
-								<i class="fas fa-signature"></i> Assinar
-							</button>  
+				<!--SE NÃO TIVER ASSINADO -->
+				<div class="row" style="margin: 0 0 0 0 ; padding: 0 0 0 0 ;" >
+					<!-- SE NÃO TIVER ASSINADO -->
+					<?php if(!isset($var_pdf_existe)){?>
+						<!-- GERA GUIA SAME PARA VISUALIZAÇÃO -->
+						<div style="margin-top: 20px; margin-right: 10px;">
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal" data-cd_paciente="<?php echo $var_cd_paciente ?>"  data-nm_paciente="<?php echo $var_nm_paciente ?>" data-identificador="same">
+								<i class="far fa-eye"></i> Guia SAME
+							</button><br><br>
 						</div>
-
+							
+					<?php }else{ ?>
 					<?php } ?>
+				</div>
 
-				<?php }	?>
-			</div>
 
-			<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-			<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+				<div class="row" style="margin: 0 0 0 0 ; padding: 0 0 0 0 ;">
+					<!-- SE TIVER ASSINADO -->
+					<?php if(isset($var_pdf_existe)){ ?>
+						<br>
+						<!--
+							<div class="col-md-12"><h11 id=""><i class="fas fa-file-contract"></i> Documentos Assinados:</h11></div>
+							APENAS GERA A GUIA TISS SE FOR CONVENIO 
+							<div style="margin-top: 20px; margin-right: 10px; ">
+								<a  style="height: 100%; width: 100% " class="btn btn-primary " data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_paciente="<?php echo $var_cd_paciente ?>" data-tp_doc="same" data-identificador="guia_same_assinado"><i class="fas fa-file-pdf"></i> Guia Same</a>
+							</div>
+						-->
 				
-			<?php if(isset($var_pdf_existe)){ ?>
 
-				<!-- CHAMA A TABELA BAIXAR PDF -->
-				<?php include 'tabela_baixar_pdf.php'; ?>
+					<?php }else{?>
+						
+						<?php if(@$_SESSION['sn_usuario_same'] == 'S'){ ?>
 
-			<?php } ?>
+							<div class="col-md-2" style="margin: 0 0 0 0 ; padding: 0 0 0 0 ;">
+								<button type="button" class="btn btn-primary alinhamneto_assinar" data-toggle="modal" data-target="#exampleModalCenter" id="btnAssinar" >
+									<i class="fas fa-signature"></i> Assinar
+								</button>  
+							</div>
 
-			<!--MODAL ASSINATURA-->
-			<div class="modal fade" id="exampleModalCenter" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-				<div class="modal-dialog modal-dialog" role="document">
-					<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLongTitle">Assinatura</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body" style="margin: 0 auto;">
-						<canvas id="sig-canvas" width="620" height="160" style="border: solid 1px black; 
-								margin-top: 20px;
-								width: 600px; height: 150px;">
-						</canvas>
-						<input type="hidden" name="escondidinho" id="escondidinho"></input>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" id="sig-clearBtn" onClick="redraw()"><i class="fas fa-eraser"></i> Limpar</button>
-						<button type="button" type="submit" class="btn btn-primary" id="sig-submitBtn"><i class="fas fa-paper-plane"></i> Enviar</button>
-					</div>
+						<?php } ?>
+
+					<?php }	?>
+				</div>
+
+				<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+				<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+				
+				<?php if(isset($var_pdf_existe)){ ?>
+
+					<!-- CHAMA A TABELA BAIXAR PDF -->
+
+					<?php //echo $_SESSION['sn_faturamento']; ?>
+
+					<?php //if(@$_SESSION['sn_faturamento'] == 'S'){ ?>
+
+						<?php include 'tabela_baixar_pdf.php'; ?>
+
+					<?php //} ?>
+					
+				<?php } ?>
+
+				<!--MODAL ASSINATURA-->
+				<div class="modal fade" id="exampleModalCenter" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLongTitle">Assinatura</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body" style="margin: 0 auto;">
+							<canvas id="sig-canvas" width="620" height="160" style="border: solid 1px black; 
+									margin-top: 20px;
+									width: 600px; height: 150px;">
+							</canvas>
+							<input type="hidden" name="escondidinho" id="escondidinho"></input>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" id="sig-clearBtn" onClick="redraw()"><i class="fas fa-eraser"></i> Limpar</button>
+							<button type="button" type="submit" class="btn btn-primary" id="sig-submitBtn"><i class="fas fa-paper-plane"></i> Enviar</button>
+						</div>
+						</div>
 					</div>
 				</div>
-			</div>
 
-		</form>
+			</form>
 		<?php }?>
 
-			<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-			<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+	<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+	<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 		<br>
 		<br>
 		
@@ -338,7 +300,7 @@
 
     <script>
 		//var form = document.getElementById("assinatura");
-
+		
 		(function() {
 			
 			// Get a regular interval for drawing to the screen
@@ -473,8 +435,9 @@
 <!--TAMANHO DA MODAL / SCROLL -->
 <style>
 	.modal-body {
-    	height: 100%;
-	}
+    
+    height: 100%;
+}
 </style>
 
 <!--MODAL VISUALIZA-->
@@ -488,10 +451,9 @@
 			<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
-
 		<div class="modal-body" id="body_result" style="margin-left: 10px; width: 100%">
+			
 		</div>
-
 		<div class="modal-footer">
 		</div>
 		</div>
@@ -521,88 +483,88 @@
 
 <script type="text/javascript">
 
-	$(document).ready(function(){
+$(document).ready(function(){
 
-		/*TODA VEZ QUE ABRIR O MODAL EXECUTAR ESSA FUNCAO*/
+	/*TODA VEZ QUE ABRIR O MODAL EXECUTAR ESSA FUNCAO*/
 
-		$(document).on('shown.bs.modal','.modal', function (event) {
+    $(document).on('shown.bs.modal','.modal', function (event) {
 
-			// DO EVENTS
-			var button = $(event.relatedTarget) //Button that triggered the modal
-			var cd_atendimento = button.data('cd_atendimento')   
-			var cd_paciente = button.data('cd_paciente') 
-			var nm_paciente = button.data('nm_paciente')   
-			var dt_aten = button.data('dt_aten')       
-			var nm_conv = button.data('nm_conv') 
-			var tp_doc = button.data('tp_doc')     
-			var identificador = button.data('identificador') 
-			//console.log(identificador);
+        // DO EVENTS
+        var button = $(event.relatedTarget) //Button that triggered the modal
+        var cd_atendimento = button.data('cd_atendimento')   
+        var cd_paciente = button.data('cd_paciente') 
+        var nm_paciente = button.data('nm_paciente')   
+		var dt_aten = button.data('dt_aten')       
+		var nm_conv = button.data('nm_conv') 
+		var tp_doc = button.data('tp_doc')     
+		var identificador = button.data('identificador') 
+        //console.log(identificador);
 
 
-			//PASSANDO VALOR DO CAMPO PESQUISA E EXECUTANDO AJAX
+        //PASSANDO VALOR DO CAMPO PESQUISA E EXECUTANDO AJAX
 
-			//NÃO ASSINADOS
+		//NÃO ASSINADOS
 
-			if(identificador == 'same'){
+		if(identificador == 'same'){
 
-				$.getJSON('visualizar_guia_same.php?search=',{cd_atendimento: cd_atendimento, cd_paciente: cd_paciente,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv, ajax: 'true'}, function(j){
+			$.getJSON('visualizar_guia_same.php?search=',{cd_atendimento: cd_atendimento, cd_paciente: cd_paciente,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv, ajax: 'true'}, function(j){
 
-					if(j){
-						//alert("Certo");
-						$("#visualizaModal .modal-body").html(j[0]);            
-					} 
-					else {
-						alert("Erro");
-					}
+				if(j){
+					//alert("Certo");
+					$("#visualizaModal .modal-body").html(j[0]);            
+				} 
+				else {
+					alert("Erro");
+				}
 
-				});	
+			});	
 
-			//ASSINADOS
+		//ASSINADOS
 
-			}else if(identificador == 'guia_same_assinado'){
+		}else if(identificador == 'guia_same_assinado'){
 
-				$("#visualizaModalAssinado .modal-body").load('exibi_pdf_guia_same.php');
+			$("#visualizaModalAssinado .modal-body").load('exibi_pdf_guia_same.php');
+       
+		}
+
+
+     });
+
+	//AÇÃO APOS ASSINAR
+
+	document.getElementById("sig-submitBtn").addEventListener("click", function () {
+		 //alert("Aqui");
+
+		var canvas = document.getElementById("sig-canvas");
+	
+		var cd_atendimento = document.getElementById("atendimento").value;
+		console.log(cd_atendimento);
+
+        var cd_paciente = document.getElementById("cd_paciente").value;
+		console.log(cd_paciente);
+
+		var nm_paciente = document.getElementById("paciente").value;
+		console.log(nm_paciente);
+
+		var dt_aten = document.getElementById("dt_atendimento").value;
+		console.log(dt_aten);
+
+		var nm_conv = document.getElementById("nm_convenio").value;
+		console.log(nm_conv);
+
+		var escondidinho = document.getElementById('escondidinho').value = canvas.toDataURL('image/png');
+		console.log(escondidinho);
+
+		//CONVENIO 
+		var cd_conv = document.getElementById("cd_convenio").value;
+		console.log(cd_conv);
 		
-			}
-
-
-		});
-
-		//AÇÃO APOS ASSINAR
-
-		document.getElementById("sig-submitBtn").addEventListener("click", function () {
-			//alert("Aqui");
-
-			var canvas = document.getElementById("sig-canvas");
-		
-			var cd_atendimento = document.getElementById("atendimento").value;
-			console.log(cd_atendimento);
-
-			var cd_paciente = document.getElementById("cd_paciente").value;
-			console.log(cd_paciente);
-
-			var nm_paciente = document.getElementById("paciente").value;
-			console.log(nm_paciente);
-
-			var dt_aten = document.getElementById("dt_atendimento").value;
-			console.log(dt_aten);
-
-			var nm_conv = document.getElementById("nm_convenio").value;
-			console.log(nm_conv);
-
-			var escondidinho = document.getElementById('escondidinho').value = canvas.toDataURL('image/png');
-			console.log(escondidinho);
-
-			//CONVENIO 
-			var cd_conv = document.getElementById("cd_convenio").value;
-			console.log(cd_conv);
+		//TIPO ATENDIMENTO 
+		var tb_atd = document.getElementById("tipoatendimento").value;
+		console.log(tb_atd);
+	
+		//APENAS GERA A GUIA TISS SE FOR CONVENIO
 			
-			//TIPO ATENDIMENTO 
-			var tb_atd = document.getElementById("tipoatendimento").value;
-			console.log(tb_atd);
-		
-			//APENAS GERA A GUIA TISS SE FOR CONVENIO
-				
 			//SALVANDO NO BANCO GUIA TISS 
 			$.ajax({
 				//Configurações
@@ -623,10 +585,11 @@
 				*/				
 			});
 
-			window.setTimeout(function(){location.reload()},1000)
-			
-		});
-
+	
+		window.setTimeout(function(){location.reload()},1000)
+		
 	});
+
+});
 
 </script>
