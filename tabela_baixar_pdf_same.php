@@ -13,10 +13,10 @@
                         FROM assinaturas.documentos_assinados da
                         INNER JOIN assinaturas.TP_DOCUMENTO tp
                         ON tp.NM_DOC = da.TP_DOCUMENTO
-                        WHERE NM_DOC = 'same_pendente'
+                        $where
                         AND EXTRACT(YEAR FROM DT_CRIACAO) = '$var_periodo_ano'
                         AND EXTRACT(MONTH FROM DT_CRIACAO) = '$var_periodo_mes'
-                        ORDER BY tp.DESC_DOC ASC
+                        ORDER BY da.DT_CRIACAO ASC
                         ";
 
     $result_lista_doc = oci_parse($conn_ora, $cons_lista_doc);
@@ -32,7 +32,12 @@
                     <th style="text-align: center;">Paciente</th>
                     <th style="text-align: center;">Descrição</th>
                     <th style="text-align: center;">Data do Pedido</th>
+
                     <th style="text-align: center;">Assinar</th>
+
+                    <?php if(@$_SESSION['sn_usuario_same'] == 'S' || @$_SESSION['sn_usuario_same_recepcao'] == 'S'){ ?>
+                        <th style="text-align: center;">Baixar</th>
+                    <?php } ?>
                    
 
                 </tr>
@@ -50,18 +55,28 @@
                     <td class='align-middle' style='text-align: center;'><?php echo @$row_lista_doc['DESC_DOC']; ?></td>
                     <td class='align-middle' style='text-align: center;'><?php echo @$row_lista_doc['DT_CRIACAO']; ?></td>
                      
-                        <!--MODEL VISUALIZAR-->
-                        <td class="align-middle" style="text-align: center !important;">
-                            <?php 
-                                echo '<a type="button" class="btn btn-primary"
-                                                        data-toggle="modal" 
-                                                        data-target="#visualizaModalAssinado" 
-                                                        data-cd_atendimento="'.$row_lista_doc['CD_ATENDIMENTO'].'" 
-                                                        data-tp_doc="guia_same_assinado" 
-                                                        data-identificador="guia_same_assinado">
-                                      <i class="fas fa-pencil-alt"></i></a>';
-                            ?>
-                        </td>
+                    <!--MODEL VISUALIZAR-->
+                    <td class="align-middle" style="text-align: center !important;">
+                        <?php 
+                            echo '<a type="button" class="btn btn-primary"
+                                                    data-toggle="modal" 
+                                                    data-target="#visualizaModalAssinado" 
+                                                    data-cd_atendimento="'.$row_lista_doc['CD_ATENDIMENTO'].'" 
+                                                    data-tp_doc="guia_same_assinado" 
+                                                    data-identificador="guia_same_assinado">
+                                    <i class="fas fa-pencil-alt"></i></a>';
+                        ?>
+                    </td>
+
+                    <?php
+                        if(@$_SESSION['sn_usuario_same'] == 'S' || @$_SESSION['sn_usuario_same_recepcao'] == 'S'){ 
+                            //BAIXAR                            
+                            echo '<td style="text-align: center; vertical-align : middle;"> 
+                                    <a type="button" class="btn btn-primary" target="_blank" href="baixar_pdf.php?nm_doc='. $row_lista_doc['NOME_ANEXO'] . '">'. ' <i class="fas fa-download"></i></a> 
+                                  </td>';
+                        }
+                    ?>
+
 
                 </tr>
                 
@@ -88,14 +103,18 @@
 
                 <form method="POST" action='salvar_assinatura.php'>
 
-                    <input type="text" id="js_cd_atendimento" name="frm_cd_atendimento"> </input>
+                    <input type="hidden" id="js_cd_atendimento" name="frm_cd_atendimento"> </input>
                
                     <div class="modal-body" id="body_result" style="margin-left: 10px; width: 100%">              
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"> <i class="fas fa-times"></i> Fechar</button>
-                        <button type="submit" id='aaaaa' class="btn btn-primary"><i class="fas fa-plus"></i> Assinar</button>
+                        <?php if(@$_SESSION['sn_usuario_same_diretor'] == 'S'){ ?>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fas fa-times"></i> Recusar</button>
+                            <button type="submit" id='aaaaa' class="btn btn-primary"><i class="fas fa-plus"></i> Assinar</button>
+                        <?php } ?>
+
                     </div>
 
                 </form>

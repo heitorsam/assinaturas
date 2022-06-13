@@ -18,7 +18,7 @@
         
     <div class="div_br"> </div>        
 
-    <h11><i class="fas fa-file-signature"></i> Requerimentos Pendentes:</h11>
+    <h11><i class="fas fa-address-book"></i> Requerimentos Pendentes:</h11>
     <span class="espaco_pequeno" style="width: 6px;" ></span>
     <h27> <a href="home.php" style="color: #444444; text-decoration: none;"> <i class="fa fa-reply" aria-hidden="true"></i> Voltar </a> </h27> 
 
@@ -63,6 +63,7 @@
 
     if(isset($var_periodo_filtro)){       
         //CABECALHO
+        $where = "WHERE NM_DOC = 'same_pendente'";
         include 'tabela_baixar_pdf_same.php';
     }
 
@@ -93,7 +94,7 @@ $(document).ready(function(){
 
         //PASSANDO VALOR DO CAMPO PESQUISA E EXECUTANDO AJAX
 		if(identificador == 'guia_same_assinado'){
-            alert(cd_atendimento);
+            //alert(cd_atendimento);
 			$("#visualizaModalAssinado .modal-body").load('exibi_pdf_guia_same.php?cd_atendimento=' + cd_atendimento);
         	}
 

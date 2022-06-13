@@ -46,7 +46,15 @@
 																			FROM dbasgu.PAPEL_USUARIOS puia
 																			WHERE puia.CD_PAPEL = 364) THEN 'S' --PORTAL SAME RECEPÇÃO
 														ELSE 'N'
-													END SN_USUARIO_SAME_RECEPCAO
+													END SN_USUARIO_SAME_RECEPCAO,
+
+													CASE
+														WHEN :usuario IN (SELECT DISTINCT puia.CD_USUARIO
+																			FROM dbasgu.PAPEL_USUARIOS puia
+																			WHERE puia.CD_PAPEL = 372) THEN 'S' --PORTAL SAME
+														ELSE 'N'
+													END SN_USUARIO_SAME
+
 
 													
 												FROM DUAL");																															
@@ -71,6 +79,7 @@
 				$_SESSION['sn_faturamento'] = $resultado[3];
 				$_SESSION['sn_usuario_same_diretor'] = $resultado[4];
 				$_SESSION['sn_usuario_same_recepcao'] = $resultado[5];
+				$_SESSION['sn_usuario_same'] = $resultado[6];
 				header("Location: $pag_apos");
 			} else { 
 				$_SESSION['msgerro'] = $resultado[0] . '!';
