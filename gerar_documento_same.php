@@ -227,7 +227,7 @@
 
 					<?php }else{?>
 						
-						<?php if(@$_SESSION['sn_usuario_same'] == 'S'){ ?>
+						<?php if(@$_SESSION['sn_usuario_same_recepcao'] == 'S'){ ?>
 
 							<div class="col-md-2" style="margin: 0 0 0 0 ; padding: 0 0 0 0 ;">
 								<button type="button" class="btn btn-primary alinhamneto_assinar" data-toggle="modal" data-target="#exampleModalCenter" id="btnAssinar" >
@@ -445,17 +445,17 @@
 <div class="modal fade " id="visualizaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	<div class="modal-dialog modal-xl" role="document">
 		<div class="modal-content">
-		<div class="modal-header">
-			<h5 class="modal-title" id="exampleModalLongTitle">Documento para Assinatura</h5>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-		<div class="modal-body" id="body_result" style="margin-left: 10px; width: 100%">
-			
-		</div>
-		<div class="modal-footer">
-		</div>
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Documento para Assinatura</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" id="body_result" style="margin-left: 10px; width: 100%">
+				
+			</div>
+			<div class="modal-footer">
+			</div>
 		</div>
 	</div>
 </div>
@@ -465,17 +465,17 @@
 <div class="modal fade " id="visualizaModalAssinado" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	<div class="modal-dialog modal-xl" role="document">
 		<div class="modal-content">
-		<div class="modal-header">
-			<h5 class="modal-title" id="exampleModalLongTitle">Documento Assinado</h5>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-		<div class="modal-body" id="body_result" style="margin-left: 10px; width: 100%">
-		
-		</div>
-		<div class="modal-footer">
-		</div>
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Documento Assinado</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" id="body_result" style="margin-left: 10px; width: 100%">
+			
+			</div>
+			<div class="modal-footer">
+			</div>
 		</div>
 	</div>
 </div>
@@ -563,7 +563,7 @@ $(document).ready(function(){
 		var tb_atd = document.getElementById("tipoatendimento").value;
 		console.log(tb_atd);
 	
-		/*
+		//ASSINA O DOCUMENTO
 		$.ajax({
 			//Configurações
 			type: 'POST',//Método que está sendo utilizado.
@@ -581,21 +581,22 @@ $(document).ready(function(){
 					alert("Erro");
 				}
 						
-		});*/
-
+		});
+	
+		//CADASTRA A ASSINATURA 
 		$.ajax({
 			type: 'POST',
 			dataType: 'html',
 			url: 'cad_assinaturas_requerente.php',
 			data: {cd_paciente: cd_paciente,
 				   escondidinho:escondidinho},
-		
-				success: function (msg){
-					alert(msg);
-				},
+			
+					success: function (msg){
+						//alert(msg);
+					},
 
-				error: function (msg){
-					alert("Erro");
+					error: function (msg){
+						//alert("Erro");
 				}
 						
 		});

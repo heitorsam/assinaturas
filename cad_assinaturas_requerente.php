@@ -4,9 +4,11 @@ session_start();
 //CONEXAO
 include 'conexao.php';
 
-@$var_cd_prestador = $_POST['cd_paciente'];
+@$var_cd_paciente = $_POST['cd_paciente'];
 
 $image = $_POST['escondidinho'];
+
+$var_user_logado = $_SESSION['usuarioLogin'];
 
 //echo $_POST['escondidinho'];
 
@@ -21,17 +23,17 @@ $image = $_POST['escondidinho'];
  // Decode base64 data, resulting in an image
  $image = base64_decode($data); 
 
-$var_user_logado = $_SESSION['usuarioNome'];
 
-$consult_delete = "DELETE FROM assinaturas.ASSINATURA_PACIENTE WHERE CD_PACIENTE = $var_cd_prestador";
+
+$consult_delete = "DELETE FROM assinaturas.ASSINATURA_PACIENTE WHERE CD_PACIENTE = $var_cd_paciente";
 $deleta_dados = oci_parse($conn_ora, $consult_delete);
 oci_execute($deleta_dados);
 
 $consulta_insert = 
 "INSERT INTO assinaturas.ASSINATURA_PACIENTE
-(CD_PACIENTE, ASSINATURA_PACIENTE)
+(CD_PACIENTE, DT_COLETA, CD_USUARIO_COLETA, ASSINATURA_PACIENTE)
 VALUES 
-('$var_cd_prestador',empty_blob()) 
+($var_cd_paciente, SYSDATE,'$var_user_logado', empty_blob()) 
 RETURNING ASSINATURA_PACIENTE INTO :image";
 
 //echo $consulta_insert;

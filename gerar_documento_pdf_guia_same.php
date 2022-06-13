@@ -8,7 +8,7 @@ session_start();
 @$nm_conv = $_REQUEST['nm_conv'];
 $img = $_REQUEST['escondidinho'];
 
-$tp_doc = 'same';
+$tp_doc = 'same_pendente';
 $nm_documneto = 'pdf_guia_same_'.$var_cd_paciente.'.pdf';
 
 
