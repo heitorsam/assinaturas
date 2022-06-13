@@ -85,17 +85,20 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-            
-                
-                <div class="modal-body" id="body_result" style="margin-left: 10px; width: 100%">
 
-                
-                
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> <i class="fas fa-times"></i> Fechar</button>
-                    <button type="submit" id='aaaaa' class="btn btn-primary"><i class="fas fa-plus"></i> Assinar</button>
-                </div>
+                <form method="POST" action='salvar_assinatura.php'>
+
+                    <input type="text" id="js_cd_atendimento" name="frm_cd_atendimento"> </input>
+               
+                    <div class="modal-body" id="body_result" style="margin-left: 10px; width: 100%">              
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> <i class="fas fa-times"></i> Fechar</button>
+                        <button type="submit" id='aaaaa' class="btn btn-primary"><i class="fas fa-plus"></i> Assinar</button>
+                    </div>
+
+                </form>
             </div>
         </div>
     </div>

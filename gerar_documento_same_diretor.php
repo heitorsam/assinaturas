@@ -89,22 +89,15 @@ $(document).ready(function(){
 		var identificador = button.data('identificador') 
         var cd_atendimento = button.data('cd_atendimento') 
 
+        document.getElementById('js_cd_atendimento').value = cd_atendimento; 
+
         //PASSANDO VALOR DO CAMPO PESQUISA E EXECUTANDO AJAX
 		if(identificador == 'guia_same_assinado'){
             alert(cd_atendimento);
-			$("#visualizaModalAssinado .modal-body").load('exibi_pdf_guia_same.php');
+			$("#visualizaModalAssinado .modal-body").load('exibi_pdf_guia_same.php?cd_atendimento=' + cd_atendimento);
         	}
 
-    });
-
-
-
-    //AÇÃO APOS ASSINAR
-	document.getElementById("aaaaa").addEventListener("click", function () {
-		window.setTimeout(function(){location.reload()},1000)
-	});
-
-    
+    });    
 
 });
 

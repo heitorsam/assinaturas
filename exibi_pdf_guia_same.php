@@ -7,7 +7,15 @@
 
     @$_SESSION['atdconsulta'] = $_SESSION['atdpdf'];
 
-    $var_cd_atendimento = $_SESSION['cd_atendimento'];
+    if(isset($_SESSION['cd_atendimento'])){
+      $var_cd_atendimento = $_SESSION['cd_atendimento'];
+    }
+
+    if(isset($_GET['cd_atendimento'])){
+      $var_cd_atendimento = $_GET['cd_atendimento'];
+    }
+
+    
 
     ///////////////
     //PDF DOWLOAD//
