@@ -33,13 +33,15 @@
                     <th style="text-align: center;">Descrição</th>
                     <th style="text-align: center;">Data do Pedido</th>
 
+                    <!--MUDA O TITULO PARA O DIRETOR-->
                     <?php if(@$_SESSION['sn_usuario_same_diretor'] == 'S'){ ?>
                         <th style="text-align: center;">Assinar</th>
                     <?php }else{ ?>
                         <th style="text-align: center;">Visualizar</th>
                     <?php } ?>
 
-                    <?php if(@$_SESSION['sn_usuario_same'] == 'S' || @$_SESSION['sn_usuario_same_recepcao'] == 'S'){ ?>
+                    <!--LIBERA O BAIXAR-->
+                    <?php if(@$_SESSION['sn_usuario_same'] == 'S'){ ?>
                         <th style="text-align: center;">Baixar</th>
                     <?php } ?>
                    
@@ -61,27 +63,63 @@
                      
                     <!--MODEL VISUALIZAR-->
                     <td class="align-middle" style="text-align: center !important;">
+                        
+                        <!--REGRA DE PENDENCIAS PARA O DIRETOR-->
                         <?php 
-                            echo '<a type="button" class="btn btn-primary"
+                            if(@$_SESSION['sn_usuario_same_diretor'] == 'S'){ 
+                                if($row_lista_doc['NM_DOC'] == 'same_pendente'){
+                                    echo '<a type="button" class="btn btn-primary"
+                                                data-toggle="modal" 
+                                                data-target="#visualizaModalAssinado" 
+                                                data-cd_atendimento="'.$row_lista_doc['CD_ATENDIMENTO'].'" 
+                                                data-tp_doc="same_pendente" 
+                                                data-identificador="guia_same_assinado">
+                                    <i class="fas fa-pencil-alt"></i></a>';
+                                }
+
+                                if($row_lista_doc['NM_DOC'] == 'same_concluido'){
+                                    echo '<a type="button" class="btn btn-primary" style="background-color: rgba(0, 0, 0, 0) !important; border-color: rgba(0, 0, 0, 0) !important;"
+                                                data-toggle="modal" 
+                                                data-target="#visualizaModalAssinado" 
+                                                data-cd_atendimento="'.$row_lista_doc['CD_ATENDIMENTO'].'" 
+                                                data-tp_doc="same_concluido" 
+                                                data-identificador="guia_same_assinado">
+                                    <i style="color: #008000;" class="fas fa-check"></i></a>';
+                                
+                                }
+
+                                if($row_lista_doc['NM_DOC'] == 'same_recusado'){
+                                    echo '<a type="button" class="btn btn-primary" style="background-color: rgba(0, 0, 0, 0) !important; border-color: rgba(0, 0, 0, 0) !important;"
+                                                data-toggle="modal" 
+                                                data-target="#visualizaModalAssinado" 
+                                                data-cd_atendimento="'.$row_lista_doc['CD_ATENDIMENTO'].'" 
+                                                data-tp_doc="same_recusado" 
+                                                data-identificador="guia_same_assinado">
+                                    <i style="color: red;" class="fa-solid fa-xmark"></i></a>';
+                                
+                                }
+                            //CASO NÃO SEJA O DIRETOR MOSTRA O BOTÃO NORMAL
+                            }else{
+                                echo '<a type="button" class="btn btn-primary"
                                                     data-toggle="modal" 
                                                     data-target="#visualizaModalAssinado" 
                                                     data-cd_atendimento="'.$row_lista_doc['CD_ATENDIMENTO'].'" 
-                                                    data-tp_doc="guia_same_assinado" 
+                                                    data-tp_doc="same_pendente" 
                                                     data-identificador="guia_same_assinado">
                                     <i class="fas fa-pencil-alt"></i></a>';
+                            }
+                            
                         ?>
                     </td>
 
                     <?php
-                        if(@$_SESSION['sn_usuario_same'] == 'S' || @$_SESSION['sn_usuario_same_recepcao'] == 'S'){ 
+                        if(@$_SESSION['sn_usuario_same'] == 'S'){ 
                             //BAIXAR                            
                             echo '<td style="text-align: center; vertical-align : middle;"> 
-                                    <a type="button" class="btn btn-primary" target="_blank" href="baixar_pdf.php?nm_doc='. $row_lista_doc['NOME_ANEXO'] . '">'. ' <i class="fas fa-download"></i></a> 
+                                        <a type="button" class="btn btn-primary" target="_blank" href="baixar_pdf.php?nm_doc='. $row_lista_doc['NOME_ANEXO'] . '">'. ' <i class="fas fa-download"></i></a> 
                                   </td>';
                         }
                     ?>
-
-
                 </tr>
                 
                 <?php 
@@ -104,24 +142,18 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
-                <form method="POST" action='salvar_assinatura.php'>
-
                     <input type="hidden" id="js_cd_atendimento" name="frm_cd_atendimento"> </input>
-               
                     <div class="modal-body" id="body_result" style="margin-left: 10px; width: 100%">              
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"> <i class="fas fa-times"></i> Fechar</button>
                         <?php if(@$_SESSION['sn_usuario_same_diretor'] == 'S'){ ?>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fas fa-times"></i> Recusar</button>
-                            <button type="submit" id='aaaaa' class="btn btn-primary"><i class="fas fa-plus"></i> Assinar</button>
+                            <button type="button" id='jv_btn_recusar' class="btn btn-danger"> <i class="fas fa-times"></i> Recusar</button>
+                            <button type="submit" id='jv_btn_assinar' class="btn btn-primary"><i class="fas fa-plus"></i> Assinar</button>
                         <?php } ?>
 
                     </div>
-
-                </form>
             </div>
         </div>
     </div>

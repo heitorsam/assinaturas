@@ -28,8 +28,9 @@
         <div class="row">
             <!--FILTRO PERIODO-->
             <div class="col-md-3">  
+           
                 <?php    
-                    $var_periodo_filtro = @$_GET["frm_cad_periodo"];
+                    echo $var_periodo_filtro = @$_GET["frm_cad_periodo"];
 
                     if(strlen($var_periodo_filtro) < 1){ 
                         
@@ -63,8 +64,12 @@
 
     if(isset($var_periodo_filtro)){       
         //CABECALHO
-        $where = "WHERE NM_DOC = 'same_pendente'";
+        
+        $where = "WHERE NM_DOC IN ('same_pendente', 'same_concluido', 'same_recusado')";
         include 'tabela_baixar_pdf_same.php';
+
+        //$where = "WHERE NM_DOC = 'same_concluido'";
+        //include 'tabela_baixar_pdf_same.php';
     }
 
  
@@ -89,16 +94,93 @@ $(document).ready(function(){
         var button = $(event.relatedTarget) //Button that triggered the modal    
 		var identificador = button.data('identificador') 
         var cd_atendimento = button.data('cd_atendimento') 
+        var tp_doc = button.data('tp_doc') 
+        
+        //alert(tp_doc);
 
+        
         document.getElementById('js_cd_atendimento').value = cd_atendimento; 
 
         //PASSANDO VALOR DO CAMPO PESQUISA E EXECUTANDO AJAX
 		if(identificador == 'guia_same_assinado'){
-            //alert(cd_atendimento);
+
+            var btn_recusar = document.getElementById('jv_btn_recusar');
+            var btn_assinar = document.getElementById('jv_btn_assinar');
+            if(tp_doc == 'same_concluido'){  
+                    btn_recusar.style.display = 'inline';
+                    btn_assinar.style.display = 'none';
+                }
+
+            if(tp_doc == 'same_recusado'){  
+                btn_recusar.style.display = 'none';
+                btn_assinar.style.display = 'inline';
+            }
+
+            if(tp_doc == 'same_pendente'){  
+                btn_recusar.style.display = 'inline';
+                btn_assinar.style.display = 'inline';
+            }
+
+            //var a = <?php echo $var_periodo_filtro; ?>;
+            //alert (a);
 			$("#visualizaModalAssinado .modal-body").load('exibi_pdf_guia_same.php?cd_atendimento=' + cd_atendimento);
         	}
 
-    });    
+    }); 
+
+
+
+    ///////////
+    //RECUSAR//
+    ///////////
+    document.getElementById("jv_btn_recusar").onclick = function() {acaoRecusar()};
+
+    function acaoRecusar() {
+        var cd_atendimento = document.getElementById('js_cd_atendimento').value;
+        
+        $.ajax({
+                url: "recusar_assinatura.php",
+                type: "POST",
+                data: {
+                    cd_atendimento: cd_atendimento
+                    },
+                cache: false,
+                success: function(dataResult){
+                        //alert("PASSOU");
+                        //EXIBE A TABELA
+                        window.setTimeout(function(){location.reload()},500);
+                }
+            });
+    }
+
+
+    ///////////
+    //ASSINAR//
+    ///////////
+    document.getElementById("jv_btn_assinar").onclick = function() {acaoAssinar()};
+
+    function acaoAssinar() {
+        var cd_atendimento = document.getElementById('js_cd_atendimento').value;
+        //alert (cd_atendimento);
+        
+        $.ajax({
+                url: "salvar_assinatura.php",
+                type: "POST",
+                data: {
+                    cd_atendimento: cd_atendimento
+                    },
+                cache: false,
+                success: function(dataResult){
+                        //alert("PASSOU");
+                        //EXIBE A TABELA
+                        window.setTimeout(function(){location.reload()},500);
+                }
+            });
+
+    }
+
+
+    
 
 });
 

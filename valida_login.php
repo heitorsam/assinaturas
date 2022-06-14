@@ -53,7 +53,14 @@
 																			FROM dbasgu.PAPEL_USUARIOS puia
 																			WHERE puia.CD_PAPEL = 372) THEN 'S' --PORTAL SAME
 														ELSE 'N'
-													END SN_USUARIO_SAME
+													END SN_USUARIO_SAME,
+
+													CASE
+														WHEN :usuario IN (SELECT DISTINCT puia.CD_USUARIO
+																			FROM dbasgu.PAPEL_USUARIOS puia
+																			WHERE puia.CD_PAPEL = 373) THEN 'S' --COLETA_ASSINATURAS
+														ELSE 'N'
+													END SN_COLETA_ASSINATURAS
 
 
 													
@@ -80,6 +87,7 @@
 				$_SESSION['sn_usuario_same_diretor'] = $resultado[4];
 				$_SESSION['sn_usuario_same_recepcao'] = $resultado[5];
 				$_SESSION['sn_usuario_same'] = $resultado[6];
+				$_SESSION['sn_admin_coleta_assinatura'] = $resultado[7];
 				header("Location: $pag_apos");
 			} else { 
 				$_SESSION['msgerro'] = $resultado[0] . '!';

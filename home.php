@@ -25,9 +25,8 @@
                 <a href="anexos.php" class="botao_home" type="submit"><i class="fas fa-camera"></i> Anexos</a></td></tr>
                 
             <?php } ?>
-            <div class="div_br"> </div>
 
-            <!--    -->
+            <div class="div_br"> </div>
             <div class="div_br"> </div>
             <div class="div_br"> </div>
 
@@ -57,11 +56,23 @@
                     <?php } ?>
                     
                     
+            <div class="div_br"> </div>
+            <div class="div_br"> </div>
+            <div class="div_br"> </div>  
 
-                    <a href="cad_assinatura.php" class="botao_home_adm" type="submit"><i class="fas fa-user-nurse"></i> Cadastrar Assinatura</a></td></tr>
-            
             <?php } ?>
-           
+
+            
+            
+            <?php if(@$_SESSION['sn_admin_coleta_assinatura'] == 'S'){ ?>   
+                    <h11><i class="fa-solid fa-file-signature"></i> Coleta De Assinaturas</h11>
+
+                    <div class="div_br"> </div>
+                   
+                    <a href="cad_assinatura.php" class="botao_home_adm" type="submit"><i class="fas fa-user-nurse"></i> Cadastrar Assinatura</a></td></tr>
+
+            <?php } ?>
+
             <!--
 
             <h11><i class="fas fa-signature"></i> Checagem Beira Leito</h11>

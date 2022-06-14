@@ -16,7 +16,7 @@
     //DADOS VIA POST//
     //////////////////
      'cd_atendimento: ';
-     $cd_atendimento = $_POST['cd_atendimento'];
+     //$cd_atendimento = $_POST['cd_atendimento'];
      '</br>';
 
 
@@ -27,7 +27,7 @@
                             FROM assinaturas.ASSINATURA_PACIENTE
                             WHERE CD_PACIENTE = (SELECT CD_PACIENTE
                                                 FROM dbamv.ATENDIME atd
-                                                WHERE CD_ATENDIMENTO = $cd_atendimento)";
+                                                WHERE CD_ATENDIMENTO = 4462392)";
 
         $result_assinatura_paciente = oci_parse($conn_ora, $assinatura_paciente);
         @oci_execute($result_assinatura_paciente);
@@ -51,7 +51,7 @@
                                 ON tipa.CD_TIP_PRESTA = prest.CD_TIP_PRESTA
                                 WHERE prest.CD_PRESTADOR =  (SELECT CD_PRESTADOR
                                                                 FROM dbasgu.USUARIOS
-                                                            WHERE CD_USUARIO = '$var_user_logado')
+                                                            WHERE CD_USUARIO = 'AFALVARO')
                                                                         ";
 
         $result_assinatura_prestador = oci_parse($conn_ora, $assinatura_prestador);
@@ -73,7 +73,7 @@
     ///////////////////////////
     $cons_cd_paciente = "SELECT CD_PACIENTE
                             FROM dbamv.ATENDIME atd
-                            WHERE CD_ATENDIMENTO = $cd_atendimento";
+                            WHERE CD_ATENDIMENTO = 4462392";
 
         $result_cd_paciente = oci_parse($conn_ora, $cons_cd_paciente);
         @oci_execute($result_cd_paciente);
@@ -91,7 +91,7 @@
     include 'sql_consulta_same.php';
 
 
-    $documentTemplate = "
+    ECHO $documentTemplate = "
         <html lang='en'> 
         <head> 
             <!-- Required meta tags --> 
@@ -107,7 +107,7 @@
         background-color: #ffffff;
         margin: 1 1 1 1;
         padding: 3 1 1 3;
-        border: solid 0px black !important;
+        border: solid 1px black !important;
         }
 
         .row{
@@ -247,10 +247,10 @@
 
                 <!--TEXTO-->
                     <div class='row '>
-                    <div class='col-hss-1' style='height: 690px; margin: 1px; '>
+                    <div class='col-hss-1' style='height: 720px; margin: 1px; '>
                     </div>
 
-                        <div class='col-hss-10' style='height: 690px; margin: 1px; '>
+                        <div class='col-hss-10' style='height: 720px; margin: 1px; '>
                                 
                         <h1>O(A) Requerente abaixo identificado(a) e assinado(a) vem solicitar de Vossa Senhoria, cópia do prontuário médico, relativo ao atendimento a que foi submetido(a) o(a) paciente abaixo identificado(a) neste Hospital.</h1>
                         
@@ -291,7 +291,7 @@
                         <h1></h1>
                         </div>
 
-                    <div class='col-hss-1' style='height: 690px; margin: 1px; '>
+                    <div class='col-hss-1' style='height: 720px; margin: 1px; '>
                     </div>   
                     </div>
                     
@@ -341,8 +341,7 @@
 
                         <div class='col-hss-4' style='height: 55px;'>
                             <h1>Assinatura e Carimbo do Diretor Clínico: </h1>
-                            <img src='data:image/png;base64,$img_prestador' width='80%' height='80%'  style:'float: right; margin: 1px; border-style: none !important; border-bottom: 1px solid black !important;'>
-
+                            <img src='data:image/png;base64,$img_prestador' width='80%' height='80%'  style:'float: right; border-style: none !important; !important;'>
                             <h99> ".$primeiroNome." " . $ultimoNome ."
                             <br>".@$var_nm_funcao."
                             <br>COREN-SP ".@$var_coren."
@@ -355,7 +354,7 @@
             </div>
             </form>
     ";
-    
+    /*
     //echo  json_encode(array($documentTemplate)); 
     //echo  $documentTemplate; 
 
@@ -447,5 +446,5 @@
 
     //DECLARANDO VARIAVEIS DO ARQUIVO PARA IMPORTACAO PARA O BANCO
     //$image = file_get_contents($dompdf);
-
+*/
 ?>

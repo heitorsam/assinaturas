@@ -34,7 +34,7 @@ session_start();
     <!-- Bootstrap CSS -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/a3000fd09d.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/302b2cb8e2.js" crossorigin="anonymous"></script>
     <!--GRAFICOS CHART JS 
     <script src="js/Chart.js-2.9.4/dist/Chart.js"></script>--> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js" integrity="sha512-G8JE1Xbr0egZE5gNGyUm1fF764iHVfRXshIoUWCTPAbKkkItp/6qal5YAHXrxEu4HNfPTQs6HOu3D5vCGS1j3w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
