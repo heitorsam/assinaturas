@@ -115,7 +115,7 @@
 
 		<div class="div_br"> </div>
 		<!--FORM - PRONTUARIO-->
-		<form method="get" autocomplete="off" action="gerar_documento_same.php">
+		<form method="get" autocomplete="off" action="gerar_documento_same_recepcao.php">
 			<div class="row">
 				<div class="col-md-3 ">
 					Prontuário:
@@ -577,7 +577,7 @@ $(document).ready(function(){
 			//função que será executada quando a solicitação for finalizada.
 			
 				success: function (msg){
-					alert("Sucesso");
+					//alert("Sucesso");
 				},
 
 				error: function (msg){

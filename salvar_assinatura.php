@@ -397,18 +397,18 @@
     $blob->free();
 
 
-    /*
+    
     if($insere_dados > 0){
-        $_SESSION['msg'] = "Arquivo gerado com sucesso!"; 
-        header('Location: gerar_documento.php');
+        $_SESSION['msg'] = "Assinado com sucesso!"; 
+        header('Location: gerar_documento_same_diretor.php');
         return 0;
 
     }else{
-        $_SESSION['msgerro'] = "Ocorreu um erro ao gerar o arquivo."; 
-        header('Location: gerar_documento.php');
+        $_SESSION['msgerro'] = "Ocorreu um erro ao assinar o arquivo."; 
+        header('Location: gerar_documento_same_diretor.php');
         return 0;
     }
-    */
+    
 
     exit(0);
 

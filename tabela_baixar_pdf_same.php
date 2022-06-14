@@ -33,7 +33,11 @@
                     <th style="text-align: center;">Descrição</th>
                     <th style="text-align: center;">Data do Pedido</th>
 
-                    <th style="text-align: center;">Assinar</th>
+                    <?php if(@$_SESSION['sn_usuario_same_diretor'] == 'S'){ ?>
+                        <th style="text-align: center;">Assinar</th>
+                    <?php }else{ ?>
+                        <th style="text-align: center;">Visualizar</th>
+                    <?php } ?>
 
                     <?php if(@$_SESSION['sn_usuario_same'] == 'S' || @$_SESSION['sn_usuario_same_recepcao'] == 'S'){ ?>
                         <th style="text-align: center;">Baixar</th>

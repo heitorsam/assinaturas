@@ -92,7 +92,7 @@ $(document).ready(function(){
 
         //PASSANDO VALOR DO CAMPO PESQUISA E EXECUTANDO AJAX
 		if(identificador == 'guia_same_assinado'){
-            alert(cd_atendimento);
+            //alert(cd_atendimento);
 			$("#visualizaModalAssinado .modal-body").load('exibi_pdf_guia_same.php?cd_atendimento=' + cd_atendimento);
         	}
 

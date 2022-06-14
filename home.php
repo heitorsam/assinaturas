@@ -40,21 +40,23 @@
                     <div class="div_br"> </div>
                     <?php if(@$_SESSION['sn_usuario_same_recepcao'] == 'S'){ ?>
                         <a href="gerar_documento_same_recepcao.php" class="botao_home" type="submit"><i class="fas fa-file-import"></i> Recepção</a></td></tr>
+                        <span class="espaco_pequeno"></span>
                     <?php } ?>         
                     
-                    <span class="espaco_pequeno"></span>
                     
                     <?php if(@$_SESSION['sn_usuario_same_diretor'] == 'S'){ ?>
                         <a href="gerar_documento_same_diretor.php" class="botao_home" type="submit"><i class="fas fa-address-book"></i> Diretor</a></td></tr>
+                        <span class="espaco_pequeno"></span>
                     <?php } ?>
                     
-                    <span class="espaco_pequeno"></span>
+                    
                     
                     <?php if(@$_SESSION['sn_usuario_same'] == 'S'){ ?>
                         <a href="gerar_documento_same.php" class="botao_home" type="submit"><i class="fas fa-file-alt"></i> SAME</a></td></tr>
+                        <span class="espaco_pequeno"></span>
                     <?php } ?>
                     
-                    <span class="espaco_pequeno"></span>
+                    
 
                     <a href="cad_assinatura.php" class="botao_home_adm" type="submit"><i class="fas fa-user-nurse"></i> Cadastrar Assinatura</a></td></tr>
             
