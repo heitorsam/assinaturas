@@ -28,8 +28,7 @@
 
             <div class="div_br"> </div>
             <div class="div_br"> </div>
-            <div class="div_br"> </div>
-
+            
             <?php if(@$_SESSION['sn_usuario_same_recepcao'] == 'S' || 
                      @$_SESSION['sn_usuario_same_diretor'] == 'S' ||
                      @$_SESSION['sn_usuario_same'] == 'S'){ 

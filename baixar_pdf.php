@@ -6,7 +6,7 @@
     include 'conexao.php';
 
     //ACESSO RESTRITO
-    //include 'acesso_restrito_faturamento.php'; 
+    include 'acesso_restrito_faturamento.php'; 
 
     //$var_cd_atendimento = $_SESSION['atdpdf'];
     $nm_documento = $_GET['nm_doc'];

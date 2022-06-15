@@ -21,7 +21,9 @@
 		$result_usuario = oci_parse($conn_ora, "SELECT assinaturas.VALIDA_SENHA_FUNC_ASSINATURAS(:usuario,:senha) AS RESP_LOGIN,
 												(SELECT INITCAP(usu.NM_USUARIO)
 													FROM dbasgu.USUARIOS usu
-													WHERE usu.CD_USUARIO = :usuario) AS NM_USUARIO,													
+													WHERE usu.CD_USUARIO = :usuario) AS NM_USUARIO,	
+
+													--ASSINATURAS--												
 													CASE
 														WHEN :usuario IN (SELECT DISTINCT puia.CD_USUARIO
 																			FROM dbasgu.PAPEL_USUARIOS puia
@@ -35,6 +37,7 @@
 														ELSE 'N'
 													END SN_FATURAMENTO,
 
+													--SAME--												
 													CASE
 														WHEN :usuario IN (SELECT DISTINCT puia.CD_USUARIO
 																			FROM dbasgu.PAPEL_USUARIOS puia
