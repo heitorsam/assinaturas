@@ -1,45 +1,69 @@
 <?php 
-    //CONEXAO
-     include 'conexao.php';
+    //CABECALHO
+    include 'cabecalho.php';
+?>
 
 
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Demonstraçao de autocomplete de endereço através do CEP</title>
+	</head>
+	<body>
+		<form action="#" onsubmit="return false">
+			CEP: <input type="text" id="cep" maxlength="9" placeholder="13483-000" autofocus><br><br>
+			UF: <input type="text" id="uf"><br>
+			Cidade: <input type="text" id="cidade"><br>
+			Bairro: <input type="text" id="bairro"><br>
+			Endereço: <input type="text" id="endereco">
+		</form>
+		<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+		<script>
+			/*
+			 * Para efeito de demonstração, o JavaScript foi
+			 * incorporado no arquivo HTML.
+			 * O ideal é que você faça em um arquivo ".js" separado. Para mais informações
+			 * visite o endereço https://developer.yahoo.com/performance/rules.html#external
+			 */
+			
+			// Registra o evento blur do campo "cep", ou seja, a pesquisa será feita
+			// quando o usuário sair do campo "cep"
+			$("#cep").blur(function(){
+				// Remove tudo o que não é número para fazer a pesquisa
+				var cep = this.value.replace(/[^0-9]/, "");
+				
+				// Validação do CEP; caso o CEP não possua 8 números, então cancela
+				// a consulta
+				if(cep.length != 8){
+					return false;
+				}
+				
+				// A url de pesquisa consiste no endereço do webservice + o cep que
+				// o usuário informou + o tipo de retorno desejado (entre "json",
+				// "jsonp", "xml", "piped" ou "querty")
+				var url = "https://viacep.com.br/ws/"+cep+"/json/";
+				
+				// Faz a pesquisa do CEP, tratando o retorno com try/catch para que
+				// caso ocorra algum erro (o cep pode não existir, por exemplo) a
+				// usabilidade não seja afetada, assim o usuário pode continuar//
+				// preenchendo os campos normalmente
+				$.getJSON(url, function(dadosRetorno){
+					try{
+						// Preenche os campos de acordo com o retorno da pesquisa
+						$("#endereco").val(dadosRetorno.logradouro);
+						$("#bairro").val(dadosRetorno.bairro);
+						$("#cidade").val(dadosRetorno.localidade);
+						$("#uf").val(dadosRetorno.uf);
+					}catch(ex){}
+				});
+			});
+		</script>
+	</body>
+</html>
 
-    $assinatura_paciente = "SELECT ASSINATURA_PACIENTE
-    FROM assinaturas.ASSINATURA_PACIENTE
-    WHERE CD_PACIENTE = (SELECT CD_PACIENTE
-                        FROM dbamv.ATENDIME atd
-                        WHERE CD_ATENDIMENTO = 4237234)";
 
-    $result_assinatura_paciente = oci_parse($conn_ora, $assinatura_paciente);
-    @oci_execute($result_assinatura_paciente);
-    $row_assinatura_paciente = oci_fetch_array($result_assinatura_paciente);
-
-    @$image64_paciente = $row_assinatura_paciente['ASSINATURA_PACIENTE']->load();
-    $img_paciente = base64_encode(@$image64_paciente);
-
-    echo '<img alt="pepita.png" src="data:image/png;base64,'.$img_paciente.'"/>';
-
-
-    echo '<br>';    echo '<br>';    echo '<br>';
-    
-
-    $assinatura_prestador = "SELECT ASSINATURA_TISS
-                                FROM dbamv.prestador_assinatura
-                            WHERE CD_PRESTADOR =
-                                    (SELECT CD_PRESTADOR
-                                        FROM dbamv.PRESTADOR
-                                    WHERE NM_PRESTADOR =
-                                            (SELECT NM_USUARIO
-                                                FROM dbasgu.USUARIOS
-                                            WHERE CD_USUARIO = 'ACCSOUZA'))";
-
-    $result_assinatura_prestador = oci_parse($conn_ora, $assinatura_prestador);
-    @oci_execute($result_assinatura_prestador);
-    $row_assinatura_prestador = oci_fetch_array($result_assinatura_prestador);
-
-    @$image64_prestador = $row_assinatura_prestador['ASSINATURA_TISS']->load();
-    $img_prestador = base64_encode(@$image64_prestador);
-
-    echo '<img alt="pepita.png" src="data:image/png;base64,'.$img_prestador.'"/>';
-
+<?php
+    //RODAPE
+    include 'rodape.php';
 ?>

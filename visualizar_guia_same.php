@@ -137,8 +137,7 @@ h2{
     }
 
  </style> 
-
-
+ 
     <form style='height: 75px;'>
         <div class='col-hss-12' style='border: none !important; text-align: center;'>
             <img class='imagem' src='https://i2.wp.com/santacasasaude.com.br/wp-content/uploads/2018/07/Santa-Casa-SJC.gif?fit=730%2C457&ssl=1' style='width: 200px; height: 110px;'>
@@ -251,7 +250,7 @@ h2{
                    </div>
 
                    <div class='col-hss-4' style='height: 40px; margin: 1px; '>
-                       <h1><p>Atendente: <b>".@$dados_result_resp_doc['RESP_ATENDENTE']." </b></h1>
+                       <h1><p>Atendente: <b>".$var_user_logado." </b></h1>
                    </div>
 
                </div>

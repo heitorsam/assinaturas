@@ -30,12 +30,17 @@
             <div class="div_br"> </div>
             
             <?php if(@$_SESSION['sn_usuario_same_recepcao'] == 'S' || 
-                     @$_SESSION['sn_usuario_same_diretor'] == 'S' ||
-                     @$_SESSION['sn_usuario_same'] == 'S'){ 
+                    @$_SESSION['sn_usuario_same_diretor'] == 'S' ||
+                    @$_SESSION['sn_usuario_same'] == 'S'){ 
             ?>   
                     <h11><i class="fa fa-address-book-o" aria-hidden="true"></i> SAME</h11>
 
                     <div class="div_br"> </div>
+
+                        <a href="gerar_documento_same_requisicao.php" class="botao_home" type="submit"><i class="fa-solid fa-file"></i> Documento</a></td></tr>
+                        <span class="espaco_pequeno"></span>
+                    
+
                     <?php if(@$_SESSION['sn_usuario_same_recepcao'] == 'S'){ ?>
                         <a href="gerar_documento_same_recepcao.php" class="botao_home" type="submit"><i class="fas fa-file-import"></i> Recepção</a></td></tr>
                         <span class="espaco_pequeno"></span>
@@ -46,7 +51,6 @@
                         <a href="gerar_documento_same_diretor.php" class="botao_home" type="submit"><i class="fas fa-address-book"></i> Diretor</a></td></tr>
                         <span class="espaco_pequeno"></span>
                     <?php } ?>
-                    
                     
                     
                     <?php if(@$_SESSION['sn_usuario_same'] == 'S'){ ?>
@@ -64,7 +68,7 @@
             
             
             <?php if(@$_SESSION['sn_admin_coleta_assinatura'] == 'S'){ ?>   
-                    <h11><i class="fa-solid fa-file-signature"></i> Coleta De Assinaturas</h11>
+                    <h11><i class="fa-solid fa-file-signature"></i> Coleta</h11>
 
                     <div class="div_br"> </div>
                    
