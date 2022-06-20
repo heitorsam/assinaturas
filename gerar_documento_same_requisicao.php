@@ -16,7 +16,7 @@
                         FROM dbamv.PACIENTE pac
                     WHERE pac.NR_IDENTIDADE = '$var_rg_paciente'    
                 ";
-    
+
     $result_paciente = oci_parse($conn_ora, $cons_paciente);
     @oci_execute($result_paciente);
     $row_paciente = oci_fetch_array($result_paciente);
@@ -67,10 +67,10 @@
 				<div class="col-md-3 ">
                     <?php if(isset($var_rg_paciente)){ ?>
                         RG:
-                        <input type="number" maxlength="30" class="form-control" name="frm_rg_paciente" value="<?php echo $var_rg_paciente ?>">
+                        <input type="number" maxlength="30" class="form-control" name="frm_rg_paciente" value="<?php echo $var_rg_paciente ?>" required>
                     <?php }else{ ?>
                         RG:
-                        <input type="number" maxlength="30" class="form-control" name="frm_rg_paciente">
+                        <input type="number" maxlength="30" class="form-control" name="frm_rg_paciente" required>
                     <?php } ?>
                     
 				</div>
@@ -214,7 +214,6 @@
 
                     <div class="div_br"> </div>
 
-
                     <div class="row">
                         <div class="col-md-2">
                             CEP:
@@ -304,9 +303,9 @@
 
                     </div>
 
-
                 
             </form>
+
         <?php } ?>
 
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
@@ -318,7 +317,7 @@
             * O ideal é que você faça em um arquivo ".js" separado. Para mais informações
             * visite o endereço https://developer.yahoo.com/performance/rules.html#external
         */
-    
+
     // Registra o evento blur do campo "cep", ou seja, a pesquisa será feita
     // quando o usuário sair do campo "cep"
     $("#cep").blur(function(){
@@ -349,14 +348,7 @@
                 $("#uf").val(dadosRetorno.uf);
             }catch(ex){}
         });
-    });
-
-
-
-
-
-
-    
+    }); 
 
 </script>
     
@@ -367,15 +359,14 @@
     <div class="div_br"> </div>
     <div class="div_br"> </div>
     <div class="div_br"> </div>
-    
-    <div class="div_br"> </div>
-    <div class="div_br"> </div>
-    <div class="div_br"> </div>
-    <div class="div_br"> </div>
-    <div class="div_br"> </div>
-    <div class="div_br"> </div>
-    <div class="div_br"> </div>
 
+    <div class="div_br"> </div>
+    <div class="div_br"> </div>
+    <div class="div_br"> </div>
+    <div class="div_br"> </div>
+    <div class="div_br"> </div>
+    <div class="div_br"> </div>
+    <div class="div_br"> </div>
     
 <?php
     //RODAPE
