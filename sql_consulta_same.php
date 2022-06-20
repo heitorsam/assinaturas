@@ -8,239 +8,62 @@
     
     
     //PACIENTE NOME 
-    $resp_doc = "SELECT 
-                    --PACIENTE NOME
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'SCS_NOME_PACIENTE_2_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_NOME,
-                    
-                    --PACIENTE RG
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'HOSP_REG_PACIENTE_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'   
-                    )AS RESP_RG,
-                    
-                    --PACIENTE CPF
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'CPF_PAC_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_CPF,
-                    
-                    --PACIENTE NASCIMENTO
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'DT_NASCIMENTO_PACIENTE_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_NASCIMENTO,
-                    
-                    --PACIENTE PERIODO INTERNAÇÃO
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'SC_MOTIVO_REQUERIMENTO_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_PERIODO_INT,
-                    
-                    --DADOS CHECK PACIENTE
-                    (SELECT 
+    $resp_doc = " SELECT doc_req.CD_PACIENTE,
+                        doc_req.PACIENTE_NOME,
+                        doc_req.PACIENTE_RG,
+                        doc_req.PACIENTE_CPF,
+                        TO_CHAR(doc_req.PACIENTE_NASCIMENTO, 'DD/MM/YYYY') AS PACIENTE_NASCIMENTO,
+                        TO_CHAR(doc_req.PERIODO_MINIMO, 'DD/MM/YYYY') AS PERIODO_MINIMO,
+                        TO_CHAR(doc_req.PERIODO_MAXIMO, 'DD/MM/YYYY') AS PERIODO_MAXIMO,
+                        doc_req.REQUERENTE_ESCOLHA,
+    
+                        doc_req.REQUERENTE_PARENTE,
+                        
                         CASE
-                            WHEN vdic.DS_RESPOSTA = 'true' THEN 'X'
-                            ELSE NULL
-                        END AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'same_radio_paciente_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_CHECK_PACIENTE,
-
-                    --DADOS CHECK REPRESENTANTE LEGAL
-                    (SELECT 
+                        WHEN doc_req.REQUERENTE_ESCOLHA = 'Paciente' THEN
+                        'X'
+                        ELSE
+                        NULL
+                        END AS RADIO_PACIENTE,
+                        
                         CASE
-                            WHEN vdic.DS_RESPOSTA = 'true' THEN 'X'
-                            ELSE NULL
-                        END AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'same_radio_ep_legal_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_CHECK_REP_LEGAL,
-                    
-                    --DADOS CHECK CURADOR
-                    (SELECT 
+                        WHEN doc_req.REQUERENTE_ESCOLHA = 'Representante Legal' THEN
+                        'X'
+                        ELSE
+                        NULL
+                        END AS RADIO_REP_LEGAL,
+                        
                         CASE
-                            WHEN vdic.DS_RESPOSTA = 'true' THEN 'X'
-                            ELSE NULL
-                        END AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'same_radio_tutor_curador_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_CHECK_CURADOR,
-                    
-                    --DADOS CHECK PARENTE
-                    (SELECT 
+                        WHEN doc_req.REQUERENTE_ESCOLHA = 'Tutor ou Curador' THEN
+                        'X'
+                        ELSE
+                        NULL
+                        END AS RADIO_TUTOR_CURADOR,
+                        
                         CASE
-                            WHEN vdic.DS_RESPOSTA = 'true' THEN 'X'
-                            ELSE NULL
-                        END AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'same_radio_parente_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_CHECK_PARENTE,
-
-                    --PARENTE NOME
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'same_text_radio_parente_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_PARENTE_NOME,
-                    
-                    --REQUERENTE NOME
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'Metadado_P_149481_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_REQUERENTE_NOME,
-                    
-                    --REQUERENTE RG
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'SC_RG_REQUERENTE_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_REQUERENTE_RG,
-                    
-                    --REQUERENTE CPF
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'SC_CPF_REQUERENTE_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_REQUERENTE_CPF,  
-                    
-                    --REQUERENTE NASCIMENTO
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'SC_DATA_NASC_REQUERENTE_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_REQUERENTE_NASC,  
-                    
-                    --REQUERENTE ESTADO CIVIL
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'SC_ESTADO_CIVIL_REQUERENTE_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_REQUERENTE_EST_CIVIL, 
-                    
-                    --REQUERENTE PROFISSÃO
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'SC_PROFISSAO_REQUERENTE_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_REQUERENTE_PROFISSAO,  
-                    
-                    --REQUERENTE BAIRRO
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'SC_ENDERECO_REQUERENTE_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_REQUERENTE_ENDERECO,
-                    
-                    --PACIENTE NOME
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'SC_BAIRRO_REQUERENTE_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_REQUERENTE_BAIRRO,
-                    
-                    --REQUERENTE CIDADE
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'SC_CIDADE_REQUERENTE_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_REQUERENTE_CIDADE,  
-                    
-                    --REQUERENTE ESTADO
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'SC_ESTADO_REQUERENTE_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_REQUERENTE_ESTADO,  
-                    
-                    --REQUERENTE TELEFONE 1
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'SC_TELEFONE_REQUERENTE_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_REQUERENTE_TELEFONE_1,
-                    
-                    --REQUERENTE TELEFONE 2
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'SC_TELEFONE_REQUERENTE_2'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_REQUERENTE_TELEFONE_2,
-                    
-                    --REQUERENTE TELEFONE 3
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'SC_TELEFONE_REQUERENTE_3'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_REQUERENTE_TELEFONE_3,  
-                    
-                    --MOTIVO REQUERIMENTO
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'SC_MOTIVO_REQUERIMENTO_2'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_MOTIVO_REQUERIMENTO,  
-                    
-                    --DATA
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'DT_DATA_ATUAL_POR_EXTENSO_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_DATA_EXTENSO,  
-                    
-                    --AURORIZADO
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'SC_DATA_AUTORIZACAO_REQUERIMENTO_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_DATA_AUTORIZACAO,  
-                    
-                    --ATENDENTE
-                    (SELECT NVL(vdic.DS_RESPOSTA, '____________') AS RESP_NOME
-                    FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-                    WHERE vdic.CD_DOCUMENTO = '993'
-                    AND vdic.DS_IDENTIFICADOR = 'SC_ATENDENTE_REQUERIMENTO_1'
-                    AND vdic.CD_PACIENTE = '$var_cd_paciente'
-                    )AS RESP_ATENDENTE
-                FROM DUAL
+                        WHEN doc_req.REQUERENTE_ESCOLHA = 'Parente' THEN
+                        'X'
+                        ELSE
+                        NULL
+                        END AS RADIO_PARENTE,
+                        
+                        doc_req.REQUERENTE_NOME,
+                        doc_req.REQUERENTE_RG,
+                        doc_req.REQUERENTE_CPF,
+                        TO_CHAR(doc_req.REQUERENTE_NASCIMENTO, 'DD/MM/YYYY') AS REQUERENTE_NASCIMENTO,
+                        doc_req.REQUERENTE_ESTADO_CIVIL,
+                        doc_req.REQUERENTE_PROFISSAO,
+                        doc_req.REQUERENTE_CEP,
+                        doc_req.REQUERENTE_CIDADE,
+                        doc_req.REQUERENTE_ESTADO,
+                        doc_req.REQUERENTE_RUA,
+                        doc_req.REQUERENTE_BAIRRO,
+                        doc_req.REQUERENTE_TEL_PRIMARIO,
+                        doc_req.REQUERENTE_TEL_SECUNDARIO,
+                        doc_req.REQUERENTE_TEL_TERCIARIO,
+                        doc_req.REQUERENTE_MOTIVO
+                    FROM assinaturas.DOCUMENTO_REQUERENTE doc_req
+                    WHERE CD_PACIENTE = 649081
     ";
   
     $result_resp_doc= oci_parse($conn_ora, $resp_doc);

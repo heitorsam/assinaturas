@@ -760,5 +760,16 @@ h99{
     font-weight: bold;
 }
 
+.fnd_azul{
+
+background-color: #46A5D4 !important;
+color: #fff !important;
+border-radius: 3px !important;
+padding: 8px !important;
+font-size: 20px !important;
+margin-bottom: 10px !important;
+}
+
+
 </style>
 
