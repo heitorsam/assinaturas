@@ -135,7 +135,7 @@
     //////////
     //INSERT//
     //////////
-    $cons_requerente="INSERT INTO assinaturas.DOCUMENTO_REQUERENTE
+    ECHO $cons_requerente="INSERT INTO assinaturas.DOCUMENTO_REQUERENTE
                             SELECT 
                                 $var_cd_paciente AS CD_PACIENTE,
                                 '$var_paciente_nome' AS PACIENTE_NOME,
@@ -160,7 +160,9 @@
                                 '$var_requerente_tel_primario' AS REQUERENTE_TEL_PRIMARIO,
                                 '$var_requerente_tel_secundario' AS REQUERENTE_TEL_SECUNDARIO,
                                 '$var_requerente_tel_terciario' AS REQUERENTE_TEL_TERCIARIO,
-                                '$var_requerente_motivo' AS REQUERENTE_MOTIVO
+                                '$var_requerente_motivo' AS REQUERENTE_MOTIVO,
+                                '$var_cd_usuario' AS CD_USUARIO_CADASTRO,
+                                SYSDATE AS HR_CADASTRO
                             FROM DUAL
                                         ";
 
@@ -172,12 +174,11 @@
     if (!$valida_requerente) {   
             $erro = oci_error($result_requerente);																							
             $_SESSION['msgerro'] = htmlentities($erro['message']);
-
-            //header('location: ../../../workflow.php'); 
+            header('location: ../../gerar_documento_same_requisicao.php'); 
         }
 
         else{
             $_SESSION['msg'] = 'Cadastrado com sucesso!';
-            //header('location: ../../../workflow.php'); 
+            header('location: ../../gerar_documento_same_requisicao.php'); 
         }  
 

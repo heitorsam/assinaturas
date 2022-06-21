@@ -1,14 +1,17 @@
 <?php 
     //CABECALHO
     include 'cabecalho.php';
+
 ?>
 
 <div class="div_br"> </div>
 
-         <!--MENSAGENS-->
-         <?php
+
+        <!--MENSAGENS-->
+        <?php
             include 'js/mensagens.php';
             include 'js/mensagens_usuario.php';
+
         ?>
                 
             <div class="div_br"> </div>  

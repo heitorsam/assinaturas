@@ -34,24 +34,30 @@
 	////////////
 
 	$cons_atend="SELECT pac.CD_PACIENTE,
-                        pac.NM_PACIENTE,
-                        ate.CD_ATENDIMENTO,
-                        TO_CHAR(ate.DT_ATENDIMENTO, 'DD/MM/YYYY') AS DT_ATENDIMENTO, 
-                        con.CD_CONVENIO, 
-                        con.NM_CONVENIO, 
-                        pac.NR_IDENTIDADE, 
-                        pac.NR_CPF, 
-                        TO_CHAR(pac.DT_NASCIMENTO,'DD/MM/YYYY') AS DT_NASCIMENTO, 
-                        ate.TP_ATENDIMENTO
-				FROM ATENDIME ate
-				INNER JOIN paciente  pac ON pac.cd_paciente = ate.cd_paciente
-				INNER JOIN CONVENIO  con ON con.cd_convenio = ate.cd_convenio
-				WHERE ate.cd_paciente = '$var_cd_paciente'
-				AND ate.cd_atendimento = (SELECT MAX(vdic.CD_ATENDIMENTO) AS ATENDIMENTO 
-											FROM dbamv.VDIC_RESPOSTA_METADADO_HEITOR vdic
-											WHERE vdic.CD_DOCUMENTO = '993'
-											AND vdic.CD_PACIENTE = pac.CD_PACIENTE
-										)
+						pac.NM_PACIENTE,
+						MAX(ate.CD_ATENDIMENTO) AS CD_ATENDIMENTO,
+						TO_CHAR(ate.DT_ATENDIMENTO, 'DD/MM/YYYY') AS DT_ATENDIMENTO,
+						con.CD_CONVENIO,
+						con.NM_CONVENIO,
+						pac.NR_IDENTIDADE,
+						pac.NR_CPF,
+						TO_CHAR(pac.DT_NASCIMENTO, 'DD/MM/YYYY') AS DT_NASCIMENTO,
+						ate.TP_ATENDIMENTO
+					FROM ATENDIME ate
+					INNER JOIN paciente pac
+					ON pac.cd_paciente = ate.cd_paciente
+					INNER JOIN CONVENIO con
+					ON con.cd_convenio = ate.cd_convenio
+					WHERE ate.cd_paciente = $var_cd_paciente
+					GROUP BY pac.CD_PACIENTE,
+						pac.NM_PACIENTE,
+						TO_CHAR(ate.DT_ATENDIMENTO, 'DD/MM/YYYY'),
+						con.CD_CONVENIO,
+						con.NM_CONVENIO,
+						pac.NR_IDENTIDADE,
+						pac.NR_CPF,
+						TO_CHAR(pac.DT_NASCIMENTO, 'DD/MM/YYYY'),
+						ate.TP_ATENDIMENTO
     ";
 
     $result_atendimento = oci_parse($conn_ora, $cons_atend);
@@ -292,7 +298,6 @@
 	<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 	<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 		<br>
-		<br>
 		
 		<?php
 			//RODAPE
@@ -304,7 +309,6 @@
 
     <script>
 		//var form = document.getElementById("assinatura");
-		
 		(function() {
 			
 			// Get a regular interval for drawing to the screen
@@ -431,6 +435,7 @@
 			})();
 
 		})();
+
 	</script>
 </body>
 </html>
@@ -465,7 +470,6 @@
 </div>
 
 <!--MODAL VISUALIZA ASSINADO-->
-
 <div class="modal fade " id="visualizaModalAssinado" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	<div class="modal-dialog modal-xl" role="document">
 		<div class="modal-content">

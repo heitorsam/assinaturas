@@ -215,7 +215,7 @@ h2{
                         </div>
 
                         <div class='col-hss-10' style='height: 40px; margin: 1px; '>
-                            <p><h4> <b>".@$dados_result_resp_doc['RESP_DATA_EXTENSO']." </b></h4>
+                            <p><h4> <b>".@$dados_result_resp_doc['DATA_EXTENSO']." </b></h4>
                         </div>
 
                         <div class='col-hss-1' style='height: 40px; margin: 1px; '>
@@ -243,7 +243,7 @@ h2{
                    </div>
 
                    <div class='col-hss-4' style='height: 40px; margin: 1px; '>
-                       <h1<p>Autorizado em: <b>".@$dados_result_resp_doc['RESP_DATA_AUTORIZACAO']." </b></h1>
+                       
                    </div>
 
                    <div class='col-hss-1' style='height: 40px; margin: 1px; '>
