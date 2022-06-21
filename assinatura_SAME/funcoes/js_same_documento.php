@@ -6,16 +6,9 @@
     var radio_tutor = document.getElementById("flexRadio_Tutor");
     var radio_parente = document.getElementById("flexRadio_Parente");
 
-    document.getElementById("flexRadio_RepresentanteLegal").onclick = function() {
-        limparCampos();
-        document.getElementById("js_radio_escolha").value = 'Representante Legal';
-    };
-    document.getElementById("flexRadio_Tutor").onclick = function() {
-        limparCampos();
-        document.getElementById("js_radio_escolha").value = 'Tutor ou Curador';
-    };
-    var filtro_parente =  document.getElementById("js_filtro_parente");
 
+
+    var filtro_parente =  document.getElementById("js_filtro_parente");
 
     ///////////////////
     ///RADIO PACIENTE//
@@ -45,6 +38,8 @@
         document.getElementById("cidade").readOnly = true;
         document.getElementById("uf").readOnly = true;
 
+        document.getElementById("js_filtro_parente").required = false;
+
         var var_cep = 0;
         var_cep = document.getElementById("cep").value;
         alimentaCEP(var_cep);
@@ -64,22 +59,47 @@
         document.getElementById("js_radio_escolha").value = 'Parente';
     }
 
+
+    //////////////////////////////
+    ///RADIO REPRESENTANTE LEGAL//
+    //////////////////////////////
+    document.getElementById("flexRadio_RepresentanteLegal").onclick = function() {radioRepLegal()};
+    function radioRepLegal() {
+        //alert("radioRepLegal");
+        limparCampos();
+        document.getElementById("js_radio_escolha").value = 'Representante Legal';
+        document.getElementById("js_filtro_parente").required = false;
+    }
+
+    ////////////////
+    ///RADIO TUTOR//
+    ////////////////
+    document.getElementById("flexRadio_Tutor").onclick = function() {radioTutor()};
+    function radioTutor() {
+        //alert("radioTutor");
+        limparCampos();
+        document.getElementById("js_radio_escolha").value = 'Tutor ou Curador';
+        document.getElementById("js_filtro_parente").required = false;
+
+
+    }
+
     /////////////////////////
     ///FUNÇÃO LIMPAR CAMPOS//
     /////////////////////////
     function limparCampos() {
         filtro_parente.style.display = 'none';
 
-        document.getElementById("js_frm_nome").value = ' ';
-        document.getElementById("js_frm_rg").value = ' ';
-        document.getElementById("js_frm_cpf").value = ' ';
-        document.getElementById("js_frm_estado_civil").value = ' ';
+        document.getElementById("js_frm_nome").value = '';
+        document.getElementById("js_frm_rg").value = '';
+        document.getElementById("js_frm_cpf").value = '';
+        document.getElementById("js_frm_estado_civil").value = '';
         document.getElementById("cep").value = ' ';
-        document.getElementById("js_frm_nascimento").value = ' ';
-        document.getElementById("endereco").value = ' ';
-        document.getElementById("bairro").value = ' ';
-        document.getElementById("cidade").value = ' ';
-        document.getElementById("uf").value = ' ';
+        document.getElementById("js_frm_nascimento").value = '';
+        document.getElementById("endereco").value = '';
+        document.getElementById("bairro").value = '';
+        document.getElementById("cidade").value = '';
+        document.getElementById("uf").value = '';
 
         document.getElementById("js_frm_nome").readOnly = false;
         document.getElementById("js_frm_rg").readOnly = false;
@@ -91,6 +111,7 @@
         document.getElementById("bairro").readOnly = false;
         document.getElementById("cidade").readOnly = false;
         document.getElementById("uf").readOnly = false;
+    
     }
 
 

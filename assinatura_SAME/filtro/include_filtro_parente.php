@@ -1,5 +1,5 @@
 
-<select class="form-control" name="frm_requerente_nome_parente" id="js_filtro_parente" style="display: none;">
+<select class="form-control" name="frm_requerente_nome_parente" id="js_filtro_parente" style="display: none;" required>
     <option value="">Selecione</option>
     <option value="Cônjuge/Companheiro">Cônjuge/Companheiro</option>
     <option value="Filho/Filha">Filho/Filha</option>
