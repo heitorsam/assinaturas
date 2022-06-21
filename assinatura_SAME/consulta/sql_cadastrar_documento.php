@@ -37,11 +37,11 @@
     echo '</br>';
 
     echo 'var_paciente_periodo_min: ';
-    echo $var_paciente_periodo_min = $_POST['frm_paciente_periodo_min'];
+    echo $var_paciente_periodo_min =substr($_POST['frm_paciente_periodo_min'], 8, 2) .'/'.substr($_POST['frm_paciente_periodo_min'], 5, 2) .'/'.substr($_POST['frm_paciente_periodo_min'], 0, 4) ;
     echo '</br>';
 
     echo 'var_paciente_periodo_max: ';
-    echo $var_paciente_periodo_max = $_POST['frm_paciente_periodo_max'];
+    echo $var_paciente_periodo_max =substr($_POST['frm_paciente_periodo_max'], 8, 2) .'/'.substr($_POST['frm_paciente_periodo_max'], 5, 2) .'/'.substr($_POST['frm_paciente_periodo_max'], 0, 4) ;
     echo '</br>';
 
     echo 'var_radio_escolha: ';
@@ -65,8 +65,9 @@
     echo '</br>';
 
     echo 'var_requerente_nascimento: ';
-    echo $var_requerente_nascimento = $_POST['frm_requerente_nascimento'];
+    echo $var_requerente_nascimento =substr($_POST['frm_requerente_nascimento'], 8, 2) .'/'.substr($_POST['frm_requerente_nascimento'], 5, 2) .'/'.substr($_POST['frm_requerente_nascimento'], 0, 4) ;
     echo '</br>';
+
 
     echo 'var_requerente_estado_civil: ';
     echo $var_requerente_estado_civil = $_POST['frm_requerente_estado_civil'];
@@ -141,15 +142,15 @@
                                 '$var_paciente_nome' AS PACIENTE_NOME,
                                 '$var_paciente_rg' AS PACIENTE_RG,
                                 '$var_paciente_cpf' AS PACIENTE_CPF,
-                                SYSDATE AS PACIENTE_NASCIMENTO,
-                                SYSDATE AS PERIODO_MINIMO,
-                                SYSDATE AS PERIODO_MAXIMO,
+                                TO_DATE('$var_paciente_nascimento','DD/MM/YYYY')AS PACIENTE_NASCIMENTO,
+                                TO_DATE('$var_paciente_periodo_min','DD/MM/YYYY') AS PERIODO_MINIMO,
+                                TO_DATE('$var_paciente_periodo_max','DD/MM/YYYY') AS PERIODO_MAXIMO,
                                 '$var_radio_escolha' AS REQUERENTE_ESCOLHA,
                                 '$var_requerente_nome_parente' AS REQUERENTE_PARENTE,
                                 '$var_requerente_nome' AS REQUERENTE_NOME,
                                 '$var_requerente_rg' AS REQUERENTE_RG,
                                 '$var_requerente_cpf' AS REQUERENTE_CPF,
-                                SYSDATE AS REQUERENTE_NASCIMENTO,
+                                TO_DATE('$var_requerente_nascimento','DD/MM/YYYY') AS REQUERENTE_NASCIMENTO,
                                 '$var_requerente_estado_civil' AS REQUERENTE_ESTADO_CIVIL,
                                 '$var_requerente_profissao' AS REQUERENTE_PROFISSAO,
                                 '$var_requerente_cep' AS REQUERENTE_CEP,
@@ -168,17 +169,18 @@
 
     $result_requerente = oci_parse($conn_ora, $cons_requerente);
     $valida_requerente = @oci_execute($result_requerente);
-
-
+    
+    $header = 'location: ../../gerar_documento_same_requisicao.php?frm_cd_paciente='.$var_cd_paciente;
+    
     //VALIDA CASDASTRO PRODUTO
     if (!$valida_requerente) {   
             $erro = oci_error($result_requerente);																							
             $_SESSION['msgerro'] = htmlentities($erro['message']);
-            header('location: ../../gerar_documento_same_requisicao.php'); 
+            header($header); 
         }
 
         else{
             $_SESSION['msg'] = 'Cadastrado com sucesso!';
-            header('location: ../../gerar_documento_same_requisicao.php'); 
+            header($header); 
         }  
 

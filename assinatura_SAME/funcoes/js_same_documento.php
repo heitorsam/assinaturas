@@ -5,9 +5,6 @@
     var radio_representanteLegal = document.getElementById("flexRadio_RepresentanteLegal");
     var radio_tutor = document.getElementById("flexRadio_Tutor");
     var radio_parente = document.getElementById("flexRadio_Parente");
-
-
-
     var filtro_parente =  document.getElementById("js_filtro_parente");
 
     ///////////////////
@@ -57,6 +54,7 @@
         limparCampos();
         filtro_parente.style.display = 'inline';
         document.getElementById("js_radio_escolha").value = 'Parente';
+        document.getElementById("js_filtro_parente").required = true;
     }
 
 
@@ -80,8 +78,6 @@
         limparCampos();
         document.getElementById("js_radio_escolha").value = 'Tutor ou Curador';
         document.getElementById("js_filtro_parente").required = false;
-
-
     }
 
     /////////////////////////

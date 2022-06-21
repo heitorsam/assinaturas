@@ -108,7 +108,7 @@
 
                     <div class="col-md-3">
                         CPF:
-                        <input type="text" class="form-control" name="frm_requerente_cpf" value="" id="js_frm_cpf" required>
+                        <input type="number" class="form-control" name="frm_requerente_cpf" value="" id="js_frm_cpf" required>
                     </div>
 
                 </div>

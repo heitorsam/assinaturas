@@ -5,7 +5,7 @@
     //CONEXAO
     include 'conexao.php';
 
-		@$var_rg_paciente = $_GET['frm_rg_paciente'];
+		@$var_cd_paciente = $_GET['frm_cd_paciente'];
         '<br>';
 
     ////////////
@@ -29,14 +29,14 @@
                                 WHEN pac.TP_ESTADO_CIVIL = 'U' THEN 'União-estável'  
                             END AS ESTADO_CIVIL
                     FROM dbamv.PACIENTE pac
-                    WHERE pac.NR_IDENTIDADE = '$var_rg_paciente'    
+                    WHERE pac.CD_PACIENTE = '$var_cd_paciente'    
                 ";
 
     $result_paciente = oci_parse($conn_ora, $cons_paciente);
     @oci_execute($result_paciente);
     $row_paciente = oci_fetch_array($result_paciente);
 
-    if(!isset( $row_paciente['CD_PACIENTE']) && isset($var_rg_paciente)){
+    if(!isset( $row_paciente['CD_PACIENTE']) && isset($var_cd_paciente)){
         $_SESSION['msgerro'] = "Paciente Não Localizado"; 
     }else{}
 
@@ -85,12 +85,12 @@
 		<form method="get" autocomplete="off" action="gerar_documento_same_requisicao.php">
 			<div class="row">
 				<div class="col-md-3 ">
-                    <?php if(isset($var_rg_paciente)){ ?>
-                        RG:
-                        <input type="number" maxlength="30" class="form-control" name="frm_rg_paciente" value="<?php echo $var_rg_paciente ?>" required>
+                    <?php if(isset($var_cd_paciente)){ ?>
+                        Prontuario:
+                        <input type="number" maxlength="30" class="form-control" name="frm_cd_paciente" value="<?php echo $var_cd_paciente ?>" required>
                     <?php }else{ ?>
-                        RG:
-                        <input type="number" maxlength="30" class="form-control" name="frm_rg_paciente" required>
+                        Prontuario:
+                        <input type="number" maxlength="30" class="form-control" name="frm_cd_paciente" required>
                     <?php } ?>
                     
 				</div>

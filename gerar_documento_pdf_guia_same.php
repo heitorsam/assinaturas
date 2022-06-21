@@ -13,7 +13,7 @@ $nm_documneto = 'pdf_guia_same_'.$var_cd_paciente.'.pdf';
 
 
 
-$var_user_logado = $_SESSION['usuarioLogin'];
+$var_user_logado = $_SESSION['var_user_logado'];
 
 $count = 1;
 
@@ -168,29 +168,28 @@ text-transform: uppercase;
 
            <!--TEXTO-->
             <div class='row '>
-               <div class='col-hss-1' style='height: 720px; margin: 1px; '>
+               <div class='col-hss-1' style='height: 700px; margin: 1px; '>
                </div>
 
-                   <div class='col-hss-10' style='height: 720px; margin: 1px; '>
+                   <div class='col-hss-10' style='height: 700px; margin: 1px; '>
                            
                    <h1>O(A) Requerente abaixo identificado(a) e assinado(a) vem solicitar de Vossa Senhoria, cópia do prontuário médico, relativo ao atendimento a que foi submetido(a) o(a) paciente abaixo identificado(a) neste Hospital.</h1>
                    
 
                    <h1><b>DADOS DO(A) PACIENTE:</b></h1>
                    <h1>Nome: <b>".@$dados_result_resp_doc['PACIENTE_NOME']." </b> RG: <b>".@$dados_result_resp_doc['PACIENTE_RG']."</b> CPF: <b>".@$dados_result_resp_doc['PACIENTE_CPF']."</b> Data de Nascimento: <b>".@$dados_result_resp_doc['PACIENTE_NASCIMENTO']."</b> </h1>
-                   <h1>Período de Internação: (informação obrigatória):  <b>".@$dados_result_resp_doc['PERIODO_MINIMO']." há ".@$dados_result_resp_doc['PERIODO_MAXIMO']."</b> </h1>
-                   
+                   <h1>Período de Internação: (informação obrigatória):  <b>".@$dados_result_resp_doc['PERIODO_MINIMO']."</b> </h1>
+                   <br>
                    <h1><b>DADOS DO(A) REQUERENTE: </b></h1>
-                   <h1>( <b>".@$dados_result_resp_doc['RADIO_PACIENTE']." </b>) Paciente ( <b>".@$dados_result_resp_doc['RADIO_REP_LEGAL']." </b>) Representante Legal ( <b>".@$dados_result_resp_doc['RADIO_TUTOR_CURADOR']." </b>) Tutor/Curador ( <b>".@$dados_result_resp_doc['RADIO_PARENTE']." </b>) Parente:   <b>".@$dados_result_resp_doc['REQUERENTE_PARENTE']." <br> 
+                   <h1>( <b>".@$dados_result_resp_doc['RADIO_PACIENTE']." </b>) Paciente   ( <b>".@$dados_result_resp_doc['RADIO_REP_LEGAL']." </b>) Representante Legal   ( <b>".@$dados_result_resp_doc['RADIO_TUTOR_CURADOR']." </b>) Tutor/Curador   ( <b>".@$dados_result_resp_doc['RADIO_PARENTE']." </b>) Parente: <b>".@$dados_result_resp_doc['REQUERENTE_PARENTE']." <br> 
                    Nome: <b>".@$dados_result_resp_doc['REQUERENTE_NOME']." </b>
                    RG: <b>".@$dados_result_resp_doc['REQUERENTE_RG']." </b> CPF: <b>".@$dados_result_resp_doc['REQUERENTE_CPF']." </b> Data de Nascimento: <b>".@$dados_result_resp_doc['REQUERENTE_NASCIMENTO']." </b> 
                    Estado Civil: <b>".@$dados_result_resp_doc['REQUERENTE_ESTADO_CIVIL']." </b> Profissão: <b>".@$dados_result_resp_doc['REQUERENTE_PROFISSAO']." </b> Endereço: <b>".@$dados_result_resp_doc['REQUERENTE_RUA']." </b> Bairro: <b>".@$dados_result_resp_doc['REQUERENTE_BAIRRO']." </b> Cidade: <b>".@$dados_result_resp_doc['REQUERENTE_CIDADE']." </b> Estado: <b>".@$dados_result_resp_doc['REQUERENTE_ESTADO']." </b> Telefone(s):  <b>".@$dados_result_resp_doc['REQUERENTE_TEL_PRIMARIO']." </b> /  <b>".@$dados_result_resp_doc['REQUERENTE_TEL_SECUNDARIO']." </b> /  <b>".@$dados_result_resp_doc['REQUERENTE_TEL_TERCIARIO']." </b>
                    </h1>
 
                    <h1><b>MOTIVO DO REQUERIMENTO: (preenchimento obrigatório)</b></h1>
-                   <div class='col-hss-12' style='height: 70px; margin: 1px; border-style: none !important; border: 1px solid black !important;'>
                    <h1> ".@$dados_result_resp_doc['REQUERENTE_MOTIVO']." </h1>
-                   </div>
+                   <br>
 
 
                    <h2><b>Declaro, sob as penas da Lei, que os dados informados acima são verdadeiros e que tenho pleno conhecimento do sigilo das informações contidas no documento requerido, bem como da minha responsabilidade civil e criminal pela indevida publicação e utilização das informações nele contidas.</b></h2>
@@ -212,7 +211,7 @@ text-transform: uppercase;
                    <h1></h1>
                    </div>
 
-               <div class='col-hss-1' style='height: 720px; margin: 1px; '>
+               <div class='col-hss-1' style='height: 700px; margin: 1px; '>
                </div>   
             </div>
             
@@ -221,7 +220,11 @@ text-transform: uppercase;
                    <div class='col-hss-1' style='height: 30px; margin: 1px; '>
                    </div>
 
-                   <div class='col-hss-10' style='height: 30px; margin: 1px; '>
+                   <div class='col-hss-4' style='height: 30px; margin: 1px; '>
+                       <h1>Atendente: <b>".$var_user_logado." </b></h1>
+                   </div>
+
+                   <div class='col-hss-6' style='height: 30px; margin: 1px; '>
                        <h4> <b>".@$dados_result_resp_doc['DATA_EXTENSO']." </b></h4>
                    </div>
 
@@ -229,23 +232,6 @@ text-transform: uppercase;
                    </div>
                </div> 
 
-
-               <div class='row'>
-                   <div class='col-hss-1' style='height: 30px; margin: 1px; '>
-                   </div>
-
-                   <div class='col-hss-4' style='height: 30px; margin: 1px; '>
-     
-                   </div>
-
-                   <div class='col-hss-1' style='height: 30px; margin: 1px; '>
-                   </div>
-
-                   <div class='col-hss-4' style='height: 30px; margin: 1px; '>
-                       <h1>Atendente: <b>".$var_user_logado." </b></h1>
-                   </div>
-
-               </div>
 
                <div class='row'>
                    <div class='col-hss-1' style='height: 55px; margin: 1px; '>
@@ -265,15 +251,13 @@ text-transform: uppercase;
                    </div>
                </div>
 
-               
 
                  
         </div>
-     </div>
+    </div>
     </form>
 ";
 
-     
 //echo  json_encode(array($documentTemplate)); 
 //echo  $documentTemplate; 
 
