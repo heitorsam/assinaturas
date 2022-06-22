@@ -84,23 +84,35 @@
         <!--FORM-->
 		<form method="get" autocomplete="off" action="gerar_documento_same_requisicao.php">
 			<div class="row">
-				<div class="col-md-3 ">
-                    <?php if(isset($var_cd_paciente)){ ?>
-                        Prontuario:
-                        <input type="number" maxlength="30" class="form-control" name="frm_cd_paciente" value="<?php echo $var_cd_paciente ?>" required>
-                    <?php }else{ ?>
-                        Prontuario:
-                        <input type="number" maxlength="30" class="form-control" name="frm_cd_paciente" required>
-                    <?php } ?>
-                    
-				</div>
+
                 <div class="col-md-3 ">
-                     <br>
-                    <!-- BOTAO PESQUISAR -->
-                    <button type="submit" class="btn btn-primary" >
-                        <i class="fas fa-search"></i> Pesquisar
-                    </button>
+					Prontuário:
+					<div class="input-group">
+
+                    <?php if(isset($var_cd_paciente)){ ?>
+                        <input type="number" maxlength="30" class="form-control" name="frm_cd_paciente" value="<?php echo $var_cd_paciente ?>" required>
+					<?php } else { ?>
+                        <input type="number" maxlength="30" class="form-control" name="frm_cd_paciente" required>
+					<?php }?>
+
+                        <button type="submit" class="btn btn-primary" >
+                        <i class="fas fa-search"></i>
+					</div> 
 				</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 
 			</div>
 		</form>

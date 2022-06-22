@@ -38,13 +38,12 @@
             ?>   
                     <h11><i class="fa fa-address-book-o" aria-hidden="true"></i> SAME</h11>
 
-                    <div class="div_br"> </div>
-
-                        <a href="gerar_documento_same_requisicao.php" class="botao_home" type="submit"><i class="fa-solid fa-file"></i> Documento</a></td></tr>
-                        <span class="espaco_pequeno"></span>
-                    
+                    <div class="div_br"> </div>                    
 
                     <?php if(@$_SESSION['sn_usuario_same_recepcao'] == 'S'){ ?>
+                        <a href="gerar_documento_same_requisicao.php" class="botao_home" type="submit"><i class="fa-solid fa-file"></i> Documento</a></td></tr>
+                        <span class="espaco_pequeno"></span>
+
                         <a href="gerar_documento_same_recepcao.php" class="botao_home" type="submit"><i class="fas fa-file-import"></i> Recepção</a></td></tr>
                         <span class="espaco_pequeno"></span>
                     <?php } ?>         

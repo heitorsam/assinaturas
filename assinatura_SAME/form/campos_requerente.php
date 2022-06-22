@@ -181,13 +181,13 @@
 
                     <div class="col-md-4">
                         Telefone Secundário:
-                        <input type="number" class="form-control" name="frm_requerente_tel_secundario" value="" required>
+                        <input type="number" class="form-control" name="frm_requerente_tel_secundario" value="" >
                     </div>
 
                     
                     <div class="col-md-4">
                         Telefone Terciário:
-                        <input type="number" class="form-control" name="frm_requerente_tel_terciario" value="" required>
+                        <input type="number" class="form-control" name="frm_requerente_tel_terciario" value="" >
                     </div>
 
                 </div>

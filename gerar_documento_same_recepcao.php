@@ -149,7 +149,7 @@
 			<form autocomplete="off" id="assinatura"  method="get//" action="gerar_documento_pdf.php">
 				<div class="row">		
 
-					<div class="col-md-3" id="div_sn_exame_mv">
+					<div class="col-md-4" id="div_sn_exame_mv">
 						<label>Paciente:</label>
 						<input type="text"  class="form-control" value="<?php echo @$var_nm_paciente?>" id="paciente" name="nm_paciente" readonly></input>
 					</div>
