@@ -30,7 +30,7 @@
             <div class="col-md-3">  
            
                 <?php    
-                    echo $var_periodo_filtro = @$_GET["frm_cad_periodo"];
+                     $var_periodo_filtro = @$_GET["frm_cad_periodo"];
 
                     if(strlen($var_periodo_filtro) < 1){ 
                         

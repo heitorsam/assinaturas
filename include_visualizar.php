@@ -62,8 +62,19 @@ if($row_lista_doc['NM_DOC'] == 'term_laqueadura' ){
 	echo '<a type="button" class="btn btn-primary"data-toggle="modal" data-target="#visualizaModalAssinado"  data-cd_atendimento="<?php echo $var_cd_atendimento ?>" data-tp_doc="term_laqueadura" data-identificador="term_laqueadura_assinado"><i class="fas fa-eye"></i></a>';
 }
 
+
+
+
+
+
 //Visualizar Assinada - Requerimento Prontuário
 if($row_lista_doc['NM_DOC'] == 'same_pendente' ){
+                                
+	echo '<a type="button" class="btn btn-primary"data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_paciente="<?php echo $var_cd_paciente ?>" data-tp_doc="same" data-identificador="guia_same_assinado"><i class="fas fa-eye"></i></a>';
+}
+
+//Visualizar Assinada - Requerimento Prontuário
+if($row_lista_doc['NM_DOC'] != 'same_pendente' ){
                                 
 	echo '<a type="button" class="btn btn-primary"data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_paciente="<?php echo $var_cd_paciente ?>" data-tp_doc="same" data-identificador="guia_same_assinado"><i class="fas fa-eye"></i></a>';
 }

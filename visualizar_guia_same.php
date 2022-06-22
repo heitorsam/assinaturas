@@ -170,7 +170,7 @@ h2{
 
                         <h1><b>DADOS DO(A) PACIENTE:</b></h1>
                         <h1>Nome: <b>".@$dados_result_resp_doc['PACIENTE_NOME']." </b> RG: <b>".@$dados_result_resp_doc['PACIENTE_RG']."</b> CPF: <b>".@$dados_result_resp_doc['PACIENTE_CPF']."</b> Data de Nascimento: <b>".@$dados_result_resp_doc['PACIENTE_NASCIMENTO']."</b> </h1>
-                        <h1>Período de Internação: (informação obrigatória):  <b>".@$dados_result_resp_doc['PERIODO_MINIMO']."</b> </h1>
+                        <h1>Período de Internação: (informação obrigatória):  <b>".@$dados_result_resp_doc['PERIODO_MINIMO']."</b> há <b>".@$dados_result_resp_doc['PERIODO_MAXIMO']."</b></h1>
                         <br>
                         <h1><b>DADOS DO(A) REQUERENTE: </b></h1>
                         <h1>( <b>".@$dados_result_resp_doc['RADIO_PACIENTE']." </b>) Paciente   ( <b>".@$dados_result_resp_doc['RADIO_REP_LEGAL']." </b>) Representante Legal   ( <b>".@$dados_result_resp_doc['RADIO_TUTOR_CURADOR']." </b>) Tutor/Curador   ( <b>".@$dados_result_resp_doc['RADIO_PARENTE']." </b>) Parente: <b>".@$dados_result_resp_doc['REQUERENTE_PARENTE']." <br> 
