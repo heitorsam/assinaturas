@@ -26,10 +26,10 @@
                 <span class="espaco_pequeno"></span>
 
                 <a href="anexos.php" class="botao_home" type="submit"><i class="fas fa-camera"></i> Anexos</a></td></tr>
-                
+                <div class="div_br"> </div>
+
             <?php } ?>
 
-            <div class="div_br"> </div>
             <div class="div_br"> </div>
             
             <?php if(@$_SESSION['sn_usuario_same_recepcao'] == 'S' || 

@@ -6,8 +6,20 @@
     include 'conexao.php';
 
     //ACESSO RESTRITO
-    include 'acesso_restrito_faturamento.php'; 
+    //include 'acesso_restrito_faturamento.php'; 
 
+    $tp_permissao = $_GET['tp_permissao'];
+
+    if($tp_permissao == 'same'){
+        //ACESSO RESTRITO
+        include 'acesso_restrito_same.php'; 
+    }
+
+    if($tp_permissao == 'assinaturas'){
+        //ACESSO RESTRITO
+        include 'acesso_restrito_faturamento.php'; 
+    }
+    
     //$var_cd_atendimento = $_SESSION['atdpdf'];
     $nm_documento = $_GET['nm_doc'];
 

@@ -116,7 +116,7 @@
                         if(@$_SESSION['sn_usuario_same'] == 'S'){ 
                             //BAIXAR                            
                             echo '<td style="text-align: center; vertical-align : middle;"> 
-                                        <a type="button" class="btn btn-primary" target="_blank" href="baixar_pdf.php?nm_doc='. $row_lista_doc['NOME_ANEXO'] . '">'. ' <i class="fas fa-download"></i></a> 
+                                        <a type="button" class="btn btn-primary" target="_blank" href="baixar_pdf.php?nm_doc='. $row_lista_doc['NOME_ANEXO'] . '&tp_permissao=same">'. ' <i class="fas fa-download"></i></a> 
                                   </td>';
                         }
                     ?>
