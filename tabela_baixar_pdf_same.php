@@ -108,7 +108,6 @@
                                                     data-identificador="guia_same_assinado">
                                     <i class="fas fa-pencil-alt"></i></a>';
                             }
-                            
                         ?>
                     </td>
 

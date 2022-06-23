@@ -56,7 +56,9 @@
                     <?php if(@$_SESSION['sn_usuario_comum'] == 'S' || @$_SESSION['sn_usuario_same_recepcao'] == 'S'){ ?>
                         <!--MODEL VISUALIZAR-->
                         <td class="align-middle" style="text-align: center !important;">
-                            <?php include "include_visualizar.php"?>
+                            <?php 
+                            include "include_visualizar.php"
+                            ?>
                         </td>
                     <?php } ?>
 
