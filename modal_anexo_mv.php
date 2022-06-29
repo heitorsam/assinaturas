@@ -11,7 +11,6 @@
       <div class="modal-body">
         <form action="enviar_anexo_mv.php?cd_atendimento=<?php echo $var_cd_atendimento ?>" method="post" id="form_anexo" enctype="multipart/form-data">
             <div class="row align-self-center" >
-              
                 <div class="form-group col-md-12">
                     <label for="frm_ds_doc">Descrição Documento:</label>
                     <input type="text" class="form-control" name="frm_ds_doc"

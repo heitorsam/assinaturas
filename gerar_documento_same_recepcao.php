@@ -23,6 +23,7 @@
 			$_SESSION['atdpdf'] = $_SESSION['atdconsulta'];
 
 		} else {
+			
 			@$var_cd_paciente = 0;   
 		}
 
@@ -64,7 +65,7 @@
     $row_aten = oci_fetch_array($result_atendimento);
 
     if(!isset( $row_aten['CD_PACIENTE']) && isset($_GET['cd_paciente'])){
-    $_SESSION['msgerro'] = "Paciente não encontrado"; 
+    $_SESSION['msgerro'] = "Documento de requisição não preenchido"; 
     }
 
     @$var_cd_paciente = $row_aten['CD_PACIENTE'];
@@ -80,10 +81,11 @@
 
     @$_SESSION['cd_atendimento'] = $row_aten['CD_ATENDIMENTO'];
 
-	
-	/////////////////////////////////////////////////////////////////
-	//VERIFICA SE EXISTE DOCUMENTO ASSINADO PARA AQUELE ATENDIMENTO//
-	/////////////////////////////////////////////////////////////////
+    ///////////////////////////
+	//Verifica se existe pdf///
+	//para aquele atendimento//
+	///////////////////////////
+
 	if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdpdf']) ){
         $cons_pdf ="SELECT *
                 FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
@@ -94,35 +96,7 @@
         @oci_execute($result_pdf_exis);
         @$row_pdf_exis = oci_fetch_array($result_pdf_exis);
         @$var_pdf_existe = $row_pdf_exis['BLOB_ANEXO'];
-    }
-
-	
-	//////////////////////////////////////////////
-	//VERIFICA SE EXISTE REQUERIMENTO PREENCHIDO//
-	//////////////////////////////////////////////
-	if(isset($var_cd_paciente)){
-		$cons_valida_requerimento="SELECT
-								CASE
-									WHEN COUNT(*) >= 1 THEN 'PREENCHIDO'
-									ELSE 'NAO_PREENCHIDO'
-								END AS VALIDA_DOCUMENTO
-								FROM assinaturas.DOCUMENTO_REQUERENTE doc
-								WHERE doc.CD_PACIENTE = $var_cd_paciente
-		";
-
-		$result_valida_requerimento = oci_parse($conn_ora, $cons_valida_requerimento);
-		@oci_execute($result_valida_requerimento);
-		$row_valida_requerimento = oci_fetch_array($result_valida_requerimento);
-
-		@$var_valida_requerimento = $row_valida_requerimento['VALIDA_DOCUMENTO'];
-
-		$header = 'location: gerar_documento_same_requisicao.php?frm_cd_paciente='.$var_cd_paciente;
-
-		if($var_valida_requerimento == 'NAO_PREENCHIDO'){
-			$_SESSION['msgerro'] = "Documento não preenchido";
-			//header($header);  
-			}
-	}
+        }
 ?>
 
 <!DOCTYPE HTML>
@@ -167,13 +141,12 @@
 				
 			</div>
 		</form>
+		
 		</br>
 
 		<!---RESULTADO DA PESQUISA-->
-		<?php if(strlen(@$var_nm_paciente) > 1 && $var_valida_requerimento == 'PREENCHIDO' ){ ?>
+		<?php if(strlen(@$var_nm_paciente) > 1 ){ ?>
 			<form autocomplete="off" id="assinatura"  method="get//" action="gerar_documento_pdf.php">
-				
-				<!---INFORMAÇOES PACIENTE-->
 				<div class="row">		
 
 					<div class="col-md-4" id="div_sn_exame_mv">
@@ -207,8 +180,8 @@
 					</div>
 
 					<div class="col-md-0" id="div_sn_exame_mv">
-						<label>Atendimento:</label>
-						<input type="text"  class="form-control" value="<?php echo @$var_cd_atendimento?>" id="atendimento" name="cd_atendimento" readonly></input>
+						<!--<label>Atendimento:</label>-->
+						<input type="hidden"  class="form-control" value="<?php echo @$var_cd_atendimento?>" id="atendimento" name="cd_atendimento" readonly></input>
 					</div>
 
 					<div class="col-md-0" id="div_sn_exame_mv">
@@ -245,10 +218,20 @@
 					<?php } ?>
 				</div>
 
+
 				<div class="row" style="margin: 0 0 0 0 ; padding: 0 0 0 0 ;">
 					<!-- SE TIVER ASSINADO -->
 					<?php if(isset($var_pdf_existe)){ ?>
-						
+						<br>
+						<!--
+							<div class="col-md-12"><h11 id=""><i class="fas fa-file-contract"></i> Documentos Assinados:</h11></div>
+							APENAS GERA A GUIA TISS SE FOR CONVENIO 
+							<div style="margin-top: 20px; margin-right: 10px; ">
+								<a  style="height: 100%; width: 100% " class="btn btn-primary " data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_paciente="<?php echo $var_cd_paciente ?>" data-tp_doc="same" data-identificador="guia_same_assinado"><i class="fas fa-file-pdf"></i> Guia Same</a>
+							</div>
+						-->
+				
+
 					<?php }else{?>
 						
 						<?php if(@$_SESSION['sn_usuario_same_recepcao'] == 'S'){ ?>

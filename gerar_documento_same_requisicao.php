@@ -37,7 +37,7 @@
     $row_paciente = oci_fetch_array($result_paciente);
 
     if(!isset( $row_paciente['CD_PACIENTE']) && isset($var_cd_paciente)){
-        $_SESSION['msgerro'] = "Paciente não encontrado"; 
+        $_SESSION['msgerro'] = "Paciente Não Localizado"; 
     }else{}
 
     ////////////////////////////////
@@ -99,7 +99,21 @@
                         <i class="fas fa-search"></i>
 					</div> 
 				</div>
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
 			</div>
 		</form>
 
