@@ -99,8 +99,7 @@
                         <i class="fas fa-search"></i>
 					</div> 
 				</div>
-
-                
+    
 			</div>
 		</form>
 
