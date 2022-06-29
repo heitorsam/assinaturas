@@ -28,7 +28,6 @@
         <div class="row">
             <!--FILTRO PERIODO-->
             <div class="col-md-3">  
-           
                 <?php    
                      $var_periodo_filtro = @$_GET["frm_cad_periodo"];
 

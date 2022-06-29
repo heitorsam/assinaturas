@@ -170,7 +170,7 @@
     $result_requerente = oci_parse($conn_ora, $cons_requerente);
     $valida_requerente = @oci_execute($result_requerente);
     
-    $header = 'location: ../../gerar_documento_same_requisicao.php?frm_cd_paciente='.$var_cd_paciente;
+    $header = 'location: ../../gerar_documento_same_recepcao.php?cd_paciente='.$var_cd_paciente;
     
     //VALIDA CASDASTRO PRODUTO
     if (!$valida_requerente) {   
