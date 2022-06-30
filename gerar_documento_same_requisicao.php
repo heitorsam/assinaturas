@@ -124,7 +124,7 @@
 
             <?php
                 //FORMULARIO DADOS REQUERENTE
-                include 'assinatura_SAME/form/campos_requerente.php';
+                include 'assinatura_SAME/Requisicao/form/campos_requerente.php';
             ?>
 
         <?php } ?>
@@ -133,7 +133,7 @@
 
 <?php
     //RODAPE
-    include 'assinatura_SAME/funcoes/js_same_documento.php';
+    include 'assinatura_SAME/Requisicao/funcoes/js_same_documento.php';
 ?>
     
 <?php

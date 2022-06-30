@@ -2,10 +2,10 @@
     session_start();
 
     //ACESSO RESTRITO
-    include '../../acesso_restrito.php';
+    include '../../../acesso_restrito.php';
 
     //CONEXAO
-    include '../../conexao.php'; 
+    include '../../../conexao.php'; 
 
     //RECEBENDO SESSAO
     $var_cd_usuario = $_SESSION['usuarioLogin'];
@@ -170,7 +170,7 @@
     $result_requerente = oci_parse($conn_ora, $cons_requerente);
     $valida_requerente = @oci_execute($result_requerente);
     
-    $header = 'location: ../../gerar_documento_same_recepcao.php?cd_paciente='.$var_cd_paciente;
+    $header = 'location: ../../../gerar_documento_same_recepcao.php?cd_paciente='.$var_cd_paciente;
     
     //VALIDA CASDASTRO PRODUTO
     if (!$valida_requerente) {   

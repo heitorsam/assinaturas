@@ -1,4 +1,4 @@
-<form action="assinatura_SAME/consulta/sql_cadastrar_documento.php" method="POST">
+<form action="assinatura_SAME/Requisicao/consulta/sql_cadastrar_documento.php" method="POST">
                 <div class="div_br"> </div>
                 
                 <div class="row">
@@ -83,7 +83,7 @@
                             <label class="form-check-label" for="flexRadio_Parente">
                                 Parente  
                             </label>
-                             <?php include 'assinatura_SAME/filtro/include_filtro_parente.php';?>
+                             <?php include 'assinatura_SAME/Requisicao/filtro/include_filtro_parente.php';?>
                         </div>
 
                         <!-- PASSA O VALOR SELECIONADO PARA PROXIMA PAGINA-->
