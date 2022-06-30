@@ -129,7 +129,7 @@
 <body>
 	<!-- Content -->
 	<div class="container">
-	<div class="div_br"> </div>
+		<div class="div_br"> </div>
 
 		<!--MENSAGENS-->
 		<?php
@@ -313,8 +313,8 @@
 			</form>
 		<?php }?>
 
-	<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-	<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+				<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+				<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 		<br>
 		
 		<?php
@@ -325,311 +325,20 @@
 		
 	</div>
 
-    <script>
-		//var form = document.getElementById("assinatura");
-		(function() {
-			
-			// Get a regular interval for drawing to the screen
-			window.requestAnimFrame = (function (callback) {
-				return window.requestAnimationFrame || 
-							window.webkitRequestAnimationFrame ||
-							window.mozRequestAnimationFrame ||
-							window.oRequestAnimationFrame ||
-							window.msRequestAnimaitonFrame ||
-							function (callback) {
-								window.setTimeout(callback, 1000/60);
-							};
-			})();
+	<!--CANVAS ASSINATURA-->
+	<?php 
+		include 'assinatura_SAME/Recepção/funcoes/js_canvas_assinatura.php';
+	?>
 
-			// Set up the canvas
-			var canvas = document.getElementById("sig-canvas");
-			var ctx = canvas.getContext("2d");
-			ctx.strokeStyle = "#5b79b4";
-			ctx.lineWith = 2;
-
-			// Set up the UI
-			var sigText = document.getElementById("sig-dataUrl");
-			var sigImage = document.getElementById("sig-image");
-			var clearBtn = document.getElementById("sig-clearBtn");
-			clearBtn.addEventListener("click", function (e) {
-				clearCanvas();
-				sigText.innerHTML = "Data URL for your signature will go here!";
-				sigImage.setAttribute("src", "");
-			}, false);
-			
-
-			// Set up mouse events for drawing
-			var drawing = false;
-			var mousePos = { x:0, y:0 };
-			var lastPos = mousePos;
-			canvas.addEventListener("mousedown", function (e) {
-				drawing = true;
-				lastPos = getMousePos(canvas, e);
-			}, false);
-			canvas.addEventListener("mouseup", function (e) {
-				drawing = false;
-			}, false);
-			canvas.addEventListener("mousemove", function (e) {
-				mousePos = getMousePos(canvas, e);
-			}, false);
-
-			// Set up touch events for mobile, etc
-			canvas.addEventListener("touchstart", function (e) {
-				mousePos = getTouchPos(canvas, e);
-				var touch = e.touches[0];
-				var mouseEvent = new MouseEvent("mousedown", {
-					clientX: touch.clientX,
-					clientY: touch.clientY
-				});
-				canvas.dispatchEvent(mouseEvent);
-			}, false);
-			canvas.addEventListener("touchend", function (e) {
-				var mouseEvent = new MouseEvent("mouseup", {});
-				canvas.dispatchEvent(mouseEvent);
-			}, false);
-			canvas.addEventListener("touchmove", function (e) {
-				var touch = e.touches[0];
-				var mouseEvent = new MouseEvent("mousemove", {
-					clientX: touch.clientX,
-					clientY: touch.clientY
-				});
-				canvas.dispatchEvent(mouseEvent);
-			}, false);
-
-			// Prevent scrolling when touching the canvas
-			document.body.addEventListener("touchstart", function (e) {
-				if (e.target == canvas) {
-					e.preventDefault();
-				}
-			}, false);
-			document.body.addEventListener("touchend", function (e) {
-				if (e.target == canvas) {
-					e.preventDefault();
-				}
-			}, false);
-			document.body.addEventListener("touchmove", function (e) {
-				if (e.target == canvas) {
-					e.preventDefault();
-				}
-			}, false);
-
-			// Get the position of the mouse relative to the canvas
-			function getMousePos(canvasDom, mouseEvent) {
-				var rect = canvasDom.getBoundingClientRect();
-				return {
-					x: mouseEvent.clientX - rect.left,
-					y: mouseEvent.clientY - rect.top
-				};
-			}
-
-			// Get the position of a touch relative to the canvas
-			function getTouchPos(canvasDom, touchEvent) {
-				var rect = canvasDom.getBoundingClientRect();
-				return {
-					x: touchEvent.touches[0].clientX - rect.left,
-					y: touchEvent.touches[0].clientY - rect.top
-				};
-			}
-
-			// Draw to the canvas
-			function renderCanvas() {
-				if (drawing) {
-					ctx.moveTo(lastPos.x, lastPos.y);
-					ctx.lineTo(mousePos.x, mousePos.y);
-					ctx.stroke();
-					lastPos = mousePos;
-				}
-			}
-
-			// Clear the canvas
-			function clearCanvas() {
-				canvas.width = canvas.width;
-			}
-
-			// Allow for animation
-			(function drawLoop () {
-				requestAnimFrame(drawLoop);
-				renderCanvas();
-			})();
-
-		})();
-
-	</script>
 </body>
 </html>
 
+<!--MODALS VISUALIZAÇÃO-->
+<?php 
+	include 'assinatura_SAME/Recepção/modal/modal_visualizacao.php';
+?>
 
-<!--TAMANHO DA MODAL / SCROLL -->
-<style>
-	.modal-body {
-    	height: 100%;
-	}
-</style>
-
-<!--MODAL VISUALIZA-->
-
-<div class="modal fade " id="visualizaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	<div class="modal-dialog modal-xl" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Documento para Assinatura</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body" id="body_result" style="margin-left: 10px; width: 100%">
-				
-			</div>
-			<div class="modal-footer">
-			</div>
-		</div>
-	</div>
-</div>
-
-<!--MODAL VISUALIZA ASSINADO-->
-<div class="modal fade " id="visualizaModalAssinado" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	<div class="modal-dialog modal-xl" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Documento Assinado</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body" id="body_result" style="margin-left: 10px; width: 100%">
-			
-			</div>
-			<div class="modal-footer">
-			</div>
-		</div>
-	</div>
-</div>
-
-
-<script type="text/javascript">
-
-	$(document).ready(function(){
-
-		/*TODA VEZ QUE ABRIR O MODAL EXECUTAR ESSA FUNCAO*/
-
-		$(document).on('shown.bs.modal','.modal', function (event) {
-
-			// DO EVENTS
-			var button = $(event.relatedTarget) //Button that triggered the modal
-			var cd_atendimento = button.data('cd_atendimento')   
-			var cd_paciente = button.data('cd_paciente') 
-			var nm_paciente = button.data('nm_paciente')   
-			var dt_aten = button.data('dt_aten')       
-			var nm_conv = button.data('nm_conv') 
-			var tp_doc = button.data('tp_doc')     
-			var identificador = button.data('identificador') 
-			//console.log(identificador);
-
-
-			//PASSANDO VALOR DO CAMPO PESQUISA E EXECUTANDO AJAX
-
-			//NÃO ASSINADOS
-
-			if(identificador == 'same'){
-
-				$.getJSON('visualizar_guia_same.php?search=',{cd_atendimento: cd_atendimento, cd_paciente: cd_paciente,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv, ajax: 'true'}, function(j){
-
-					if(j){
-						//alert("Certo");
-						$("#visualizaModal .modal-body").html(j[0]);            
-					} 
-					else {
-						alert("Erro");
-					}
-
-				});	
-
-			//ASSINADOS
-
-			}else if(identificador == 'guia_same_assinado'){
-
-				$("#visualizaModalAssinado .modal-body").load('exibi_pdf_guia_same.php');
-		
-			}
-
-
-		});
-
-		//AÇÃO APOS ASSINAR
-
-		document.getElementById("sig-submitBtn").addEventListener("click", function () {
-			//alert("Aqui");
-
-			var canvas = document.getElementById("sig-canvas");
-		
-			var cd_atendimento = document.getElementById("atendimento").value;
-			console.log(cd_atendimento);
-
-			var cd_paciente = document.getElementById("cd_paciente").value;
-			console.log(cd_paciente);
-
-			var nm_paciente = document.getElementById("paciente").value;
-			console.log(nm_paciente);
-
-			var dt_aten = document.getElementById("dt_atendimento").value;
-			console.log(dt_aten);
-
-			var nm_conv = document.getElementById("nm_convenio").value;
-			console.log(nm_conv);
-
-			var escondidinho = document.getElementById('escondidinho').value = canvas.toDataURL('image/png');
-			console.log(escondidinho);
-
-			//CONVENIO 
-			var cd_conv = document.getElementById("cd_convenio").value;
-			console.log(cd_conv);
-			
-			//TIPO ATENDIMENTO 
-			var tb_atd = document.getElementById("tipoatendimento").value;
-			console.log(tb_atd);
-		
-			//ASSINA O DOCUMENTO
-			$.ajax({
-				//Configurações
-				type: 'POST',//Método que está sendo utilizado.
-				dataType: 'html',//É o tipo de dado que a página vai retornar.
-				url: 'gerar_documento_pdf_guia_same.php',//Indica a página que está sendo solicitada.
-				//função que vai ser executada assim que a requisição for enviada
-				data: {cd_atendimento: cd_atendimento, cd_paciente: cd_paciente,nm_paciente: nm_paciente,dt_aten: dt_aten,nm_conv: nm_conv,escondidinho:escondidinho},//Dados para consulta
-				//função que será executada quando a solicitação for finalizada.
-				
-					success: function (msg){
-						//alert("Sucesso");
-					},
-
-					error: function (msg){
-						alert("Erro");
-					}
-							
-			});
-		
-			//CADASTRA A ASSINATURA 
-			$.ajax({
-				type: 'POST',
-				dataType: 'html',
-				url: 'cad_assinaturas_requerente.php',
-				data: {cd_paciente: cd_paciente,
-					escondidinho:escondidinho},
-				
-						success: function (msg){
-							//alert(msg);
-						},
-
-						error: function (msg){
-							//alert("Erro");
-					}
-							
-			});
-
-			window.setTimeout(function(){location.reload()},1000)
-			
-		});
-
-	});
-
-</script>
+<!--AJAX / JAVASCRIPT - ASSINATURA DOC-->
+<?php 
+	include 'assinatura_SAME/Recepção/funcoes/js_cadastrar_doc.php';
+?>
