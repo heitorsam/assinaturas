@@ -15,7 +15,6 @@
     //DADOS VIA POST//
     //////////////////
     
-
     echo 'var_cd_paciente: ';
     echo $var_cd_paciente = $_POST['frm_cd_paciente'];
     echo '</br>';
@@ -127,7 +126,6 @@
     if (!$valida_requerente_delete) {   
             $erro = oci_error($result_requerente_delete);																							
             $_SESSION['msgerro'] = htmlentities($erro['message']);
-            //header('location: ../../../workflow.php'); 
         }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -162,6 +160,7 @@
                                 '$var_requerente_tel_secundario' AS REQUERENTE_TEL_SECUNDARIO,
                                 '$var_requerente_tel_terciario' AS REQUERENTE_TEL_TERCIARIO,
                                 '$var_requerente_motivo' AS REQUERENTE_MOTIVO,
+                                NULL AS REQUERENTE_EMAIL,
                                 '$var_cd_usuario' AS CD_USUARIO_CADASTRO,
                                 SYSDATE AS HR_CADASTRO
                             FROM DUAL
