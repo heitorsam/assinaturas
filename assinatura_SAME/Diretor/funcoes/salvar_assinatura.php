@@ -2,10 +2,10 @@
     session_start();
 
     //ACESSO RESTRITO
-    include 'acesso_restrito.php';
+    include '../../../acesso_restrito.php';
 
     //CONEXAO
-    include 'conexao.php'; 
+    include '../../../conexao.php';
 
     //RECEBENDO SESSAO
      'var_user_logado: ';
@@ -15,33 +15,28 @@
     //////////////////
     //DADOS VIA POST//
     //////////////////
-     'cd_atendimento: ';
-     $cd_atendimento = $_POST['cd_atendimento'];
+     'var_cd_paciente: ';
+     $var_cd_paciente = $_POST['cd_paciente'];
      '</br>';
-
 
     ///////////////////////////////////
     //ARMAZENANDO ASSINATURA PACIENTE//
     ///////////////////////////////////
     $assinatura_paciente = "SELECT ASSINATURA_PACIENTE
                             FROM assinaturas.ASSINATURA_PACIENTE
-                            WHERE CD_PACIENTE = (SELECT CD_PACIENTE
-                                                FROM dbamv.ATENDIME atd
-                                                WHERE CD_ATENDIMENTO = $cd_atendimento)";
+                            WHERE CD_PACIENTE = $var_cd_paciente";
 
-        $result_assinatura_paciente = oci_parse($conn_ora, $assinatura_paciente);
-        @oci_execute($result_assinatura_paciente);
-        $row_assinatura_paciente = oci_fetch_array($result_assinatura_paciente);
+    $result_assinatura_paciente = oci_parse($conn_ora, $assinatura_paciente);
+    @oci_execute($result_assinatura_paciente);
+    $row_assinatura_paciente = oci_fetch_array($result_assinatura_paciente);
 
-        @$image64_paciente = $row_assinatura_paciente['ASSINATURA_PACIENTE']->load();
-        $img_paciente = base64_encode(@$image64_paciente);
-
-    // '<img alt="pepita.png" src="data:image/png;base64,'.$img_paciente.'"/>';
+    @$image64_paciente = $row_assinatura_paciente['ASSINATURA_PACIENTE']->load();
+    $img_paciente = base64_encode(@$image64_paciente);
 
     ////////////////////////////////////
     //ARMAZENANDO ASSINATURA PRESTADOR//
     ////////////////////////////////////
-    echo $assinatura_prestador = "SELECT prest.CD_PRESTADOR, prest.DS_CODIGO_CONSELHO,
+    $assinatura_prestador = "SELECT prest.CD_PRESTADOR, prest.DS_CODIGO_CONSELHO,
                                 prest.NM_PRESTADOR, tipa.NM_TIP_PRESTA,
                                 pas.ASSINATURA_TISS
                                 FROM dbamv.PRESTADOR prest
@@ -54,41 +49,25 @@
                                                             WHERE CD_USUARIO = '$var_user_logado')
                                                                         ";
 
-        $result_assinatura_prestador = oci_parse($conn_ora, $assinatura_prestador);
-        @oci_execute($result_assinatura_prestador);
-        $row_assinatura_prestador = oci_fetch_array($result_assinatura_prestador);
+    $result_assinatura_prestador = oci_parse($conn_ora, $assinatura_prestador);
+    @oci_execute($result_assinatura_prestador);
+    $row_assinatura_prestador = oci_fetch_array($result_assinatura_prestador);
 
-        @$var_coren = $row_assinatura_prestador['DS_CODIGO_CONSELHO'];
-        @$var_nm_prestador = $row_assinatura_prestador['NM_PRESTADOR'];
-        @$var_nm_funcao = $row_assinatura_prestador['NM_TIP_PRESTA'];
+    @$var_coren = $row_assinatura_prestador['DS_CODIGO_CONSELHO'];
+    @$var_nm_prestador = $row_assinatura_prestador['NM_PRESTADOR'];
+    @$var_nm_funcao = $row_assinatura_prestador['NM_TIP_PRESTA'];
 
-        @$image64_prestador = $row_assinatura_prestador['ASSINATURA_TISS']->load();
-        $img_prestador = base64_encode(@$image64_prestador);
-
-    //<img alt="pepita.png" src="data:image/png;base64,$img_prestador"/>';
+    @$image64_prestador = $row_assinatura_prestador['ASSINATURA_TISS']->load();
+    $img_prestador = base64_encode(@$image64_prestador);
 
 
-    ///////////////////////////
-    //ARMAZENANDO CD PACIENTE//
-    ///////////////////////////
-    $cons_cd_paciente = "SELECT CD_PACIENTE
-                            FROM dbamv.ATENDIME atd
-                            WHERE CD_ATENDIMENTO = $cd_atendimento";
 
-        $result_cd_paciente = oci_parse($conn_ora, $cons_cd_paciente);
-        @oci_execute($result_cd_paciente);
-        $row_cd_paciente = oci_fetch_array($result_cd_paciente);
-
-        $var_cd_paciente = $row_cd_paciente['CD_PACIENTE'];
-    //
-
-    echo "<br>";  
     $partes = explode(' ', $var_nm_prestador);
     $primeiroNome = array_shift($partes);
     $ultimoNome = array_pop($partes);
     
 
-    include 'sql_consulta_same.php';
+    include '../../../sql_consulta_same.php';
 
 
     $documentTemplate = "
@@ -342,11 +321,10 @@
             </form>
     ";
     
-    //echo  json_encode(array($documentTemplate)); 
-    //echo  $documentTemplate; 
+    
 
     // inclusão da biblioteca
-    include 'dompdf/autoload.inc.php';
+    include '../../../dompdf/autoload.inc.php';
 
 
     // alguns ajustes devido a variações de servidor para servidor
@@ -371,67 +349,57 @@
     ?>
 
 
-    <?php
-    // enviar documento destino para download
-    //$dompdf->stream("dompdf_out.pdf");
+<?php
+        // enviar documento destino para download
+        //$dompdf->stream("dompdf_out.pdf");
 
         ///////////////////////
         // Inserindo no banco//
         ///////////////////////
 
-    include_once("conexao.php");
+        include_once("../../../conexao.php");
 
-    //DECLARANDO VARIAVEIS DO ARQUIVO PARA IMPORTACAO PARA O BANCO
-    //$image = file_get_contents($dompdf);
+        //DECLARANDO VARIAVEIS DO ARQUIVO PARA IMPORTACAO PARA O BANCO
+        //$image = file_get_contents($dompdf);
 
-    $consulta_insert = 
-    "UPDATE ASSINATURAS.documentos_assinados
-    SET BLOB_ANEXO = empty_blob(), TP_DOCUMENTO = 'same_concluido'
-    WHERE CD_ATENDIMENTO = $cd_atendimento
-    RETURNING BLOB_ANEXO INTO :image";
+        $consulta_insert = 
+        "UPDATE assinaturas.DOCUMENTOS_ASSINADOS_SAME
+        SET BLOB_ANEXO = empty_blob(), TP_DOCUMENTO = 'same_concluido'
+        WHERE CD_PACIENTE = $var_cd_paciente
+        RETURNING BLOB_ANEXO INTO :image";
 
+        $insere_dados = oci_parse($conn_ora, $consulta_insert);
+        $blob = oci_new_descriptor($conn_ora, OCI_D_LOB);
+        oci_bind_by_name($insere_dados, ":image", $blob, -1, OCI_B_BLOB);
 
-    //echo $consulta_insert;
+        oci_execute($insere_dados, OCI_DEFAULT);
 
-    $insere_dados = oci_parse($conn_ora, $consulta_insert);
-    $blob = oci_new_descriptor($conn_ora, OCI_D_LOB);
-    oci_bind_by_name($insere_dados, ":image", $blob, -1, OCI_B_BLOB);
+        $linhas_afetadas = oci_num_rows($insere_dados);
 
-    oci_execute($insere_dados, OCI_DEFAULT);
+        if(!$blob->save($image)) {
+            oci_rollback($conn_ora);
+        }
+        else {
+            oci_commit($conn_ora);
+        }
 
-    $linhas_afetadas = oci_num_rows($insere_dados);
-    //echo "</br>Linhas Afetadas: " . $linhas_afetadas;
+        oci_free_statement($insere_dados);
+        $blob->free();
+        
+        if($insere_dados > 0){
+            $_SESSION['msg'] = "Assinado com sucesso!"; 
+            //header('Location: ../../..gerar_documento_same_diretor.php');
+            return 0;
 
+        }else{
+            $_SESSION['msgerro'] = "Ocorreu um erro ao assinar o arquivo."; 
+            //header('Location: ../../..gerar_documento_same_diretor.php');
+            return 0;
+        }
+        
+        exit(0);
 
-    if(!$blob->save($image)) {
-        oci_rollback($conn_ora);
-    }
-    else {
-        oci_commit($conn_ora);
-    }
-
-    oci_free_statement($insere_dados);
-    $blob->free();
-
-
-    
-    if($insere_dados > 0){
-        $_SESSION['msg'] = "Assinado com sucesso!"; 
-        header('Location: gerar_documento_same_diretor.php');
-        return 0;
-
-    }else{
-        $_SESSION['msgerro'] = "Ocorreu um erro ao assinar o arquivo."; 
-        header('Location: gerar_documento_same_diretor.php');
-        return 0;
-    }
-    
-
-    exit(0);
-
-
-
-    //DECLARANDO VARIAVEIS DO ARQUIVO PARA IMPORTACAO PARA O BANCO
-    //$image = file_get_contents($dompdf);
+        //DECLARANDO VARIAVEIS DO ARQUIVO PARA IMPORTACAO PARA O BANCO
+        //$image = file_get_contents($dompdf);
 
 ?>

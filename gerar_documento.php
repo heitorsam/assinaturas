@@ -337,7 +337,7 @@
 
 			<?php 		
 				//MODAL ANEXO MV
-				include 'modal_anexo_mv.php';	
+				include 'assinatura_SAME/Recepção/modal_anexo_mv.php';	
 			?>
 			
 		</div></br>

@@ -24,11 +24,23 @@ $var_user_logado = $_SESSION['usuarioLogin'];
  $image = base64_decode($data); 
 
 
+//////////
+//DELETE//
+//////////
+$cons_delete="DELETE assinaturas.ASSINATURA_PACIENTE WHERE CD_PACIENTE = $var_cd_paciente
+            ";
+$result_delete = oci_parse($conn_ora, $cons_delete);
+$valida_delete = @oci_execute($result_delete);
 
-$consult_delete = "DELETE FROM assinaturas.ASSINATURA_PACIENTE WHERE CD_PACIENTE = $var_cd_paciente";
-$deleta_dados = oci_parse($conn_ora, $consult_delete);
-oci_execute($deleta_dados);
+if (!$valida_delete) {   
+        $erro = oci_error($result_delete);																							
+        $_SESSION['msgerro'] = htmlentities($erro['message']);
+    }
 
+
+///////////////////////
+//Inserindo no banco///
+///////////////////////
 $consulta_insert = 
 "INSERT INTO assinaturas.ASSINATURA_PACIENTE
 (CD_PACIENTE, DT_COLETA, CD_USUARIO_COLETA, ASSINATURA_PACIENTE)

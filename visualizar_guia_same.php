@@ -259,6 +259,6 @@ h2{
          </form>
  ";
 //visualiza documentTemplate
-echo  json_encode(array($documentTemplate)); 
+echo json_encode(array($documentTemplate)); 
 //echo $documentTemplate;
 ?>

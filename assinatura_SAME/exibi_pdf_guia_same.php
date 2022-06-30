@@ -3,28 +3,24 @@
     session_start();
 
     //CONEXAO
-    include 'conexao.php';
+    include '../conexao.php';
 
     @$_SESSION['atdconsulta'] = $_SESSION['atdpdf'];
 
-    if(isset($_SESSION['cd_atendimento'])){
-      $var_cd_atendimento = $_SESSION['cd_atendimento'];
+    if(isset($_SESSION['cd_paciente'])){
+      $var_cd_paciente = $_SESSION['cd_paciente'];
     }
 
-    if(isset($_GET['cd_atendimento'])){
-      $var_cd_atendimento = $_GET['cd_atendimento'];
+    if(isset($_GET['cd_paciente'])){
+      $var_cd_paciente = $_GET['cd_paciente'];
     }
-
-
-
-    
 
     ///////////////
     //PDF DOWLOAD//
     ///////////////
     $cons_dowload="SELECT *
-    FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
-    WHERE ass.cd_atendimento = $var_cd_atendimento
+    FROM assinaturas.DOCUMENTOS_ASSINADOS_SAME ass
+    WHERE ass.cd_paciente = $var_cd_paciente
     AND TP_DOCUMENTO LIKE '%same%'";
 
     $result_dowload = oci_parse($conn_ora, $cons_dowload);
@@ -38,8 +34,6 @@
 <canvas style="height:100%; width:95%" id="the-canvas"></canvas>
 <!--<iframe src="data:application/pdf;base64,<?php echo base64_encode($image) ?>" type="application/pdf" style="height:100%;width:100%" title="Iframe Example">
 </iframe>-->
-
-
 
 <script>
     var pdfData = atob("<?php echo base64_encode($image); ?>");

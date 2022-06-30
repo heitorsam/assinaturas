@@ -62,7 +62,7 @@
     if(isset($var_periodo_filtro)){       
         //CABECALHO
         $where = "WHERE NM_DOC = 'same_concluido'";
-        include 'tabela_baixar_pdf_same.php';
+        include 'assinatura_SAME/tabela_baixar_pdf_same.php';
     }
 
 

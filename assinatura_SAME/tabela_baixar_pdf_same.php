@@ -3,31 +3,53 @@
     $var_periodo_ano = SUBSTR($var_periodo_filtro,0,4);
 
     echo '</br>';
-    $cons_lista_doc = " SELECT da.CD_ATENDIMENTO,
-                            da.NM_PACIENTE,
-                            tp.NM_DOC,
-                            tp.DESC_DOC,
-                            da.NOME_ANEXO,
-                            da.NM_USER,
-                            TO_CHAR(da.DT_CRIACAO, 'DD/MM/YYYY HH24:MI') AS DT_CRIACAO
-                        FROM assinaturas.documentos_assinados da
-                        INNER JOIN assinaturas.TP_DOCUMENTO tp
-                        ON tp.NM_DOC = da.TP_DOCUMENTO
-                        $where
-                        AND EXTRACT(YEAR FROM DT_CRIACAO) = '$var_periodo_ano'
-                        AND EXTRACT(MONTH FROM DT_CRIACAO) = '$var_periodo_mes'
-                        ORDER BY da.DT_CRIACAO ASC
+    $cons_lista_doc = "SELECT doc.CD_PACIENTE,
+                                doc.NM_PACIENTE,
+                                doc.TP_DOCUMENTO,
+                                TO_CHAR(doc.HR_CADASTRO, 'DD/MM/YYYY HH24:MI') AS DT_CRIACAO,
+                                doc.CD_USUARIO_CADASTRO,
+                                doc.NOME_ANEXO,
+                                tp.DESC_DOC,
+                                tp.NM_DOC,
+
+                                CASE 
+                                    WHEN TP_DOCUMENTO = 'same_recusado' THEN '#fc0303'
+                                    WHEN TP_DOCUMENTO = 'same_concluido' THEN '#008000'
+                                    ELSE '#d9d9d9'
+                                END AS COR_PENDENCIA,
+
+                                CASE 
+                                    WHEN TP_DOCUMENTO = 'same_recusado' THEN 'fa-solid fa-xmark'
+                                    WHEN TP_DOCUMENTO = 'same_concluido' THEN 'fas fa-check'
+                                    ELSE 'fa-solid fa-xmark'
+                                END AS ICONE,
+
+
+                                CASE 
+                                    WHEN TP_DOCUMENTO = 'same_recusado' THEN 'same_recusado'
+                                    WHEN TP_DOCUMENTO = 'same_concluido' THEN 'same_concluido'
+                                    ELSE NULL
+                                END AS TP_DOC
+
+                            FROM assinaturas.DOCUMENTOS_ASSINADOS_SAME doc
+                            INNER JOIN assinaturas.TP_DOCUMENTO tp
+                                ON tp.NM_DOC = doc.TP_DOCUMENTO
+                            $where
+                            AND EXTRACT(YEAR FROM doc.HR_CADASTRO) = '$var_periodo_ano'
+                            AND EXTRACT(MONTH FROM doc.HR_CADASTRO) = '$var_periodo_mes'
                         ";
 
     $result_lista_doc = oci_parse($conn_ora, $cons_lista_doc);
     @oci_execute($result_lista_doc);   
 ?>
+
     <!--TABELA-->
     <div class="table-responsive col-md-12" style="padding: 0px !important;">
 
         <table class="table table-striped" cellspacing="0" cellpadding="0">
             
             <thead>
+                <!--CABEÇALHO-->
                 <tr>
                     <th style="text-align: center;">Paciente</th>
                     <th style="text-align: center;">Descrição</th>
@@ -44,8 +66,6 @@
                     <?php if(@$_SESSION['sn_usuario_same'] == 'S'){ ?>
                         <th style="text-align: center;">Baixar</th>
                     <?php } ?>
-                   
-
                 </tr>
             </thead>
 
@@ -60,50 +80,41 @@
                 <td class='align-middle' style='text-align: center;'><?php echo @$row_lista_doc['NM_PACIENTE']; ?></td>
                     <td class='align-middle' style='text-align: center;'><?php echo @$row_lista_doc['DESC_DOC']; ?></td>
                     <td class='align-middle' style='text-align: center;'><?php echo @$row_lista_doc['DT_CRIACAO']; ?></td>
-                     
+
                     <!--MODEL VISUALIZAR-->
                     <td class="align-middle" style="text-align: center !important;">
                         
                         <!--REGRA DE PENDENCIAS PARA O DIRETOR-->
                         <?php 
+                            //VISUALIZAR / ASSINAR DIRETOR CLINICO
                             if(@$_SESSION['sn_usuario_same_diretor'] == 'S'){ 
+                                //QUANDO NÃO FOI ACEITO OU RECUSADO
                                 if($row_lista_doc['NM_DOC'] == 'same_pendente'){
                                     echo '<a type="button" class="btn btn-primary"
                                                 data-toggle="modal" 
                                                 data-target="#visualizaModalAssinado" 
-                                                data-cd_atendimento="'.$row_lista_doc['CD_ATENDIMENTO'].'" 
+                                                data-cd_paciente="'.$row_lista_doc['CD_PACIENTE'].'" 
                                                 data-tp_doc="same_pendente" 
                                                 data-identificador="guia_same_assinado">
                                     <i class="fas fa-pencil-alt"></i></a>';
                                 }
-
-                                if($row_lista_doc['NM_DOC'] == 'same_concluido'){
+                                //QUANDO FOI ACEITO OU RECUSADO
+                                if($row_lista_doc['NM_DOC'] != 'same_pendente'){
                                     echo '<a type="button" class="btn btn-primary" style="background-color: rgba(0, 0, 0, 0) !important; border-color: rgba(0, 0, 0, 0) !important;"
                                                 data-toggle="modal" 
                                                 data-target="#visualizaModalAssinado" 
-                                                data-cd_atendimento="'.$row_lista_doc['CD_ATENDIMENTO'].'" 
-                                                data-tp_doc="same_concluido" 
+                                                data-cd_paciente="'.$row_lista_doc['CD_PACIENTE'].'" 
+                                                data-tp_doc="'.$row_lista_doc['TP_DOC'].'"
                                                 data-identificador="guia_same_assinado">
-                                    <i style="color: #008000;" class="fas fa-check"></i></a>';
-                                
-                                }
+                                    <i style="color: '.$row_lista_doc['COR_PENDENCIA'].';" class="'.$row_lista_doc['ICONE'].'"></i></a>';
+                            }
 
-                                if($row_lista_doc['NM_DOC'] == 'same_recusado'){
-                                    echo '<a type="button" class="btn btn-primary" style="background-color: rgba(0, 0, 0, 0) !important; border-color: rgba(0, 0, 0, 0) !important;"
-                                                data-toggle="modal" 
-                                                data-target="#visualizaModalAssinado" 
-                                                data-cd_atendimento="'.$row_lista_doc['CD_ATENDIMENTO'].'" 
-                                                data-tp_doc="same_recusado" 
-                                                data-identificador="guia_same_assinado">
-                                    <i style="color: red;" class="fa-solid fa-xmark"></i></a>';
-                                
-                                }
-                            //CASO NÃO SEJA O DIRETOR MOSTRA O BOTÃO NORMAL
+                            //VISUALIZAR SAME 
                             }else{
                                 echo '<a type="button" class="btn btn-primary"
                                                     data-toggle="modal" 
                                                     data-target="#visualizaModalAssinado" 
-                                                    data-cd_atendimento="'.$row_lista_doc['CD_ATENDIMENTO'].'" 
+                                                    data-cd_paciente="'.$row_lista_doc['CD_PACIENTE'].'" 
                                                     data-tp_doc="same_pendente" 
                                                     data-identificador="guia_same_assinado">
                                     <i class="fas fa-pencil-alt"></i></a>';
@@ -115,7 +126,7 @@
                         if(@$_SESSION['sn_usuario_same'] == 'S'){ 
                             //BAIXAR                            
                             echo '<td style="text-align: center; vertical-align : middle;"> 
-                                        <a type="button" class="btn btn-primary" target="_blank" href="baixar_pdf.php?nm_doc='. $row_lista_doc['NOME_ANEXO'] . '&tp_permissao=same">'. ' <i class="fas fa-download"></i></a> 
+                                        <a type="button" class="btn btn-primary" target="_blank" href="assinatura_SAME/baixar_pdf.php?nm_doc='. $row_lista_doc['NOME_ANEXO'] . '&tp_permissao=same">'. ' <i class="fas fa-download"></i></a> 
                                   </td>';
                         }
                     ?>
@@ -130,32 +141,5 @@
         </table>
 
     </div>
-
-    <!--MODAL-->
-    <div class="modal fade " id="visualizaModalAssinado" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Documento Assinado</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                    <input type="hidden" id="js_cd_atendimento" name="frm_cd_atendimento"> </input>
-                    <div class="modal-body" id="body_result" style="margin-left: 10px; width: 100%">              
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> <i class="fas fa-times"></i> Fechar</button>
-                        <?php if(@$_SESSION['sn_usuario_same_diretor'] == 'S'){ ?>
-                            <button type="button" id='jv_btn_recusar' class="btn btn-danger"> <i class="fas fa-times"></i> Recusar</button>
-                            <button type="submit" id='jv_btn_assinar' class="btn btn-primary"><i class="fas fa-plus"></i> Assinar</button>
-                        <?php } ?>
-
-                    </div>
-            </div>
-        </div>
-    </div>
-
 
     

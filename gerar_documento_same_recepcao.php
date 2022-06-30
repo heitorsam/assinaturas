@@ -32,96 +32,34 @@
     ////////////
 	//PACIENTE//
 	////////////
-	$cons_atend="SELECT pac.CD_PACIENTE,
-						pac.NM_PACIENTE,
-						MAX(ate.CD_ATENDIMENTO) AS CD_ATENDIMENTO,
-						TO_CHAR(ate.DT_ATENDIMENTO, 'DD/MM/YYYY') AS DT_ATENDIMENTO,
-						con.CD_CONVENIO,
-						con.NM_CONVENIO,
-						pac.NR_IDENTIDADE,
-						pac.NR_CPF,
-						TO_CHAR(pac.DT_NASCIMENTO, 'DD/MM/YYYY') AS DT_NASCIMENTO,
-						ate.TP_ATENDIMENTO
-					FROM ATENDIME ate
-					INNER JOIN paciente pac
-					ON pac.cd_paciente = ate.cd_paciente
-					INNER JOIN CONVENIO con
-					ON con.cd_convenio = ate.cd_convenio
-					WHERE ate.cd_paciente = $var_cd_paciente
-					GROUP BY pac.CD_PACIENTE,
-						pac.NM_PACIENTE,
-						TO_CHAR(ate.DT_ATENDIMENTO, 'DD/MM/YYYY'),
-						con.CD_CONVENIO,
-						con.NM_CONVENIO,
-						pac.NR_IDENTIDADE,
-						pac.NR_CPF,
-						TO_CHAR(pac.DT_NASCIMENTO, 'DD/MM/YYYY'),
-						ate.TP_ATENDIMENTO
+	$cons_paciente="SELECT pac.CD_PACIENTE,
+							pac.NM_PACIENTE,
+							pac.NR_IDENTIDADE,
+							pac.NR_CPF
+					FROM dbamv.PACIENTE pac WHERE pac.CD_PACIENTE = $var_cd_paciente
     ";
 
-    $result_atendimento = oci_parse($conn_ora, $cons_atend);
-    @oci_execute($result_atendimento);
-    $row_aten = oci_fetch_array($result_atendimento);
+    $result_paciente = oci_parse($conn_ora, $cons_paciente);
+    @oci_execute($result_paciente);
+    $row_paciente = oci_fetch_array($result_paciente);
 
-    if(!isset( $row_aten['CD_PACIENTE']) && isset($_GET['cd_paciente'])){
+    if(!isset( $row_paciente['CD_PACIENTE']) && isset($_GET['cd_paciente'])){
     $_SESSION['msgerro'] = "Paciente não encontrado"; 
     }
 
-    @$var_cd_paciente = $row_aten['CD_PACIENTE'];
-    @$var_cd_atendimento = $row_aten['CD_ATENDIMENTO'];
-    @$var_nm_paciente = $row_aten['NM_PACIENTE'];
-    @$var_dt_aten = $row_aten['DT_ATENDIMENTO'];
-    @$var_nm_conv = $row_aten['NM_CONVENIO'];
-    @$var_cd_conv = $row_aten['CD_CONVENIO'];
-    @$var_nr_identidade = $row_aten['NR_IDENTIDADE'];
-    @$var_nr_cpf = $row_aten['NR_CPF'];
-    @$var_dt_nascimento = $row_aten['DT_NASCIMENTO'];
-    @$var_tp_atendimento = $row_aten['TP_ATENDIMENTO'];
+    @$var_cd_paciente = $row_paciente['CD_PACIENTE'];
+    @$var_nm_paciente = $row_paciente['NM_PACIENTE'];
+    @$var_nr_identidade = $row_paciente['NR_IDENTIDADE'];
+    @$var_nr_cpf = $row_paciente['NR_CPF'];
 
-    @$_SESSION['cd_atendimento'] = $row_aten['CD_ATENDIMENTO'];
-
-	////////////////////////////////
-	//VERIFICA SE PDF FOI ASSINADO//
-	////////////////////////////////
-	if(isset($_GET['cd_atendimento']) OR isset($_SESSION['atdpdf']) ){
-        $cons_pdf ="SELECT *
-					FROM ASSINATURAS.DOCUMENTOS_ASSINADOS ass
-					WHERE ass.cd_atendimento = $var_cd_atendimento
-                ";
-    
-        $result_pdf_exis = oci_parse($conn_ora, $cons_pdf);
-        @oci_execute($result_pdf_exis);
-        @$row_pdf_exis = oci_fetch_array($result_pdf_exis);
-        @$var_pdf_existe = $row_pdf_exis['BLOB_ANEXO'];
-    }
+	@$_SESSION['cd_paciente'] = $row_paciente['CD_PACIENTE'];
 
 
-	/////////////////////////////////////////
-	//VERIFICA SE REQUERIMENTO FOI ASSINADO//
-	/////////////////////////////////////////
-	if(isset($var_cd_paciente)){
-		$cons_valida_requerimento="SELECT
-									CASE
-										WHEN COUNT(*) >= 1 THEN 'PREENCHIDO'
-										ELSE 'NAO_PREENCHIDO'
-									END AS VALIDA_DOCUMENTO
-									FROM assinaturas.DOCUMENTO_REQUERENTE doc
-									WHERE doc.CD_PACIENTE = $var_cd_paciente
-		";
+?>
 
-		$result_valida_requerimento = oci_parse($conn_ora, $cons_valida_requerimento);
-		@oci_execute($result_valida_requerimento);
-		$row_valida_requerimento = oci_fetch_array($result_valida_requerimento);
-
-		@$var_valida_requerimento = $row_valida_requerimento['VALIDA_DOCUMENTO'];
-
-		//$header = 'location: gerar_documento_same_requisicao.php?frm_cd_paciente='.$var_cd_paciente;
-		if($var_valida_requerimento == 'NAO_PREENCHIDO'){
-			$_SESSION['msgerro'] = "Documento não preenchido";
-			//header($header);  
-			}
-	}
-
+<?php
+	//VALIDAÇÕES
+	include 'assinatura_SAME/Recepção/validacoes.php';
 ?>
 
 <!DOCTYPE HTML>
@@ -133,39 +71,39 @@
 
 		<!--MENSAGENS-->
 		<?php
-		include 'js/mensagens.php';
-		include 'js/mensagens_usuario.php';
+			include 'js/mensagens.php';
+			include 'js/mensagens_usuario.php';
 		?>
-			
+		
+		<!--ESTRUTURA FORMULARIO-->
 		<div class="div_br"> </div>        
 
-		<h11><i class="fas fa-file-import"></i> Recepção</h11>
-		<span class="espaco_pequeno" style="width: 6px;" ></span>
-		<h27> <a href="home.php" style="color: #444444; text-decoration: none;"> <i class="fa fa-reply" aria-hidden="true"></i> Voltar </a> </h27> 
+			<h11><i class="fas fa-file-import"></i> Recepção</h11>
+			<span class="espaco_pequeno" style="width: 6px;" ></span>
+			<h27> <a href="home.php" style="color: #444444; text-decoration: none;"> <i class="fa fa-reply" aria-hidden="true"></i> Voltar </a> </h27> 
 
 
-		<div class="div_br"> </div>
-		<!--FORM - PRONTUARIO-->
-		<form method="get" autocomplete="off" action="gerar_documento_same_recepcao.php">
-			<div class="row">
-				<div class="col-md-3 ">
-					Prontuário:
-					<div class="input-group">
+			<div class="div_br"> </div>
+			<!--FORM - PRONTUARIO-->
+			<form method="get" autocomplete="off" action="gerar_documento_same_recepcao.php">
+				<div class="row">
+					<div class="col-md-3 ">
+						Prontuário:
+						<div class="input-group">
 
-					<?php if(isset($_GET['cd_paciente']) OR isset($_SESSION['atdconsulta'])){ ?>
-						<input class="form-control input-group" type="text" value="<?php echo @$var_cd_paciente;?>" name="cd_paciente" required>
-						<input class="form-control input-group" type="hidden" value="<?php echo 'A';?>" id="tp_atendimento" required>
-					<?php } else { ?>
-						<input class="form-control input-group" type="text"  name="cd_paciente" required>
-					<?php }?>
+						<?php if(isset($_GET['cd_paciente']) OR isset($_SESSION['atdconsulta'])){ ?>
+							<input class="form-control input-group" type="text" value="<?php echo @$var_cd_paciente;?>" name="cd_paciente" required>
+							<input class="form-control input-group" type="hidden" value="<?php echo 'A';?>" id="tp_atendimento" required>
+						<?php } else { ?>
+							<input class="form-control input-group" type="text"  name="cd_paciente" required>
+						<?php }?>
 
-						<button type="submit" class=" btn btn-primary" id="btn_pesquisar"> <i class="fa fa-search" aria-hidden="true"></i></button>	
-						<input type="hidden" id="valor" type="text" readonly />
-					</div> 
+							<button type="submit" class=" btn btn-primary" id="btn_pesquisar"> <i class="fa fa-search" aria-hidden="true"></i></button>	
+							<input type="hidden" id="valor" type="text" readonly />
+						</div> 
+					</div>
 				</div>
-				
-			</div>
-		</form>
+			</form>
 		
 		</br>
 
@@ -194,129 +132,107 @@
 						<input type="text" value="<?php echo @$var_nr_identidade;?>" class="form-control" id="" name="" readonly></input>
 					</div>
 
-					<div class="col-md-3" id="div_sn_exame_mv">
-						<!--<label>Convenio:</label>-->
-						<input type="hidden" value="<?php echo @$var_nm_conv;?>" class="form-control" id="nm_convenio" name="nm_conv" readonly></input>
-					</div>
-
 					<div class="col-md-0" id="div_sn_exame_mv">
-						<!--<label>Data Atendimento:</label>-->
-						<input type="hidden" value="<?php echo @$var_dt_aten ?>" class="form-control" id="dt_atendimento" name="dt_aten" readonly></input>
-					</div>
-
-					<div class="col-md-0" id="div_sn_exame_mv">
-						<!--<label>Atendimento:</label>-->
-						<input type="hidden"  class="form-control" value="<?php echo @$var_cd_atendimento?>" id="atendimento" name="cd_atendimento" readonly></input>
-					</div>
-
-					<div class="col-md-0" id="div_sn_exame_mv">
-						<!-- <label>paciente:</label>-->
+						<!-- <label>CD PACIENTE:</label>-->
 						<input type="hidden"  class="form-control" value="<?php echo @$var_cd_paciente?>" id="cd_paciente" name="cd_paciente" readonly></input>
 					</div>
 
-					<div class="col-md-2" id="div_sn_exame_mv">
-						<!--<label>Tipo Atendimeno:</label>-->
-						<input type="hidden"  class="form-control" value="<?php echo @$var_tp_atendimento?>" id="tipoatendimento" name="tipoatendimento" readonly></input>
-					</div>
-
-					<div class="col-md-0" id="div_sn_exame_mv">
-						<input type="hidden" value="<?php echo @$var_cd_conv;?>" class="form-control" id="cd_convenio" name="cd_conv" ></input>
-					</div>
-					<br>
 				</div>
 
-				<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-				<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 				
+				<div class="row">
+
+				<div style="margin-left: 15px;">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalanexomv">
+						<i class="fas fa-camera"></i> Anexar arquivo
+					</button>
+				</div>
+
+				<?php 		
+					//MODAL ANEXO MV
+					include 'modal_anexo_mv.php';	
+				?>
+
+</div></br>
+
+						<div class="div_br"> </div>
+
 				<!--SE NÃO TIVER ASSINADO -->
-				<div class="row" style="margin: 0 0 0 0 ; padding: 0 0 0 0 ;" >
-					<!-- SE NÃO TIVER ASSINADO -->
-					<?php if(!isset($var_pdf_existe)){?>
-						<!-- GERA GUIA SAME PARA VISUALIZAÇÃO -->
-						<div style="margin-top: 20px; margin-right: 10px;">
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visualizaModal" data-cd_paciente="<?php echo $var_cd_paciente ?>"  data-nm_paciente="<?php echo $var_nm_paciente ?>" data-identificador="same">
-								<i class="far fa-eye"></i> Guia SAME
-							</button><br><br>
+				<?php if(!isset($var_pdf_existe)){?>
+
+						<div class="div_br"> </div>
+						<div class="div_br"> </div>
+
+						<!--RADIO-->
+						<div class="row">		
+
+							<div class="col-md-12">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="flexRadio" id="flexRadio_presencial" checked>
+									<label class="form-check-label" for="flexRadio_presencial">
+										Presencial
+									</label>
+								</div>
+
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="flexRadio" id="flexRadio_distancia" >
+									<label class="form-check-label" for="flexRadio_distancia">
+										A Distância
+									</label>
+								</div>
+							</div>
+
 						</div>
-							
-					<?php }else{ ?>
-					<?php } ?>
-				</div>
 
-				<!-- SE TIVER ASSINADO -->
-				<div class="row" style="margin: 0 0 0 0 ; padding: 0 0 0 0 ;">
-					<?php if(isset($var_pdf_existe)){ ?>
-						<br>
-						<!--
-							<div class="col-md-12"><h11 id=""><i class="fas fa-file-contract"></i> Documentos Assinados:</h11></div>
-							APENAS GERA A GUIA TISS SE FOR CONVENIO 
-							<div style="margin-top: 20px; margin-right: 10px; ">
-								<a  style="height: 100%; width: 100% " class="btn btn-primary " data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_paciente="<?php echo $var_cd_paciente ?>" data-tp_doc="same" data-identificador="guia_same_assinado"><i class="fas fa-file-pdf"></i> Guia Same</a>
-							</div>
-						-->
-				
+						<div class="div_br"> </div>
 
-					<?php }else{?>
-						
-						<?php if(@$_SESSION['sn_usuario_same_recepcao'] == 'S'){ ?>
+			
 
-							<div class="col-md-2" style="margin: 0 0 0 0 ; padding: 0 0 0 0 ;">
-								<button type="button" class="btn btn-primary alinhamneto_assinar" data-toggle="modal" data-target="#exampleModalCenter" id="btnAssinar" >
+
+						<div class="row">		
+								<button type="button" class="btn btn-primary" id="requerente_presencial" data-toggle="modal" data-target="#visualizaModal" data-cd_paciente="<?php echo $var_cd_paciente ?>"  data-nm_paciente="<?php echo $var_nm_paciente ?>" data-identificador="same">
+									<i class="far fa-eye"></i> Guia SAME
+								</button>
+
+								<span class="espaco_pequeno"></span>
+
+								<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModalCenter" id="btnAssinar" >
 									<i class="fas fa-signature"></i> Assinar
+								</button> 
+								
+								<span class="espaco_pequeno"></span>
+
+								<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#AnexoFotoDocumento" id="requetente_documento" >
+								<i class="fa-solid fa-file"></i> Anexo foto Documento 
+								</button> 
+								
+								<span class="espaco_pequeno"></span>
+
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AnexoDocumento" id="requetente_distancia" >
+								<i class="fa-solid fa-file-arrow-up"></i> Anexo Documento 
 								</button>  
-							</div>
+						</div>
+				<?php } ?>
 
-						<?php } ?>
-
-					<?php }	?>
-				</div>
-
-				<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-				<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-				
+				<!-- SE TIVER DOCUMENTO ASSINADO -->
 				<?php if(isset($var_pdf_existe)){ ?>
-
 					<!-- CHAMA A TABELA BAIXAR PDF -->
 					<?php 
 						$where = "WHERE NM_DOC = 'same_pendente'";
-						include 'tabela_baixar_pdf.php'; 
+						include 'assinatura_SAME/Recepção/tabela.php'; 
 					?>
-					
 				<?php } ?>
 
-
 				<!--MODAL ASSINATURA-->
-				<div class="modal fade" id="exampleModalCenter" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-					<div class="modal-dialog modal-dialog" role="document">
-						<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLongTitle">Assinatura</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body" style="margin: 0 auto;">
-							<canvas id="sig-canvas" width="620" height="160" style="border: solid 1px black; 
-									margin-top: 20px;
-									width: 600px; height: 150px;">
-							</canvas>
-							<input type="hidden" name="escondidinho" id="escondidinho"></input>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" id="sig-clearBtn" onClick="redraw()"><i class="fas fa-eraser"></i> Limpar</button>
-							<button type="button" type="submit" class="btn btn-primary" id="sig-submitBtn"><i class="fas fa-paper-plane"></i> Enviar</button>
-						</div>
-						</div>
-					</div>
-				</div>
+				<?php 
+					include 'assinatura_SAME/Recepção/modal/modal_assinatura.php';
+				?>
 
 			</form>
 		<?php }?>
 
-				<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-				<!-- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 		<br>
-		
+
 		<?php
 			//RODAPE
 			include 'rodape.php';
@@ -342,3 +258,9 @@
 <?php 
 	include 'assinatura_SAME/Recepção/funcoes/js_cadastrar_doc.php';
 ?>
+
+<!--jS RADIOS-->
+<?php 
+	include 'assinatura_SAME/Recepção/funcoes/js_radio.php';
+?>
+
