@@ -5,8 +5,7 @@
     //CONEXAO
     include 'conexao.php';
 
-		@$var_cd_paciente = $_GET['frm_cd_paciente'];
-        '<br>';
+    @$var_cd_paciente = $_GET['frm_cd_paciente'];
 
     ////////////
 	//PACIENTE//
@@ -30,7 +29,7 @@
                             END AS ESTADO_CIVIL
                     FROM dbamv.PACIENTE pac
                     WHERE pac.CD_PACIENTE = '$var_cd_paciente'    
-                ";
+    ";
 
     $result_paciente = oci_parse($conn_ora, $cons_paciente);
     @oci_execute($result_paciente);
@@ -63,10 +62,6 @@
 <!DOCTYPE HTML>
 <html>
 <body>
-
-</body>
-</html>
-
         <!--MENSAGENS-->
 		<?php
             include 'js/mensagens.php';
@@ -99,21 +94,6 @@
                         <i class="fas fa-search"></i>
 					</div> 
 				</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                
 			</div>
 		</form>
 
@@ -121,18 +101,19 @@
 
         <!--MOSTRA OS DADOS APOS PASSAR O FORM-->
 		<?php if(strlen(@$var_nm_paciente) > 1 ){ ?>
-
             <?php
                 //FORMULARIO DADOS REQUERENTE
                 include 'assinatura_SAME/Requisicao/form/campos_requerente.php';
             ?>
-
         <?php } ?>
+
+</body>
+</html>
 
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 
 <?php
-    //RODAPE
+    //JAVASCRIPT
     include 'assinatura_SAME/Requisicao/funcoes/js_same_documento.php';
 ?>
     

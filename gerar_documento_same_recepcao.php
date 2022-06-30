@@ -32,7 +32,6 @@
     ////////////
 	//PACIENTE//
 	////////////
-
 	$cons_atend="SELECT pac.CD_PACIENTE,
 						pac.NM_PACIENTE,
 						MAX(ate.CD_ATENDIMENTO) AS CD_ATENDIMENTO,
