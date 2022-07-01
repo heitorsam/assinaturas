@@ -35,7 +35,7 @@
 				$("#visualizaModalAssinado .modal-body").load('assinatura_SAME/exibi_pdf_guia_same.php');
 		
 				}
-			});
+		});
 
 		//AÇÃO APOS ASSINAR
 

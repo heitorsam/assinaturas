@@ -109,6 +109,22 @@
 
 		<!---RESULTADO DA PESQUISA-->
 		<?php if(strlen(@$var_nm_paciente) > 1 && $var_valida_requerimento == 'PREENCHIDO'){ ?>
+			
+			<div class="row">
+
+				<div style="margin-left: 15px;">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalanexomv" id="jv_Abrir_Modal">
+						<i class="fas fa-camera"></i> Anexar foto
+					</button>
+				</div>
+
+				<?php 		
+					//MODAL ANEXO MV
+					include 'assinatura_SAME/Recepção/modal/modal_anexo_mv.php';	
+				?>
+
+			</div></br>
+
 			<form autocomplete="off" id="assinatura"  method="get//" action="gerar_documento_pdf.php">
 				<div class="row">		
 
@@ -138,22 +154,6 @@
 					</div>
 
 				</div>
-
-				
-				<div class="row">
-
-				<div style="margin-left: 15px;">
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalanexomv">
-						<i class="fas fa-camera"></i> Anexar arquivo
-					</button>
-				</div>
-
-				<?php 		
-					//MODAL ANEXO MV
-					include 'modal_anexo_mv.php';	
-				?>
-
-</div></br>
 
 						<div class="div_br"> </div>
 
@@ -186,31 +186,28 @@
 
 						<div class="div_br"> </div>
 
-			
-
-
 						<div class="row">		
-								<button type="button" class="btn btn-primary" id="requerente_presencial" data-toggle="modal" data-target="#visualizaModal" data-cd_paciente="<?php echo $var_cd_paciente ?>"  data-nm_paciente="<?php echo $var_nm_paciente ?>" data-identificador="same">
-									<i class="far fa-eye"></i> Guia SAME
-								</button>
+							<button type="button" class="btn btn-primary" id="requerente_presencial" data-toggle="modal" data-target="#visualizaModal" data-cd_paciente="<?php echo $var_cd_paciente ?>"  data-nm_paciente="<?php echo $var_nm_paciente ?>" data-identificador="same">
+								<i class="far fa-eye"></i> Guia SAME
+							</button>
 
-								<span class="espaco_pequeno"></span>
+							<span class="espaco_pequeno"></span>
 
-								<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModalCenter" id="btnAssinar" >
-									<i class="fas fa-signature"></i> Assinar
-								</button> 
-								
-								<span class="espaco_pequeno"></span>
+							<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModalCenter" id="btnAssinar" >
+								<i class="fas fa-signature"></i> Assinar
+							</button> 
+							
+							<span class="espaco_pequeno"></span>
 
-								<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#AnexoFotoDocumento" id="requetente_documento" >
+							<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#AnexoFotoDocumento" id="requetente_documento" >
 								<i class="fa-solid fa-file"></i> Anexo foto Documento 
-								</button> 
-								
-								<span class="espaco_pequeno"></span>
+							</button> 
 
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AnexoDocumento" id="requetente_distancia" >
+							<span class="espaco_pequeno"></span>
+
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AnexoDocumento" id="requetente_distancia" >
 								<i class="fa-solid fa-file-arrow-up"></i> Anexo Documento 
-								</button>  
+							</button>  
 						</div>
 				<?php } ?>
 

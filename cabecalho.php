@@ -41,6 +41,7 @@ session_start();
     <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
 </head>
 <body>
+<!--<body onload="exibir_modal_session('<?php echo $_SESSION['modalconfig'];?>')">-->
     <header>    
 
         <nav class="navbar navbar-expand-md navbar-dark bg-color">
