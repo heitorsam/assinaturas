@@ -11,19 +11,15 @@
 
         <div class="modal-body">
 
-        <form action="assinatura_SAME/Recepção/enviar_anexo_mv.php?cd_paciente=<?php echo $var_cd_paciente ?>" method="post" id="form_anexo" enctype="multipart/form-data">
-              
               <div class="row">
                   <div class="form-group col-md-6">
-                      <label for="frm_ds_doc">Descrição Documento:</label>
-                      <input type="text" class="form-control" name="frm_ds_doc"
-                      style="font-size: 14px !important;"
-                      value="" required>
+                      Descrição Documento:
+                      <input type="text" class="form-control" id="frm_ds_doc" style="font-size: 14px !important;" required>
                   </div>
 
                   <div class="form-group col-md-6">
-                      <label for="frm_tp_doc">Tipo do documento:</label>
-                      <select class="form-control" name="frm_tp_doc" required>
+                      Tipo do documento:
+                      <select class="form-control" id="frm_tp_doc" required>
                           <option value="IMAGEM">Imagem</option>
                       </select>
                   </div>
@@ -31,9 +27,9 @@
 
               <div class="row">
                   <div class="form-group col-md-12">
-                      <label for="frm_doc">Arquivo:</label>
+                      Arquivo:
                       <br>
-                      <input type="file" id='file' name='file' required>
+                      <input type="file" id='file' required>
                   </div>
               </div>
 
@@ -44,7 +40,7 @@
                 <div class="form-group col-md-12">
                   <!-- <button type="submit" class=" btn btn-primary" id="btn_pesquisar"></button>	-->
                   <button type="button" class="btn btn-secondary" data-dismiss="modal"> <i class="fas fa-times"></i> Fechar</button>
-                  <button type="submit"  id="jv_cadastrar" class="btn btn-primary"><i class="fas fa-plus"></i> Cadastrar</button>
+                  <button type="button" class="btn btn-primary"  id="jv_cadastrar"><i class="fas fa-plus"></i> Cadastrar</button>
                 </div>
               </div>
 
@@ -56,43 +52,46 @@
                     <div id="jv_cadastrar_listar"></div>
                 </div>
               </div>
-
-          </form>
         </div>
     </div>
   </div>
 </div>
 
 <script>
-    /////////////////
-    //BUSCAR TABELA//
-    /////////////////
-    function AnexoFotoTabela() {
-      //alert("PASSOU");    
-      $('#jv_cadastrar_listar').load('assinatura_SAME/Recepção/funcoes/ajax_anexo_foto/ajax_anexo_foto_tabela.php?cd_paciente=' + <?php echo $var_cd_paciente ?>)
-    }
-
     /////////////
     //CADASTRAR//
     /////////////
 
-    //document.getElementById("jv_cadastrar").submit = function() {cadastrarAnexoFoto()};
-    /*
+    document.getElementById("jv_cadastrar").onclick = function() {cadastrarAnexoFoto()};
+    
       function cadastrarAnexoFoto() {
-        //alert("PASSOU");    
+        //var jv_ds_doc =   document.getElementById("frm_ds_doc").value;
+        //var jv_tp_doc =  document.getElementById("frm_tp_doc").value;
+        //var cd_paciente = <?php //echo $var_cd_paciente ?>;
 
-        //AnexoFotoTabela();
-
-        var jv_ds_doc =   document.getElementById("jv_ds_doc").value;
-        var jv_tp_doc =  document.getElementById("jv_tp_doc").value;
-        var file =  document.getElementById("jv_file").value;
-        var cd_paciente = <?php echo $var_cd_paciente ?>;
-
+        var file_data = $('#file').prop('files')[0];   
+        var form_data = new FormData();                  
+        form_data.append('file', file_data);
+        alert(form_data);
         //alert ('jv_ds_doc:' + jv_ds_doc);
         //alert ('jv_tp_doc:' + jv_tp_doc);
-        //alert ('jv_file:' + jv_file);
+        //alert ('form_data:' + form_data);
         //alert ('cd_paciente:' + cd_paciente);
-      
+
+        $.ajax({
+          url: 'assinatura_SAME/Recepção/enviar_anexo_mv.php', // <-- point to server-side PHP script 
+          cache: false,
+          contentType: false,
+          processData: false,
+          data: form_data: form_data,
+          
+          type: 'POST',
+          success: function(dataResult){
+              alert(dataResult);
+          }
+        });
+
+      /*
         $.ajax({
             url: "assinatura_SAME/Recepção/enviar_anexo_mv.php",
             type: "POST",
@@ -108,12 +107,17 @@
               
             }
         });
-
+      */
       }
-    */
 
-
-
+    /////////////////
+    //BUSCAR TABELA//
+    /////////////////
+    function AnexoFotoTabela() {
+      //alert("PASSOU");    
+      $('#jv_cadastrar_listar').load('assinatura_SAME/Recepção/funcoes/ajax_anexo_foto/ajax_anexo_foto_tabela.php?cd_paciente=' + <?php echo $var_cd_paciente ?>)
+    }
+    
     ///////////
     //EXCLUIR//
     ///////////
@@ -135,8 +139,6 @@
         });
     }
 
-
-
     ///////////////////////////
     //TRAZER TABELA CARREGADA//
     ///////////////////////////
@@ -145,7 +147,6 @@
       //alert("PASSOU");
       AnexoFotoTabela();
     }
-
 
     //////////////////////////////////////////
     //REGARREGAR A PAGINA COM A MODAL ABERTA//

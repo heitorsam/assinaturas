@@ -15,7 +15,7 @@
     include 'js/mensagens.php';
     include 'js/mensagens_usuario.php';
     ?>
-        
+
     <div class="div_br"> </div>        
 
     <h11><i class="fas fa-file-alt"></i> Requerimentos Concluídos:</h11>
@@ -41,7 +41,7 @@
                     }   
                 ?>
             </div>
-        
+
             <!--BOTÃO PESQUISAR-->
             <div class="col-md-3">  
                 <!-- BOTAO PESQUISAR -->
@@ -55,16 +55,15 @@
     </form>
 
     </br>
-    
+
     <!--TABELA-->
     <?php 
 
-    if(isset($var_periodo_filtro)){       
-        //CABECALHO
-        $where = "WHERE NM_DOC = 'same_concluido'";
-        include 'assinatura_SAME/tabela_baixar_pdf_same.php';
-    }
-
+        if(isset($var_periodo_filtro)){       
+            //CABECALHO
+            $where = "WHERE NM_DOC = 'same_concluido'";
+            include 'assinatura_SAME/tabela_baixar_pdf_same.php';
+        }
 
     ?>
 

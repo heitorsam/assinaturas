@@ -34,6 +34,8 @@
                     <th style="text-align: center;">Descrição</th>
                     <th style="text-align: center;">Usuário</th>
                     <th style="text-align: center;">Data Criação</th>
+                    <th style="text-align: center;">Anexo Foto</th>
+                    <th style="text-align: center;">Anexo Documento</th>
                     <th style="text-align: center;">Visualizar</th>
                     <th style="text-align: center;">Baixar</th>
 
@@ -53,6 +55,24 @@
                     <td class='align-middle' style='text-align: center;'><?php echo @$row_lista_doc['CD_USUARIO_CADASTRO']; ?></td>
                     <td class='align-middle' style='text-align: center;'><?php echo @$row_lista_doc['DT_CRIACAO']; ?></td>
                      
+                        <!--MODEL ANEXO FOTO-->
+                        <td class="align-middle" style="text-align: center !important;">
+                            <?php 
+                                if($row_lista_doc['NM_DOC'] == 'same_pendente' ){
+                                    echo '<a type="button" class="btn btn-primary"data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_paciente="'. $var_cd_paciente.'" data-nm_paciente="'. $var_nm_paciente.'"  data-tp_doc="same" data-identificador="guia_same_assinado"><i class="fas fa-eye"></i></a>';
+                                }
+                            ?>
+                        </td>
+                    
+                        <!--MODEL DOCUMENTO-->
+                        <td class="align-middle" style="text-align: center !important;">
+                            <?php 
+                                if($row_lista_doc['NM_DOC'] == 'same_pendente' ){
+                                    echo '<a type="button" class="btn btn-primary"data-toggle="modal" data-target="#visualizaModalAssinado" data-cd_paciente="'. $var_cd_paciente.'" data-nm_paciente="'. $var_nm_paciente.'"  data-tp_doc="same" data-identificador="guia_same_assinado"><i class="fas fa-eye"></i></a>';
+                                }
+                            ?>
+                        </td>
+
                         <!--MODEL VISUALIZAR-->
                         <td class="align-middle" style="text-align: center !important;">
                             <?php 
