@@ -10,6 +10,7 @@
       </div>
 
         <div class="modal-body">
+          <form id="formAjax" action="modal_anexo_mv.php" method="POST">
 
               <div class="row">
                   <div class="form-group col-md-6">
@@ -20,7 +21,9 @@
                   <div class="form-group col-md-6">
                       Tipo do documento:
                       <select class="form-control" id="frm_tp_doc" required>
-                          <option value="IMAGEM">Imagem</option>
+                          <option value="RG">RG</option>
+                          <option value="CPF">CPF</option>
+                          <option value="CNH">CNH</option>
                       </select>
                   </div>
               </div>
@@ -29,7 +32,7 @@
                   <div class="form-group col-md-12">
                       Arquivo:
                       <br>
-                      <input type="file" id='file' required>
+                      <input type="file" id="fileAjax" name="fileAjax" required>
                   </div>
               </div>
 
@@ -39,8 +42,7 @@
               <div class="row">
                 <div class="form-group col-md-12">
                   <!-- <button type="submit" class=" btn btn-primary" id="btn_pesquisar"></button>	-->
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal"> <i class="fas fa-times"></i> Fechar</button>
-                  <button type="button" class="btn btn-primary"  id="jv_cadastrar"><i class="fas fa-plus"></i> Cadastrar</button>
+                  <input type="submit" id="submit" name="submit" value="Upload" />
                 </div>
               </div>
 
@@ -52,12 +54,122 @@
                     <div id="jv_cadastrar_listar"></div>
                 </div>
               </div>
+          </form>
+          <p id="status"></p>
         </div>
     </div>
   </div>
 </div>
 
 <script>
+
+  var myForm = document.getElementById('formAjax');  // Our HTML form's ID
+  var myFile = document.getElementById('fileAjax');  // Our HTML files' ID
+  var frm_ds_doc = document.getElementById('frm_ds_doc').value;  // Our HTML files' ID
+  
+  var statusP = document.getElementById('status');
+
+  myForm.onsubmit = function(event) {
+    var frm_ds_doc = document.getElementById('frm_ds_doc').value;  // Our HTML files' ID
+    alert(frm_ds_doc);
+      event.preventDefault();
+/*
+      statusP.innerHTML = 'Uploading...';
+
+      // Get the files from the form input
+      var files = myFile.files;
+
+      // Create a FormData object
+      var formData = new FormData();
+
+      // Select only the first file from the input array
+      var file = files[0];
+
+      // Check the file type
+      if (!file.type.match('image.*')) {
+          statusP.innerHTML = 'o arquivo selecionado não é uma imagem.';
+          return;
+      }
+
+      // Add the file to the AJAX request
+      formData.append('fileAjax', file, file.name);
+
+      // Set up the request
+      var xhr = new XMLHttpRequest();
+
+      // Open the connection
+      xhr.open('POST', 'assinatura_SAME/Recepção/enviar_anexo_mv.php?cd_paciente=' + <?php echo $var_cd_paciente ?>', true);
+
+      // Set up a handler for when the task for the request is complete
+      xhr.onload = function () {
+        if (xhr.status == 200) {
+          statusP.innerHTML = 'Upload complete!';
+        } else {
+          statusP.innerHTML = 'Upload error. Try again.';
+        }
+      };
+
+      // Send the data.
+      xhr.send(formData);
+      */
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*
     /////////////
     //CADASTRAR//
     /////////////
@@ -91,7 +203,7 @@
           }
         });
 
-      /*
+      
         $.ajax({
             url: "assinatura_SAME/Recepção/enviar_anexo_mv.php",
             type: "POST",
@@ -107,9 +219,9 @@
               
             }
         });
-      */
+      
       }
-
+*/
     /////////////////
     //BUSCAR TABELA//
     /////////////////

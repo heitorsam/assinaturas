@@ -35,6 +35,12 @@
 				$("#visualizaModalAssinado .modal-body").load('assinatura_SAME/exibi_pdf_guia_same.php');
 		
 				}
+
+			else if(identificador == 'guia_same_assinado'){
+
+				$("#visualizaModalAssinado .modal-body").load('assinatura_SAME/exibi_pdf_guia_same.php');
+		
+				}
 		});
 
 		//AÇÃO APOS ASSINAR
