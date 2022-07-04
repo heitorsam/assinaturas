@@ -110,21 +110,6 @@
 		<!---RESULTADO DA PESQUISA-->
 		<?php if(strlen(@$var_nm_paciente) > 1 && $var_valida_requerimento == 'PREENCHIDO'){ ?>
 			
-			<div class="row">
-
-				<div style="margin-left: 15px;">
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalanexomv" id="jv_Abrir_Modal">
-						<i class="fas fa-camera"></i> Anexar foto
-					</button>
-				</div>
-
-				<?php 		
-					//MODAL ANEXO MV
-					include 'assinatura_SAME/Recepção/modal/modal_anexo_mv.php';	
-				?>
-
-			</div></br>
-
 			<form autocomplete="off" id="assinatura"  method="get//" action="gerar_documento_pdf.php">
 				<div class="row">		
 
@@ -198,10 +183,10 @@
 							</button> 
 							
 							<span class="espaco_pequeno"></span>
-
-							<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#AnexoFotoDocumento" id="requetente_documento" >
-								<i class="fa-solid fa-file"></i> Anexo foto Documento 
-							</button> 
+							
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalanexomv" id="jv_Abrir_Modal">
+								<i class="fas fa-camera"></i> Anexar foto
+							</button>
 
 							<span class="espaco_pequeno"></span>
 
@@ -209,6 +194,7 @@
 								<i class="fa-solid fa-file-arrow-up"></i> Anexo Documento 
 							</button>  
 						</div>
+
 				<?php } ?>
 
 				<!-- SE TIVER DOCUMENTO ASSINADO -->
@@ -261,3 +247,7 @@
 	include 'assinatura_SAME/Recepção/funcoes/js_radio.php';
 ?>
 
+<!-- ANEXO FOTO -->
+<?php 		
+	include 'assinatura_SAME/Recepção/modal/modal_anexo_mv.php';	
+?>

@@ -15,15 +15,18 @@
               <div class="row">
                   <div class="form-group col-md-6">
                       Descrição Documento:
-                      <input type="text" class="form-control" id="frm_ds_doc" style="font-size: 14px !important;" required>
+                      <input type="text" class="form-control" id="frm_ds_doc" style="font-size: 14px !important;" >
                   </div>
 
                   <div class="form-group col-md-6">
                       Tipo do documento:
-                      <select class="form-control" id="frm_tp_doc" required>
-                          <option value="RG">RG</option>
-                          <option value="CPF">CPF</option>
-                          <option value="CNH">CNH</option>
+                      <select class="form-control" id="frm_tp_doc" >
+                          <option value="DOC_RG_FV">RG - Frente/Verso</option>
+                          <option value="DOC_RG_F">RG - Frente</option>
+                          <option value="DOC_RG_V">RG - Verso</option>
+                          <option value="DOC_CNH">CNH</option>
+                          <option value="DOC_NASCIMENTO">Certidão de Nascimento</option>
+                          <option value="DOC_CASAMENTO">Certidão de Casamento</option>
                       </select>
                   </div>
               </div>
@@ -32,7 +35,7 @@
                   <div class="form-group col-md-12">
                       Arquivo:
                       <br>
-                      <input type="file" id="fileAjax" name="fileAjax" required>
+                      <input type="file" id="fileAjax" name="fileAjax" >
                   </div>
               </div>
 
@@ -41,9 +44,7 @@
               <!-- BOTOES -->
               <div class="row">
                 <div class="form-group col-md-12">
-                  <!-- <button type="submit" class=" btn btn-primary" id="btn_pesquisar"></button>	-->
-                  <input type="submit" id="submit" name="submit" value="Upload" />
-                </div>
+                  <input class=" btn btn-primary" type="submit" id="submit" name="submit"></div>
               </div>
 
               <div class="div_br"> </div>
@@ -65,163 +66,63 @@
 
   var myForm = document.getElementById('formAjax');  // Our HTML form's ID
   var myFile = document.getElementById('fileAjax');  // Our HTML files' ID
-  var frm_ds_doc = document.getElementById('frm_ds_doc').value;  // Our HTML files' ID
-  
   var statusP = document.getElementById('status');
+  var frm_ds_doc = document.getElementById('frm_ds_doc');
+  var frm_tp_doc = document.getElementById('frm_tp_doc');
 
-  myForm.onsubmit = function(event) {
-    var frm_ds_doc = document.getElementById('frm_ds_doc').value;  // Our HTML files' ID
-    alert(frm_ds_doc);
-      event.preventDefault();
-/*
-      statusP.innerHTML = 'Uploading...';
-
-      // Get the files from the form input
-      var files = myFile.files;
-
-      // Create a FormData object
-      var formData = new FormData();
-
-      // Select only the first file from the input array
-      var file = files[0];
-
-      // Check the file type
-      if (!file.type.match('image.*')) {
-          statusP.innerHTML = 'o arquivo selecionado não é uma imagem.';
-          return;
-      }
-
-      // Add the file to the AJAX request
-      formData.append('fileAjax', file, file.name);
-
-      // Set up the request
-      var xhr = new XMLHttpRequest();
-
-      // Open the connection
-      xhr.open('POST', 'assinatura_SAME/Recepção/enviar_anexo_mv.php?cd_paciente=' + <?php echo $var_cd_paciente ?>', true);
-
-      // Set up a handler for when the task for the request is complete
-      xhr.onload = function () {
-        if (xhr.status == 200) {
-          statusP.innerHTML = 'Upload complete!';
-        } else {
-          statusP.innerHTML = 'Upload error. Try again.';
-        }
-      };
-
-      // Send the data.
-      xhr.send(formData);
-      */
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /*
     /////////////
     //CADASTRAR//
     /////////////
+      myForm.onsubmit = function(event) {
+        event.preventDefault();
 
-    document.getElementById("jv_cadastrar").onclick = function() {cadastrarAnexoFoto()};
-    
-      function cadastrarAnexoFoto() {
-        //var jv_ds_doc =   document.getElementById("frm_ds_doc").value;
-        //var jv_tp_doc =  document.getElementById("frm_tp_doc").value;
-        //var cd_paciente = <?php //echo $var_cd_paciente ?>;
+        //statusP.innerHTML = 'Uploading...';
 
-        var file_data = $('#file').prop('files')[0];   
-        var form_data = new FormData();                  
-        form_data.append('file', file_data);
-        alert(form_data);
-        //alert ('jv_ds_doc:' + jv_ds_doc);
-        //alert ('jv_tp_doc:' + jv_tp_doc);
-        //alert ('form_data:' + form_data);
-        //alert ('cd_paciente:' + cd_paciente);
+        // Get the files from the form input
+        var files = myFile.files;
+        var ds_doc = frm_ds_doc.value;
+        var tp_doc = frm_tp_doc.value;
+        var cd_paciente = <?php echo $var_cd_paciente ?>;
 
-        $.ajax({
-          url: 'assinatura_SAME/Recepção/enviar_anexo_mv.php', // <-- point to server-side PHP script 
-          cache: false,
-          contentType: false,
-          processData: false,
-          data: form_data: form_data,
-          
-          type: 'POST',
-          success: function(dataResult){
-              alert(dataResult);
+        // Create a FormData object
+        var formData = new FormData();
+
+        // Select only the first file from the input array
+        var file = files[0];
+
+        // Check the file type
+        if (!file.type.match('image.*')) {
+            statusP.innerHTML = 'o arquivo selecionado não é uma imagem.';
+            return;
+        }
+
+        // Add the file to the AJAX request
+        formData.append('fileAjax', file, file.name);
+        formData.append('ds_doc', ds_doc);
+        formData.append('tp_doc', tp_doc);
+        formData.append('cd_paciente', cd_paciente);
+
+        // Set up the request
+        var xhr = new XMLHttpRequest();
+        // Open the connection
+        xhr.open('POST', 'assinatura_SAME/Recepção/enviar_anexo_mv.php', true);
+
+        // Set up a handler for when the task for the request is complete
+        xhr.onload = function () {
+          if (xhr.status == 200) {
+            //statusP.innerHTML = 'Upload complete!';
+            AnexoFotoTabela();
+          } else {
+            //statusP.innerHTML = 'Upload error. Try again.';
+            AnexoFotoTabela();
           }
-        });
+        };
 
-      
-        $.ajax({
-            url: "assinatura_SAME/Recepção/enviar_anexo_mv.php",
-            type: "POST",
-            data: {
-              jv_ds_doc: jv_ds_doc,
-              jv_tp_doc: jv_tp_doc,
-              file: file,
-              cd_paciente: cd_paciente		
-                },
-            cache: false,
-            success: function(dataResult){
-              alert(dataResult);
+        // Send the data.
+        xhr.send(formData);
               
-            }
-        });
-      
-      }
-*/
+    }
+
     /////////////////
     //BUSCAR TABELA//
     /////////////////

@@ -5,7 +5,7 @@
 
 	var requerente_presencial = document.getElementById('requerente_presencial');
 	var btnAssinar = document.getElementById('btnAssinar');
-	var requetente_documento = document.getElementById('requetente_documento');
+	var requetente_documento = document.getElementById('jv_Abrir_Modal');
 	var requetente_distancia = document.getElementById('requetente_distancia');
 
 

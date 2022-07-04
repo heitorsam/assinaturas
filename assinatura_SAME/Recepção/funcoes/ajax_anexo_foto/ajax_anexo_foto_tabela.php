@@ -11,7 +11,8 @@
                             aa.CD_PACIENTE,
                             aa.DS_NOME_ARQUIVO,
                             aa.CD_USUARIO_CADASTRO,
-                            TO_CHAR(aa.HR_CADASTRO,'DD/MM/YYYY HH24:MI') AS DT_CRIACAO
+                            TO_CHAR(aa.HR_CADASTRO,'DD/MM/YYYY HH24:MI') AS DT_CRIACAO,
+                            aa.TP_DOCUMENTO
                         FROM assinaturas.ARQUIVO_DOCUMENTO_SAME aa
                         WHERE aa.CD_PACIENTE = $var_cd_paciente
                         ORDER BY TO_CHAR(aa.HR_CADASTRO,'DD/MM/YYYY HH24:MI') DESC
@@ -29,6 +30,7 @@
             echo '<thead><tr>';
                 //<!--COLUNAS-->
                 echo '<th class="align-middle" style="text-align: center !important;"><span>Descrição</span></th>';
+                echo '<th class="align-middle" style="text-align: center !important;"><span>Tipo de Documento</span></th>';
                 echo '<th class="align-middle" style="text-align: center !important;"><span>Usuário</span></th>';
                 echo '<th class="align-middle" style="text-align: center !important;"><span>Data Criação</span></th>';
                 echo '<th class="align-middle" style="text-align: center !important;"><span>Ações</span></th>';
@@ -40,6 +42,7 @@
                     
                 echo '<tr>';
                     echo "<td class='align-middle' style='text-align: center;'> ". @$row_anaxo_foto['DS_NOME_ARQUIVO']." </td>";
+                    echo "<td class='align-middle' style='text-align: center;'> ". @$row_anaxo_foto['TP_DOCUMENTO']." </td>";
                     echo "<td class='align-middle' style='text-align: center;'> ". @$row_anaxo_foto['CD_USUARIO_CADASTRO']." </td>";
                     echo "<td class='align-middle' style='text-align: center;'> ". @$row_anaxo_foto['DT_CRIACAO']." </td>";
                     

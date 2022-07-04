@@ -5,6 +5,14 @@ session_start();
 <?php
 include_once("../../conexao.php");
 
+//INFORMACOES DO USUARIO
+@$login_usuario = $_SESSION['usuarioLogin'];
+
+//POST
+@$var_cd_paciente = $_POST['cd_paciente'];
+@$var_tp_doc = $_POST['tp_doc'];
+
+
 $currentDir = getcwd();
     $uploadDirectory = "uploads/";
 
@@ -19,19 +27,13 @@ $currentDir = getcwd();
       $fileTmpName  = $_FILES['fileAjax']['tmp_name'];
       $fileType = $_FILES['fileAjax']['type'];
       $fileExtension = strtolower(pathinfo($fileName,PATHINFO_EXTENSION));
-      
       $extensao_arquivo = strrchr( $fileName, '.' );
-      $var_frm_ds_doc = "TESTE";
+      $var_frm_ds_doc = $_POST['ds_doc'];
       $nome_arquivo_personalizado = 'same_' . substr($var_frm_ds_doc, 0, 10) . $extensao_arquivo;
-
       $uploadPath = $currentDir . $uploadDirectory . basename($fileName);
 
       //DECLARANDO VARIAVEIS DO ARQUIVO PARA IMPORTACAO PARA O BANCO
       $image = file_get_contents($_FILES['fileAjax']['tmp_name']);
-
-
-
-
 
         if (isset($fileName)) {
             if (! in_array($fileExtension,$fileExtensions)) {
@@ -64,6 +66,7 @@ $currentDir = getcwd();
                                     (CD_ARQUIVO_DOCUMENTO,
                                     CD_PACIENTE,
                                     TP_EXTENSAO,
+                                    TP_DOCUMENTO,
                                     DS_NOME_ARQUIVO,
                                     CD_USUARIO_CADASTRO,
                                     HR_CADASTRO,
@@ -71,10 +74,11 @@ $currentDir = getcwd();
                                        )
                               VALUES 
                                     ($var_seq_ad,
-                                       633133,
+                                       $var_cd_paciente,
                                        UPPER(substr('$extensao_arquivo',2)),
+                                       '$var_tp_doc', 
                                        '$nome_arquivo_personalizado',
-                                       'AFALVARO',
+                                       '$login_usuario',
                                        SYSDATE,
                                        empty_blob()) RETURNING LO_ARQUIVO_DOCUMENTO INTO :image";
 
@@ -96,43 +100,16 @@ $currentDir = getcwd();
    $blob->free();
 
 
-   $header = 'location: ../../gerar_documento_same_recepcao.php?cd_paciente='.$var_cd_paciente;
-   //$_SESSION['modalconfig'] = 'anexofoto';
-
    //VALIDA CASDASTRO PRODUTO
    if (!$valida) {   
    $erro = oci_error($result_insert_AD);																							
-   $_SESSION['msgerro'] = htmlentities($erro['message']);
-      header($header); 
+      $_SESSION['msgerro'] = htmlentities($erro['message']);
    }
-
    else{
       $_SESSION['msg'] = 'Cadastrado com sucesso!';
-      header($header); 
       }  
    
-
    echo '</br>';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /*
