@@ -21,6 +21,8 @@
 
         <div class="row">
 
+            <!--CABECALHO DO DOCUMENTO-->
+
             <div class="col-md-4" style="text-align: center; border: solid 1px black; display: flex; justify-content: center; align-items: center;">
             
             <div>
@@ -56,13 +58,19 @@
 
             </div>
 
+            <!--CABECALHO DO DOCUMENTO-->
+
+            <!--CORPO DO DOCUMENTO-->
+
             <div class="col-md-12" style="border-left: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black; ">
 
                 <!--COLOQUE AQUI O CORPO DO DOCUMENTO-->
-                
+
                 OI
 
             </div>
+
+            <!--CORPO DO DOCUMENTO-->
 
         </div>
 
