@@ -56,6 +56,14 @@
 
             </div>
 
+            <div class="col-md-12" style="border-left: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black; ">
+
+                <!--COLOQUE AQUI O CORPO DO DOCUMENTO-->
+                
+                OI
+
+            </div>
+
         </div>
 
     </div>
