@@ -22,7 +22,7 @@
 
                 <div class="div_br"> </div>
 
-                <a href="gerar_documento.php" class="botao_home" type="submit"><i class="fas fa-file-signature"></i> Termo de Quimioterapia</a></td></tr>
+                <a href="clinica_oriente_termo_quimio.php" class="botao_home" type="submit"><i class="fas fa-file-signature"></i> Termo de Quimioterapia</a></td></tr>
 
                 <span class="espaco_pequeno"></span>
 
