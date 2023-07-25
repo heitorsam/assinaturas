@@ -16,6 +16,20 @@
                 
             <div class="div_br"> </div>  
 
+            <!--CLINICA ORIENTE -->
+    
+                <h11><i class="fa-solid fa-hospital"></i> Clinica Oriente</h11>
+
+                <div class="div_br"> </div>
+
+                <a href="gerar_documento.php" class="botao_home" type="submit"><i class="fas fa-file-signature"></i> Termo de Quimioterapia</a></td></tr>
+
+                <span class="espaco_pequeno"></span>
+
+                <div class="div_br"> </div>
+
+            <!--CLINICA ORIENTE -->
+
             <?php if(@$_SESSION['sn_usuario_comum'] == 'S' || @$_SESSION['sn_faturamento'] == 'S'){ ?>      
             <h11><i class="fas fa-signature"></i> Guia TISS</h11>
 
@@ -27,6 +41,7 @@
 
                 <a href="anexos.php" class="botao_home" type="submit"><i class="fas fa-camera"></i> Anexos</a></td></tr>
                 <div class="div_br"> </div>
+
 
             <?php } ?>
 
@@ -67,9 +82,10 @@
 
             <?php } ?>
 
-            
-            
+                        
+
             <?php if(@$_SESSION['sn_admin_coleta_assinatura'] == 'S'){ ?>   
+
                     <h11><i class="fa-solid fa-file-signature"></i> Coleta</h11>
 
                     <div class="div_br"> </div>
@@ -77,6 +93,8 @@
                     <a href="cad_assinatura.php" class="botao_home_adm" type="submit"><i class="fas fa-user-nurse"></i> Cadastrar Assinatura</a></td></tr>
 
             <?php } ?>
+
+            
 
             <!--
 
