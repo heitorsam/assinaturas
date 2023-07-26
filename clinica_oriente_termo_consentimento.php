@@ -32,6 +32,44 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
 
 ?>
 
+<!-- MODAL ASSINATURA -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document"> <!-- Aumentei o tamanho da modal usando "modal-lg" -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Assinatura</h5>
+            </div>
+            <div class="modal-body" style="margin: 0 auto;">
+                <canvas id="sig-canvas" width="920" height="260" style="border: solid 1px black; margin-top: 20px; width: 900px; height: 250px;"></canvas>
+                <input type="hidden" name="escondidinho" id="escondidinho">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="sig-clearBtn" onClick="redraw()"><i class="fas fa-eraser"></i> Limpar</button>
+                <button type="button" type="submit" class="btn btn-primary" id="sig-submitBtn"><i class="fas fa-paper-plane"></i> Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL ASSINATURA -->
+<div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document"> <!-- Aumentei o tamanho da modal usando "modal-lg" -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Assinatura</h5>
+            </div>
+            <div class="modal-body" style="margin: 0 auto;">
+                <canvas id="sig-canvas" width="920" height="260" style="border: solid 1px black; margin-top: 20px; width: 900px; height: 250px;"></canvas>
+                <input type="hidden" name="escondidinho" id="escondidinho">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="sig-clearBtn" onClick="redraw()"><i class="fas fa-eraser"></i> Limpar</button>
+                <button type="button" type="submit" class="btn btn-primary" id="sig-submitBtn"><i class="fas fa-paper-plane"></i> Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div style="background-color: #f4f4f4; margin-top: 5% !important; width: 90%; margin: 0 auto;">
 
     <div style="width: 80%; margin: 0 auto; padding-top: 5%; padding-bottom: 5%;">
@@ -70,6 +108,12 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
                     Data Revisão: 10/06/2020
                     </br>
                     Revisão: 002
+
+                </div>
+
+                <div style="text-align: center; font-size: 12px;">
+
+                    Página <label id="pagina_cabecalho"></label> de 2
 
                 </div>
 
@@ -119,13 +163,13 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
                 <div style="text-align: right; font-size: 20px;">
                     <i onclick="ajax_chama_pagina()" style="cursor:pointer;" class="fa-solid fa-share"></i>
                 </div>
-        
+
 
             </div>
 
             <!--CORPO DO DOCUMENTO-->
 
-            
+
 
 
         </div>
@@ -143,7 +187,6 @@ include 'rodape.php';
 ?>
 
 <script>
-
     var controle_pagina = 0;
 
     window.onload = function() {
@@ -153,6 +196,8 @@ include 'rodape.php';
     }
 
     function ajax_chama_pagina() {
+
+        var pagina_cabecalho = document.getElementById('pagina_cabecalho');
 
         var paciente = '<?php echo $var_paciente; ?>';
         var prestador = '<?php echo $prestador_logado; ?>';
@@ -166,8 +211,9 @@ include 'rodape.php';
 
         controle_pagina = controle_pagina + 1;
 
-        $('#carrega_pagina').load('funcoes/termo_quimioterapia/termo_anestesico/ajax_chama_pagina_termo.php?pagina=' + var_pagina + '&paciente=' + paciente + '&prestador=' + prestador);
+        pagina_cabecalho.innerHTML = var_pagina;
+
+        $('#carrega_pagina').load('funcoes/termo_anestesico/ajax_chama_pagina_termo.php?pagina=' + var_pagina + '&paciente=' + paciente + '&prestador=' + prestador);
 
     }
-
 </script>
