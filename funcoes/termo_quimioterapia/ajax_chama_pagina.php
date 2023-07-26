@@ -5,7 +5,6 @@
     //VARIAVEIS
     $var_paciente = $_GET['paciente'];
     $var_prestador_logado = $_GET['prestador'];
-    $var_pagina = $_GET['pagina'];
 
     //CONSULTA PARA PEGAR DADOS DO PACIENTE
     $consulta = "SELECT pac.NM_PACIENTE,
@@ -38,13 +37,6 @@
 
 ?>
 
-<?php 
-
-    if($var_pagina == 1){
-
-   
-?>
-
 <div class="row" style="padding-top: 2%; border-top: solid 1px black; border-left: solid 1px black; border-right: solid 1px black;">
     
     <div class="col-md-12">
@@ -61,7 +53,7 @@
     <div class="col-md-12">
 
         <?php echo '2. CRM / N° <b>'. $row_prestador['DS_CODIGO_CONSELHO'] . '</b>, que as avaliações e os exames realizados revelaram a necessidade de tratamento, 
-                    que inclui os seguintes medicamentos: <input type="text" style="height: 20px; width: 77% !important;">.
+                    que inclui os seguintes medicamentos: <input id="medicamentos" type="text" style="height: 20px; width: 77% !important;">.
                     '; 
         ?>
 
@@ -73,8 +65,8 @@
     
     <div class="col-md-12">
 
-        3. Estou ciente que a utilização destes medicamentos está proposta, a principio para um período de <input type="text" style="height: 20px; width: 13% !important;">meses / semanas / dias, em
-        <input type="text" style="height: 20px; width: 10% !important;"> ciclos de tratamento.
+        3. Estou ciente que a utilização destes medicamentos está proposta, a principio para um período de <input id="periodo" type="text" style="height: 20px; width: 13% !important;">meses / semanas / dias, em
+        <input id="ciclos" type="text" style="height: 20px; width: 10% !important;"> ciclos de tratamento.
         
 
     </div>
@@ -109,7 +101,7 @@
 
 </div>
 
-<div class="row" style="padding-top: 2%; padding-bottom: 2%; border-left: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
+<div class="row" style="padding-top: 2%; padding-bottom: 2%; border-left: solid 1px black; border-right: solid 1px black;">
 
     <div class="col-md-12">
 
@@ -123,15 +115,8 @@
 
 </div>
 
-<?php
 
-
- }else{
-
-
-?>
-
-<div class="row" style="padding-top: 2%; border-top: solid 1px black; border-left: solid 1px black; border-right: solid 1px black;">
+<div class="row" style="padding-top: 2%; border-left: solid 1px black; border-right: solid 1px black;">
     
     <div class="col-md-12">
 
@@ -261,16 +246,3 @@
         <button onclick="ajax_imprime_documento('2')" class="btn btn-primary">Finalizar</button>
     </div>
 </div>
-
-
-
-
-
-
-
-<?php
-
- }
-
-
-?>
