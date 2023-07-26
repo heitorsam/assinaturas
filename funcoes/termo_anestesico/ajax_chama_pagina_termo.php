@@ -76,14 +76,22 @@
 
     </div>
 
+    <button onclick="ajax_modal_assinatura('1')" style="display: block; margin: 0 auto;" class="btn btn-primary">Assinatura do paciente e/ou responsável</button>
+
+    <div class="div_br"></div>
+
     <div style="width: 100%; height: 3%; background-color: #AAAAAA; border: solid 1px black;">
-        <p style="text-align: center; font-weight: bold; margin: 0px; color: black;">DEVE SER PREENCHIDO PELO MÉDICO</p>
+        <p style="text-align: center; font-weight: bold; margin: 2.5px; color: black;">DEVE SER PREENCHIDO PELO MÉDICO</p>
     </div>
 
     <div style="width: 100%; height: auto; border: solid 1px black; margin: 0px;">
         <p>Expliquei todo o procedimento ao paciente acima identificado e/ou ao responsável, sobre os benefícios, riscos e alternativas, tendo respondido às perguntas formuladas pelos mesmos.
            De acordo com o meu entendimento, o paciente e/ou responsável estão em condições de compreender o que lhes foi informado.</p>
     </div>
+
+    <div class="div_br"></div>
+
+    <button onclick="ajax_modal_assinatura('2')" style="display: block; margin: 0 auto;" class="btn btn-primary">Assinatura do Médico</button>
 
 <?php } else { ?>
 
