@@ -12,22 +12,24 @@ $count_break = 0;
 
 /* Preparação do documento final
  */
-$documentTemplate = "<!doctype html> 
-<html lang='en'> 
-    <head> 
-        <!-- Required meta tags --> 
-        <meta charset='utf-8'> 
-        <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'> 
-    </head>
-    <style>
+$documentTemplate = "
 
-    .col-hss-1,.col-hss-2,.col-hss-3,.col-hss-4, .col-hss-5, .col-hss-6, .col-hss-7, .col-hss-8, .col-hss-9, .col-hss-10, .col-hss-11, .col-hss-12 {
-    
-    height: 25px;
-    font-size: 7px;
-    background-color: #ffffff;
-    margin: 1 1 1 1 ;
-    border-bottom: solid 1px black;
+<!doctype html> 
+<html lang='en'> 
+<head> 
+    <!-- Required meta tags --> 
+    <meta charset='utf-8'> 
+    <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'> 
+</head>
+<style>
+
+.col-hss-1,.col-hss-2,.col-hss-3,.col-hss-4, .col-hss-5, .col-hss-6, .col-hss-7, .col-hss-8, .col-hss-9, .col-hss-10, .col-hss-11, .col-hss-12 {
+
+height: 25px;
+font-size: 7px;
+background-color: #ffffff;
+margin: 1 1 1 1 ;
+border-bottom: solid 1px black;
 
 }
 

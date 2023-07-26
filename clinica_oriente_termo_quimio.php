@@ -50,11 +50,11 @@ $row_prestador = oci_fetch_array($res_prestador);
 
             <div class="col-md-4" style="text-align: center; border: solid 1px black; display: flex; justify-content: center; align-items: center;">
             
-            <div>
+                <div>
 
-                <img src="img/logo_santa_casa_sjc.gif" style="width: 50%; height: 50%">
+                    <img src="img/logo_santa_casa_sjc.gif" style="width: 50%; height: 50%">
 
-            </div>
+                </div>
 
             </div>
 
@@ -67,7 +67,7 @@ $row_prestador = oci_fetch_array($res_prestador);
             <div class="col-md-4" style="text-align: center; border: solid 1px black;">
 
                 <!--IDENTIFICADOR DO DOCUMENTO-->
-                <div style="background-color red;">
+                <div>
                     FOR.STA.007
                 </div>
 
@@ -81,14 +81,10 @@ $row_prestador = oci_fetch_array($res_prestador);
 
                 </div>
 
-                <div style="text-align: center; font-size: 12px;">
-                
-                    Página <?php echo $var_pagina_php; ?> de 2
-
-                </div>
-
             </div>
+
         </div>
+
 
         <!--CABECALHO DO DOCUMENTO-->
 
@@ -215,16 +211,6 @@ $row_prestador = oci_fetch_array($res_prestador);
 
         <div id="pagina_doc"></div>
 
-        <!--CORPO DO DOCUMENTO-->
-
-        <!--PASSA PARA PAGINA DOIS DO DOCUMENTO-->
-
-        <div style="text-align: right; font-size: 30px;">
-            <i onclick="ajax_chama_pagina()" style="cursor:pointer;" class="fa-solid fa-caret-right"></i>
-        </div>
-        
-
-        
     </div>
 
 </div>
@@ -267,12 +253,8 @@ $row_prestador = oci_fetch_array($res_prestador);
     </div>
     </div>
 
-
-
-
 <script>
 
-    
     function ajax_fecha_modal(modal){
 
         if(modal == '1'){
@@ -291,10 +273,18 @@ $row_prestador = oci_fetch_array($res_prestador);
 
 
     function ajax_imprime_documento() {
+
     var var_paciente = '<?php echo $var_paciente; ?>';
     var var_prestador_logado = '<?php echo $var_prestador_logado; ?>';
     var var_assinatura_pac;
     var var_assinatura_med;
+    var medicamentos = document.getElementById('medicamentos').value;
+    var periodo = document.getElementById('periodo').value;
+    var ciclos = document.getElementById('ciclos').value;
+    
+    
+    
+
 
     $.ajax({
         url: "funcoes/termo_quimioterapia/ajax_pdf_quimioterapia.php",
@@ -303,7 +293,11 @@ $row_prestador = oci_fetch_array($res_prestador);
             var_paciente: var_paciente,
             var_prestador_logado: var_prestador_logado,
             var_assinatura_pac: var_assinatura_pac,
-            var_assinatura_med: var_assinatura_med
+            var_assinatura_med: var_assinatura_med,
+            medicamentos : medicamentos,
+            periodo : periodo, 
+            ciclos : ciclos
+
         },
         cache: false,
         xhrFields: {
@@ -317,6 +311,8 @@ $row_prestador = oci_fetch_array($res_prestador);
             window.open(pdfUrl);
         }
     });
+
+    
 }
 
 
@@ -614,8 +610,7 @@ $row_prestador = oci_fetch_array($res_prestador);
 })();
 
 
-    controle_pagina = 0;
-    
+
     window.onload = function(){
 
         ajax_chama_pagina()
@@ -628,26 +623,17 @@ $row_prestador = oci_fetch_array($res_prestador);
 
         var_prestador_logado = '<?php echo $var_prestador_logado; ?>';
 
-        if(controle_pagina == 2){
+        $('#pagina_doc').load('funcoes/termo_quimioterapia/ajax_chama_pagina.php?paciente='+var_paciente+'&prestador='+var_prestador_logado);
 
-            controle_pagina = 0;
-        }
 
-        var_pagina = controle_pagina + 1;
 
-        controle_pagina = controle_pagina + 1;
-
-        console.log(var_pagina);
-        
-        $('#pagina_doc').load('funcoes/termo_quimioterapia/ajax_chama_pagina.php?paciente='+var_paciente+'&prestador='+var_prestador_logado+'&pagina='+var_pagina);
-        
     }
 
 
+
+
+
 </script>
-
-
-
 
 <?php
 
