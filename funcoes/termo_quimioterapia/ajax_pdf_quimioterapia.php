@@ -8,8 +8,10 @@ $var_prestador_logado = $_POST['var_prestador_logado'];
 $var_assinatura_pac = $_POST['var_assinatura_pac'];
 $var_assinatura_med = $_POST['var_assinatura_med'];
 $var_medicamento = $_POST['medicamentos'];
+$logo_santinha = $_POST['var_logo_santa_casa'];
 $periodo = $_POST['periodo'];
 $ciclo = $_POST['ciclos'];
+$dataAtual = date('d/m/Y');
 
 //CONSULTA PARA PEGAR DADOS DO PACIENTE
 $consulta = "SELECT pac.NM_PACIENTE,
@@ -79,7 +81,10 @@ $html = '
     
 }
 
+
+
 </style>';
+
 
 $html .= '
 <body>
@@ -87,6 +92,23 @@ $html .= '
 <div style="background-color: #f4f4f4; margin-top: 2% !important; width: 100% !important; margin: 0 auto;">
 
     <div style="width: 90%; margin: 0 auto; padding-top: 5%; padding-bottom: 5%; text-align: center;">
+
+        
+        <div class="row" style="background-color: red;">
+            
+            <div class="col-hss-4" style="text-align: center; border: solid 1px black; display: flex; justify-content: center; align-items: center;">
+                    
+                <div>
+
+                    <img style="max-width: 70%; max-height: 70%;" src=' . $logo_santinha . '>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <br>
 
         <div style="text-align: left !important;">
 
@@ -108,9 +130,129 @@ $html .= '
             3. Estou ciente que a utilização destes medicamentos está proposta, a principio para um período de ' . $periodo . ' meses / semanas / dias, em '
             . $ciclo . ' ciclos de tratamento.
 
+        </div>
+        <br>
+
+        <div style="text-align: left !important;">
+
+            4. Foram claramente explicados pelo médico citado acima os benefícios, as possibilidade alternativas, os 
+            riscos, efeitos colaterais e complicações potenciais relacionados ao tratamento, bem como as 
+            consequências de sua não realização, diante da patologia diagnosticada;
 
         </div>
+        <br>
 
+        <div style="text-align: left !important;">
+
+            5. Estou ciente de que, durante os exames, procedimentos ou tratamentos citados, para tentar curar ou 
+            melhorar a atual condição de saúde, poderão ocorrer outras situações ainda não diagnosticadas ou mesmo 
+            intercorrências e outras situações imprevisíveis ou fortuitas, não obstante toda técnica e boa indicação do 
+            tratamento ora proposto.
+
+        </div>
+        <br>
+
+        <div style="text-align: left !important;">
+
+            6. Tenho ciência de que em procedimentos invasivos (como punção lombar e outros), quando necessários 
+            ou na realização de tratamento sistêmico, poderão ocorrer efeitos adversos ou complicações gerais tais 
+            como as mais comuns: sangramento, infecção, perda de pelos e cabelos, trombose, alterações na visão ou 
+            audição, alterações neuromotoras, náuseas, vômitos, diarreia, constipação, aftas, redução ou perda do 
+            apetite, reações alérgicas, tremores e redução das células sanguíneas. 
+
+        </div>
+        <br>
+
+        <div style="text-align: left !important;">
+
+            7. Devido à necessidade de adoção de medidas efetivas de contracepção (homens e mulheres),pelo risco 
+            de aborto e malformações congênitas, comprometo-me a utilizar um método contraceptivo a fim de evitar 
+            gestação, durante toda a duração do tratamento (quimioterapia, hormonioterapia e de anticorpos 
+            monoclonais dentre outros) e até o período indicado pelo médico após seu término.
+            
+        </div>
+        <br>
+
+        <div style="text-align: left !important;">
+
+            8. Fui informado sobre o risco de alteração na fertilidade ocasionada pela doença ou tratamento instituído, 
+            sobre métodos possíveis para minimizá-lo ou alternativas artificiais para promover uma futura gravidez, 
+            sendo definida pela minha livre escolha.
+
+        </div>
+        <br>
+
+        <div style="text-align: left !important;">
+
+            9. Estou ciente de que algumas medicações podem ser irritantes para as veias periféricas, ou mesmo 
+            causar danos teciduais se extravasarem (saírem das veias), apesar dos cuidados e da experiência dos 
+            profissionais envolvidos em sua aplicação, bem como as veias podem ficar frágeis, podendo necessitar da 
+            implantação de um cateter para dar continuidade na administração segura das medicações.
+
+        </div>
+        <br>
+
+        <div style="text-align: left !important;">
+
+            10. Tive oportunidade de fazer perguntas e obtive respostas adequadas e satisfatórias, sentindo-me 
+            plenamente esclarecido e entendendo que não exista garantia absoluta sobre os resultados a serem 
+            obtidos
+
+        </div>
+        <br>
+
+        <div style="text-align: left !important;">
+
+            11. Por livre iniciativa, AUTORIZO que o(s) tratamento(s) seja(m) realizado(s) conforme exposto no presente 
+            termo, inclusive quanto aos procedimentos necessários para tentar solucionar as situações imprevisíveis e 
+            emergenciais, as quais serão conduzidas conforme o julgamento técnico do médico acima autorizado e 
+            equipe da instituição, para que sejam alcançados os melhores resultados possíveis, utilizando os recursos 
+            disponíveis no local onde se realizam os cuidados
+
+        </div>
+        <br>
+
+        <div style="text-align: left !important;">
+
+            <b>Certifico que este termo me foi explicado e que o li, ou que foi lido para mim e que entendi o seu 
+            conteúdo, Autorizando a realização do tratamento.</b>
+
+        </div>
+        <br>
+        <div style="text-align: center !important;">
+
+            <b>São José dos Campos, ' . $dataAtual . '.</b>
+
+        </div>
+        <br>
+        Assinatura Paciente:
+        <div style="text-align: center; display: flex; justify-content: center; align-items: center; height: 100px; background-color: #f0f0f0;">
+
+            <img style="max-width: 70%; max-height: 70%;" src=' . $var_assinatura_pac . '>
+
+        </div>
+        <br>
+        <div style="text-align: left !important;">
+
+            <b>RESPONSÁVEL MÉDICO</b><br>
+            Declaro que prestei todas as informações necessárias ao paciente ou responsável/representante legal, 
+            conforme mencionado acima, e, de acordo com meu entendimento, o paciente ou responsável legal está em 
+            condições de compreender o que lhe foi informado.
+
+        </div>
+        <br>
+        <div style="text-align: center !important;">
+
+            <b>Data: ' . $dataAtual . '.</b>
+
+        </div>
+        <br>
+        Assinatura Medico:
+        <div style="text-align: center; display: flex; justify-content: center; align-items: center; height: 100px; background-color: #f0f0f0;">
+
+            <img style="max-width: 70%; max-height: 70%;" src=' . $var_assinatura_med . '>
+
+        </div>
 
     </div>
 
