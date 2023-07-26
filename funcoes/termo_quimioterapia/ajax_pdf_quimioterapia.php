@@ -3,9 +3,10 @@
     include '../../conexao.php';
 
     //VARIAVEIS
-    $var_paciente = $_GET['paciente'];
-    $var_prestador_logado = $_GET['prestador'];
-    $var_pagina = $_GET['pagina'];
+    $var_paciente = $_POST['var_paciente'];
+    $var_prestador_logado = $_POST['var_prestador_logado'];
+    $var_assinatura_pac = $_POST['var_assinatura_pac'];
+    $var_assinatura_med = $_POST['var_assinatura_med'];
 
     //CONSULTA PARA PEGAR DADOS DO PACIENTE
     $consulta = "SELECT pac.NM_PACIENTE,
@@ -38,13 +39,36 @@
 
 ?>
 
+<!--///////////////
+    //PDF DOWLOAD//
+    ///////////////-->
+
 <?php 
 
-    if($var_pagina == 1){
 
-   
+$html= 'teste';
+
+    $arquivo = 'Termo_quimioterapia.pdf';
+
+    //Configurações header para forçar o download
+    header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+    header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+    header ("Cache-Control: no-cache, must-revalidate");
+    header ("Pragma: no-cache");
+    header ("Content-type:application/pdf");
+    header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+    header ("Content-Description: PHP Generated Data" );
+
+    // Envia o conteúdo do arquivo
+    echo $html;
+
+    exit;
+
+
 ?>
-
+    
+    
+<!--
 <div class="row" style="padding-top: 2%; border-top: solid 1px black; border-left: solid 1px black; border-right: solid 1px black;">
     
     <div class="col-md-12">
@@ -122,14 +146,6 @@
     </div>
 
 </div>
-
-<?php
-
-
- }else{
-
-
-?>
 
 <div class="row" style="padding-top: 2%; border-top: solid 1px black; border-left: solid 1px black; border-right: solid 1px black;">
     
@@ -262,15 +278,4 @@
     </div>
 </div>
 
-
-
-
-
-
-
-<?php
-
- }
-
-
-?>
+-->
