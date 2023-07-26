@@ -290,37 +290,35 @@ $row_prestador = oci_fetch_array($res_prestador);
 
 
 
-    function ajax_imprime_documento(){
+    function ajax_imprime_documento() {
+    var var_paciente = '<?php echo $var_paciente; ?>';
+    var var_prestador_logado = '<?php echo $var_prestador_logado; ?>';
+    var var_assinatura_pac;
+    var var_assinatura_med;
 
-        var_paciente = '<?php echo $var_paciente; ?>';
-        var_prestador_logado = '<?php echo $var_prestador_logado; ?>';
-        var_assinatura_pac;
-        var_assinatura_med;
+    $.ajax({
+        url: "funcoes/termo_quimioterapia/ajax_pdf_quimioterapia.php",
+        type: "POST",
+        data: {
+            var_paciente: var_paciente,
+            var_prestador_logado: var_prestador_logado,
+            var_assinatura_pac: var_assinatura_pac,
+            var_assinatura_med: var_assinatura_med
+        },
+        cache: false,
+        xhrFields: {
+            responseType: 'blob' // Importante para receber dados binários (PDF)
+        },
+        success: function (data) {
+            // Cria uma URL temporária para o PDF
+            var pdfUrl = URL.createObjectURL(data);
 
-        $.ajax({
-                    
-                    url: "funcoes/termo_quimioterapia/ajax_pdf_quimioterapia.php",
-                    type: "POST",
-                    data: {
+            // Abre uma nova janela para exibir o PDF
+            window.open(pdfUrl);
+        }
+    });
+}
 
-                        var_paciente : var_paciente,
-                        var_prestador_logado : var_prestador_logado,
-                        var_assinatura_pac : var_assinatura_pac,
-                        var_assinatura_med : var_assinatura_med
-
-                    },
-
-                    cache: false,
-                    success: function(dataResult){
-
-                        console.log(dataResult);
-
-                    }
-
-                });  
-        
-
-    }
 
     function ajax_modal_assinatura(tp_modal){
 
