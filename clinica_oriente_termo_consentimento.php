@@ -45,7 +45,7 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="sig-clearBtn" onClick="redraw()"><i class="fas fa-eraser"></i> Limpar</button>
-                <button type="button" type="submit" class="btn btn-primary" id="sig-submitBtn"><i class="fas fa-paper-plane"></i> Enviar</button>
+                <button onclick="salvar_assinatura('1')" type="button" type="submit" class="btn btn-primary" id="sig-submitBtn"><i class="fas fa-paper-plane"></i> Enviar</button>
             </div>
         </div>
     </div>
@@ -59,12 +59,12 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
                 <h5 class="modal-title" id="exampleModalLongTitle">Assinatura</h5>
             </div>
             <div class="modal-body" style="margin: 0 auto;">
-                <canvas id="sig-canvas" width="920" height="260" style="border: solid 1px black; margin-top: 20px; width: 900px; height: 250px;"></canvas>
+                <canvas id="sig-canvas2" width="920" height="260" style="border: solid 1px black; margin-top: 20px; width: 900px; height: 250px;"></canvas>
                 <input type="hidden" name="escondidinho" id="escondidinho">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="sig-clearBtn" onClick="redraw()"><i class="fas fa-eraser"></i> Limpar</button>
-                <button type="button" type="submit" class="btn btn-primary" id="sig-submitBtn"><i class="fas fa-paper-plane"></i> Enviar</button>
+                <button type="button" class="btn btn-primary" id="sig-clearBtn2" onClick="redraw()"><i class="fas fa-eraser"></i> Limpar</button>
+                <button onclick="salvar_assinatura('2')" type="button" type="submit" class="btn btn-primary" id="sig-submitBtn2"><i class="fas fa-paper-plane"></i> Enviar</button>
             </div>
         </div>
     </div>
@@ -111,12 +111,6 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
 
                 </div>
 
-                <div style="text-align: center; font-size: 12px;">
-
-                    Página <label id="pagina_cabecalho"></label> de 2
-
-                </div>
-
             </div>
 
             <!--CABECALHO DO DOCUMENTO-->
@@ -127,7 +121,7 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
 
                 <!--COLOQUE AQUI O CORPO DO DOCUMENTO-->
 
-                <div>
+                <div style="padding-bottom: 2.5%;">
 
                     <div class="row" style="border-bottom: solid 1px black; padding-bottom: 2.5%;">
 
@@ -160,11 +154,6 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
 
                 </div>
 
-                <div style="text-align: right; font-size: 20px;">
-                    <i onclick="ajax_chama_pagina()" style="cursor:pointer;" class="fa-solid fa-share"></i>
-                </div>
-
-
             </div>
 
             <!--CORPO DO DOCUMENTO-->
@@ -184,7 +173,10 @@ include 'rodape.php';
 ?>
 
 <script>
+
     var controle_pagina = 0;
+    var data_assin_paciente = null;
+    var data_assin_medico = null;
 
     window.onload = function() {
 
@@ -359,7 +351,7 @@ include 'rodape.php';
         // Set up the UI
         var sigText = document.getElementById("sig-dataUrl");
         var sigImage = document.getElementById("sig-image");
-        var clearBtn = document.getElementById("sig-clearBtn");
+        var clearBtn = document.getElementById("sig-clearBtn2");
         clearBtn.addEventListener("click", function(e) {
             clearCanvas();
             sigText.innerHTML = "Data URL for your signature will go here!";
@@ -466,10 +458,31 @@ include 'rodape.php';
 
     })();
 
+    function salvar_assinatura(tp_assinatura) {
+
+        if (tp_assinatura == '1') {
+
+            var assinatura_paciente = document.getElementById('sig-canvas');
+            var ctx = assinatura_paciente.getContext('2d');
+
+            data_assin_paciente = assinatura_paciente.toDataURL('image/png');
+            console.log(data_assin_paciente);
+
+        } else {
+
+            var assinatura_medico = document.getElementById('sig-canvas2');
+            var ctx = assinatura_medico.getContext('2d');
+
+            data_assin_medico = assinatura_medico.toDataURL('image/png');
+            console.log(data_assin_medico);
+
+        }
+
+    }
 
     function ajax_chama_pagina() {
 
-        var pagina_cabecalho = document.getElementById('pagina_cabecalho');
+        //var pagina_cabecalho = document.getElementById('pagina_cabecalho');
 
         var paciente = '<?php echo $var_paciente; ?>';
         var prestador = '<?php echo $prestador_logado; ?>';
@@ -483,9 +496,10 @@ include 'rodape.php';
 
         controle_pagina = controle_pagina + 1;
 
-        pagina_cabecalho.innerHTML = var_pagina;
+        //pagina_cabecalho.innerHTML = var_pagina;
 
-        $('#carrega_pagina').load('funcoes/termo_anestesico/ajax_chama_pagina_termo.php?pagina=' + var_pagina + '&paciente=' + paciente + '&prestador=' + prestador);
+        $('#carrega_pagina').load('funcoes/termo_anestesico/ajax_chama_pagina_termo.php?paciente=' + paciente + '&prestador=' + prestador);
 
     }
+
 </script>
