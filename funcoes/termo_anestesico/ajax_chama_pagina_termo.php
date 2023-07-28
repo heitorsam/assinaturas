@@ -150,3 +150,4 @@
 
     <button onclick="ajax_modal_assinatura('2')" style="display: block; margin: 0 auto;" class="btn btn-primary">Assinatura do Médico</button>
 
+    <button onclick="imprime_documento()" style="display: block; margin: 0 auto; margin-top: 2.5%;" class="btn btn-primary">Finalizar</button>
