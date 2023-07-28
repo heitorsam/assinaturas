@@ -181,14 +181,14 @@ $row_prestador = oci_fetch_array($res_prestador);
             <div class="col-md-3">
 
                 Identidade:
-                <input type="text" class="form form-control" id="nr_identidade" placeholder="N° Identidade">
+                <input type="text" class="form form-control" id="nr_identidade_resp" placeholder="N° Identidade">
 
             </div>
 
             <div class="col-md-3">
 
                 Orgão:
-                <input type="text" class="form form-control" id="ds_orgão_expedidor" placeholder="Orgão expedidor">
+                <input type="text" class="form form-control" id="ds_orgao_expedidor" placeholder="Orgão expedidor">
 
             </div>
 
@@ -202,7 +202,7 @@ $row_prestador = oci_fetch_array($res_prestador);
             <div class="col-md-3">
 
                 Telefone:
-                <input type="number" class="form form-control" id="ds_endereco">
+                <input type="number" class="form form-control" id="ds_telefone">
 
             </div>
 
@@ -277,7 +277,24 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
         var periodo = document.getElementById('periodo').value;
         var ciclos = document.getElementById('ciclos').value;
 
-        console.log(var_assinatura_pac);
+        var responsavel = document.getElementById('nm_responsavel').value;
+        var Nascimento = document.getElementById('dt_nascimento_responsavel').value;
+        var Sexo = document.getElementById('tp_sexo_responsavel').value;
+        var Identidade = document.getElementById('nr_identidade_resp').value;
+        var orgao = document.getElementById('ds_orgao_expedidor').value;
+        var tel = document.getElementById('ds_telefone').value;
+        var endereco = document.getElementById('ds_endereco').value;
+
+        // Separa o ano, mês e dia da data
+        var partesData = Nascimento.split('-');
+        var ano = partesData[0];
+        var mes = partesData[1];
+        var dia = partesData[2];
+
+        // Formata a data no novo formato "dd/mm/yyyy"
+        var dataFormatada = dia + '/' + mes + '/' + ano;
+
+        console.log(dataFormatada);
 
         $.ajax({
             url: "funcoes/termo_quimioterapia/ajax_pdf_quimioterapia.php",
@@ -290,9 +307,16 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
                 medicamentos : medicamentos,
                 periodo : periodo, 
                 ciclos : ciclos,
-                var_logo_santa_casa : var_logo_santa_casa
-
+                var_logo_santa_casa : var_logo_santa_casa,
+                responsavel : responsavel,
+                Nascimento : dataFormatada,
+                Sexo : Sexo,
+                Identidade : Identidade,
+                orgao : orgao,
+                tel : tel,
+                endereco : endereco
             },
+
             cache: false,
             xhrFields: {
                 responseType: 'blob' // Importante para receber dados binários (PDF)

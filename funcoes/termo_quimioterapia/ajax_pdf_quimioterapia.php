@@ -13,6 +13,16 @@ $periodo = $_POST['periodo'];
 $ciclo = $_POST['ciclos'];
 $dataAtual = date('d/m/Y');
 
+//DADOS RESPONSAVEL
+$var_nome_resp = $_POST['responsavel'];
+$var_nascimento = $_POST['Nascimento'];
+$var_sexo_resp = $_POST['Sexo'];
+$var_identidade_resp = $_POST['Identidade'];
+$var_orgao  = $_POST['orgao'];
+$orgao = strtoupper($var_orgao);
+$var_telefone = $_POST['tel'];
+$var_endereco = $_POST['endereco'];
+
 //CONSULTA PARA PEGAR DADOS DO PACIENTE
 $consulta = "SELECT pac.NM_PACIENTE,
 TO_CHAR(pac.DT_NASCIMENTO,'DD/MM/YYYY') AS DT_NASCIMENTO,
@@ -85,6 +95,14 @@ $html = '
     
 }
 
+/* Estilo para centralizar o conteúdo */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
 
 
 </style>';
@@ -134,6 +152,78 @@ $html .= '
 
         </div>
         <!--Fim do cabecalho-->
+
+        <br><br>
+
+        <div style="text-align: left !important;">
+
+            <b>No caso do declarante não ser o paciente, preencher o espaço abaixo:
+            Representante Lega/Responsavel:</b>
+
+        </div>
+
+        <div style="text-align: left; padding-bottom: -10px !important;">
+
+            <div style="display: inline-block; padding: 5px;">
+
+                <label>Nome:</label><br>
+                <input style="text-align: center; width: 600px;" type="text" value="' . $var_nome_resp . '">
+
+            </div>
+
+        </div>
+
+        <div style="text-align: left; padding-top: 20px !important; padding-bottom: -10px !important;">
+
+            <div style="display: inline-block; padding: 5px;">
+
+                <label>Nascimento:</label><br>
+                <input style="text-align: center; width: 90px;" type="text" value="' . $var_nascimento . '">
+
+            </div>
+
+            <div style="display: inline-block; padding: 5px;">
+
+                <label>Sexo:</label><br>
+                <input style="text-align: center; width: 50px;" type="text" value="' . $var_sexo_resp .'">
+                
+            </div>
+
+            <div style="display: inline-block; padding: 5px;">
+
+                <label>Identidade:</label><br>
+                <input style="text-align: center; width: 120px;" type="text" value="' . $var_identidade_resp . '">
+                
+            </div>
+
+            <div style="display: inline-block; padding: 5px;">
+
+                <label>Orgão:</label><br>
+                <input style="text-align: center; width: 60px;" type="text" value="' . $orgao . '">
+                
+            </div>
+
+            <div style="display: inline-block; padding: 5px;">
+
+                <label>Telefone:</label><br>
+                <input style="text-align: center; width: 150px;" type="text" value="' . $var_telefone . '">
+            
+            </div>
+
+        </div>
+
+        <div style="text-align: left;">
+
+            <div style="display: inline-block; padding: 5px;">
+
+                <label>Endereço:</label><br>
+                <input style="text-align: center; width: 600px;" type="text" value="' . $var_endereco . '">
+            
+            </div>
+
+    
+        </div>
+        
 
         <br><br>
 
