@@ -167,6 +167,7 @@ $row_prestador = oci_fetch_array($res_prestador);
                 Sexo:
                 <select class="form form-control" id="tp_sexo_responsavel">
 
+                    <option value="All" >Selecione</option>
                     <option value="M" >Masculino</option>
                     <option value="F">Feminino</option>
 

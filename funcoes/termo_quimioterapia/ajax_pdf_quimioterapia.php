@@ -23,6 +23,42 @@ $orgao = strtoupper($var_orgao);
 $var_telefone = $_POST['tel'];
 $var_endereco = $_POST['endereco'];
 
+//TRATAMENTOS 
+if($var_nome_resp == ''){
+
+    $var_nome_resp = '-';
+}
+
+if($var_nascimento == 'undefined/undefined/'){
+
+    $var_nascimento = '-';
+}
+
+if($var_sexo_resp == 'All'){
+
+    $var_sexo_resp = '-';
+}
+
+if($var_identidade_resp == ''){
+
+    $var_identidade_resp = '-';
+}
+
+if($orgao == ''){
+
+    $orgao = '-';
+}
+
+if($var_telefone == ''){
+
+    $var_telefone = '-';
+}
+
+if($var_endereco == ''){
+
+    $var_endereco = '-';
+}
+
 //CONSULTA PARA PEGAR DADOS DO PACIENTE
 $consulta = "SELECT pac.NM_PACIENTE,
 TO_CHAR(pac.DT_NASCIMENTO,'DD/MM/YYYY') AS DT_NASCIMENTO,
