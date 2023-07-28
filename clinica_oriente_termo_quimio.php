@@ -354,11 +354,31 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
 
     function ajax_insert_pdf_banco(data){
 
+        
+        //VERIFICANDO SE FOI RECEBIDO
         console.log('PDF recebido na função ajax_insert_pdf_banco:', data);
 
-        //MANDANDO PDF PARA REALIZAR O INSERT VIA AJAX
+        var formData = new FormData();
+        formData.append('pdf', data);
 
+        // Resto do código para enviar a requisição AJAX com o FormData
+        $.ajax({
 
+            url: "funcoes/termo_quimioterapia/ajax_insert_pdf_mv.php",
+            type: "POST",
+            data: formData, // Usando o FormData aqui
+            cache: false,
+            contentType: false, // Importante para enviar arquivos
+            processData: false, // Importante para não processar o FormData automaticamente
+            
+            success: function (dataResult) {
+
+                console.log(dataResult);
+                
+            }
+
+        });
+            
     }
 
 
