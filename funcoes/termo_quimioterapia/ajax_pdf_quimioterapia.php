@@ -63,6 +63,7 @@ $html = '
 
     width: 100% !important;
     clear: both;
+    height: 150%;
 
 }
 
@@ -94,21 +95,30 @@ $html .= '
     <div style="width: 90%; margin: 0 auto; padding-top: 5%; padding-bottom: 5%; text-align: center;">
 
         
-        <div class="row" style="background-color: red;">
-            
-            <div class="col-hss-4" style="text-align: center; border: solid 1px black; display: flex; justify-content: center; align-items: center;">
+        <div class="row" style="background-color? blue;">
+
+            <div class="col-hss-4" style="background-color: green;">
                     
-                <div>
+                <img style="max-width: 100%; max-height: 100%;" src=' . $logo_santinha . '>
 
-                    <img style="max-width: 70%; max-height: 70%;" src=' . $logo_santinha . '>
+            </div>
 
-                </div>
+            <div class="col-hss-4" style="background-color: yallow;">
+                    
+                 <b>TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO DE QUIMIOTERAPIA</b>
+
+            </div>
+
+            <div class="col-hss-4" style="background-color: orange;">
+                        
+                <img style="max-width: 100%; max-height: 100%;" src=' . $logo_santinha . '>
 
             </div>
 
         </div>
 
-        <br>
+
+        <br><br>
 
         <div style="text-align: left !important;">
 
