@@ -45,7 +45,7 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="sig-clearBtn" onClick="redraw()"><i class="fas fa-eraser"></i> Limpar</button>
-                <button onclick="salvar_assinatura('1')" type="button" type="submit" class="btn btn-primary" id="sig-submitBtn"><i class="fas fa-paper-plane"></i> Enviar</button>
+                <button onclick="salvar_assinatura('1')" type="button" type="submit" class="btn btn-primary" id="sig-submitBtn"><i class="fas fa-paper-plane"></i> Salvar assinatura</button>
             </div>
         </div>
     </div>
@@ -64,7 +64,7 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="sig-clearBtn2" onClick="redraw()"><i class="fas fa-eraser"></i> Limpar</button>
-                <button onclick="salvar_assinatura('2')" type="button" type="submit" class="btn btn-primary" id="sig-submitBtn2"><i class="fas fa-paper-plane"></i> Enviar</button>
+                <button onclick="salvar_assinatura('2')" type="button" type="submit" class="btn btn-primary" id="sig-submitBtn2"><i class="fas fa-paper-plane"></i> Salvar assinatura</button>
             </div>
         </div>
     </div>
@@ -191,6 +191,9 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
         var var_paciente = '<?php echo $var_paciente; ?>';
         var var_prestador_logado = '<?php echo $prestador_logado; ?>';
         var var_logo_santa_casa = '<?php echo $varlogo; ?>';
+        var cpf = document.getElementById('cpf').value;
+        var identidade = document.getElementById('rg').value;
+        var grau_parentesco = document.getElementById('grau_parentesco').value;
 
         $.ajax({
             url: "funcoes/termo_anestesico/ajax_pdf_termo_consentimento.php",
@@ -200,7 +203,10 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
                 var_prestador_logado,
                 data_assin_paciente,
                 data_assin_medico,
-                var_logo_santa_casa
+                var_logo_santa_casa,
+                cpf,
+                identidade,
+                grau_parentesco
             },
             cache: false,
             xhrFields: {
@@ -512,6 +518,18 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
 
             data_assin_medico = assinatura_medico.toDataURL('image/png');
             console.log(data_assin_medico);
+
+        }
+
+        // FECHA A MODAL
+        if (tp_assinatura == '1'){
+
+            $('#exampleModalCenter').modal('hide')
+
+        } else{
+
+            $('#exampleModalCenter2').modal('hide')
+
 
         }
 

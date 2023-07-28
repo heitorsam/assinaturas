@@ -30,6 +30,10 @@
 
                 <span class="espaco_pequeno"></span>
 
+                <a href="clinica_oriente_termo_cirurgico.php" class="botao_home" type="submit"><i class="fas fa-file-signature"></i> Termo Cirúrgico</a></td></tr>
+
+                <span class="espaco_pequeno"></span>
+
 
                 <div class="div_br"> </div>
 

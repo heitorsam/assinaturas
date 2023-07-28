@@ -8,7 +8,30 @@ $var_prestador_logado = $_POST['var_prestador_logado'];
 $var_assinatura_pac = $_POST['data_assin_paciente'];
 $var_assinatura_med = $_POST['data_assin_medico'];
 $logo_santinha = $_POST['var_logo_santa_casa'];
+$cpf = $_POST['cpf'];
+$rg = $_POST['identidade'];
+$grau_parentesco = $_POST['grau_parentesco'];
 $dataAtual = date('d/m/Y');
+
+if ($cpf == null) {
+
+    $cpf = '-';
+
+}
+
+if ($rg == null) {
+
+    $rg = '-';
+
+}
+
+
+if ($grau_parentesco == null) {
+
+    $grau_parentesco = '-';
+
+}
+
 
 //CONSULTA PARA PEGAR DADOS DO PACIENTE
 $consulta = "SELECT pac.NM_PACIENTE,
@@ -52,7 +75,7 @@ $html = '
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Termo Quimioterapia</title>
+    <title>Termo Anestesico</title>
 </head>
 <style>
 
@@ -195,7 +218,12 @@ $html .= '
 
     </p>
 
-    Assinatura Paciente:
+    <p>Paciente : '. $row_pac['NM_PACIENTE'] .'</p>
+    <p>CPF : '. $cpf .'</p>
+    <p>RG : '. $rg .'</p>
+    <p>Grau Parentesco : '. $grau_parentesco .'</p>
+
+    Assinatura Paciente e/ou responsável:
     <div style="text-align: center; display: flex; justify-content: center; align-items: center; height: 100px; background-color: #f0f0f0;">
 
         <img style="max-width: 90%; max-height: 90%;" src=' . $var_assinatura_pac . '>
@@ -207,7 +235,7 @@ $html .= '
         De acordo com o meu entendimento, o paciente e/ou responsável estão em condições de compreender o que lhes foi informado.</p>
     </div>
 
-    <div style="text-align: center !important; margin: 2.5%;">
+    <div style="text-align: center !important; margin: 1%;">
 
         <b>Data: ' . $dataAtual . '.</b>
 
