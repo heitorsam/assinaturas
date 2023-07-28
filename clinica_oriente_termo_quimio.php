@@ -303,6 +303,10 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
 
                 // Abre uma nova janela para exibir o PDF
                 window.open(pdfUrl);
+
+                document.getElementById('medicamentos').value = '';
+                document.getElementById('periodo').value = '';
+                document.getElementById('ciclos').value = '';
             }
         });
 

@@ -48,6 +48,7 @@ use Dompdf\Dompdf;
 
 // Crie uma instância do Dompdf
 $dompdf = new Dompdf();
+
 $html = '
 
 <!DOCTYPE html>
@@ -63,14 +64,16 @@ $html = '
 
     width: 100% !important;
     clear: both;
-    height: 150%;
+    height: 10%;
+    display: flex;
+    align-items: center;
 
 }
 
 .col-hss-4 {
 
     width: 32.33% !important;
-    height: 20px;
+    height: 100%;
     float: left;
 }
 
@@ -95,28 +98,42 @@ $html .= '
     <div style="width: 90%; margin: 0 auto; padding-top: 5%; padding-bottom: 5%; text-align: center;">
 
         
-        <div class="row" style="background-color? blue;">
+        <!--Inicio do cabecalho-->
+        <div class="row" style="background-color: blue;">
 
-            <div class="col-hss-4" style="background-color: green;">
+            <div class="col-hss-4">
                     
                 <img style="max-width: 100%; max-height: 100%;" src=' . $logo_santinha . '>
 
             </div>
 
-            <div class="col-hss-4" style="background-color: yallow;">
+            <div class="col-hss-4" style="text-align: center;">
                     
                  <b>TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO DE QUIMIOTERAPIA</b>
 
             </div>
 
-            <div class="col-hss-4" style="background-color: orange;">
+            <div class="col-hss-4">
                         
-                <img style="max-width: 100%; max-height: 100%;" src=' . $logo_santinha . '>
+                <!--IDENTIFICADOR DO DOCUMENTO-->
+                <div>
+                    FOR.STA.007
+                </div>
+
+                <div>
+                
+                    Data Emissão: 20/09/2018
+                    <br>
+                    Data Revisão: - 
+                    <br>
+                    Revisão: 002
+
+                </div> 
 
             </div>
 
         </div>
-
+        <!--Fim do cabecalho-->
 
         <br><br>
 
