@@ -295,8 +295,6 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
         // Formata a data no novo formato "dd/mm/yyyy"
         var dataFormatada = dia + '/' + mes + '/' + ano;
 
-        console.log(dataFormatada);
-
         $.ajax({
             url: "funcoes/termo_quimioterapia/ajax_pdf_quimioterapia.php",
             type: "POST",
@@ -323,8 +321,11 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
                 responseType: 'blob' // Importante para receber dados binários (PDF)
             },
             success: function (data) {
+
                 // Cria uma URL temporária para o PDF
                 var pdfUrl = URL.createObjectURL(data);
+
+                ajax_insert_pdf_banco(data);
 
                 // Abre uma nova janela para exibir o PDF
                 window.open(pdfUrl);
@@ -332,10 +333,31 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
                 document.getElementById('medicamentos').value = '';
                 document.getElementById('periodo').value = '';
                 document.getElementById('ciclos').value = '';
+
+                // Exibe mensagem no console
+                console.log('Requisição AJAX bem-sucedida! PDF recebido.');
+                console.log('URL temporária do PDF:', pdfUrl);
+
+            },
+
+            error: function () {
+
+                // Exibe mensagem no console em caso de erro
+                console.log('Erro na requisição AJAX.');
+                
             }
         });
 
         
+
+    }
+
+    function ajax_insert_pdf_banco(data){
+
+        console.log('PDF recebido na função ajax_insert_pdf_banco:', data);
+
+        //MANDANDO PDF PARA REALIZAR O INSERT VIA AJAX
+
 
     }
 
