@@ -11,6 +11,7 @@ $var_atendimento = '5898756';
 
 // CONSULTA INFOS PACIENTE
 $consulta = "SELECT pac.*,
+                    TO_CHAR(pac.DT_NASCIMENTO,'DD/MM/YYYY') AS DATA_NASC,
                     TO_CHAR(SYSDATE, 'DD/MM/YYYY') AS DATA_HOJE
                  FROM dbamv.PACIENTE pac
                  WHERE pac.CD_PACIENTE = $var_paciente";
@@ -135,7 +136,7 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
                         <div class="col-md-3">
 
                             <label style="font-weight: bold;">Data de Nascimento:</label>
-                            <input class="form form-control" type="text" disabled value="<?php echo $row_pac['DT_NASCIMENTO']; ?>">
+                            <input class="form form-control" type="text" disabled value="<?php echo $row_pac['DATA_NASC']; ?>">
 
                         </div>
 

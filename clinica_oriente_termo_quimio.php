@@ -335,6 +335,13 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
                 document.getElementById('medicamentos').value = '';
                 document.getElementById('periodo').value = '';
                 document.getElementById('ciclos').value = '';
+                document.getElementById('ds_telefone').value = '';
+                document.getElementById('ds_endereco').value = '';
+                document.getElementById('ds_orgao_expedidor').value = '';
+                document.getElementById('nr_identidade_resp').value = '';
+                document.getElementById('tp_sexo_responsavel').value = 'All';
+                document.getElementById('dt_nascimento_responsavel').value = '';
+                document.getElementById('nm_responsavel').value = '';
 
             },
 
