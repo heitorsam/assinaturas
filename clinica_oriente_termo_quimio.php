@@ -34,11 +34,11 @@ $prestador = "SELECT prest.NM_PRESTADOR,
             AND prest.TP_SITUACAO = 'A'";
 
 $res_prestador = oci_parse($conn_ora, $prestador);
-    oci_execute($res_prestador);
+                 oci_execute($res_prestador);
 
 $row_prestador = oci_fetch_array($res_prestador);
 
-$nome_prest_logado = $row_prestador['prest.NM_PRESTADOR'];
+$nome_prest_logado = $row_prestador['NM_PRESTADOR'];
 
 ?>
 

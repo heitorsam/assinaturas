@@ -33,7 +33,8 @@
     $row_usu_pres = oci_fetch_array($result_usu_pres);
 
     $var_usu_prestador = $row_usu_pres['CD_PRESTADOR'];
-    
+
+
     //PEGANDO SEQUENCE PRIMEIRA TABELA ( ARQUIVO DOCUMENTO )
     $consulta_seq_ad = "SELECT SEQ_ARQUIVO_DOCUMENTO.nextval  as SEQ_ARQUIVO_DOCUMENTO 
                         FROM DUAL";
@@ -41,7 +42,6 @@
                      oci_execute($result_seq_ad);
     $row_seq_ad = oci_fetch_array($result_seq_ad);
 
-    /*
     //PEGANDO SEQUENCE SEGUNDA TABELA ( ARQUIVO DOCUMENTO )
     $consulta_seq_aa = "SELECT SEQ_ARQUIVO_ATENDIMENTO.nextval as SEQ_ARQUIVO_ATENDIMENTO 
                         FROM DUAL";
@@ -49,21 +49,31 @@
                      oci_execute($result_seq_aa);
     $row_seq_aa = oci_fetch_array($result_seq_aa);
 
+
     //PEGANDO SEQUENCE TERCEIRA TABELA ( ARQUIVO DOCUMENTO )
     $consulta_seq_pdc = "SELECT SEQ_PW_DOCUMENTO_CLINICO.nextval as SEQ_PW_DOCUMENTO_CLINICO 
                          FROM DUAL";
     $result_seq_pdc = oci_parse($conn_ora, $consulta_seq_pdc);
                       oci_execute($result_seq_pdc);
     $row_seq_pdc = oci_fetch_array($result_seq_pdc);
-    */
+    
 
     //DEFININDO VARIAVEIS PARA AS SEQUENCES
     $var_seq_arquivo_documento = $row_seq_ad['SEQ_ARQUIVO_DOCUMENTO'];
+    echo 'Sequence_arquivo_documento: ' . $var_seq_arquivo_documento;
 
-    /*
+        echo '</br>';
+
     $var_seq_arquivo_atendimento = $row_seq_aa['SEQ_ARQUIVO_ATENDIMENTO'];
+    echo 'Sequence_arquivo_atendimento: ' . $var_seq_arquivo_atendimento;
+
+        echo '</br>';
+
     $var_seq_p_doc_clinico = $row_seq_pdc['SEQ_PW_DOCUMENTO_CLINICO'];
-    */
+    echo 'Sequence_pw_documento_clinico: ' . $var_seq_p_doc_clinico;
+    
+        echo '</br>';
+    
     
     //INICIANDO INSERT
     $consulta_insert_AD = "INSERT INTO dbamv.ARQUIVO_DOCUMENTO 
@@ -100,7 +110,6 @@
 
     ///////////////////////////////////////
 
-    /*
     $consulta_insert_pdc = "INSERT INTO PW_DOCUMENTO_CLINICO
     SELECT $var_seq_p_doc_clinico AS CD_DOCUMENTO_CLINICO,
         2 AS CD_TIPO_DOCUMENTO, 
@@ -133,25 +142,23 @@
     oci_execute($result_insert_pdc);
 
     //////////////////////////////////////////////////////////////
-
+    
     $consulta_insert_AA = "INSERT INTO dbamv.ARQUIVO_ATENDIMENTO
-    SELECT $var_seq_arquivo_atendimento AS CD_ARQUIVO_ATENDIMENTO,
-           $var_seq_arquivo_documento AS CD_ARQUIVO_DOCUMENTO,
-           $atendimento_paciente AS CD_ATENDIMENTO,
-    SYSDATE AS DH_CRIACAO,
-    '$nm_prestador_logado' AS NM_USUARIO,
-    NULL AS CD_TIPO_DOCUMENTO, 
-    $var_cd_paciente AS CD_PACIENTE,
-    NULL AS CD_PW_TIPO_DOCUMENTO,
-    $var_seq_p_doc_clinico AS CD_DOCUMENTO_CLINICO,
-    NULL AS AS DS_DESCRICAO,
-    661 AS CD_STATUS_ARQUIVO_ATENDIMENTO,
-    222 AS CD_OBJETO_SELECIONADO
-    FROM DUAL";
+                                SELECT $var_seq_arquivo_atendimento AS CD_ARQUIVO_ATENDIMENTO,
+                                       $var_seq_arquivo_documento AS CD_ARQUIVO_DOCUMENTO,
+                                       $atendimento_paciente AS CD_ATENDIMENTO,
+                                       SYSDATE AS DH_CRIACAO,
+                                       '$nm_prestador_logado' AS NM_USUARIO,
+                                       NULL AS CD_TIPO_DOCUMENTO, 
+                                       $var_cd_paciente AS CD_PACIENTE,
+                                       NULL AS CD_PW_TIPO_DOCUMENTO,
+                                       $var_seq_p_doc_clinico AS CD_DOCUMENTO_CLINICO,
+                                       NULL AS DS_DESCRICAO,
+                                       661 AS CD_STATUS_ARQUIVO_ATENDIMENTO,
+                                       222 AS CD_OBJETO_SELECIONADO
+                                       FROM DUAL";
 
     $result_insert_AA = oci_parse($conn_ora, $consulta_insert_AA);
     oci_execute($result_insert_AA);
     
-    */
-
 ?>
