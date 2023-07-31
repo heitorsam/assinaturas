@@ -95,4 +95,4 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
 
 <div class="div_br"></div>
 
-<button style="float: right; margin-bottom: 2.5%;" class="btn btn-primary">Finalizar</button>
+<button style="display: block; margin: 0 auto; margin-top: 2.5%;" class="btn btn-primary">Finalizar</button>

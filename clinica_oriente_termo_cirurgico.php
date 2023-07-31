@@ -117,6 +117,7 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
 
             <!--CABECALHO DO DOCUMENTO-->
 
+
             <!--CORPO DO DOCUMENTO-->
 
             <div class="col-md-12" style="border-left: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
@@ -125,7 +126,7 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
 
                 <div style="padding-bottom: 2.5%;">
 
-                    <div class="row">
+                    <div class="row" style="padding-top: 8px;">
 
                         <div class="col-md-12">
 
@@ -147,18 +148,42 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
 
                         </div>
 
+
+                        <div class="col-md-6">
+
+                            <label style="font-weight: bold;">Inscrito(a) no CPF/MF sob nº</label>
+                            <input class="form form-control" type="text">
+
+                        </div>      
+
                     </div>
 
                     <div class="div_br"></div>
 
                     <div class="row">
 
-                        <div class="col-md-8">
+                        <div class="col-md-4">
 
-                            <label style="font-weight: bold;">Inscrito(a) no CPF/MF sob nº</label>
+                            <label style="font-weight: bold;">Cidade:</label>
                             <input class="form form-control" type="text">
 
-                        </div>      
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <label style="font-weight: bold;">Estado:</label>
+                            <input class="form form-control" type="text">
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <label style="font-weight: bold;">CEP:</label>
+                            <input class="form form-control" type="text">
+
+                        </div>
+
+
 
                     </div>
 
