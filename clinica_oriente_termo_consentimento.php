@@ -31,6 +31,8 @@ oci_execute($res_consulta_prestador);
 
 $row_prestador = oci_fetch_array($res_consulta_prestador);
 
+$nome_prest_logado = $row_prestador['NM_PRESTADOR'];
+
 ?>
 
 <!-- MODAL ASSINATURA -->
@@ -176,7 +178,6 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
 ?>
 
 <script>
-
     var controle_pagina = 0;
     data_assin_paciente = '';
     data_assin_medico = '';
@@ -186,6 +187,47 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
         ajax_chama_pagina();
 
     }
+
+    function ajax_insert_pdf_banco(data) {
+
+        //VERIFICANDO SE FOI RECEBIDO
+        //console.log('PDF recebido na função ajax_insert_pdf_banco:', data);
+
+        var var_paciente = '<?php echo $var_paciente; ?>';
+        var var_paciente_atd = '<?php echo $var_atendimento; ?>';
+        var var_prestador_logado = '<?php echo $var_prestador_logado; ?>';
+        var var_nome_prest_logado = '<?php echo $nome_prest_logado; ?>';
+
+
+        var formData = new FormData();
+        formData.append('pdf', data);
+
+        // Adicionar as outras duas variáveis ao FormData
+        formData.append('var_paciente', var_paciente);
+        formData.append('var_prestador_logado', var_prestador_logado);
+        formData.append('var_paciente_atd', var_paciente_atd);
+        formData.append('var_nome_prest_logado', var_nome_prest_logado);
+
+        // Resto do código para enviar a requisição AJAX com o FormData
+        $.ajax({
+
+            url: "funcoes/termo_anestesico/insert_pdf_anestesico.php",
+            type: "POST",
+            data: formData, // Usando o FormData aqui
+            cache: false,
+            contentType: false, // Importante para enviar arquivos
+            processData: false, // Importante para não processar o FormData automaticamente
+
+            success: function(dataResult) {
+
+                console.log(dataResult);
+
+            }
+
+        });
+
+    }
+
 
     function imprime_documento() {
 
@@ -217,6 +259,8 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
 
                 // Cria uma URL temporária para o PDF
                 var pdfUrl = URL.createObjectURL(data);
+
+                ajax_insert_pdf_banco(data);
 
                 // Abre uma nova janela para exibir o PDF
                 window.open(pdfUrl);
@@ -523,11 +567,11 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
         }
 
         // FECHA A MODAL
-        if (tp_assinatura == '1'){
+        if (tp_assinatura == '1') {
 
             $('#exampleModalCenter').modal('hide')
 
-        } else{
+        } else {
 
             $('#exampleModalCenter2').modal('hide')
 
@@ -557,5 +601,4 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
         $('#carrega_pagina').load('funcoes/termo_anestesico/ajax_chama_pagina_termo.php?paciente=' + paciente + '&prestador=' + prestador);
 
     }
-
 </script>
