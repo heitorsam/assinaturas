@@ -5,6 +5,7 @@ include 'cabecalho.php';
 
 //RECEBENDO VARIAVEIS
 $var_paciente = '750779';
+$var_atendimento = '4755518';
 $var_prestador_logado = 'ARIPEREIRA';
 $var_pagina_php = '1';
 
@@ -37,6 +38,7 @@ $res_prestador = oci_parse($conn_ora, $prestador);
 
 $row_prestador = oci_fetch_array($res_prestador);
 
+$nome_prest_logado = $row_prestador['prest.NM_PRESTADOR'];
 
 ?>
 
@@ -334,10 +336,6 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
                 document.getElementById('periodo').value = '';
                 document.getElementById('ciclos').value = '';
 
-                // Exibe mensagem no console
-                console.log('Requisição AJAX bem-sucedida! PDF recebido.');
-                console.log('URL temporária do PDF:', pdfUrl);
-
             },
 
             error: function () {
@@ -356,10 +354,22 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
 
         
         //VERIFICANDO SE FOI RECEBIDO
-        console.log('PDF recebido na função ajax_insert_pdf_banco:', data);
+        //console.log('PDF recebido na função ajax_insert_pdf_banco:', data);
+
+        var var_paciente = '<?php echo $var_paciente; ?>';
+        var var_paciente_atd = '<?php echo $var_atendimento; ?>';
+        var var_prestador_logado = '<?php echo $var_prestador_logado; ?>';
+        var var_nome_prest_logado = '<?php echo $nome_prest_logado; ?>';
+
 
         var formData = new FormData();
         formData.append('pdf', data);
+
+        // Adicionar as outras duas variáveis ao FormData
+        formData.append('var_paciente', var_paciente);
+        formData.append('var_prestador_logado', var_prestador_logado);
+        formData.append('var_paciente_atd', var_paciente_atd);
+        formData.append('var_nome_prest_logado', var_nome_prest_logado);
 
         // Resto do código para enviar a requisição AJAX com o FormData
         $.ajax({
