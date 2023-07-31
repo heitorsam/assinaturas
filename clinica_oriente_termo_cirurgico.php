@@ -6,14 +6,19 @@ include 'cabecalho.php';
 $prestador_logado = 6522;
 
 //RECEBENDO VARIAVEIS
-$var_paciente = '123456';
+$var_paciente = '750779';
 $var_atendimento = '5898756';
 
 // CONSULTA INFOS PACIENTE
-$consulta = "SELECT pac.*,
-                    TO_CHAR(SYSDATE, 'DD/MM/YYYY') AS DATA_HOJE
-                 FROM dbamv.PACIENTE pac
-                 WHERE pac.CD_PACIENTE = $var_paciente";
+$consulta = "SELECT pac.NM_PACIENTE,
+                    pac.NR_IDENTIDADE,
+                    pac.NR_CPF,
+                    pac.DS_OM_IDENTIDADE,
+                    (SELECT cidade.NM_CIDADE FROM dbamv.CIDADE cidade WHERE cidade.CD_CIDADE = pac.CD_CIDADE) AS DS_CIDADE,
+                    (SELECT cidade.CD_UF FROM dbamv.CIDADE cidade WHERE cidade.CD_CIDADE = pac.CD_CIDADE) AS DS_UF,
+                    pac.NR_CEP
+                    FROM dbamv.PACIENTE pac 
+                    WHERE pac.CD_PACIENTE = $var_paciente";
 
 $res_consulta = oci_parse($conn_ora, $consulta);
 oci_execute($res_consulta);
@@ -131,7 +136,7 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
                         <div class="col-md-12">
 
                             <label style="font-weight: bold;">Nome:</label>
-                            <input class="form form-control" type="text" disabled value="<?php echo $row_pac['NM_PACIENTE']; ?>">
+                            <input class="form form-control" type="text" readonly value="<?php echo $row_pac['NM_PACIENTE']; ?>">
 
                         </div>
 
@@ -144,7 +149,7 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
                         <div class="col-md-6">
 
                             <label style="font-weight: bold;">Portador(a) da Cédula de Identidade RG nº</label>
-                            <input class="form form-control" type="number">
+                            <input class="form form-control" type="number" readonly value="<?php echo $row_pac['NR_IDENTIDADE']; ?>">
 
                         </div>
 
@@ -152,7 +157,7 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
                         <div class="col-md-6">
 
                             <label style="font-weight: bold;">Inscrito(a) no CPF/MF sob nº</label>
-                            <input class="form form-control" type="number">
+                            <input class="form form-control" type="number" readonly value="<?php echo $row_pac['NR_CPF']; ?>">
 
                         </div>      
 
@@ -165,21 +170,21 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
                         <div class="col-md-4">
 
                             <label style="font-weight: bold;">Cidade:</label>
-                            <input class="form form-control" type="text">
+                            <input class="form form-control" type="text" readonly value="<?php echo $row_pac['DS_CIDADE']; ?>">
 
                         </div>
 
                         <div class="col-md-4">
 
                             <label style="font-weight: bold;">Estado:</label>
-                            <input class="form form-control" type="text">
+                            <input class="form form-control" type="text" readonly value="<?php echo $row_pac['DS_UF']; ?>">
 
                         </div>
 
                         <div class="col-md-4">
 
                             <label style="font-weight: bold;">CEP:</label>
-                            <input class="form form-control" type="text">
+                            <input class="form form-control" type="text" readonly value="<?php echo $row_pac['NR_CEP']; ?>">
 
                         </div>
 

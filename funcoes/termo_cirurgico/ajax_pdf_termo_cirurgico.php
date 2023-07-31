@@ -12,12 +12,14 @@ $dataAtual = date('d/m/Y');
 
 //CONSULTA PARA PEGAR DADOS DO PACIENTE
 $consulta = "SELECT pac.NM_PACIENTE,
-TO_CHAR(pac.DT_NASCIMENTO,'DD/MM/YYYY') AS DT_NASCIMENTO,
-pac.TP_SEXO,
-pac.NR_IDENTIDADE,
-pac.DS_OM_IDENTIDADE
-FROM dbamv.PACIENTE pac 
-WHERE pac.CD_PACIENTE = $var_paciente";
+                    pac.NR_IDENTIDADE,
+                    pac.NR_CPF,
+                    pac.DS_OM_IDENTIDADE,
+                    (SELECT cidade.NM_CIDADE FROM dbamv.CIDADE cidade WHERE cidade.CD_CIDADE = pac.CD_CIDADE) AS DS_CIDADE,
+                    (SELECT cidade.CD_UF FROM dbamv.CIDADE cidade WHERE cidade.CD_CIDADE = pac.CD_CIDADE) AS DS_UF,
+                    pac.NR_CEP
+                    FROM dbamv.PACIENTE pac 
+                    WHERE pac.CD_PACIENTE = $var_paciente";
 $res_consulta = oci_parse($conn_ora, $consulta);
 oci_execute($res_consulta);
 
@@ -146,7 +148,7 @@ $html .= '
             <div style="display: inline-block; padding: 5px;">
 
                 <label>Nome:</label><br>
-                <input style="text-align: center; width: 600px;" type="text" value="Leonardo do Prado Gomes">
+                <input style="text-align: center; width: 600px;" type="text" value="' . $row_pac['NM_PACIENTE'] . '">
 
             </div>
 
@@ -157,35 +159,35 @@ $html .= '
             <div style="display: inline-block; padding: 5px;">
 
                 <label>RG:</label><br>
-                <input style="text-align: center; width: 100px;" type="text" value="540668382">
+                <input style="text-align: center; width: 100px;" type="text" value="' . $row_pac['NR_IDENTIDADE'] . '">
 
             </div>
 
             <div style="display: inline-block; padding: 5px;">
 
                 <label>CPF:</label><br>
-                <input style="text-align: center; width: 120px;" type="text" value="44375579803">
+                <input style="text-align: center; width: 120px;" type="text" value="' . $row_pac['NR_CPF'] . '">
                 
             </div>
 
             <div style="display: inline-block; padding: 5px;">
 
                 <label>Cidade:</label><br>
-                <input style="text-align: center; width: 200px;" type="text" value="São José dos Campos">
+                <input style="text-align: center; width: 200px;" type="text" value="' . $row_pac['DS_CIDADE'] . '">
                 
             </div>
 
             <div style="display: inline-block; padding: 5px;">
 
-                <label>Orgão:</label><br>
-                <input style="text-align: center; width: 60px;" type="text" value="SP">
+                <label>UF:</label><br>
+                <input style="text-align: center; width: 60px;" type="text" value="' . $row_pac['DS_UF'] . '">
                 
             </div>
 
             <div style="display: inline-block; padding: 5px;">
 
                 <label>CEP:</label><br>
-                <input style="text-align: center; width: 150px;" type="text" value="07500000">
+                <input style="text-align: center; width: 150px;" type="text" value="' . $row_pac['NR_CEP'] . '">
             
             </div>
 
