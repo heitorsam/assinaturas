@@ -144,7 +144,7 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
                         <div class="col-md-6">
 
                             <label style="font-weight: bold;">Portador(a) da Cédula de Identidade RG nº</label>
-                            <input class="form form-control" type="text">
+                            <input class="form form-control" type="number">
 
                         </div>
 
@@ -152,7 +152,7 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
                         <div class="col-md-6">
 
                             <label style="font-weight: bold;">Inscrito(a) no CPF/MF sob nº</label>
-                            <input class="form form-control" type="text">
+                            <input class="form form-control" type="number">
 
                         </div>      
 
@@ -160,7 +160,7 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
 
                     <div class="div_br"></div>
 
-                    <div class="row">
+                    <div class="row" style="border-bottom: 1px solid black; padding-bottom: 25px;">
 
                         <div class="col-md-4">
 
@@ -213,7 +213,6 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
 
 <script>
 
-    var controle_pagina = 0;
     data_assin_paciente = '';
     data_assin_medico = '';
 
@@ -223,27 +222,25 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
 
     }
 
-    function imprime_documento() {
+    function ajax_imprime_documento() {
 
         var var_paciente = '<?php echo $var_paciente; ?>';
         var var_prestador_logado = '<?php echo $prestador_logado; ?>';
         var var_logo_santa_casa = '<?php echo $varlogo; ?>';
-        var cpf = document.getElementById('cpf').value;
-        var identidade = document.getElementById('rg').value;
-        var grau_parentesco = document.getElementById('grau_parentesco').value;
+        data_assin_paciente;
+        data_assin_medico;
+        
 
         $.ajax({
-            url: "funcoes/termo_anestesico/ajax_pdf_termo_consentimento.php",
+            url: "funcoes/termo_cirurgico/ajax_pdf_termo_cirurgico.php",
             method: "POST",
             data: {
-                var_paciente,
-                var_prestador_logado,
-                data_assin_paciente,
-                data_assin_medico,
-                var_logo_santa_casa,
-                cpf,
-                identidade,
-                grau_parentesco
+
+                var_paciente : var_paciente,
+                var_prestador_logado : var_prestador_logado,
+                data_assin_paciente : data_assin_paciente,
+                data_assin_medico : data_assin_medico,
+                var_logo_santa_casa : var_logo_santa_casa
             },
             cache: false,
             xhrFields: {
@@ -574,22 +571,8 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
 
     function ajax_chama_pagina() {
 
-        //var pagina_cabecalho = document.getElementById('pagina_cabecalho');
-
         var paciente = '<?php echo $var_paciente; ?>';
         var prestador = '<?php echo $prestador_logado; ?>';
-
-        if (controle_pagina == 2) {
-
-            controle_pagina = 0;
-        }
-
-        var var_pagina = controle_pagina + 1;
-
-        controle_pagina = controle_pagina + 1;
-
-        //pagina_cabecalho.innerHTML = var_pagina;
-
         $('#carrega_pagina').load('funcoes/termo_cirurgico/ajax_chama_pagina_termo_cirurgico.php?paciente=' + paciente + '&prestador=' + prestador);
 
     }
