@@ -4,7 +4,7 @@ include '../../conexao.php';
 
 //$var_pagina = $_GET['pagina'];
 $var_paciente = $_GET['paciente'];
-$prestador_logado = $_GET['prestador'];
+$var_prestador_logado = $_GET['prestador'];
 
 // CONSULTA INFOS PACIENTE
 $consulta = "SELECT pac.*,
@@ -18,9 +18,14 @@ oci_execute($res_consulta);
 $row_pac = oci_fetch_array($res_consulta);
 
 // CONSULTA PRESTADOR LOGADO
-$consulta_prestador = "SELECT *
-        FROM dbamv.PRESTADOR prest
-        WHERE prest.CD_PRESTADOR = $prestador_logado";
+$consulta_prestador = "SELECT prest.NM_PRESTADOR,
+                                prest.DS_CODIGO_CONSELHO
+                                FROM dbasgu.USUARIOS usu
+                                LEFT JOIN dbamv.PRESTADOR prest
+                                ON prest.CD_PRESTADOR = usu.CD_PRESTADOR
+                                WHERE prest.CD_TIP_PRESTA = 8
+                                AND usu.CD_USUARIO = '$var_prestador_logado'
+                                AND prest.TP_SITUACAO = 'A'";
 
 $res_consulta_prestador = oci_parse($conn_ora, $consulta_prestador);
 oci_execute($res_consulta_prestador);

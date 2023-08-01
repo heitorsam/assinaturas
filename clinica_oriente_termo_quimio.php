@@ -6,7 +6,7 @@ include 'cabecalho.php';
 //RECEBENDO VARIAVEIS
 $var_paciente = '750779';
 $var_atendimento = '4755518';
-$var_prestador_logado = 'ARIPEREIRA';
+$var_prestador_logado = 'RYSABBAG';
 $var_pagina_php = '1';
 
 //CONSULTA PARA PEGAR DADOS DO PACIENTE

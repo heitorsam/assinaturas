@@ -3,11 +3,11 @@
 include 'conexao.php';
 include 'cabecalho.php';
 
-$prestador_logado = 6522;
+$var_prestador_logado = 'RYSABBAG';
 
 //RECEBENDO VARIAVEIS
-$var_paciente = '123456';
-$var_atendimento = '5898756';
+$var_paciente = '750779';
+$var_atendimento = '4755518';
 
 // CONSULTA INFOS PACIENTE
 $consulta = "SELECT pac.*,
@@ -22,9 +22,14 @@ oci_execute($res_consulta);
 $row_pac = oci_fetch_array($res_consulta);
 
 // CONSULTA PRESTADOR LOGADO
-$consulta_prestador = "SELECT *
-                           FROM dbamv.PRESTADOR prest
-                           WHERE prest.CD_PRESTADOR = $prestador_logado";
+$consulta_prestador = "SELECT prest.NM_PRESTADOR,
+                              prest.DS_CODIGO_CONSELHO
+                        FROM dbasgu.USUARIOS usu
+                        LEFT JOIN dbamv.PRESTADOR prest
+                            ON prest.CD_PRESTADOR = usu.CD_PRESTADOR
+                        WHERE prest.CD_TIP_PRESTA = 8
+                        AND usu.CD_USUARIO = '$var_prestador_logado'
+                        AND prest.TP_SITUACAO = 'A'";
 
 $res_consulta_prestador = oci_parse($conn_ora, $consulta_prestador);
 oci_execute($res_consulta_prestador);
@@ -232,7 +237,7 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
     function imprime_documento() {
 
         var var_paciente = '<?php echo $var_paciente; ?>';
-        var var_prestador_logado = '<?php echo $prestador_logado; ?>';
+        var var_prestador_logado = '<?php echo $var_prestador_logado; ?>';
         var var_logo_santa_casa = '<?php echo $varlogo; ?>';
         var cpf = document.getElementById('cpf').value;
         var identidade = document.getElementById('rg').value;
@@ -585,7 +590,7 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
         //var pagina_cabecalho = document.getElementById('pagina_cabecalho');
 
         var paciente = '<?php echo $var_paciente; ?>';
-        var prestador = '<?php echo $prestador_logado; ?>';
+        var prestador = '<?php echo $var_prestador_logado; ?>';
 
         if (controle_pagina == 2) {
 

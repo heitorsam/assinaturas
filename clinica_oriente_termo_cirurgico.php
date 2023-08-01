@@ -3,11 +3,11 @@
 include 'conexao.php';
 include 'cabecalho.php';
 
-$prestador_logado = 6522;
+$var_prestador_logado = 'RYSABBAG';
 
 //RECEBENDO VARIAVEIS
 $var_paciente = '750779';
-$var_atendimento = '5898756';
+$var_atendimento = '4755518';
 
 // CONSULTA INFOS PACIENTE
 $consulta = "SELECT pac.NM_PACIENTE,
@@ -26,14 +26,21 @@ oci_execute($res_consulta);
 $row_pac = oci_fetch_array($res_consulta);
 
 // CONSULTA PRESTADOR LOGADO
-$consulta_prestador = "SELECT *
-                           FROM dbamv.PRESTADOR prest
-                           WHERE prest.CD_PRESTADOR = $prestador_logado";
+$consulta_prestador = "SELECT prest.NM_PRESTADOR,
+                              prest.DS_CODIGO_CONSELHO
+                        FROM dbasgu.USUARIOS usu
+                        LEFT JOIN dbamv.PRESTADOR prest
+                            ON prest.CD_PRESTADOR = usu.CD_PRESTADOR
+                        WHERE prest.CD_TIP_PRESTA = 8
+                        AND usu.CD_USUARIO = '$var_prestador_logado'
+                        AND prest.TP_SITUACAO = 'A'";
 
 $res_consulta_prestador = oci_parse($conn_ora, $consulta_prestador);
 oci_execute($res_consulta_prestador);
 
 $row_prestador = oci_fetch_array($res_consulta_prestador);
+
+$nome_prest_logado = $row_prestador['NM_PRESTADOR'];
 
 ?>
 
@@ -159,7 +166,7 @@ $row_prestador = oci_fetch_array($res_consulta_prestador);
                             <label style="font-weight: bold;">Inscrito(a) no CPF/MF sob nº</label>
                             <input class="form form-control" type="number" readonly value="<?php echo $row_pac['NR_CPF']; ?>">
 
-                        </div>      
+                        </div>
 
                     </div>
 
@@ -217,7 +224,6 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
 ?>
 
 <script>
-
     data_assin_paciente = '';
     data_assin_medico = '';
 
@@ -227,25 +233,65 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
 
     }
 
+    function ajax_insert_pdf_banco(data) {
+
+        //VERIFICANDO SE FOI RECEBIDO
+        //console.log('PDF recebido na função ajax_insert_pdf_banco:', data);
+
+        var var_paciente = '<?php echo $var_paciente; ?>';
+        var var_paciente_atd = '<?php echo $var_atendimento; ?>';
+        var var_prestador_logado = '<?php echo $var_prestador_logado; ?>';
+        var var_nome_prest_logado = '<?php echo $nome_prest_logado; ?>';
+
+
+        var formData = new FormData();
+        formData.append('pdf', data);
+
+        // Adicionar as outras duas variáveis ao FormData
+        formData.append('var_paciente', var_paciente);
+        formData.append('var_prestador_logado', var_prestador_logado);
+        formData.append('var_paciente_atd', var_paciente_atd);
+        formData.append('var_nome_prest_logado', var_nome_prest_logado);
+
+        // Resto do código para enviar a requisição AJAX com o FormData
+        $.ajax({
+
+            url: "funcoes/termo_cirurgico/insert_pdf_cirurgico.php",
+            type: "POST",
+            data: formData, // Usando o FormData aqui
+            cache: false,
+            contentType: false, // Importante para enviar arquivos
+            processData: false, // Importante para não processar o FormData automaticamente
+
+            success: function(dataResult) {
+
+                console.log(dataResult);
+
+            }
+
+        });
+
+    }
+
     function ajax_imprime_documento() {
 
         var var_paciente = '<?php echo $var_paciente; ?>';
-        var var_prestador_logado = '<?php echo $prestador_logado; ?>';
+        var var_prestador_logado = '<?php echo $var_prestador_logado; ?>';
         var var_logo_santa_casa = '<?php echo $varlogo; ?>';
         data_assin_paciente;
         data_assin_medico;
-        
+
 
         $.ajax({
             url: "funcoes/termo_cirurgico/ajax_pdf_termo_cirurgico.php",
             method: "POST",
             data: {
 
-                var_paciente : var_paciente,
-                var_prestador_logado : var_prestador_logado,
-                data_assin_paciente : data_assin_paciente,
-                data_assin_medico : data_assin_medico,
-                var_logo_santa_casa : var_logo_santa_casa
+                var_paciente: var_paciente,
+                var_prestador_logado: var_prestador_logado,
+                data_assin_paciente: data_assin_paciente,
+                data_assin_medico: data_assin_medico,
+                var_logo_santa_casa: var_logo_santa_casa
             },
             cache: false,
             xhrFields: {
@@ -255,6 +301,8 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
 
                 // Cria uma URL temporária para o PDF
                 var pdfUrl = URL.createObjectURL(data);
+
+                ajax_insert_pdf_banco(data);
 
                 // Abre uma nova janela para exibir o PDF
                 window.open(pdfUrl);
@@ -561,11 +609,11 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
         }
 
         // FECHA A MODAL
-        if (tp_assinatura == '1'){
+        if (tp_assinatura == '1') {
 
             $('#exampleModalCenter').modal('hide')
 
-        } else{
+        } else {
 
             $('#exampleModalCenter2').modal('hide')
 
@@ -577,9 +625,8 @@ $varlogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIMAAAA1CAIAAADtbM9ZAA
     function ajax_chama_pagina() {
 
         var paciente = '<?php echo $var_paciente; ?>';
-        var prestador = '<?php echo $prestador_logado; ?>';
+        var prestador = '<?php echo $var_prestador_logado; ?>';
         $('#carrega_pagina').load('funcoes/termo_cirurgico/ajax_chama_pagina_termo_cirurgico.php?paciente=' + paciente + '&prestador=' + prestador);
 
     }
-
 </script>
