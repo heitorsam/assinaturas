@@ -1,0 +1,20 @@
+Para desativar a opção de gesto "ir e voltar" no Google Chrome, siga estas etapas:
+
+Abra o Google Chrome em seu computador.
+
+Na barra de endereço do navegador, digite o seguinte e pressione Enter:
+
+arduino
+Copy code
+chrome://flags
+Isso abrirá a página de "Configurações experimentais" do Google Chrome.
+
+Na barra de pesquisa, digite "overscroll" e você verá uma opção chamada "Overscroll history navigation".
+
+Ao lado dessa opção, você verá um menu suspenso com as opções "Default", "Enabled" e "Disabled". Clique no menu suspenso e selecione "Disabled" para desativar o recurso.
+
+Após selecionar "Disabled", você verá um botão azul no canto inferior direito da tela que diz "Relaunch". Clique nesse botão para reiniciar o navegador e aplicar as alterações.
+
+Após reiniciar o Google Chrome, a opção de gesto "ir e voltar" deve estar desativada, e você não verá mais a seta de voltar quando deslizar para a esquerda usando a mesa digitalizadora ou outro dispositivo de apontamento.
+
+Lembre-se de que as configurações experimentais podem causar instabilidade ou problemas no navegador, então tenha cuidado ao modificar as opções no chrome://flags. Se você encontrar algum comportamento indesejado após fazer essa alteração, você sempre pode voltar à página chrome://flags e reverter a configuração para o padrão ("Default").
