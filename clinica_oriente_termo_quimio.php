@@ -77,7 +77,41 @@ include 'conexao.php';
 
                         $nome_prest_logado = $row_prestador['NM_PRESTADOR'];
 
+                                                
+                        //CONSULTA QUE VERIFICA SE O PACIENTE JA TEVE ASSINATURA NO ATENDIMENTO
+                        $sn_assinatura = "SELECT ad.LO_ARQUIVO_DOCUMENTO
+                        FROM dbamv.ARQUIVO_ATENDIMENTO aa
+                        INNER JOIN dbamv.ARQUIVO_DOCUMENTO ad
+                        ON ad.CD_ARQUIVO_DOCUMENTO = aa.CD_ARQUIVO_DOCUMENTO
+                        WHERE aa.CD_ATENDIMENTO = $var_atendimento
+                        AND ad.DS_NOME_ARQUIVO = 'TQ'";
+                        
+                        $res_sn_assinatura = oci_parse($conn_ora, $sn_assinatura);
+                        oci_execute($res_sn_assinatura);
+
+                        $row_assinatura = oci_fetch_array($res_sn_assinatura);
+
+                        // Recupera o valor do BLOB do campo do banco de dados
+                        $pdf_blob = $row_assinatura['LO_ARQUIVO_DOCUMENTO'];
+
+                        // Converte o BLOB em base64
+                        $pdf_base64 = base64_encode($pdf_blob->load());
+
+                        if(isset($pdf_base64)){
+
+
+                        
+
                     ?>
+
+                            <!-- Usando o elemento <embed> para exibir o PDF -->
+                           <iframe src="data:application/pdf;base64,<?php echo $pdf_base64; ?>" width="100%" height="600px"></iframe>
+
+                        <?php 
+
+                       }else{
+
+                        ?>
 
                     <div style="background-color: #f4f4f4; margin-top: 2% !important; width: 90%; margin: 0 auto;">
 
@@ -799,23 +833,23 @@ include 'conexao.php';
                     function ajax_chama_pagina(){
 
                         var_paciente = '<?php echo $var_paciente; ?>';
+                        var_atendimento = '<?php echo $var_atendimento; ?>';
 
                         var_prestador_logado = '<?php echo $var_prestador_logado; ?>';
 
-                        $('#pagina_doc').load('funcoes/termo_quimioterapia/ajax_chama_pagina.php?paciente='+var_paciente+'&prestador='+var_prestador_logado);
+                        $('#pagina_doc').load('funcoes/termo_quimioterapia/ajax_chama_pagina.php?paciente='+var_paciente+'&prestador='+var_prestador_logado+'&atendimento='+var_atendimento);
 
 
 
                     }
 
-
-
-
-
                     </script>
 
+                    <?php
+                        
+                    }
 
-
+                    ?>
 
                 </div>  <!-- FIM CLASS CONTAINER -->
         

@@ -90,7 +90,7 @@
                                     NULL,
                                     NULL,
                                     NULL,
-                                    '$nomeDoArquivo',
+                                    'TQ',
                                     empty_blob()) RETURNING LO_ARQUIVO_DOCUMENTO INTO :image";
 
     $result_insert_AD = oci_parse($conn_ora, $consulta_insert_AD);

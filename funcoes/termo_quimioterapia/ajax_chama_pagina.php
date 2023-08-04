@@ -5,6 +5,7 @@
     //VARIAVEIS
     $var_paciente = $_GET['paciente'];
     $var_prestador_logado = $_GET['prestador'];
+    $atendimento_paciente = $_GET['atendimento'];
 
     //CONSULTA PARA PEGAR DADOS DO PACIENTE
     $consulta = "SELECT pac.NM_PACIENTE,
@@ -235,11 +236,14 @@
  
 </div>
 
+
 <div class="row" style="padding-top: 2%; padding-bottom: 2%; border-left: solid 1px black; border-right: solid 1px black;">
     <div class="col-md-12 d-flex justify-content-center">
         <button onclick="ajax_modal_assinatura('2')" class="btn btn-primary">Assinatura do Médico</button>
     </div>
 </div>
+
+
 
 <div class="row" style="padding-top: 2%; padding-bottom: 2%; border-left: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
     <div class="col-md-12 d-flex justify-content-center">
