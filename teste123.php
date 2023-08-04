@@ -10,7 +10,7 @@
         INNER JOIN dbamv.ARQUIVO_DOCUMENTO ad
         ON ad.CD_ARQUIVO_DOCUMENTO = aa.CD_ARQUIVO_DOCUMENTO
         WHERE aa.CD_ATENDIMENTO = 4755518
-        AND ad.DS_NOME_ARQUIVO = 'TA'";
+        AND ad.DS_NOME_ARQUIVO = 'TC'";
         
         $res_sn_assinatura = oci_parse($conn_ora, $sn_assinatura);
         oci_execute($res_sn_assinatura);

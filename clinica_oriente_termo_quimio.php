@@ -79,7 +79,7 @@ include 'conexao.php';
 
                                                 
                         //CONSULTA QUE VERIFICA SE O PACIENTE JA TEVE ASSINATURA NO ATENDIMENTO
-                        echo $sn_assinatura = "SELECT ad.LO_ARQUIVO_DOCUMENTO
+                        $sn_assinatura = "SELECT ad.LO_ARQUIVO_DOCUMENTO
                         FROM dbamv.ARQUIVO_ATENDIMENTO aa
                         INNER JOIN dbamv.ARQUIVO_DOCUMENTO ad
                         ON ad.CD_ARQUIVO_DOCUMENTO = aa.CD_ARQUIVO_DOCUMENTO

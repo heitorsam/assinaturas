@@ -116,7 +116,7 @@ $html .= '
 
             <div class="col-hss-4" style="text-align: center;">
                     
-                 <b>TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO DE QUIMIOTERAPIA</b>
+                 <b>TERMO DE RESPONSABILIDADE E CONSENTIMENTO INFORMADO PARA PROCEDIMENTO CIRURGICO</b>
 
             </div>
 
