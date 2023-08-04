@@ -73,7 +73,44 @@ include 'conexao.php';
 
                     $nome_prest_logado = $row_prestador['NM_PRESTADOR'];
 
+                                            
+                        //CONSULTA QUE VERIFICA SE O PACIENTE JA TEVE ASSINATURA NO ATENDIMENTO
+                        $sn_assinatura = "SELECT ad.LO_ARQUIVO_DOCUMENTO
+                        FROM dbamv.ARQUIVO_ATENDIMENTO aa
+                        INNER JOIN dbamv.ARQUIVO_DOCUMENTO ad
+                        ON ad.CD_ARQUIVO_DOCUMENTO = aa.CD_ARQUIVO_DOCUMENTO
+                        WHERE aa.CD_ATENDIMENTO = $var_atendimento
+                        AND ad.DS_NOME_ARQUIVO = 'TA'";
+                        
+                        $res_sn_assinatura = oci_parse($conn_ora, $sn_assinatura);
+                        oci_execute($res_sn_assinatura);
+
+                        $row_assinatura = oci_fetch_array($res_sn_assinatura);
+
+                        // Recupera o valor do BLOB do campo do banco de dados
+                        $pdf_blob = $row_assinatura['LO_ARQUIVO_DOCUMENTO'];
+
+
+                        if(isset($pdf_blob)){
+
+                            // Converte o BLOB em base64
+                            $pdf_base64 = base64_encode($pdf_blob->load());
+
+                        }
+
+                        if(isset($pdf_base64)){
+
                     ?>
+
+                            <!-- Usando o elemento <embed> para exibir o PDF -->
+                            <iframe src="data:application/pdf;base64,<?php echo $pdf_base64; ?>" width="100%" height="600px"></iframe>
+
+                        <?php 
+
+                        }else{
+
+                        ?>
+
 
                     <!-- MODAL ASSINATURA -->
                     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
@@ -280,16 +317,6 @@ include 'conexao.php';
                             data_assin_paciente;
                             data_assin_medico;
 
-                            //console.log('Paciente: '+var_paciente);
-                            //console.log('Prestador: '+var_prestador_logado);
-                            //console.log('Atendimento: '+var_atendimento);
-                            //console.log('Logo SantaCasa: '+var_logo_santa_casa);
-                            //console.log('Cpf: '+cpf);
-                            //console.log('Identidade: '+identidade);
-                            //console.log('Parentesco: '+grau_parentesco);
-                            //console.log('Assinatura Paciente: '+data_assin_paciente);
-                            //console.log('Assinatura Medico: '+data_assin_medico);
-
                             $.ajax({
                                 url: "funcoes/termo_anestesico/ajax_pdf_termo_consentimento.php",
                                 method: "POST",
@@ -314,7 +341,9 @@ include 'conexao.php';
                                     // Cria uma URL temporária para o PDF
                                     var pdfUrl = URL.createObjectURL(data);
 
-                                    //ajax_insert_pdf_banco(data);
+                                    ajax_insert_pdf_banco(data);
+
+                                    ajax_insert_assinaturas_pac_med(data_assin_paciente, data_assin_medico, var_paciente, var_atendimento, var_prestador_logado);
 
                                     // Abre uma nova janela para exibir o PDF
                                     window.open(pdfUrl);
@@ -324,6 +353,48 @@ include 'conexao.php';
                             })
 
                         
+
+                        }
+
+                        function ajax_insert_assinaturas_pac_med(data_assin_paciente, data_assin_medico, var_paciente, var_atendimento, var_prestador_logado){
+           
+                            data_assin_paciente;
+                            data_assin_medico;
+                            var_paciente;
+                            var_atendimento;
+                            var_prestador_logado;
+
+                            $.ajax({
+                                url: "funcoes/termo_anestesico/ajax_guarda_assinaturas_pac_med_an.php",
+                                type: "POST",
+                                data: {
+
+                                    var_assinatura_pac: data_assin_paciente,
+                                    var_assinatura_med: data_assin_medico,
+                                    var_paciente: var_paciente,
+                                    var_atendimento: var_atendimento,
+                                    var_prestador_logado: var_prestador_logado
+
+                                },
+
+                                cache: false,
+                                xhrFields: {
+                                    responseType: 'blob' // Importante para receber dados binários 
+                                },
+                                success: function (data) {
+
+                                    console.log(data)
+                                },
+
+                                error: function () {
+
+                                    // Exibe mensagem no console em caso de erro
+                                    console.log('Erro na requisição AJAX.');
+                                    
+                                }
+
+                            });
+
 
                         }
 
@@ -656,6 +727,12 @@ include 'conexao.php';
 
                         }
                     </script>
+
+                    <?php
+                        
+                    }
+
+                    ?>
 
                 </div>  <!-- FIM CLASS CONTAINER -->
         
