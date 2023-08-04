@@ -3,15 +3,15 @@
 include '../../conexao.php';
 
 // Recupere os dados do paciente e do prestador enviados via POST
-$var_paciente = $_POST['var_paciente'];
-$var_prestador_logado = $_POST['var_prestador_logado'];
-$var_assinatura_pac = $_POST['data_assin_paciente'];
-$var_assinatura_med = $_POST['data_assin_medico'];
-$logo_santinha = $_POST['var_logo_santa_casa'];
-$cpf = $_POST['cpf'];
-$rg = $_POST['identidade'];
-$grau_parentesco = $_POST['grau_parentesco'];
-$dataAtual = date('d/m/Y');
+ $var_paciente = $_POST['var_paciente'];
+ $var_prestador_logado = $_POST['var_prestador_logado'];
+ $var_assinatura_pac = $_POST['data_assin_paciente'];
+ $var_assinatura_med = $_POST['data_assin_medico'];
+ $logo_santinha = $_POST['var_logo_santa_casa'];
+ $cpf = $_POST['cpf'];
+ $rg = $_POST['identidade'];
+ $grau_parentesco = $_POST['grau_parentesco'];
+ $dataAtual = date('d/m/Y');
 
 if ($cpf == null) {
 
@@ -35,12 +35,12 @@ if ($grau_parentesco == null) {
 
 //CONSULTA PARA PEGAR DADOS DO PACIENTE
 $consulta = "SELECT pac.NM_PACIENTE,
-TO_CHAR(pac.DT_NASCIMENTO,'DD/MM/YYYY') AS DT_NASCIMENTO,
-pac.TP_SEXO,
-pac.NR_IDENTIDADE,
-pac.DS_OM_IDENTIDADE
-FROM dbamv.PACIENTE pac 
-WHERE pac.CD_PACIENTE = $var_paciente";
+            TO_CHAR(pac.DT_NASCIMENTO,'DD/MM/YYYY') AS DT_NASCIMENTO,
+            pac.TP_SEXO,
+            pac.NR_IDENTIDADE,
+            pac.DS_OM_IDENTIDADE
+            FROM dbamv.PACIENTE pac 
+            WHERE pac.CD_PACIENTE = $var_paciente";
 $res_consulta = oci_parse($conn_ora, $consulta);
 oci_execute($res_consulta);
 
@@ -53,7 +53,7 @@ $prestador = "SELECT prest.NM_PRESTADOR,
                 LEFT JOIN dbamv.PRESTADOR prest
                 ON prest.CD_PRESTADOR = usu.CD_PRESTADOR
                 WHERE prest.CD_TIP_PRESTA = 8
-                AND prest.CD_PRESTADOR = '$var_prestador_logado'
+                AND usu.CD_USUARIO = '$var_prestador_logado'
                 AND prest.TP_SITUACAO = 'A'";
 
 $res_prestador = oci_parse($conn_ora, $prestador);

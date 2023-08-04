@@ -280,18 +280,30 @@ include 'conexao.php';
                             data_assin_paciente;
                             data_assin_medico;
 
+                            //console.log('Paciente: '+var_paciente);
+                            //console.log('Prestador: '+var_prestador_logado);
+                            //console.log('Atendimento: '+var_atendimento);
+                            //console.log('Logo SantaCasa: '+var_logo_santa_casa);
+                            //console.log('Cpf: '+cpf);
+                            //console.log('Identidade: '+identidade);
+                            //console.log('Parentesco: '+grau_parentesco);
+                            //console.log('Assinatura Paciente: '+data_assin_paciente);
+                            //console.log('Assinatura Medico: '+data_assin_medico);
+
                             $.ajax({
                                 url: "funcoes/termo_anestesico/ajax_pdf_termo_consentimento.php",
                                 method: "POST",
                                 data: {
-                                    var_paciente,
-                                    var_prestador_logado,
-                                    data_assin_paciente,
-                                    data_assin_medico,
-                                    var_logo_santa_casa,
-                                    cpf,
-                                    identidade,
-                                    grau_parentesco
+
+                                    var_paciente : var_paciente,
+                                    var_prestador_logado : var_prestador_logado,
+                                    data_assin_paciente : data_assin_paciente,
+                                    data_assin_medico : data_assin_medico,
+                                    var_logo_santa_casa : var_logo_santa_casa,
+                                    cpf : cpf,
+                                    identidade : identidade,
+                                    grau_parentesco : grau_parentesco
+
                                 },
                                 cache: false,
                                 xhrFields: {
@@ -302,7 +314,7 @@ include 'conexao.php';
                                     // Cria uma URL temporária para o PDF
                                     var pdfUrl = URL.createObjectURL(data);
 
-                                    ajax_insert_pdf_banco(data);
+                                    //ajax_insert_pdf_banco(data);
 
                                     // Abre uma nova janela para exibir o PDF
                                     window.open(pdfUrl);
@@ -310,6 +322,8 @@ include 'conexao.php';
                                 }
 
                             })
+
+                        
 
                         }
 
