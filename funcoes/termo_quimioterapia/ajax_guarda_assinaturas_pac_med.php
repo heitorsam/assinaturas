@@ -11,9 +11,9 @@ $var_prestador_logado = $_POST['var_prestador_logado'];
 
 // Prepara a instrução SQL para o insert
 $sql = "INSERT INTO assinaturas.ASSINATURA_PAC_MED 
-        (CD_ASSINATURA_PAC_MED, CD_PACIENTE, CD_ATENDIMENTO, ASSINATURA_PACIENTE, ASSINATURA_MEDICO, CD_USUARIO_CADASTRO, HR_CADASTRO, CD_USUARIO_ULT_ALT, HR_ULT_ALT)
+        (CD_ASSINATURA_PAC_MED, CD_PACIENTE, CD_ATENDIMENTO, ASSINATURA_PACIENTE, ASSINATURA_MEDICO, DS_NOME_ARQUIVO, CD_USUARIO_CADASTRO, HR_CADASTRO, CD_USUARIO_ULT_ALT, HR_ULT_ALT)
         VALUES 
-        (assinaturas.SEQ_CD_ASSINATURA_PAC_MED.NEXTVAL, :cd_paciente, :cd_atendimento, EMPTY_BLOB(), EMPTY_BLOB(), :cd_usuario_cadastro, SYSDATE, NULL, NULL)
+        (assinaturas.SEQ_CD_ASSINATURA_PAC_MED.NEXTVAL, :cd_paciente, :cd_atendimento, EMPTY_BLOB(), EMPTY_BLOB(), 'TQ', :cd_usuario_cadastro, SYSDATE, NULL, NULL)
         RETURNING ASSINATURA_PACIENTE, ASSINATURA_MEDICO INTO :assinatura_paciente, :assinatura_medico";
 
 // Prepara a declaração SQL

@@ -79,7 +79,7 @@ include 'conexao.php';
 
                                                 
                         //CONSULTA QUE VERIFICA SE O PACIENTE JA TEVE ASSINATURA NO ATENDIMENTO
-                        $sn_assinatura = "SELECT ad.LO_ARQUIVO_DOCUMENTO
+                        echo $sn_assinatura = "SELECT ad.LO_ARQUIVO_DOCUMENTO
                         FROM dbamv.ARQUIVO_ATENDIMENTO aa
                         INNER JOIN dbamv.ARQUIVO_DOCUMENTO ad
                         ON ad.CD_ARQUIVO_DOCUMENTO = aa.CD_ARQUIVO_DOCUMENTO
@@ -94,11 +94,15 @@ include 'conexao.php';
                         // Recupera o valor do BLOB do campo do banco de dados
                         $pdf_blob = $row_assinatura['LO_ARQUIVO_DOCUMENTO'];
 
-                        // Converte o BLOB em base64
-                        $pdf_base64 = base64_encode($pdf_blob->load());
+
+                        if(isset($pdf_blob)){
+
+                            // Converte o BLOB em base64
+                            $pdf_base64 = base64_encode($pdf_blob->load());
+
+                        }
 
                         if(isset($pdf_base64)){
-
 
                         
 
